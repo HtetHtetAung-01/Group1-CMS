@@ -18,7 +18,7 @@ class CreateCoursesTable extends Migration
             $table->string('title', 255);
             $table->string('category', 255);
             $table->text('description');
-            $table->foreignId('next_course_id')->nullable()->references('id')->on('courses');
+            $table->json('required_courses')->nullable();
             $table->timestamps(0);
             $table->softDeletes('deleted_at', 0);
         });

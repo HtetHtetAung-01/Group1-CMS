@@ -19,6 +19,7 @@ class CourseSeeder extends Seeder
             'title' => 'Laravel',
             'category' => 'Web Development',
             'description' => 'Laravel Course for Web Developers',
+            'required_courses' => json_encode([2,3]),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
@@ -26,7 +27,6 @@ class CourseSeeder extends Seeder
         DB::table('courses')->insert([
             'title' => 'PHP',
             'category' => 'Web Development',
-            'next_course_id' => 1,
             'description' => 'PHP Course for Backend Programmers',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
@@ -35,8 +35,8 @@ class CourseSeeder extends Seeder
         DB::table('courses')->insert([
             'title' => 'JavaScript',
             'category' => 'Web Development',
-            'next_course_id' => 1,
             'description' => 'JavaScript Course for Web Programming',
+            'required_courses' => json_encode([4]),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
@@ -44,7 +44,6 @@ class CourseSeeder extends Seeder
         DB::table('courses')->insert([
             'title' => 'HTML & CSS',
             'category' => 'Web Development',
-            'next_course_id' => 3,
             'description' => 'HTML/CSS Course for Web Design',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

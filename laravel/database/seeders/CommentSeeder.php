@@ -17,7 +17,7 @@ class CommentSeeder extends Seeder
     {
         DB::table('comments')->insert([
             'message' => 'This is a message from Teacher Cinder',
-            'homework_id' => 4,
+            'student_assignment_id' => 4,
             'teacher_id' => 3,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
@@ -25,7 +25,7 @@ class CommentSeeder extends Seeder
 
         DB::table('comments')->insert([
             'message' => 'This is a message from Teacher Cinder',
-            'homework_id' => 4,
+            'student_assignment_id' => 4,
             'teacher_id' => 3,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

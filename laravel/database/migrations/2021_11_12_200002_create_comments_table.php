@@ -17,8 +17,8 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->text('message');
 
-            $table->foreignId('homework_id')
-                ->references('id')->on('homeworks');
+            $table->foreignId('student_assignment_id')
+                ->references('id')->on('student_assignments');
 
             $table->foreignId('teacher_id')
                 ->references('id')->on('users');

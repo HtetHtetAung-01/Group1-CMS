@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHomeworkTable extends Migration
+class CreateStudentAssignmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateHomeworkTable extends Migration
      */
     public function up()
     {
-        Schema::create('homeworks', function (Blueprint $table) {
+        Schema::create('student_assignments', function (Blueprint $table) {
             $table->id();
-            $table->text('file_path');
-            $table->dateTime('uploaded_date_time');
+            $table->dateTime('started_date');
+            $table->dateTime('uploaded_date')->nullable();
+            $table->text('file_path')->nullable();
             $table->tinyInteger('grade')->nullable();
 
             $table->foreignId('student_id')
@@ -37,6 +38,6 @@ class CreateHomeworkTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('homework');
+        Schema::dropIfExists('student_assignments');
     }
 }
