@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('profile_path')->default('profile/default.png');
             $table->tinyInteger('role_id')->unsigned();
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('role_id')->references('id')->on('user_role');
             $table->timestamps(0);
             $table->softDeletes('deleted_at', 0);
         });
