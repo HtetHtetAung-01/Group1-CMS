@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Students\StudentController;
+use App\Http\Controllers\Teachers\TeacherController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/{id}', [UserController::class, 'showLayout'])->name('home');
+
