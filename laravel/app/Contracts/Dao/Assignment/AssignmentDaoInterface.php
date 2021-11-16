@@ -2,8 +2,6 @@
 
 namespace App\Contracts\Dao\Assignment;
 
-use Illuminate\Http\Request;
-
 /**
  * Interface for assignment service
  */
@@ -44,4 +42,6 @@ interface AssignmentDaoInterface
    * To check assignment is started or not
    */
   public function isStarted($student_id, $assignment_id);
+
+  public function getAssignmentNamesbyCourseId($course_id);
 }

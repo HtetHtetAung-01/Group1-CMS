@@ -36,7 +36,7 @@ class AssignmentDao implements AssignmentDaoInterface
       . " AND course_id= " . $course_id . " ;");
     return $isEnrolled == null;
   }
-  
+
   /**
    * To enroll course by student id
    */
@@ -123,5 +123,14 @@ class AssignmentDao implements AssignmentDaoInterface
       info("started");
       return true;
     }
+  }
+
+  public function getAssignmentNamesbyCourseId($course_id)
+  {
+    return DB::select(DB::raw(
+      "SELECT A.id, A.name FROM assignments AS A
+            LEFT OUTER JOIN courses AS C ON C.id = A.course_id 
+            WHERE C.id = $course_id;"
+    ));
   }
 }
