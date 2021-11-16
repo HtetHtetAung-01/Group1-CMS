@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+/* Tab */
+
+.assignment-tab {
+  margin-left: 10px;
+  margin-bottom: 23px;
+}
+
+.assignment-tab li {
+  padding: 15px;
+  border-radius: 20px;
+  background-color: rgba(20, 146, 230, 0.1);
+}
+
+.assignment-tab li:not(:last-child) {
+  margin-right: 5px;
+}
+
+.assignment-tab li.active {
+  color: #1492E6;
+}

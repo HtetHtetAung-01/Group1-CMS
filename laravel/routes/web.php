@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Students\StudentController;
-use App\Http\Controllers\Teachers\TeacherController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{id}', [UserController::class, 'showLayout'])->name('home');
+Route::get('/', function () {
+    return view('welcome');
+});
 
+Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments']);
+
+Route::get('/teacher/{id}/assignment/', [TeacherController::class, 'showAssignments']);
+Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment']);
+Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment']);
+Route::get('/{id}', [UserController::class, 'showLayout'])->name('home');

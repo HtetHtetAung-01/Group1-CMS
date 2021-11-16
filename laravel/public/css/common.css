@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'FontAwsome-Solid';
+    src: url(../fonts/fa-solid-900.ttf);
+}
+
+@font-face {
+    font-family: 'Poppings-Regular';
+    src: url(../fonts/Poppins-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Poppings-Bold';
+    src: url(../fonts/Poppins-Bold.ttf);
+}
+
+body {
+  max-width: 1280px;
+  font-family: 'Poppings-Regular';
+}
+
+/* Tab */
+
+.assignment-panel {
+  width: 810px;
+}
+
+.tab-nav {
+  list-style: none;
+}
+
+.tab-nav li {
+  float: left;
+  cursor: pointer;
+  text-align: center;
+}
+
+.tab-cnt {
+  display: none;
+}
+
+.tab-cnt.active {
+  display: block;
+}
+
+.tbl-assignment {
+  width: 100%;
+}
+
+.tbl-assignment thead {
+  font-family: 'Poppings-Bold';
+  text-transform: uppercase;
+  background-color: #E5E5E5;
+  font-size: 16px;
+}
+
+.tbl-assignment td {
+  padding: 20px 30px;
+}
+
+.tbl-assignment td:first-child {
+  width: 15%;
+}
+
+.tbl-assignment td:nth-child(2) {
+  width: 26%;
+}
+
+.tbl-assignment td:nth-child(3) {
+  width: 40%;
+}
+
+.tbl-assignment .tr-record {
+  background-color: #EFF2F8;
+}
+
+.tbl-assignment .file-path a {
+  color: #000000;
+}
+
+.accd-dt {
+  margin-bottom: 25px;
+}
+
+.course-tab {
+  margin-bottom: 30px;
+}
+
+.course-tab li {
+  width: 25%;
+  padding: 20px;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+.course-tab li:not(:last-child) {
+  border-right: 2px solid rgba(0, 0, 0, .1);
+}
+
+.course-tab li:hover,
+.course-tab li.active {
+  font-family: 'Poppings-Bold';
+  border-bottom: 3px solid #1492E6;
+}
+
+/* Accordian */
+
+.accd-dt span {
+  font-size: 18px;
+  float: left;
+}
+
+.accd-dt:hover {
+  cursor: pointer;
+}
+
+.accd-dd{
+  display: none;
+}
+
+.accd-dt i{
+  font-style: normal;
+  font-family: 'FontAwsome-Solid';
+  margin-left: 5px;
+}
+
+.cmt-toggle {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: 'Poppings-Bold';
+}
+
+.cmt-text:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.cmt-msg input {
+  height: 37px;
+  font-family: "FontAwsome-Solid";
+  border-radius: 4px;
+}
+
+.cmt-msg input[type="text"] {
+  box-sizing: border-box;
+  padding:  15px 20px;
+  width: 365px;
+  font-size: 14px;
+  font-family: Arial;
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+.cmt-msg input[type="submit"] {
+  width: 48px;
+  border-style: none;
+  background-color: #2699FB;
+  color: white;
+}
+
+/* Common */
+.clearFix::after {
+	content: "";
+	clear: both;
+	display: block;
+	visibility: hidden;
+	font-size: 0;
+}

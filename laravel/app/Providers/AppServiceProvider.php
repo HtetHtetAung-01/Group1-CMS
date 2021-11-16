@@ -27,16 +27,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-      $this->app->bind(TeacherDaoInterface::class, TeacherDao::class,); 
-      $this->app->bind(TeacherServiceInterface::class, TeacherService::class);   
+        // Dao Registration
+        $this->app->bind('App\Contracts\Dao\Assignment\AssignmentDaoInterface', 'App\Dao\Assignment\AssignmentDao');
+        $this->app->bind('App\Contracts\Dao\Comment\CommentDaoInterface', 'App\Dao\Comment\CommentDao');
+        $this->app->bind('App\Contracts\Dao\StudentAssignment\StudentAssignmentDaoInterface', 'App\Dao\StudentAssignment\StudentAssignmentDao');
+        $this->app->bind('App\Contracts\Dao\StudentCourse\StudentCourseDaoInterface', 'App\Dao\StudentCourse\StudentCourseDao');
+        $this->app->bind('App\Contracts\Dao\TeacherCourse\TeacherCourseDaoInterface', 'App\Dao\TeacherCourse\TeacherCourseDao');
 
-      $this->app->bind(StudentDaoInterface::class, StudentDao::class,); 
-      $this->app->bind(StudentServiceInterface::class, StudentService::class);
+        // Business logic registration
+        $this->app->bind('App\Contracts\Services\Student\StudentServiceInterface', 'App\Services\Student\StudentService');
+        $this->app->bind('App\Contracts\Services\Teacher\TeacherServiceInterface', 'App\Services\Teacher\TeacherService');
 
-      $this->app->bind(UserDaoInterface::class, UserDao::class);
-      $this->app->bind(UserServiceInterface::class, UserService::class);
+        $this->app->bind(TeacherDaoInterface::class, TeacherDao::class);
+        $this->app->bind(TeacherServiceInterface::class, TeacherService::class);
 
-      $this->app->bind(CourseDaoInterface::class, CourseDao::class);
+        $this->app->bind(StudentDaoInterface::class, StudentDao::class,);
+        $this->app->bind(StudentServiceInterface::class, StudentService::class);
+
+        $this->app->bind(UserDaoInterface::class, UserDao::class);
+        $this->app->bind(UserServiceInterface::class, UserService::class);
+
+        $this->app->bind(CourseDaoInterface::class, CourseDao::class);
     }
-
 }
