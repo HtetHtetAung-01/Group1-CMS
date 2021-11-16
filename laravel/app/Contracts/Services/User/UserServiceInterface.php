@@ -22,4 +22,10 @@ interface UserServiceInterface
    * @return $enrolledCourse
    */
   public function getEnrolledCourse($id, $role);
+
+  /**
+   * get the list of users(role = student)
+   * @return $studentList
+   */
+  public function getStudentList($teacher_id);
 }

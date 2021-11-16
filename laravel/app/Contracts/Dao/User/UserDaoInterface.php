@@ -16,4 +16,10 @@ interface UserDaoInterface
    * @return $role
    */
   public function getUserRole($id);
+
+  /**
+   * get the list of users(role = student) who enrolled $courseList
+   * @return $studentList
+   */
+  public function getStudentList($courseList);
 }

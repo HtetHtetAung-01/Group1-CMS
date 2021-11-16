@@ -32,4 +32,7 @@ Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignme
 Route::get('/teacher/{id}/assignment/', [TeacherController::class, 'showAssignments']);
 Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment']);
 Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment']);
+
 Route::get('/{id}', [UserController::class, 'showLayout'])->name('home');
+Route::get('/{teacher_id}/Teacher/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
+
