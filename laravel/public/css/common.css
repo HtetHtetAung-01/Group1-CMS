@@ -1,0 +1,12 @@
+@charset "UTF-8";
+* {
+    box-sizing: border-box;
+}
+
+.clearFix:after {
+    content: "";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    font-size: 0;
+}
