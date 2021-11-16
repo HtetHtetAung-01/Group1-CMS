@@ -1,0 +1,32 @@
+
+.title {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin: 5px 0;
+}
+
+.table-view {
+  padding: 5%;
+}
+
+.student-info {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  text-align: center;
+}
+
+.student-info-header {
+  background: #1492E6;
+  color: #ffffff;
+}
+
+.student-info th,
+.student-info td {
+  padding: 1.5% 1%;
+}
+
+.student-info-content {
+  background: #d8e1f3;
+}
