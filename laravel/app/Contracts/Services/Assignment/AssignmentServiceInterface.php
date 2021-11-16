@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Contracts\Dao\Assignment;
+namespace App\Contracts\Services\Assignment;
+
+use Illuminate\Http\Request;
 
 /**
  * Interface for assignment service
  */
-interface AssignmentDaoInterface
+interface AssignmentServiceInterface
 {
   /**
    * To get assignment list by course id
@@ -29,7 +31,6 @@ interface AssignmentDaoInterface
 
   /**
    * To submit student's assignment
-   * @param $filename request with inputs
    */
   public function addStudentAssignment($course_id, $student_id, $assignment_id, $filename);
 
@@ -42,6 +43,4 @@ interface AssignmentDaoInterface
    * To check assignment is started or not
    */
   public function isStarted($student_id, $assignment_id);
-
-  public function getAssignmentNamesbyCourseId($course_id);
 }

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+* {
+    box-sizing: border-box;
+}
+
 @font-face {
     font-family: 'FontAwsome-Solid';
     src: url(../fonts/fa-solid-900.ttf);

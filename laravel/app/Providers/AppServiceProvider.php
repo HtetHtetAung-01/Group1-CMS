@@ -33,8 +33,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('App\Contracts\Dao\StudentAssignment\StudentAssignmentDaoInterface', 'App\Dao\StudentAssignment\StudentAssignmentDao');
         $this->app->bind('App\Contracts\Dao\StudentCourse\StudentCourseDaoInterface', 'App\Dao\StudentCourse\StudentCourseDao');
         $this->app->bind('App\Contracts\Dao\TeacherCourse\TeacherCourseDaoInterface', 'App\Dao\TeacherCourse\TeacherCourseDao');
-
+        
         // Business logic registration
+        $this->app->bind('App\Contracts\Services\Assignment\AssignmentServiceInterface', 'App\Services\Assignment\AssignmentService');
         $this->app->bind('App\Contracts\Services\Student\StudentServiceInterface', 'App\Services\Student\StudentService');
         $this->app->bind('App\Contracts\Services\Teacher\TeacherServiceInterface', 'App\Services\Teacher\TeacherService');
 
