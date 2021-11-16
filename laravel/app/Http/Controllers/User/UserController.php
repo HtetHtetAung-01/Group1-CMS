@@ -8,10 +8,6 @@ use App\Services\User\UserService;
 class UserController extends Controller
 {
   private $userService;
-  private $courseService;
-  private $user;
-  private $role;
-  private $enrolledCourse;
 
   public function __construct(UserService $userService)
   {
@@ -23,11 +19,7 @@ class UserController extends Controller
     $user = $this->userService->getUserById($id);
     $roles = $this->userService->getUserRole($id);
     $role = $roles->type;
-    $enrolledCourse = $this->userService->getEnrolledCourse($id, $role);   
-    // info("enrolled courses");
-    // info($enrolledCourse);
-    // foreach($enrolledCourse as $course) {
-    //   info("title = $course->title");
+    $enrolledCourse = $this->userService->getEnrolledCourse($id, $role);  
     // } 
     
     return view('layouts.app', compact('user', 'role', 'enrolledCourse'));
