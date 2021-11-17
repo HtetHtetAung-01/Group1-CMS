@@ -8,7 +8,9 @@ use App\Contracts\Dao\StudentAssignment\StudentAssignmentDaoInterface;
 use App\Contracts\Dao\TeacherCourse\TeacherCourseDaoInterface;
 use App\Contracts\Services\Teacher\TeacherServiceInterface;
 use App\Models\Comment;
+use App\Models\StudentAssignment;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class TeacherService implements TeacherServiceInterface
 {
@@ -17,9 +19,12 @@ class TeacherService implements TeacherServiceInterface
     private $studentAssignmentDao;
     private $teacherCourseDao;
 
-    public function __construct( CommentDaoInterface $commentDao, AssignmentDaoInterface $assignmentDao,
-        StudentAssignmentDaoInterface $studentAssignmentDao, TeacherCourseDaoInterface $teacherCourseDao)
-    {
+    public function __construct(
+        CommentDaoInterface $commentDao,
+        AssignmentDaoInterface $assignmentDao,
+        StudentAssignmentDaoInterface $studentAssignmentDao,
+        TeacherCourseDaoInterface $teacherCourseDao
+    ) {
         $this->commentDao = $commentDao;
         $this->assignmentDao = $assignmentDao;
         $this->studentAssignmentDao = $studentAssignmentDao;
@@ -33,21 +38,21 @@ class TeacherService implements TeacherServiceInterface
         foreach ($courseTitles as $title) {
             $title->assignments = $this->assignmentDao
                 ->getAssignmentNamesByCourseId($title->id);
-            
+
             foreach ($title->assignments as $assignment) {
-                
-                $assignment->assignmentList = 
+
+                $assignment->assignmentList =
                     $this->studentAssignmentDao->getUploadedAssignmentsByAssignmentId($assignment->id);
-                
+
                 $assignment->numOfUngradedAssignment =
-                    $this->studentAssignmentDao->getTotalCountOfUngradedAssignmentsbyAssignmentId($assignment->id);    
+                    $this->studentAssignmentDao->getTotalCountOfUngradedAssignmentsbyAssignmentId($assignment->id);
 
                 foreach ($assignment->assignmentList as $item) {
                     $item->comments = $this->commentDao->getCommentsbyStudentAssignmentId($item->id);
                 }
-            }                
+            }
         }
-        
+
         return $courseTitles;
     }
 
@@ -66,5 +71,13 @@ class TeacherService implements TeacherServiceInterface
         $studentAssignment = $this->studentAssignmentDao
             ->getStudentAssignmentById($student_assignment_id);
         return Storage::download($studentAssignment->file_path);
+    }
+
+    public function submitGrade($student_assignment_id, $request)
+    {
+        $submitGrade = StudentAssignment::FindorFail($student_assignment_id);
+        $submitGrade->grade = $request;
+        $submitGrade->save();
+        return $submitGrade;
     }
 }

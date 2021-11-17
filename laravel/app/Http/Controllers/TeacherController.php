@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Services\Teacher\TeacherServiceInterface;
 use App\Http\Requests\CommentFormRequest;
+use App\Http\Requests\GradeSubmitRequest;
+use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
@@ -30,4 +32,12 @@ class TeacherController extends Controller
     public function downloadAssignment($teacher_id, $student_assignment_id) {
         return $this->teacherService->downloadStudentAssignment($student_assignment_id);
     }
+
+    public function submitGrade($student_assignment_id, GradeSubmitRequest $request) {
+        $validated = $request->validated();
+        $grade = $request->grade;
+        $this->teacherService->submitGrade($student_assignment_id, $grade);
+        return back();
+    }
+
 }
