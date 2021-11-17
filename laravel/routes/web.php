@@ -34,5 +34,6 @@ Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherControl
 Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment']);
 
 Route::get('/{id}', [UserController::class, 'showLayout'])->name('home');
-Route::get('/{teacher_id}/Teacher/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
 
+Route::post('assignment/{assignment_id}/grade', [TeacherController::class, 'submitGrade']);
+Route::get('/{teacher_id}/Teacher/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
