@@ -47,4 +47,14 @@ class UserService implements UserServiceInterface
     $enrolledCourse = $this->courseDao->getEnrolledCourse($id, $role);
     return $enrolledCourse;
   }
+
+  /**
+   * get the list of users(role = student)
+   * @return $studentList
+   */
+  public function getStudentList($teacher_id)
+  {
+    $studentList = $this->userDao->getStudentList($teacher_id);
+    return $studentList;
+  }
 }
