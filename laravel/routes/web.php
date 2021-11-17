@@ -36,3 +36,4 @@ Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherControl
 Route::get('/{id}', [UserController::class, 'showLayout'])->name('home');
 Route::get('/{teacher_id}/Teacher/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
 
+Route::get('teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard']);

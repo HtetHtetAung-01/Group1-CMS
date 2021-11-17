@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Services\Teacher\TeacherServiceInterface;
+use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Requests\CommentFormRequest;
 
 class TeacherController extends Controller
 {
     private $teacherService;
+    private $userService;
 
-    public function __construct(TeacherServiceInterface $teacherServiceInterface)
+    public function __construct(TeacherServiceInterface $teacherServiceInterface,
+        UserServiceInterface $userServiceInterface)
     {
         $this->teacherService = $teacherServiceInterface;
+        $this->userService = $userServiceInterface;
     }
 
     public function showAssignments($teacher_id)
@@ -19,6 +23,18 @@ class TeacherController extends Controller
         $courseTitles = $this->teacherService->getAssignmentsByCourse($teacher_id);
 
         return view('teachers/assignment', compact('courseTitles'));
+    }
+
+    public function showDashboard($id)
+    {
+        $user = $this->userService->getUserById($id);
+        $roles = $this->userService->getUserRole($id);
+        $role = $roles->type;
+        $enrolledCourse = $this->userService->getEnrolledCourse($id, $role);
+
+        $chartData = $this->teacherService->getChartData();
+
+        return view('teachers/dashboard', compact('user', 'role', 'enrolledCourse', 'chartData'));
     }
 
     public function addCommentToAssignment(CommentFormRequest $request, $id, $assignmentId) {

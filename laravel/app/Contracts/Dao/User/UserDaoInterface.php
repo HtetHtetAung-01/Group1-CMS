@@ -22,4 +22,10 @@ interface UserDaoInterface
    * @return $studentList
    */
   public function getStudentList($courseList);
+
+  /**
+   * Get the total number of student by gender
+   * @return stdClass total number of student by gender
+   */
+  public function getTotalStudentByGender();
 }
