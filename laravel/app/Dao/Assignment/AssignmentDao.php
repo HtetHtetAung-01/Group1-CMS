@@ -30,7 +30,7 @@ class AssignmentDao implements AssignmentDaoInterface
   /**
    * To check enroll or not
    */
-  public function isEnrolled($course_id, $student_id)
+  public function isEnrolled($student_id, $course_id)
   {
     $isEnrolled = DB::select("SELECT * FROM student_courses WHERE student_id=" . $student_id
       . " AND course_id= " . $course_id . " ;");
@@ -40,7 +40,7 @@ class AssignmentDao implements AssignmentDaoInterface
   /**
    * To enroll course by student id
    */
-  public function enrollCourse($course_id, $student_id)
+  public function enrollCourse($student_id, $course_id)
   {
     $enrollCourse = new StudentCourses;
     $enrollCourse->student_id = $student_id;
@@ -53,7 +53,7 @@ class AssignmentDao implements AssignmentDaoInterface
   /**
    * To start assignment
    */
-  public function addNullStudentAssignment($course_id, $student_id, $assignment_id)
+  public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
   {
     $studentAssignment = new StudentAssignments;
     $studentAssignment->started_date = \Carbon\Carbon::now();
@@ -69,7 +69,7 @@ class AssignmentDao implements AssignmentDaoInterface
   /**
    * To submit student's assignment
    */
-  public function addStudentAssignment($course_id, $student_id, $assignment_id, $filename)
+  public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
   {
     info("student id = $student_id");
     info("assignment id = $assignment_id");

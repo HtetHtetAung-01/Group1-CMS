@@ -35,33 +35,33 @@ class AssignmentService implements AssignmentServiceInterface
   /**
    * To check enrolled or not
    */
-  public function isEnrolled($course_id, $student_id)
+  public function isEnrolled($student_id, $course_id)
   {
-    return $this->assignmentDao->isEnrolled($course_id, $student_id);
+    return $this->assignmentDao->isEnrolled($student_id, $course_id);
   }
 
   /**
    * To enroll course by student id
    */
-  public function enrollCourse($course_id, $student_id)
+  public function enrollCourse($student_id, $course_id)
   {
-    return $this->assignmentDao->enrollCourse($course_id, $student_id);
+    return $this->assignmentDao->enrollCourse($student_id, $course_id);
   }
 
   /**
    * To start assignment
    */
-  public function addNullStudentAssignment($course_id, $student_id, $assignment_id)
+  public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
   {
-    return $this->assignmentDao->addNullStudentAssignment($course_id, $student_id, $assignment_id);
+    return $this->assignmentDao->addNullStudentAssignment($student_id, $course_id, $assignment_id);
   }
 
   /**
    * To submit student's assignment
    */
-  public function addStudentAssignment($course_id, $student_id, $assignment_id, $filename)
+  public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
   {
-    return $this->assignmentDao->addStudentAssignment($course_id, $student_id, $assignment_id, $filename);
+    return $this->assignmentDao->addStudentAssignment($student_id, $course_id, $assignment_id, $filename);
   }
 
   /**

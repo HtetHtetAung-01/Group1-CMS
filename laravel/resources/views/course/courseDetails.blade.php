@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@section('content')
   <title>Course_Details</title>
   <link rel="stylesheet" href="{{ asset('css/common.css') }}">
   <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
   <link rel="stylesheet" href="{{ asset('css/courseDetails.css') }}">
-
-</head>
-
-<body>
 
   <div class="course-details">
     <div class="course-content">
@@ -159,15 +152,9 @@
     </div><!-- /.assignment-list -->
   </div><!-- /.course-details -->
 
-</body>
-
-</html>
-
-</body>
-
 <script src="{{ asset('js/library/jquery.min.js') }}"></script>
 <script src="{{ asset('js/library/common.js') }}"></script>
 <script src="{{ asset('js/library/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('js/library/confirm_modal.js') }}"></script>
 
-</html>
+@endsection

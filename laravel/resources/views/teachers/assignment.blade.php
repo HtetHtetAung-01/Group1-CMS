@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/teacher-assignment.css') }}">
-    <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/common.js') }}"></script>
-    <title>Assignments</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
+    
+<link rel="stylesheet" href="{{ asset('css/reset.css') }}">
+<link rel="stylesheet" href="{{ asset('css/common.css') }}">
+<link rel="stylesheet" href="{{ asset('css/teacher-assignment.css') }}">
+<script src="{{ asset('js/lib/jquery.min.js') }}"></script>
+<script src="{{ asset('js/common.js') }}"></script>
+<title>Assignments</title>
+
     <div class="assignment-panel">
         <div class="tab-pnl course-pnl">
             <ul class="tab-nav course-tab clearFix">
@@ -59,7 +57,7 @@
                                                             <td colspan="4">
                                                                 <dl class="accd">
                                                                     <div class="accd-li">
-                                                                    <dt class="accd-dt">
+                                                                    <dt class="accd-dt accd-dt-margin">
                                                                         <p class="cmt-toggle">Show Comments<i>&#xf078;</i></p>
                                                                     </dt>
                                                                     <!-- /.accd-dt -->
@@ -107,5 +105,4 @@
         </div>
         <!-- /.tab-pnl -->
     </div>
-</body>
-</html>
+@endsection
