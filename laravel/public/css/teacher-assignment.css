@@ -1,16 +1,16 @@
 @charset "UTF-8";
 
 /* Tab */
-
 .assignment-tab {
-    margin-left: 10px;
-    margin-bottom: 23px;
+  margin-left: 10px;
+  margin-bottom: 2%;
 }
 
 .assignment-tab li {
-    padding: 15px;
-    border-radius: 20px;
-    background-color: rgba(20, 146, 230, 0.1);
+  padding: 15px;
+  margin-top: 1.5%;
+  border-radius: 20px;
+  background-color: rgba(20, 146, 230, 0.1);
 }
 
 .assignment-tab li:not(:last-child) {
@@ -25,12 +25,13 @@
 .open-button {
     background-color: #1492E6;
     color: white;
-    padding: 10px;
     font-size: 16px;
+    padding-block: 5px;
     border: none;
     cursor: pointer;
     opacity: 0.8;
     width: 120px;
+    box-sizing: border-box;
     border-radius: 4px;
 }
 
@@ -39,7 +40,7 @@
     display: none;
     position: fixed;
     top: 30%;
-    left: 40%;
+    left: 45%;
     border: 3px solid #f1f1f1;
     z-index: 9;
 }
@@ -71,7 +72,7 @@
 }
 
 /* Set a style for the submit/login button */
-.form-container .btn {
+.form-container .popup-btn {
     background-color: #1492E6;
     color: white;
     padding: 16px 20px;

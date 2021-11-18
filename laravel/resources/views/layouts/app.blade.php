@@ -25,12 +25,13 @@
   </nav>
   @php
     $route = Route::currentRouteName();
+    $roleName = strtolower($role);
   @endphp
   <div class="container clearfix">
     <aside class="sidebar">
       <ul>
-        <li class="@if($route == $role.'dashboard') ? active : ''; @endif"><a href="<?php echo '/'.$role.'/'.$user->id.'/dashboard' ?>">Dashboard</a></li>
-        <li class="@if($route == $role.'.course') ? active : ''; @endif">
+        <li class="@if($route == $roleName.'dashboard') ? active : ''; @endif"><a href="<?php echo '/'.$roleName.'/'.$user->id.'/dashboard' ?>">Dashboard</a></li>
+        <li class="@if($route == $roleName.'.course') ? active : ''; @endif">
           <a  class="menu-btn">Course
           <span class="fa fa-caret-down first"></span>
           </a>
@@ -42,9 +43,9 @@
           </ul>
         </li>
 
-        <li class="@if($route == '/student/homework') ? active : ''; @endif"><a href="<?php echo '/'.$role.'/'.$user->id.'/homework' ?>">Homework</a></li>
-        @if($role == 'Teacher')
-          <li class="@if($route == 'studentList') ? active : ''; @endif"><a href="<?php echo '/'.$user->id.'/Teacher/student-info' ?>">Students</a></li>
+        <li class="@if($route == $roleName.'.assignment') ? active : ''; @endif"><a href="<?php echo '/'.$roleName.'/'.$user->id.'/assignment' ?>">Assignment</a></li>
+        @if($roleName == 'teacher')
+          <li class="@if($route == 'studentList') ? active : ''; @endif"><a href="<?php echo ' /teacher/'.$user->id.'/student-info' ?>">Students</a></li>
         @endif
         
       </ul>
