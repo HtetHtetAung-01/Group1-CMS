@@ -7,4 +7,5 @@ interface TeacherServiceInterface {
     public function addCommentToAssignment($validated, $teacher_id, $assignment_id);
     public function downloadStudentAssignment($student_assignment_id);
     public function getChartData();
+    public function getTotalStudent();
 }

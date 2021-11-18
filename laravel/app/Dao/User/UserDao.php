@@ -98,4 +98,18 @@ class UserDao implements UserDaoInterface
       ->groupBy('gender')
       ->get();
   }
+
+  /**
+     * Get total number of completed courses by student id
+     * @return stdClass total number of completed courses by student id
+     */
+    public function getTotalStudent() {
+    
+      $totalStudent = DB::select(
+          DB::raw("SELECT count(id) as totalStudent
+          FROM users
+          WHERE role_id=1;"
+      ));
+      return $totalStudent;
+  }
 }

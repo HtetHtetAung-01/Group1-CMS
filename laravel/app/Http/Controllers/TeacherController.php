@@ -33,8 +33,9 @@ class TeacherController extends Controller
         $enrolledCourse = $this->userService->getEnrolledCourse($id, $role);
 
         $chartData = $this->teacherService->getChartData();
-
-        return view('teachers/dashboard', compact('user', 'role', 'enrolledCourse', 'chartData'));
+        $totalStudent = $this->teacherService->getTotalStudent();
+    
+        return view('teachers/dashboard', compact('user', 'role', 'enrolledCourse', 'chartData', 'totalStudent'));
     }
 
     public function addCommentToAssignment(CommentFormRequest $request, $id, $assignmentId) {

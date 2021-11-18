@@ -98,4 +98,11 @@ class TeacherService implements TeacherServiceInterface
 
         return $charts;
     }
+
+    public function getTotalStudent()
+    {
+        //Htet Edited
+        return $this->userDao->getTotalStudent();
+    }
+
 }

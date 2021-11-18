@@ -28,4 +28,6 @@ interface UserDaoInterface
    * @return stdClass total number of student by gender
    */
   public function getTotalStudentByGender();
+
+  public function getTotalStudent();
 }

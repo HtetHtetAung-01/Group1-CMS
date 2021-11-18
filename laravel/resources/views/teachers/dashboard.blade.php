@@ -1,56 +1,66 @@
 @extends ('layouts.app')
 
 @section('content')
-    <div id="chrtPie"></div>
-    <div id="chrtLine"></div>
-    
-    <script src="{{asset('js/library/loader.js')}}"></script>
-    <script>
-        // Load the current library release
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawPieChart);
-        google.charts.setOnLoadCallback(drawLineChart);
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 
-        function drawPieChart() {
+<div class="statistics">
+    <div class="totalStudent student-data">
+        <h2 class="data-title">Total Number of Students</h2>
+        <p class="data"><strong>{{ $totalStudent[0]->totalStudent }}</strong></p>
+    </div>
+</div>
 
-            // Convert Array to DataTable to dispaly
-            var data = google.visualization.arrayToDataTable([
-                ['Course Title', 'Number of Students'],
-                <?php echo $chartData[0]?>
-            ]);
+<table class="columns">
+    <tr>
+        <td>
+            <div id="piechart_div" style="border: 1px solid #ccc"></div>
+        </td>
+        <td>
+            <div id="barchart_div" style="border: 1px solid #ccc"></div>
+        </td>
+    </tr>
+</table>
 
-            // Set options for Pie Chart
-            var options = {
-                title: 'Total Number of Characters by Houses',
-                is3D: true,
-                width: 800,
-                height: 500
-            };
+<script src="{{asset('js/library/loader.js')}}"></script>
+<script>
 
-            // Draw Pie chart
-            var chart = new google.visualization.PieChart(document.getElementById('chrtPie'));
-            chart.draw(data, options);
-        }
+    // Load Charts and the corechart and barchart packages.
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
 
-        function drawLineChart() {
+    // Draw the pie chart and bar chart when Charts is loaded.
+    google.charts.setOnLoadCallback(drawChart);
 
-            // Convert Array to DataTable to dispaly
-            var data = google.visualization.arrayToDataTable([
-                ['Course Title', 'Number of Student'],
-                <?php echo $chartData[1]?>
-            ]);
+    function drawChart() {
 
-            // Set options for Line Chart
-            var options = {
-                title: 'Total Number of Student by Course Title',
-                width: 800,
-                height: 600
-            };
+        var dataPie = google.visualization.arrayToDataTable([
+            ['Course Title', 'Students'],
+            <?php echo $chartData[0] ?>
+        ]);
 
-            // Draw Line chart
-            var chart = new google.visualization.LineChart(document.getElementById('chrtLine'));
-            chart.draw(data, options);
-        }
-    </script>
+
+        var piechart_options = {
+            title: 'Total Number of Students | Enrollment by Courses',
+            width: 500,
+            is3D: true,
+            height: 300
+        };
+        var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+        piechart.draw(dataPie, piechart_options);
+
+        var dataChart = google.visualization.arrayToDataTable([
+            ['Course Title', 'Students'],
+            <?php echo $chartData[1] ?>
+        ]);
+        var barchart_options = {
+            title: 'Enrollment by Gender',
+            width: 450,
+            height: 300,
+            legend: 'none'
+        };
+        var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+        barchart.draw(dataChart, barchart_options);
+    }
+</script>
 @endsection
-
