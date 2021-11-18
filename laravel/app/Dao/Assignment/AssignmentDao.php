@@ -18,7 +18,7 @@ class AssignmentDao implements AssignmentDaoInterface
   public function getCourseDetails($id)
   {
     $courseDetails = DB::select(
-      DB::raw("SELECT courses.title as course_title,courses.description as course_description,assignments.*
+      DB::raw("SELECT courses.id as course_id, courses.title as course_title, courses.description as course_description, assignments.*
       FROM assignments
       LEFT JOIN courses
       ON assignments.course_id = courses.id 

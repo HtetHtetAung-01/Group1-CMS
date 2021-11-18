@@ -6,6 +6,7 @@ use App\Contracts\Services\Teacher\TeacherServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentFormRequest;
 use App\Services\User\UserService;
+use App\Http\Requests\GradeSubmitRequest;
 
 class TeacherController extends Controller
 {
@@ -38,4 +39,12 @@ class TeacherController extends Controller
     public function downloadAssignment($teacher_id, $student_assignment_id) {
         return $this->teacherService->downloadStudentAssignment($student_assignment_id);
     }
+
+    public function submitGrade($id, $student_assignment_id, GradeSubmitRequest $request) {
+        $validated = $request->validated();
+        $grade = $request->grade;
+        $this->teacherService->submitGrade($student_assignment_id, $grade);
+        return back();
+    }
+
 }
