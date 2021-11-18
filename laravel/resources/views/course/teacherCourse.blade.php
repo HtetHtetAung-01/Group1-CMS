@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="{{ asset('css/course.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+  @php 
+    $roleName = strtolower($role);
+  @endphp
   @foreach($teacherCourseList as $key => $value)
     @php 
       $course = $teacherCourseList[$key];
@@ -16,7 +19,7 @@
     
     <div class="bottom-box clearfix">
       <p class="no-of-ass"> {{ $T_assignmentNoList[$key] }} Assignments </p>
-      <a href="" class="course-detail">See details > </a>
+      <a href="<?php echo '/'.$roleName.'/'.$user->id.'/course/'.$course->id ?>" class="course-detail">See details > </a>
     </div>
     
   </div>

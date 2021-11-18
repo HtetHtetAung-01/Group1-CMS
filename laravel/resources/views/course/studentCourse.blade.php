@@ -18,10 +18,8 @@
       $status = $courseStatusList[$key];
       $key++;
     @endphp
- 
-
   <div class="card">
-    <h2 class="course-ttl">{{ $course->id }}</h2>
+    <h2 class="course-ttl">{{ $course->title }}</h2>
     <h3 class="course-category">{{ $course->category }}</h3>
     <div class="status-blk @if($status == 'completed')complete-status-blk @elseif($status=='progress') progress-status-blk @elseif($status == 'lock')lock-status-blk @elseif($status == 'unlock next')unlock-status-blk @endif">
       @if($status == 'completed')
