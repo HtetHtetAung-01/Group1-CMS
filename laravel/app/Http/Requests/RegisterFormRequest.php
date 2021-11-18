@@ -25,15 +25,15 @@ class RegisterFormRequest extends FormRequest
     {
         return [
             'name'             => 'required',
-            'photo'            =>'required',
+            'profile_path'            =>'required',
             'email'            => 'required|email|unique:users',
             'password'         => 'min:6',
             'confirm_password' => 'min:6|required_with:password|same:password',
-            'date_of_birth'    =>'required',
+            'dob'    =>'required',
             'gender'           => 'required',
-            'role_type'        =>'required',
+            'role_id'        =>'required',
             'address'          =>'required',
-            'phone_number'     =>'required|min:11|numeric',  
+            'phone'     =>'required|min:11|numeric',   
         ];
     }
 }

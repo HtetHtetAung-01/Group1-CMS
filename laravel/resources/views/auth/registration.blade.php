@@ -22,32 +22,32 @@
                             <input type="text" name="name" required>
                         </div>
                         <div class="text">
-                            <label for="Profile Picture">Profile Picture</label>
-                            <input type="file" id="profile-picture" name="photo" accept="image/png, image/jpeg">
+                            <label for="profile_path">Profile Picture</label>
+                            <input type="file" id="profile-picture" name="profile_path" accept="image/png, image/jpeg">
                         </div>
                         <div class="text">
-                        @if ($errors->has('date_of_birth'))
-                            <span class="text-danger">{{ $errors->first('date_of_birth') }}</span>
+                        @if ($errors->has('dob'))
+                            <span class="text-danger">{{ $errors->first('dob') }}</span>
                         @endif<br>
-                            <label for="date_of_birth">Date_of_Birth</label>
-                            <input type="date" id="date-of-birth" name="date_of_birth">
+                            <label for="dob">Date_of_Birth</label>
+                            <input type="date" id="date-of-birth" name="dob">
                         </div>
                         @if ($errors->has('gender'))
                             <span class="text-danger">{{ $errors->first('gender') }}</span>
                         @endif<br>
                         <label for="gender">Gender</label><br>
-                        <input type="radio" name="gender" value="male" required>Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="gender" value="female" required>Female
+                        <input type="radio" name="gender" value="M" required>Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="gender" value="F" required>Female
                         <hr/>
                         <div class="text">
-                        @if ($errors->has('role_type'))
-                            <span class="text-danger">{{ $errors->first('role_type') }}</span>
+                        @if ($errors->has('role'))
+                            <span class="text-danger">{{ $errors->first('role') }}</span>
                         @endif<br>
-                            <label for="role_type">Role Type</label><br><br>
-                            <select name="role_type" id="role-select">
+                            <label for="role">Role Type</label><br><br>
+                            <select name="role_id" id="role-select">
                                 <option value="">--Please choose a type--</option>
-                                <option value="student">Student</option>
-                                <option value="teacher">Teacher</option>
+                                <option value="1">Student</option>
+                                <option value="2">Teacher</option>
                             </select>
                         </div>
                         <hr/>
@@ -71,15 +71,15 @@
                             <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
                         @endif<br>
                             <label for="confirm_password">Confirm Password</label>
-                            <input type="password" name="confirm_password" id="showPassword">
+                            <input type="password" name="confirm_password" id="confirmPassword">
                         </div>
                         <hr/>
                         <div class="text">
-                        @if ($errors->has('phone_number'))
-                            <span class="text-danger">{{ $errors->first('phone_number') }}</span>
+                        @if ($errors->has('phone'))
+                            <span class="text-danger">{{ $errors->first('phone') }}</span>
                         @endif<br>
                             <label for="phone_number">Phone Number</label>
-                            <input type="text" name="phone_number">
+                            <input type="text" name="phone">
                         </div>
                         <div class="text">
                         @if ($errors->has('address'))

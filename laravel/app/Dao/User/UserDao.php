@@ -5,6 +5,8 @@ namespace App\Dao\User;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Contracts\Dao\User\UserDaoInterface;
+use App\Dao\Course\CourseDao;
+use Illuminate\Support\Facades\DB;
 
 class UserDao implements UserDaoInterface
 {
@@ -12,6 +14,7 @@ class UserDao implements UserDaoInterface
      * @var User
      */
     protected $user;
+    private $courseDao;
 
     /**
      * UserDao constructor,
@@ -19,26 +22,27 @@ class UserDao implements UserDaoInterface
      * @param User $user
      */
 
-    public function __construct(User $user)
+    public function __construct(User $user, CourseDao $courseDao)
     {
         $this->user=$user;
+        $this->courseDao = $courseDao;
     }
 
     public function createUser($data)
     {
-        $profile=$data['photo'];
+        $profile=$data['profile_path'];
 
         $user=User::create([
-            'name'             => $data['name'],
-            'photo'            => $this->savePhoto($profile),
-            'date_of_birth'    =>$data['date_of_birth'],
-            'gender'           => $data['gender'],
-            'role_type'        => $data['role_type'],
-            'email'            => $data['email'],
-            'password'         => Hash::make($data['password']),
-            'confirm_password' =>Hash::make($data['confirm_password']),
-            'phone_number'     => $data['phone_number'],
-            'address'          =>$data['address'],
+            'name' => $data['name'],
+            'profile_path' => $this->savePhoto($profile),
+            'dob' => $data['dob'],
+            'gender' => $data['gender'],
+            'role_id' => $data['role_id'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            // 'confirm_password' => Hash::make($data['confirm_password']),
+            'phone' => $data['phone'],
+            'address' => $data['address'],
         ]);
         return $user;
     }
@@ -72,8 +76,8 @@ class UserDao implements UserDaoInterface
         $userinformation=User::find($id);
         $userinformation->name=$request->name;
         if($request->is_update == 1){
-            $profile= $request->photo;
-            $userinformation->photo= $this->savePhoto($profile);
+            $profile = $request->profile_path;
+            $userinformation->profile_path= $this->savePhoto($profile);
         }
       
         $userinformation->date_of_birth=$request->date_of_birth;
@@ -84,5 +88,79 @@ class UserDao implements UserDaoInterface
         $userinformation->phone_number=$request->phone_number;
         $userinformation->save();
         return $userinformation;
+    }
+
+    /**
+     * get the user by id
+     * @return $user
+     */
+    public function getUserById($id)
+    {
+      $user = DB::table('users')->where('id', $id)->first();
+      return $user;
+    }
+
+    /**
+     * get role of user
+     * @return $role
+     */
+    public function getUserRole($id)
+    {
+      $user = $this->getUserById($id);
+      $role = DB::table('user_role')
+                ->select('*')
+                ->where('id', $user->role_id)
+                ->whereNull('deleted_at')
+                ->first();
+      return $role;
+    }
+
+    /**
+     * get the list of users(role = student) 
+     * @return $studentList
+     */
+    public function getStudent($teacher_id)
+    {
+      $teacherCourse = $this->courseDao->getEnrolledCourse($teacher_id, 'Teacher');
+
+      $studentList = collect();
+      foreach($teacherCourse as $tc) {
+        $sList = DB::table('student_course')
+                    ->select('*')
+                    ->where('course_id', $tc->id)
+                    ->whereNull('deleted_at')
+                    ->get();
+
+        $studentList->push($sList);            
+      }
+      return $teacherCourse; 
+    }
+
+    /**
+     * get the list of users(role = student) who enrolled $teacherCourse
+     * @return $studentList
+     */
+    public function getStudentList($teacherCourse)
+    {
+      $studentList = collect();
+      foreach($teacherCourse as $tc) {
+        $sIDList = DB::table('student_courses')
+                    ->select('student_id')
+                    ->where('course_id', $tc->id)
+                    ->whereNull('deleted_at')
+                    ->get();
+        $sList = collect();
+        foreach($sIDList as $id) {
+          $student = DB::table('users')
+                        ->select('*')
+                        ->where('id', $id->student_id)
+                        ->whereNull('deleted_at')
+                        ->first();
+
+          $sList->push($student);  
+        }   
+        $studentList->push($sList);            
+      }
+      return $studentList; 
     }
 }
