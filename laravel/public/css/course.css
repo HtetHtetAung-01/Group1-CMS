@@ -1,0 +1,83 @@
+/* Course */
+
+.card {
+  width: 90%;
+  background: #fdfdfd;
+  padding: 1.5% 2%;
+  border-radius: 10px;
+  line-height: 1.6;
+  margin-bottom: 2%;
+  box-shadow: 4px 8px 8px rgb(20, 146, 230, 20%);
+  border: 1px solid rgb(20, 146, 230, 20%);
+
+}
+
+.course-ttl {
+  font-size: 22px;
+}
+
+.course-category {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.status-blk {
+  font-size: 14px;
+  width: 70%;
+  color: #000000;
+  /* background: rgb(20, 146, 230, 10%); */
+  padding: 2%;
+  border-radius: 10px;
+  margin: 1.5% 0;
+}
+
+.status {
+  color: #ffffff;
+  padding: 1.5% 2%;
+  border-radius: 15px;
+}
+
+.complete-status-blk {
+  background: rgb(127, 191, 56, 10%);
+}
+
+.complete-status {
+  background: rgb(127, 191, 56, 100%);
+}
+
+.progress-status-blk {
+  background: rgb(20, 146, 230, 10%);
+}
+
+.progress-status {
+  background: rgb(20, 146, 230, 100%);
+}
+
+.lock-status-blk {
+  background: rgba(0, 0, 0, 10%);
+}
+
+.unlock-status-blk {
+  background: rgba(0, 0, 0, 10%);
+}
+
+.lock-status {
+  background: rgb(0, 0, 0, 30%);
+}
+.no-of-ass {
+  float: left;
+}
+
+.course-detail {
+  float: right;
+  color: #1492E6;
+  text-decoration: none;
+}
+
+.course-detail:hover {
+  cursor: pointer;
+}
+
+.bottom-box {
+  margin-top: 20px;
+}

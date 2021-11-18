@@ -5,6 +5,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Assignment\AssignmentController;
+use App\Http\Controllers\Course\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,11 @@ Route::get('/teacher/{id}/assignment/', [TeacherController::class, 'showAssignme
 Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment']);
 Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment']);
 
-Route::get('/{id}', [UserController::class, 'showLayout'])->name('home');
-Route::get('/{teacher_id}/Teacher/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
+Route::get('/teacher/{id}', [UserController::class, 'showLayout'])->name('teacher.home');
+Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student.home');
+Route::get('/{teacher_id}/teacher/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
+
+Route::get('/teacher/{teacher_id}/course', [CourseController::class, 'showTeacherCourse'])->name('teacher.course');
+Route::get('/student/{student_id}/course', [CourseController::class, 'showStudentCourse'])->name('student.course');
+
 

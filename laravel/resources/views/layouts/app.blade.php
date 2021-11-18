@@ -10,11 +10,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+  @php
+    $route = Route::currentRouteName();
+    $roleName = strtolower($role);
+  @endphp
   <nav class="nav clearfix">
     <h1 class="cms">CMS</h1>
     <div class="profile-blk">
       <button class="profile-btn">
-        <p>{{ $user->name }} ({{ $role }})</p>
+        <p>{{ $user->name }} ({{ $roleName }})</p>
       </button>
       <div class="dropdown">
         <a href="#">Profile</a>
@@ -23,15 +27,13 @@
       </div>
     </div>
   </nav>
-  @php
-    $route = Route::currentRouteName();
-  @endphp
+  
   <div class="container clearfix">
     <aside class="sidebar">
       <ul>
-        <li class="@if($route == $role.'dashboard') ? active : ''; @endif"><a href="<?php echo '/'.$role.'/'.$user->id.'/dashboard' ?>">Dashboard</a></li>
-        <li class="@if($route == $role.'.course') ? active : ''; @endif">
-          <a  class="menu-btn">Course
+        <li class="@if($route == $roleName.'dashboard') ? active : ''; @endif"><a href="<?php echo '/'.$roleName.'/'.$user->id.'/dashboard' ?>">Dashboard</a></li>
+        <li class="@if($route == $roleName.'.course') ? active : ''; @endif">
+          <a href="<?php echo '/'.$roleName.'/'.$user->id.'/course' ?>" class="menu-btn">Course
           <span class="fa fa-caret-down first"></span>
           </a>
           
@@ -42,9 +44,9 @@
           </ul>
         </li>
 
-        <li class="@if($route == '/student/homework') ? active : ''; @endif"><a href="<?php echo '/'.$role.'/'.$user->id.'/homework' ?>">Homework</a></li>
-        @if($role == 'Teacher')
-          <li class="@if($route == 'studentList') ? active : ''; @endif"><a href="<?php echo '/'.$user->id.'/Teacher/student-info' ?>">Students</a></li>
+        <li class="@if($route == '/student/homework') ? active : ''; @endif"><a href="<?php echo '/'.$roleName.'/'.$user->id.'/assigment' ?>">Homework</a></li>
+        @if($roleName == 'teacher')
+          <li class="@if($route == 'studentList') ? active : ''; @endif"><a href="<?php echo '/'.$user->id.'/teacher/student-info' ?>">Students</a></li>
         @endif
         
       </ul>
