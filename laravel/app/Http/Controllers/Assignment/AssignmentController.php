@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Assignment;
 use App\Contracts\Services\Assignment\AssignmentServiceInterface;
 use App\Http\Controllers\Controller;
 use \App\Http\Requests\FileSubmitRequest;
+use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -15,28 +16,17 @@ class AssignmentController extends Controller
      * assignment interface
      */
     private $assignmentInterface;
+    private $userService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(AssignmentServiceInterface $assignmentServiceInterface)
+    public function __construct(AssignmentServiceInterface $assignmentServiceInterface, UserService $userService)
     {
         $this->assignmentInterface = $assignmentServiceInterface;
-    }
-
-    /**
-     * To get assignment list by course id
-     * @param $id 
-     * @return View courseDetails
-     */
-    public function getCourseDetails($id)
-    {
-        $courseDetails = $this->assignmentInterface->getCourseDetails($id);
-        return view('courseDetails', [
-            'courseDetails' => $courseDetails
-        ]);
+        $this->userService = $userService;
     }
 
     /**
@@ -45,17 +35,30 @@ class AssignmentController extends Controller
      * @param $student_id
      * @return View courseDetails
      */
-    public function isEnrolled($course_id, $student_id)
+    public function isEnrolled($student_id, $course_id)
     {
         $courseDetails = $this->assignmentInterface->getCourseDetails($course_id);
-        $isEnrolled = $this->assignmentInterface->isEnrolled($course_id, $student_id);
-        $assignmentStatus = $this->isCompletedAssignment($course_id, $student_id);
-        $started = $this->showStarted($course_id, $student_id);
-        return view('courseDetails', [
+        $isEnrolled = $this->assignmentInterface->isEnrolled($student_id, $course_id);
+        $assignmentStatus = $this->isCompletedAssignment($student_id, $course_id);
+        $started = $this->showStarted($student_id, $course_id);
+
+        $user = $this->userService->getUserById($student_id);
+        $roles = $this->userService->getUserRole($student_id);
+        $role = $roles->type;
+        info("user = $user->name");
+        info("role = $role");
+        info("courses ");
+        info("courseDetails");
+        $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);  
+        
+        return view('course.courseDetails', [
             'courseDetails' => $courseDetails,
             'isEnrolled' => $isEnrolled,
             'assignmentStatus' => $assignmentStatus,
             'started' => $started,
+            'user' => $user,
+            'role' => $role,
+            'enrolledCourse' => $enrolledCourse,
         ]);
     }
 
@@ -98,7 +101,7 @@ class AssignmentController extends Controller
      * @param $student_id
      * @return View courseDetails
      */
-    public function showStarted($course_id, $student_id)
+    public function showStarted($student_id, $course_id)
     {
         $start = [];
         $assignmentList = DB::table('assignments')
@@ -120,9 +123,9 @@ class AssignmentController extends Controller
      * @param $student_id
      * @return View courseDetails
      */
-    public function enrollCourse($course_id, $student_id)
+    public function enrollCourse($student_id, $course_id)
     {
-        $this->assignmentInterface->enrollCourse($course_id, $student_id);
+        $this->assignmentInterface->enrollCourse($student_id, $course_id);
         return back();
     }
 
@@ -133,9 +136,9 @@ class AssignmentController extends Controller
      * @param $assignment_id
      * @return View courseDetails
      */
-    public function addNullStudentAssignment($course_id, $student_id, $assignment_id)
+    public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
     {
-        $this->assignmentInterface->addNullStudentAssignment($course_id, $student_id, $assignment_id);
+        $this->assignmentInterface->addNullStudentAssignment($student_id, $course_id, $assignment_id);
         return back();
     }
 
@@ -146,7 +149,7 @@ class AssignmentController extends Controller
      * @param $filename
      * @return View courseDetails
      */
-    public function downloadFile($course_id, $student_id, $filename)
+    public function downloadFile($filename)
     {
         return response()->download(storage_path('app/public/' . $filename));
     }
@@ -159,7 +162,7 @@ class AssignmentController extends Controller
      * @param FileSubmitRequest $filename Request form courseDetails
      * @return View courseDetails
      */
-    public function addStudentAssignment($course_id, $student_id, $assignment_id, FileSubmitRequest $filename)
+    public function addStudentAssignment($student_id, $course_id, $assignment_id, FileSubmitRequest $filename)
     {
         $ROOT_DIR = 'uploads';
 
@@ -170,7 +173,7 @@ class AssignmentController extends Controller
         $file = $filename->inputfile;
         $inputFileName = Storage::putFileAs($ROOT_DIR, $file, $file->getClientOriginalName());
 
-        $this->assignmentInterface->addStudentAssignment($course_id, $student_id, $assignment_id, $inputFileName);
+        $this->assignmentInterface->addStudentAssignment($student_id, $course_id, $assignment_id, $inputFileName);
 
         return back();
     }

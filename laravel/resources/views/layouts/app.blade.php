@@ -27,7 +27,10 @@
       </div>
     </div>
   </nav>
-  
+  @php
+    $route = Route::currentRouteName();
+    $roleName = strtolower($role);
+  @endphp
   <div class="container clearfix">
     <aside class="sidebar">
       <ul>
@@ -44,9 +47,9 @@
           </ul>
         </li>
 
-        <li class="@if($route == '/student/homework') ? active : ''; @endif"><a href="<?php echo '/'.$roleName.'/'.$user->id.'/assigment' ?>">Homework</a></li>
+        <li class="@if($route == $roleName.'.assignment') ? active : ''; @endif"><a href="<?php echo '/'.$roleName.'/'.$user->id.'/assignment' ?>">Assignment</a></li>
         @if($roleName == 'teacher')
-          <li class="@if($route == 'studentList') ? active : ''; @endif"><a href="<?php echo '/'.$user->id.'/teacher/student-info' ?>">Students</a></li>
+          <li class="@if($route == 'studentList') ? active : ''; @endif"><a href="<?php echo ' /teacher/'.$user->id.'/student-info' ?>">Students</a></li>
         @endif
         
       </ul>

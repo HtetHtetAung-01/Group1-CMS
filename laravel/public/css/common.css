@@ -20,14 +20,15 @@
 }
 
 body {
-  max-width: 1280px;
+  margin: auto;
   font-family: 'Poppings-Regular';
 }
 
 /* Tab */
 
 .assignment-panel {
-  width: 810px;
+  width: 95%;
+  margin: 2%;
 }
 
 .tab-nav {
@@ -64,15 +65,15 @@ body {
 }
 
 .tbl-assignment td:first-child {
-  width: 15%;
+  width: 30%;
 }
 
 .tbl-assignment td:nth-child(2) {
-  width: 26%;
+  width: 40%;
 }
 
 .tbl-assignment td:nth-child(3) {
-  width: 40%;
+  width: 30%;
 }
 
 .tbl-assignment .tr-record {
@@ -83,7 +84,7 @@ body {
   color: #000000;
 }
 
-.accd-dt {
+.accd-dt-margin {
   margin-bottom: 25px;
 }
 
@@ -125,7 +126,7 @@ body {
 .accd-dt i{
   font-style: normal;
   font-family: 'FontAwsome-Solid';
-  margin-left: 5px;
+  /* margin-left: 5px; */
 }
 
 .cmt-toggle {
