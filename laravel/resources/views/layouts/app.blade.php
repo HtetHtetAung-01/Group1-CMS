@@ -35,6 +35,7 @@
     <aside class="sidebar">
       <ul>
         <li class="@if($route == $roleName.'dashboard') ? active : ''; @endif"><a href="<?php echo '/'.$roleName.'/'.$user->id.'/dashboard' ?>">Dashboard</a></li>
+        @if($roleName == 'student')
         <li class="@if($route == $roleName.'.course') ? active : ''; @endif">
           <a href="<?php echo '/'.$roleName.'/'.$user->id.'/course' ?>" class="menu-btn">Course
           <span class="fa fa-caret-down first"></span>
@@ -46,7 +47,7 @@
             @endforeach
           </ul>
         </li>
-
+        @endif
         <li class="@if($route == $roleName.'.assignment') ? active : ''; @endif"><a href="<?php echo '/'.$roleName.'/'.$user->id.'/assignment' ?>">Assignment</a></li>
         @if($roleName == 'teacher')
           <li class="@if($route == 'studentList') ? active : ''; @endif"><a href="<?php echo ' /teacher/'.$user->id.'/student-info' ?>">Students</a></li>

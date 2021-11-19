@@ -32,7 +32,7 @@
     </div>
     <div class="clearfix">
         <p class="no-of-ass"> {{ $S_AssignmentNoList[$course->id] }} Assignments </p>
-      <a href="<?php echo '/'.$roleName.'/'.$user->id.'/course/'.$course->id ?>" class="course-detail">See details > </a>
+        <a href="{{ route("student.courseDetail", ['id' => Auth::user()->id, 'course_id'=>$course->id ]) }}" class="course-detail">See details > </a>
     </div>
   </div>
   @endforeach

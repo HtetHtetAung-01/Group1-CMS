@@ -23,6 +23,7 @@ Route::get('/', function () {
 });
 
 Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student-home');
+Route::get('/student/{id}/course', [CourseController::class, 'showStudentCourse'])->name('student.course');
 Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
 Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('student.courseDetail');
 Route::get('/student/{id}/course/{course_id}/enroll', [AssignmentController::class, 'enrollCourse'])->name('student.course.enroll');
@@ -37,5 +38,3 @@ Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherControl
 Route::post('/teacher/{id}/assignment/{assignment_id}/grade', [TeacherController::class, 'submitGrade'])->name('teacher.assignment.grade.submit');
 Route::get('/teacher/{id}/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
 
-Route::get('/teacher/{teacher_id}/course', [CourseController::class, 'showTeacherCourse'])->name('teacher.course');
-Route::get('/student/{student_id}/course', [CourseController::class, 'showStudentCourse'])->name('student.course');
