@@ -24,28 +24,11 @@
   google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
-    // var data = google.visualization.arrayToDataTable([
-    //   ['Courses', 'Basic', 'Intermediate'],
-    //   ['1', 50, 60],
-    //   ['2', 70, 60],
-    //   ['3', 66, 75],
-    //   ['4', 30, 54]
-    // ]);
-
+    
     var data = google.visualization.arrayToDataTable([
             ['assignmentName', 'assignmentGrade'],
             <?php echo $studentChartData[0] ?>
         ]);
-
-    // var dataArray = [];
-    // var Header = ['Courses', 'Basic', 'Intermediate'];
-    // data.push(Header);
-    // for (var i = 0; i < $studentChartData.length; i++) {
-    //   var temp = [];
-    //   temp.push($studentChartData[i],);
-    //   data.push(temp);
-    // }
-    // var data = new google.visualization.arrayToDataTable(dataArray);
 
     var options = {
       chart: {

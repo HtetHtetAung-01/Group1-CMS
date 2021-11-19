@@ -40,21 +40,16 @@ class StudentService implements StudentServiceInterface
 
     public function getEnrolledData($student_id)
     {
-        //Htet Edited
         return $this->studentCourseDao->getTotalEnrolledCoursebyStudent($student_id);
     }
 
     public function getCompletedData($student_id)
     {
-        //Htet Edited
         return $this->studentCourseDao->getTotalCompletedCoursebyStudent($student_id);
     }
 
     public function getStudentGradeData($student_id)
     {
-        //Htet Edited
-    //   return $this->studentCourseDao->getStudentPerformanceData($student_id);
-
       $charts = array();
 
         // Get Number of Student by Course Title
