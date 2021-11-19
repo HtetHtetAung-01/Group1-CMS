@@ -2,21 +2,58 @@
 
 namespace App\Services\User;
 
-use App\Contracts\Services\User\UserServiceInterface;
 use App\Dao\Course\CourseDao;
-use App\Dao\User\UserDao;
 use Illuminate\Support\Facades\DB;
+use App\Contracts\Dao\User\UserDaoInterface;
+use App\Dao\User\UserDao;
+use App\Contracts\Services\User\UserServiceInterface;
+
 
 class UserService implements UserServiceInterface
 {
-  private $userDao;
-  private $courseDao;
+    /**
+     * @var $userDao
+     */
+    private $userDao;
+    private $courseDao;
 
-  public function __construct(UserDao $userDao, CourseDao $courseDao)
-  {
-    $this->userDao = $userDao;
-    $this->courseDao = $courseDao;
-  }
+    /**
+     * UserServices constructor,
+     * 
+     * @param UserDao $userDao
+     */
+
+    public function __construct(UserDao $userDao, CourseDao $courseDao)
+    {
+        $this->userDao=$userDao;
+        $this->courseDao = $courseDao;
+    }
+    public function createUser($data){
+        return $this->userDao->createUser($data);
+    }
+
+    public function savePhoto($profile){
+        return $this->userDao->savePhoto($profile);
+    }
+
+    public function getUserList($request){
+        return $this->userDao->getUserList($request);
+    }
+
+    public function deleteUser($id)
+    {
+        return $this->userDao->deleteUser($id);
+    }
+
+    public function editUser($id)
+    {
+        return $this->userDao->editUser($id);
+    }
+
+    public function updateUser($id, $request)
+    {
+        return $this->userDao->updateUser($id,$request);
+    }
 
   /**
    * get the user by id
