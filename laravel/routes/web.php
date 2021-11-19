@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Assignment\AssignmentController;
+use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Teacher\TeacherController;
 
@@ -39,17 +40,17 @@ Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPass
 
 //user
 Route::middleware(['web','auth'])->group(function(){
-  Route::get('/user-list', [AuthController::class, 'showUserList']); 
-  Route::delete('/user/{id}', [AuthController::class, 'deleteUser']);
-  Route::get('/userdetail/{id}', [AuthController::class, 'userDetail']); 
-  Route::get('/useredit/{id}', [AuthController::class, 'editUser']); 
-  Route::post('/update/{id}',[AuthController::class, 'updateUser']);
+  Route::get('/user-list', [AuthController::class, 'showUserList'])->name('userlist'); 
+  Route::delete('/user/{id}', [AuthController::class, 'deleteUser'])->name('user.delete');
+  Route::get('/userdetail/{id}', [AuthController::class, 'userDetail'])->name('user.detail'); 
+  Route::get('/useredit/{id}', [AuthController::class, 'editUser'])->name('user.edit'); 
+  Route::post('/update/{id}',[AuthController::class, 'updateUser'])->name('user.update');
 });
 
-
 Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student-home');
+Route::get('/student/{id}/course', [CourseController::class, 'showStudentCourse'])->name('student.course');
 Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
-Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('student.course');
+Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('student.courseDetail');
 Route::get('/student/{id}/course/{course_id}/enroll', [AssignmentController::class, 'enrollCourse'])->name('student.course.enroll');
 Route::get('/student/{id}/course/{course_id}/download/{file_name}', [AssignmentController::class,'downloadFile'])->name('student.course.download');
 Route::get('/student/{id}/course/{course_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('student.course.addAssignment');

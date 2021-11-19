@@ -10,16 +10,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+  @php
+    $route = Route::currentRouteName();
+    $roleName = strtolower($role);
+  @endphp
   <nav class="nav clearfix">
     <h1 class="cms">CMS</h1>
     <div class="profile-blk">
       <button class="profile-btn">
-        <p>{{ $user->name }} ({{ $role }})</p>
+        <p>{{ $user->name }} ({{ $roleName }})</p>
       </button>
       <div class="dropdown">
-        <a href="#">Profile</a>
-        <a href="#">Logout</a>
-        <a href="#">Setting</a>
+        <a href="{{ route("user.detail", ['id' => Auth::user()->id]) }}">Profile</a>
+        <a href="{{ route('signout') }}">Logout</a>
       </div>
     </div>
   </nav>
@@ -31,8 +34,9 @@
     <aside class="sidebar">
       <ul>
         <li class="@if($route == $roleName.'dashboard') ? active : ''; @endif"><a href="<?php echo '/'.$roleName.'/'.$user->id.'/dashboard' ?>">Dashboard</a></li>
+        @if($roleName == 'student')
         <li class="@if($route == $roleName.'.course') ? active : ''; @endif">
-          <a  class="menu-btn">Course
+          <a href="<?php echo '/'.$roleName.'/'.$user->id.'/course' ?>" class="menu-btn">Course
           <span class="fa fa-caret-down first"></span>
           </a>
           
@@ -42,6 +46,7 @@
             @endforeach
           </ul>
         </li>
+        @endif
 
         <li class="@if($route == $roleName.'.assignment') ? active : ''; @endif">
 
