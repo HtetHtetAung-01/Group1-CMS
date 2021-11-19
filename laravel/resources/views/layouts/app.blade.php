@@ -66,7 +66,6 @@
       </ul>
     </aside>
     <div class="content">
-    {{ Auth::user()->name }}
     @yield('content')
     </div>
   </div>
