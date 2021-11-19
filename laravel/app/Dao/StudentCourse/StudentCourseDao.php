@@ -76,5 +76,14 @@ class StudentCourseDao implements StudentCourseDaoInterface
               );
               return $studentPerformance;
     }
-    
+
+    /**
+     * get student course list
+     * @return $studentCourseList
+     */
+    public function getStudentCourse()
+    {
+        $courseList = DB::table('courses')->select('*')->whereNull('deleted_at')->get();
+        return $courseList;
+    }
 }

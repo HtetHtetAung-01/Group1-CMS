@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@section('content')
   <title>Course_Details</title>
   <link rel="stylesheet" href="{{ asset('css/common.css') }}">
   <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
   <link rel="stylesheet" href="{{ asset('css/courseDetails.css') }}">
-
-</head>
-
-<body>
 
   <div class="course-details">
     <div class="course-content">
@@ -24,11 +17,11 @@
           <div class="modalContent">
             <span class="modal-close">×</span>
             <div class="mdl-inner">
-              <p>Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }} course?</p>
+              <p>Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }} course? {{$courseDetails[0]->course_id}}</p>
               <div class="mdl-btns">
                 <button class="cancel-btn modal-close">Cancel</button>
-                <a href="/course/{course_id}/student/{student_id}/enroll" class="confirm-btn">
-                  Confirm
+                <a href="{{route('student.course.enroll', ['id' => Auth::user()->id, 'course_id'=> $courseDetails[0]->course_id])}}" class="confirm-btn">
+                    Confirm
                 </a>
               </div><!-- /.mdl-btns -->
             </div><!-- /.mdl-inner -->
@@ -60,7 +53,7 @@
           </dt><!-- /.accd-dt -->
           <dd class="accd-dd">
             <div class="accd-content">
-              <button data-modal="modal-start" class="btn-show-modal start-assign-btn {{ $isEnrolled? 'disabled-btn' : 'start-assignment'}}">Start</button>
+              <button data-modal="modal-start" class="btn-show-modal start-assign-btn {{ $isEnrolled ? 'disabled-btn' : 'start-assignment'}}">Start</button>
               <div id="modal-start" class="modal">
                 <div class="modalContent">
                   <span class="modal-close">×</span>
@@ -68,7 +61,7 @@
                     <p>Are you sure you want to start this {{ $courseDetails[$key]->name }}?</p>
                     <div class="mdl-btns">
                       <button class="cancel-btn modal-close">Cancel</button>
-                      <a href="/course/{course_id}/student/{student_id}/add/assignment/{{ $courseDetails[$key]->id }}" class="confirm-btn">
+                      <a href="{{route('student.course.addAssignment', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="confirm-btn">
                         Confirm
                       </a>
                     </div>
@@ -98,11 +91,11 @@
                   </p>
                   @endif
                   @if($started[$key]==false)
-                  <a href="/course/{course_id}/student/{student_id}/download/{{ $courseDetails[$key]->file_path }}" class="default-download-btn disabled-btn">
+                  <a href="{{route('student.course.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'file_name' => $courseDetails[$key]->file_path])}}" class="default-download-btn disabled-btn">
                     Download File
                   </a>
                   @else
-                  <a href="/course/{course_id}/student/{student_id}/download/{{ $courseDetails[$key]->file_path }}" class="default-download-btn {{ $isEnrolled? 'disabled-btn' : 'download-btn'}}">
+                  <a href="{{route('student.course.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'file_name' => $courseDetails[$key]->file_path])}}" class="default-download-btn {{ $isEnrolled? 'disabled-btn' : 'download-btn'}}">
                     Download File
                   </a>
                   @endif
@@ -114,7 +107,8 @@
                 @else
                 <h3 class="homework-lbl {{ $isEnrolled? 'disabled-lbl' : ''}}">Homework</h3>
                 @endif
-                <form action="/course/{course_id}/student/{student_id}/update/assignment/{{ $courseDetails[$key]->id }}" enctype="multipart/form-data" method="POST">
+                <form action="{{route('student.courseUpdateAssignment', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
+                    {{$courseDetails[$key]->id}}
                   <div class="homework d-flex">
                     @if($started[$key]==false)
                     <div class="disabled-input">
@@ -159,15 +153,9 @@
     </div><!-- /.assignment-list -->
   </div><!-- /.course-details -->
 
-</body>
-
-</html>
-
-</body>
-
 <script src="{{ asset('js/library/jquery.min.js') }}"></script>
 <script src="{{ asset('js/library/common.js') }}"></script>
 <script src="{{ asset('js/library/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('js/library/confirm_modal.js') }}"></script>
 
-</html>
+@endsection

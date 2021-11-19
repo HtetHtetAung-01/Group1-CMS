@@ -1,0 +1,111 @@
+* {
+    color: #1a1f36;
+    box-sizing: border-box;
+    font-family: Poppins;
+}
+.login-root {
+    margin: 0 auto;
+    width: 1400px;
+}
+a {
+    color: #1492E6;
+    text-decoration: none;
+  }
+
+.box-root {
+    box-sizing: border-box;
+    display: inline-block;
+    margin-top: 24px;
+}
+.formbg {
+    max-width: 717px;
+    margin-left: 342px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
+}
+.text {
+    padding-bottom: 24px;
+}
+.login-title {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    padding-bottom: 42px;
+}
+span {
+    display: inline-block;
+    font-size: 20px;
+    line-height: 28px;
+    color: #1a1f36;
+}
+label {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.formbg-inner{
+    padding: 48px 178px;
+}
+.reset-pass{
+    display: inline-block;
+}
+.text input {
+    font-size: 16px;
+    line-height: 28px;
+    padding: 8px 16px;
+    width: 360px;
+    min-height: 44px;
+    border: none;
+    border-radius: 9px;
+    outline-color: rgb(84 105 212 / 0.5);
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+.login-btn{
+    width: 360px;
+    padding: 8px 16px;
+    background-color: #1492E6;
+    border: none;
+    color: #fff;
+    font-weight: normal;
+    cursor: pointer;
+    font-size: 16px;
+}
+.register-btn{
+    width: 360px;
+    padding: 8px 16px;
+    background-color: #1492E6;
+    border: none;
+    color: #fff;
+    font-weight: normal;
+    cursor: pointer;
+    font-size: 16px;
+}
+.edit-btn{
+    width: 360px;
+    padding: 8px 16px;
+    background-color: #1492E6;
+    border: none;
+    color: #fff;
+    font-weight: normal;
+    cursor: pointer;
+    font-size: 16px;
+}
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 55px 0 55px 0px;
+}
+#role-select{
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 9px;
+}

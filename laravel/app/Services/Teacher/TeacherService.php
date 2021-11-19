@@ -10,20 +10,25 @@ use App\Contracts\Dao\TeacherCourse\TeacherCourseDaoInterface;
 use App\Contracts\Dao\User\UserDaoInterface;
 use App\Contracts\Services\Teacher\TeacherServiceInterface;
 use App\Models\Comment;
+use App\Models\StudentAssignment;
 use Illuminate\Support\Facades\Storage;
 
 class TeacherService implements TeacherServiceInterface
 {
-    private $commentDao;
     private $assignmentDao;
+    private $commentDao;
     private $studentAssignmentDao;
     private $studentCourseDao;
     private $teacherCourseDao;
     private $userDao;
 
-    public function __construct( AssignmentDaoInterface $assignmentDao, CommentDaoInterface $commentDao,
-        StudentAssignmentDaoInterface $studentAssignmentDao, TeacherCourseDaoInterface $teacherCourseDao,
-        StudentCourseDaoInterface $studentCourseDao, UserDaoInterface $userDao)
+    public function __construct( 
+        AssignmentDaoInterface $assignmentDao, 
+        CommentDaoInterface $commentDao,
+        StudentAssignmentDaoInterface $studentAssignmentDao, 
+        StudentCourseDaoInterface $studentCourseDao,
+        TeacherCourseDaoInterface $teacherCourseDao,
+        UserDaoInterface $userDao)
     {
         $this->assignmentDao = $assignmentDao;
         $this->commentDao = $commentDao;
@@ -40,21 +45,21 @@ class TeacherService implements TeacherServiceInterface
         foreach ($courseTitles as $title) {
             $title->assignments = $this->assignmentDao
                 ->getAssignmentNamesByCourseId($title->id);
-            
+
             foreach ($title->assignments as $assignment) {
-                
-                $assignment->assignmentList = 
+
+                $assignment->assignmentList =
                     $this->studentAssignmentDao->getUploadedAssignmentsByAssignmentId($assignment->id);
-                
+
                 $assignment->numOfUngradedAssignment =
-                    $this->studentAssignmentDao->getTotalCountOfUngradedAssignmentsbyAssignmentId($assignment->id);    
+                    $this->studentAssignmentDao->getTotalCountOfUngradedAssignmentsbyAssignmentId($assignment->id);
 
                 foreach ($assignment->assignmentList as $item) {
                     $item->comments = $this->commentDao->getCommentsbyStudentAssignmentId($item->id);
                 }
-            }                
+            }
         }
-        
+
         return $courseTitles;
     }
 
@@ -101,8 +106,14 @@ class TeacherService implements TeacherServiceInterface
 
     public function getTotalStudent()
     {
-        //Htet Edited
         return $this->userDao->getTotalStudent();
     }
-
+    
+    public function submitGrade($student_assignment_id, $request)
+    {
+        $submitGrade = StudentAssignment::FindorFail($student_assignment_id);
+        $submitGrade->grade = $request;
+        $submitGrade->save();
+        return $submitGrade;
+    }
 }

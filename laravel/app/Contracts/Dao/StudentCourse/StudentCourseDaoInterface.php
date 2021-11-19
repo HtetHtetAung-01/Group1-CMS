@@ -9,4 +9,10 @@ interface StudentCourseDaoInterface
     public function getTotalEnrolledCoursebyStudent($student_id);
     public function getTotalCompletedCoursebyStudent($student_id);
     public function getStudentPerformanceData($student_id);
+
+    /**
+     * get student course list
+     * @return $studentCourseList
+     */
+    public function getStudentCourse();
 }

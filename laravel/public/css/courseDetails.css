@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Poppins-Regular';
-    max-width: 1280px;
+    margin: auto;
     overflow: hidden;
 }
 
@@ -18,7 +18,7 @@ body {
 
 .course-details {
     max-width: 990px;
-    margin: 71px 0 0 290px;
+    /* margin: 71px 0 0 290px; */
 }
 
 .course-content {

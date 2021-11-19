@@ -20,7 +20,6 @@ class UserController extends Controller
     $roles = $this->userService->getUserRole($id);
     $role = $roles->type;
     $enrolledCourse = $this->userService->getEnrolledCourse($id, $role);  
-    // } 
     
     return view('layouts.app', compact('user', 'role', 'enrolledCourse'));
   }
@@ -35,6 +34,7 @@ class UserController extends Controller
     $roles = $this->userService->getUserRole($teacher_id);
     $role = $roles->type;
     $enrolledCourse = $this->userService->getEnrolledCourse($teacher_id, $role);
+    
     $teacherCourse = $this->userService->getEnrolledCourse($teacher_id, 'Teacher');
     $studentList = $this->userService->getStudentList($teacherCourse);
     

@@ -7,12 +7,26 @@ use Illuminate\Support\Facades\DB;
 
 class TeacherCourseDao implements TeacherCourseDaoInterface
 {
-    public function getEnrolledCoursesByTeacher($teacher_id)
-    {
-        return DB::select(DB::raw(
-            "SELECT C.id, C.title FROM teacher_courses AS TC
-            LEFT OUTER JOIN courses AS C ON C.id = TC.course_id
-            WHERE TC.teacher_id = $teacher_id;"
-        ));
-    }
+  public function getEnrolledCoursesByTeacher($teacher_id)
+  {
+    return DB::select(DB::raw(
+      "SELECT C.id, C.title FROM teacher_courses AS TC
+      LEFT OUTER JOIN courses AS C ON C.id = TC.course_id
+      WHERE TC.teacher_id = $teacher_id;"
+    ));
+  }
+
+    /**
+   * get  teacher course
+   * @return $teacherCourseID
+   */
+  public function getTeacherCourse($id)
+  {
+    $teacherCourseID = DB::table('teacher_courses')
+                        ->where('teacher_id', $id)
+                        ->whereNull('deleted_at')
+                        ->get();
+    
+    return $teacherCourseID;                    
+  }
 }

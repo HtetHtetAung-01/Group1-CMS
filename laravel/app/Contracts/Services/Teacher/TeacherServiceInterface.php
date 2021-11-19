@@ -8,4 +8,5 @@ interface TeacherServiceInterface {
     public function downloadStudentAssignment($student_assignment_id);
     public function getChartData();
     public function getTotalStudent();
+    public function submitGrade($student_assignment_id, $request);
 }

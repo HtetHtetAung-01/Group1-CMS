@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Assignment\AssignmentController;
+use App\Http\Controllers\Course\CourseController;
+use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Teacher\TeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,21 +24,43 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::get('/course/{course_id}', [AssignmentController::class, 'getCourseDetails']);
-Route::get('/course/{course_id}/student/{student_id}', [AssignmentController::class, 'isEnrolled']);
-Route::get('/course/{course_id}/student/{student_id}/enroll', [AssignmentController::class, 'enrollCourse']);
-Route::get('/course/{course_id}/student/{student_id}/download/{file_name}', [AssignmentController::class,'downloadFile']);
-Route::get('/course/{course_id}/student/{student_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment']);
-Route::post('/course/{course_id}/student/{student_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment']);
+//registration
+Route::get('dashboard', [AuthController::class, 'userDashboard']); 
+Route::get('login', [AuthController::class, 'Index'])->name('login');
+Route::post('custom-login', [AuthController::class, 'userCustomLogin'])->name('login.custom'); 
+Route::get('registration', [AuthController::class, 'userRegistration'])->name('register-user');
+Route::post('custom-registration', [AuthController::class, 'userCustomRegistration'])->name('register.custom'); 
+Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
 
-Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments']);
-Route::get('/teacher/{id}/assignment/', [TeacherController::class, 'showAssignments']);
-Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment']);
-Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment']);
+//forgetpassword
+Route::get('forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
-Route::get('/{id}', [UserController::class, 'showLayout'])->name('home');
-Route::get('/{teacher_id}/Teacher/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
+//user
+Route::middleware(['web','auth'])->group(function(){
+  Route::get('/user-list', [AuthController::class, 'showUserList'])->name('userlist'); 
+  Route::delete('/user/{id}', [AuthController::class, 'deleteUser'])->name('user.delete');
+  Route::get('/userdetail/{id}', [AuthController::class, 'userDetail'])->name('user.detail'); 
+  Route::get('/useredit/{id}', [AuthController::class, 'editUser'])->name('user.edit'); 
+  Route::post('/update/{id}',[AuthController::class, 'updateUser'])->name('user.update');
+});
 
-Route::get('Teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard']);
+Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student-home');
+Route::get('/student/{id}/course', [CourseController::class, 'showStudentCourse'])->name('student.course');
+Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
+Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('student.courseDetail');
+Route::get('/student/{id}/course/{course_id}/enroll', [AssignmentController::class, 'enrollCourse'])->name('student.course.enroll');
+Route::get('/student/{id}/course/{course_id}/download/{file_name}', [AssignmentController::class,'downloadFile'])->name('student.course.download');
+Route::get('/student/{id}/course/{course_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('student.course.addAssignment');
+Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('student.courseUpdateAssignment');
+Route::get('/student/{id}/dashboard/', [StudentController::class, 'showDashboard']);
 
-Route::get('/Student/{id}/dashboard/', [StudentController::class, 'showDashboard']);
+Route::get('/teacher/{id}', [UserController::class, 'showLayout'])->name('teacher-home');
+Route::get('/teacher/{id}/assignment/', [TeacherController::class, 'showAssignments'])->name('teacher.assignment');
+Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment'])->name('teacher.assignment.download');
+Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment'])->name('teacher.assignment.comment');
+Route::post('/teacher/{id}/assignment/{assignment_id}/grade', [TeacherController::class, 'submitGrade'])->name('teacher.assignment.grade.submit');
+Route::get('/teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard']);
+Route::get('/teacher/{id}/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
