@@ -44,8 +44,11 @@ class AuthController extends Controller
    
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
-                        ->withSuccess('Signed in');
+            if( Auth::user()->role_id == 1){
+               return redirect('/student/'.Auth::user()->id);
+            }else{
+                return redirect('/teacher/'.Auth::user()->id);
+            }
         }
         else{
             return redirect()->back();

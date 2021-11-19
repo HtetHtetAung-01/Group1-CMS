@@ -38,11 +38,13 @@ Route::get('reset-password/{token}', [ForgetPasswordController::class, 'showRese
 Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 //user
-Route::get('/user-list', [AuthController::class, 'showUserList']); 
-Route::delete('/user/{id}', [AuthController::class, 'deleteUser']);
-Route::get('/userdetail/{id}', [AuthController::class, 'userDetail']); 
-Route::get('/useredit/{id}', [AuthController::class, 'editUser']); 
-Route::post('/update/{id}',[AuthController::class, 'updateUser']);
+Route::middleware(['web','auth'])->group(function(){
+  Route::get('/user-list', [AuthController::class, 'showUserList']); 
+  Route::delete('/user/{id}', [AuthController::class, 'deleteUser']);
+  Route::get('/userdetail/{id}', [AuthController::class, 'userDetail']); 
+  Route::get('/useredit/{id}', [AuthController::class, 'editUser']); 
+  Route::post('/update/{id}',[AuthController::class, 'updateUser']);
+});
 
 
 Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student-home');

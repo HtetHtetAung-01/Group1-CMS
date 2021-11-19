@@ -40,7 +40,6 @@ class UserDao implements UserDaoInterface
             'role_id' => $data['role_id'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            // 'confirm_password' => Hash::make($data['confirm_password']),
             'phone' => $data['phone'],
             'address' => $data['address'],
         ]);
