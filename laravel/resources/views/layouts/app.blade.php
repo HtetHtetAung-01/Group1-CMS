@@ -21,9 +21,8 @@
         <p>{{ $user->name }} ({{ $roleName }})</p>
       </button>
       <div class="dropdown">
-        <a href="#">Profile</a>
-        <a href="#">Logout</a>
-        <a href="#">Setting</a>
+        <a href="{{ route("user.detail", ['id' => Auth::user()->id]) }}">Profile</a>
+        <a href="{{ route('signout') }}">Logout</a>
       </div>
     </div>
   </nav>
@@ -43,20 +42,31 @@
           
           <ul class="menu-show">
             @foreach($enrolledCourse as $course)
-              <li class="list"><a href="#">{{ $course->title }}</a></li>
+              <li class="list"><a href="{{ route("student.course", ['id' => Auth::user()->id, 'course_id'=>$course->id ]) }}">{{ $course->title }}</a></li>
             @endforeach
           </ul>
         </li>
         @endif
-        <li class="@if($route == $roleName.'.assignment') ? active : ''; @endif"><a href="<?php echo '/'.$roleName.'/'.$user->id.'/assignment' ?>">Assignment</a></li>
+
+        <li class="@if($route == $roleName.'.assignment') ? active : ''; @endif">
+
+        @if(Auth::user()->role_id == 1)
+          <a href="{{ route("student.assignment", ['id' => Auth::user()->id])}}">Assignment</a>
+        @elseif(Auth::user()->role_id == 2)
+          <a href="{{ route("teacher.assignment", ['id' => Auth::user()->id])}}">Assignment</a>        
+        @endif
+        </li>
+
         @if($roleName == 'teacher')
-          <li class="@if($route == 'studentList') ? active : ''; @endif"><a href="<?php echo ' /teacher/'.$user->id.'/student-info' ?>">Students</a></li>
+          <li class="@if($route == 'studentList') ? active : ''; @endif">
+            <a href="{{route ('studentList', ['id' => Auth::user()->id]) }} ">Students</a>
+          </li>
         @endif
         
       </ul>
     </aside>
-
     <div class="content">
+    {{ Auth::user()->name }}
     @yield('content')
     </div>
   </div>
