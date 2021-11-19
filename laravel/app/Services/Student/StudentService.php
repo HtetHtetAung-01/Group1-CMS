@@ -37,4 +37,30 @@ class StudentService implements StudentServiceInterface
         
         return $courses;
     }
+
+    public function getEnrolledData($student_id)
+    {
+        return $this->studentCourseDao->getTotalEnrolledCoursebyStudent($student_id);
+    }
+
+    public function getCompletedData($student_id)
+    {
+        return $this->studentCourseDao->getTotalCompletedCoursebyStudent($student_id);
+    }
+
+    public function getStudentGradeData($student_id)
+    {
+      $charts = array();
+
+        // Get Number of Student by Course Title
+        $studentPer = $this->studentCourseDao->getStudentPerformanceData($student_id);
+        $chartData = "";
+        foreach ($studentPer as $item) {
+            $chartData .= "['".$item->assignmentName."', ". $item->assignmentGrade."],";
+        }
+        // Remove the last comma and Add to list
+        array_push($charts, rtrim($chartData, ","));
+
+        return $charts;
+    }
 }

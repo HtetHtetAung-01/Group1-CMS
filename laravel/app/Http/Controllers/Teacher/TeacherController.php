@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Contracts\Services\Teacher\TeacherServiceInterface;
+use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentFormRequest;
-use App\Services\User\UserService;
 use App\Http\Requests\GradeSubmitRequest;
 
 class TeacherController extends Controller
@@ -13,7 +13,7 @@ class TeacherController extends Controller
     private $teacherService;
     private $userService;
 
-    public function __construct(TeacherServiceInterface $teacherServiceInterface, UserService $userService)
+    public function __construct(TeacherServiceInterface $teacherServiceInterface, UserServiceInterface $userService)
     {
         $this->teacherService = $teacherServiceInterface;
         $this->userService = $userService;
@@ -28,6 +28,19 @@ class TeacherController extends Controller
         $enrolledCourse = $this->userService->getEnrolledCourse($teacher_id, $role);
 
         return view('teachers/assignment', compact('user', 'role', 'enrolledCourse', 'courseTitles'));
+    }
+
+    public function showDashboard($id)
+    {
+        $user = $this->userService->getUserById($id);
+        $roles = $this->userService->getUserRole($id);
+        $role = $roles->type;
+        $enrolledCourse = $this->userService->getEnrolledCourse($id, $role);
+
+        $chartData = $this->teacherService->getChartData();
+        $totalStudent = $this->teacherService->getTotalStudent();
+    
+        return view('teachers/dashboard', compact('user', 'role', 'enrolledCourse', 'chartData', 'totalStudent'));
     }
 
     public function addCommentToAssignment(CommentFormRequest $request, $id, $assignmentId) {

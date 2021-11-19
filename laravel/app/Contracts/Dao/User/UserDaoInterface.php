@@ -9,54 +9,61 @@ use Illuminate\Http\Request;
  */
 interface UserDaoInterface
 {
-      /**
-     * get the user by id
-     * @return $user
-     */
-    public function getUserById($id);
+	/**
+	 * get the user by id
+	 * @return $user
+	 */
+	public function getUserById($id);
 
-    /**
-     * get role of user
-     * @return $role
-     */
-    public function getUserRole($id);
+	/**
+	 * get role of user
+	 * @return $role
+	 */
+	public function getUserRole($id);
 
-    /**
-     * get the list of users(role = student) who enrolled $courseList
-     * @return $studentList
-     */
-    public function getStudentList($courseList);
-    
-    /**
-      * To create user
-      * @return array $userCreate
-      */
-    public function createUser($data);
+	/**
+	 * get the list of users(role = student) who enrolled $courseList
+	 * @return $studentList
+	 */
+	public function getStudentList($courseList);
 
-    /**
-     * To create user
-     * @return array $userCreate
-     */
-    public function savePhoto($profile);
+	/**
+	 * To create user
+	 * @return array $userCreate
+	 */
+	public function createUser($data);
 
-    /**
-      * To get userList
-      */
-    public function getUserList($request);
+	/**
+	 * To create user
+	 * @return array $userCreate
+	 */
+	public function savePhoto($profile);
 
-    /**
-      * To delete user
-      */
-    public function deleteUser($id);
+	/**
+	 * To get userList
+	 */
+	public function getUserList($request);
 
-    /**
-      * To delete user
-      */
-    public function editUser($id);
+	/**
+	 * To delete user
+	 */
+	public function deleteUser($id);
 
-    /**
-      * To update user
-      */
-  public function updateUser($id,$request);
+	/**
+	 * To delete user
+	 */
+	public function editUser($id);
 
+	/**
+	 * To update user
+	 */
+	public function updateUser($id, $request);
+
+	/**
+	 * Get the total number of student by gender
+	 * @return stdClass total number of student by gender
+	 */
+	public function getTotalStudentByGender();
+
+	public function getTotalStudent();
 }
