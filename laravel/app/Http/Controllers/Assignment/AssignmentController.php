@@ -165,13 +165,14 @@ class AssignmentController extends Controller
      */
     public function addStudentAssignment($student_id, $course_id, $assignment_id, FileSubmitRequest $filename)
     {
-        $ROOT_DIR = 'uploads';
+        $ROOT_DIR = 'new_assignments';
 
         if (!is_dir($ROOT_DIR)) {
             mkdir($ROOT_DIR);
         }
+        
         $validated = $filename->validated();
-        $file = $filename->inputfile;
+        $file = $validated['inputFile'];
         $inputFileName = Storage::putFileAs($ROOT_DIR, $file, $file->getClientOriginalName());
 
         $this->assignmentInterface->addStudentAssignment($student_id, $course_id, $assignment_id, $inputFileName);

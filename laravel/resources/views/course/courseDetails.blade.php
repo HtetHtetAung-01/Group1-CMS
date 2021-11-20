@@ -95,7 +95,7 @@
               @else
               <h3 class="homework-lbl {{ $isEnrolled? 'disabled-lbl' : ''}}">Homework</h3>
               @endif
-              <form action="{{route('student.courseUpdateAssignment', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
+              <form action="{{route('student.course.assignment.update', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
                 <div class="homework d-flex">
                   @if($started[$key]==false)
                   <div class="disabled-input">
@@ -104,9 +104,9 @@
                       @endif
                       {{ csrf_field() }}
                       @if($started[$key]==false)
-                      <input type="file" name="inputfile" id="input-file-name" class="default-file-input disabled-file-input" disabled />
+                        <input type="file" name="inputFile" id="input-file-name" class="default-file-input disabled-file-input" disabled />
                       @else
-                      <input type="file" name="inputfile" id="input-file-name" class="default-file-input {{ $isEnrolled? 'disabled-file-input' : 'file-input'}}" {{ $isEnrolled? 'disabled' : ''}} />
+                        <input type="file" name="inputFile" id="input-file-name" class="default-file-input {{ $isEnrolled? 'disabled-file-input' : 'file-input'}}" {{ $isEnrolled? 'disabled' : ''}} />
                       @endif
                     </div>
                     <div class="d-flex">
