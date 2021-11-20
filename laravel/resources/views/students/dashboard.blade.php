@@ -19,7 +19,9 @@
   </div>
 </div>
 
-<div id="columnchart_material" style="width: 500px; height: 400px;"></div>
+<div class="chart-bg">
+  <div id="columnchart_material" class="chart-pnl"></div>
+</div>
 
 <script src="{{asset('js/library/loader.js')}}"></script>
 <script>
@@ -40,7 +42,7 @@
       chart: {
         title: 'Student Performance',
         subtitle: 'Basic and Intermediate: Assignments',
-        width: 900,
+        width: 1000,
       }
     };
 
