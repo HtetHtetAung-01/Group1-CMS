@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     // Accordian
-    $('.accd-dt').click(function(){ 
+    $('.accd-dt course').click(function(){ 
         var duration = 250;
         $('.accd-dt').find('i').removeClass('fa-chevron-up');
         $('.accd-dd').slideUp(duration);

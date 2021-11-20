@@ -1,14 +1,8 @@
-
 @extends('layouts.app')
 
-@section('content')
+@section('title', "Student Assignments")
 
-  <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/student-assignment.css') }}">
-  <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
-  <script src="{{ asset('js/common.js') }}"></script>
-  <title>Assignments</title>
+@section('content')
   <div class="assignment-panel">
     <div class="tab-pnl">
       <ul class="tab-nav course-tab clearFix">
@@ -68,5 +62,4 @@
         @endforeach
       </div>
   </div>
-
 @endsection

@@ -1,11 +1,17 @@
 @extends('layouts.app')
 
-@section('content')
-  <title>Course_Details</title>
-  <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
+@section('title', "Course Detail")
+    
+@section('assets')
   <link rel="stylesheet" href="{{ asset('css/courseDetails.css') }}">
+@endsection
 
+@section('scripts')
+  <script src="{{ asset('js/library/accordian.js') }}"></script>
+  <script src="{{ asset('js/library/confirm_modal.js') }}"></script>
+@endsection
+
+@section('content')
   <div class="course-details">
     <div class="course-content">
       <div class="title-btn">
@@ -36,7 +42,7 @@
       <dl class="accd-lists">
         @foreach ($courseDetails as $key => $value)
         <div class="accd-li">
-          <dt class="accd-dt d-flex">
+          <dt class="accd-dt d-flex course">
             <div class="d-flex">
               @if($isEnrolled==false)
               @if($assignmentStatus != NULL && $key < (count($assignmentStatus)) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed.png" alt="progress-icon">
@@ -152,10 +158,4 @@
       </dl><!-- /.accd-lists -->
     </div><!-- /.assignment-list -->
   </div><!-- /.course-details -->
-
-<script src="{{ asset('js/library/jquery.min.js') }}"></script>
-<script src="{{ asset('js/library/common.js') }}"></script>
-<script src="{{ asset('js/library/jquery-3.4.1.min.js') }}"></script>
-<script src="{{ asset('js/library/confirm_modal.js') }}"></script>
-
 @endsection
