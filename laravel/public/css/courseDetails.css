@@ -18,12 +18,10 @@ body {
 
 .course-details {
     max-width: 990px;
-    /* margin: 71px 0 0 290px; */
 }
 
 .course-content {
     background-color: #F6F6F6;
-    padding: 31px 0 0 57px;
 }
 
 .course-title {
@@ -81,7 +79,6 @@ a:hover {
     overflow-y: scroll;
     background-color: #F6F6F6;
     overflow-x: hidden;
-    padding: 31px 0 0 57px;
     height: 466px;
 }
 
@@ -92,7 +89,7 @@ a:hover {
 /* Scrollbar Styling */
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -100,7 +97,7 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #d9d9d9;
+    background: #a8a8a882;
 }
 
 .assignment-name {
@@ -240,7 +237,7 @@ a:hover {
 .accd-li.course .accd-dd {
     background-color: #ffffff;
     padding: 0 0 0 92px;
-    height: 408px;
+    padding: 0 0 51px 92px;
 }
 
 .accd-li.course .accd-dt i {

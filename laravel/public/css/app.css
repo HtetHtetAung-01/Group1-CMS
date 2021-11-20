@@ -1,207 +1,222 @@
 .clearfix:after {
-  content: "";
-  clear: both;
-  display: block;
-  visibility: hidden;
-  font-size: 0;
+    content: "";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    font-size: 0;
 }
 
 body {
-  width: 1280px;
-  max-width: 1920px;
-  margin: auto;
-  background: #F6F6F6;
-  font-family: 'Poppings-Regular';
+    width: 1280px;
+    max-width: 1920px;
+    margin: auto;
+    background: #F6F6F6;
+    font-family: 'Poppings-Regular';
 }
 
 .nav {
-  width: 100%;
-  background: #ffffff;
-  padding: 1% 4%;
+    width: 100%;
+    background: #ffffff;
+    padding: 1% 4%;
 }
 
 .cms {
-  float: left;
-  width: fit-content;
-  margin-top: 5px;
-  font-size: 22px;
-  letter-spacing: 3px;
+    float: left;
+    width: fit-content;
+    margin-top: 5px;
+    font-size: 22px;
+    letter-spacing: 3px;
+}
+
+.db-icon {
+    font-family: "FontAwsome-Solid";
+    color: #ffffff;
+    font-size: 22px;
+    font-style: normal;
+    margin-right: 10px;
 }
 
 .profile-btn {
-  color: #000000;
-  background: none;
-  padding: 5px 0;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
+    color: #000000;
+    background: none;
+    padding: 5px 0;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }
 
 .profile-blk {
-  float: right;
-  position: relative;
+    float: right;
+    position: relative;
 }
 
 .dropdown {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 99;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 99;
 }
 
 .dropdown a {
-  color: black;
-  padding: 12px 20px;
-  text-decoration: none;
-  display: block;
+    color: black;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
 }
 
 .dropdown a:hover {
-  background-color: #ddd;
+    background-color: #ddd;
 }
 
 .profile-blk:hover .dropdown {
-  display: block;
+    display: block;
 }
 
 .container {
-  display: flex;
+    display: flex;
 }
 
-*{
-  margin: 0;
-  padding: 0;
-  user-select: none;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-.btn{
-  position: absolute;
-  top: 15px;
-  left: 45px;
-  height: 45px;
-  width: 45px;
-  text-align: center;
-  background: #1b1b1b;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: left 0.4s ease;
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-.sidebar{
-  float: left;
-  width: 20%;
-  min-height: 600px;
-  background: #1b1b1bc4;
-  opacity: 0.9;
+.btn {
+    position: absolute;
+    top: 15px;
+    left: 45px;
+    height: 45px;
+    width: 45px;
+    text-align: center;
+    background: #1b1b1b;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: left 0.4s ease;
 }
 
-.sidebar ul{
-  background: #1b1b1b;
-  height: 100%;
-  width: 100%;
-  list-style: none;
-}
-.sidebar ul li{
-  line-height: 60px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-.sidebar ul li:last-child{
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-.sidebar ul li a{
-  position: relative;
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  padding-left: 40px;
-  display: block;
-  width: 100%;
-  border-left: 3px solid transparent;
+.sidebar {
+    float: left;
+    width: 20%;
+    min-height: 600px;
+    background: #1b1b1bc4;
+    opacity: 0.9;
 }
 
-.sidebar ul li.active a{
-  background: #1492E6;
+.sidebar ul {
+    background: #1b1b1b;
+    height: 100%;
+    width: 100%;
+    list-style: none;
 }
 
-.sidebar ul ul{
-  position: static;
-  display: none;
+.sidebar ul li {
+    line-height: 60px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
-.sidebar ul .menu-show.show{
-  display: block;
+
+.sidebar ul li:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-.sidebar ul .serv-show.show1{
-  display: block;
+
+.sidebar ul li a {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding-left: 40px;
+    display: block;
+    width: 100%;
+    border-left: 3px solid transparent;
 }
-.sidebar ul ul li{
-  line-height: 42px;
-  border-top: none;
+
+.sidebar ul li.active a {
+    background: #1492E6;
 }
-.sidebar ul ul li a{
-  font-size: 17px;
-  color: #e6e6e6;
-  padding-left: 80px;
+
+.sidebar ul ul {
+    position: static;
+    display: none;
 }
-.sidebar ul li.active ul li a{
-  color: #e6e6e6;
-  background: #1b1b1b;
-  border-left-color: transparent;
+
+.sidebar ul .menu-show.show {
+    display: block;
 }
-.sidebar ul ul li a:hover{
-  color: #1492E6!important;
+
+.sidebar ul .serv-show.show1 {
+    display: block;
+}
+
+.sidebar ul ul li {
+    line-height: 42px;
+    border-top: none;
+}
+
+.sidebar ul ul li a {
+    font-size: 17px;
+    color: #e6e6e6;
+    padding-left: 80px;
+}
+
+.sidebar ul li.active ul li a {
+    color: #e6e6e6;
+    background: #1b1b1b;
+    border-left-color: transparent;
+}
+
+.sidebar ul ul li a:hover {
+    color: #1492E6 !important;
 }
 
 .sidebar ul ul li.active .sidebar ul ul li a {
-  color: #1492E6!important;
+    color: #1492E6 !important;
 }
-.sidebar ul li a span{
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  font-size: 22px;
-  transition: transform 0.4s;
+
+.sidebar ul li a span {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 22px;
+    transition: transform 0.4s;
 }
-.sidebar ul li a span.rotate{
-  transform: translateY(-50%) rotate(-180deg);
+
+.sidebar ul li a span.rotate {
+    transform: translateY(-50%) rotate(-180deg);
 }
 
 
 .content {
-  float: left;
-  width: 80%;
-  background: #F6F6F6;
-  padding: 3%;
+    float: left;
+    width: 80%;
+    background: #F6F6F6;
+    padding: 3% 3% 0;
 }
 
 .table-view {
-  padding: 5%;
+    padding: 5%;
 }
 
 .student-info {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 15px;
-  text-align: center;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    text-align: center;
 }
 
 .student-info-header {
-  background: #1492E6;
-  color: #ffffff;
+    background: #1492E6;
+    color: #ffffff;
 }
 
 .student-info th,
 .student-info td {
-  padding: 1.5%;
+    padding: 1.5%;
 }
 
 .student-info-content {
-  background: #d8e1f3;
+    background: #d8e1f3;
 }
-
-
-/* Course */
-
-
