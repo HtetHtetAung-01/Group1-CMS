@@ -15,8 +15,8 @@ $(document).ready(function() {
       $(content).eq( $(this).index()).addClass('active');
   });  
 
-  // Accordian
-  $('.accd-dt').click(function(){
+  // Accordian for Comment
+  $('.accd-li.comment .accd-dt').click(function(){
      
     var duration = 250;
     $('.accd-dd').slideUp(duration);
@@ -24,10 +24,10 @@ $(document).ready(function() {
     var dd = $(this).next('.accd-dd');
     if (dd.is(':hidden')) {
         dd.slideDown(duration);
-        $(this).find('p').html('Hide Comment<i>&#xf077;</i> ');
+        $(this).find('p').html('Hide Comments<i>&#xf077;</i> ');
       } else {
         dd.slideUp(duration);
-        $(this).find('p').html('Show Comment<i>&#xf078;</i>');
+        $(this).find('p').html('Show Comments<i>&#xf078;</i>');
     }
 
 });

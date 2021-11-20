@@ -33,7 +33,7 @@
                         <tr>
                           <td colspan="3">
                             <dl class="accd">
-                              <div class="accd-li">
+                              <div class="accd-li comment">
                                 <dt class="accd-dt accd-dt-margin">
                                   <p class="cmt-toggle">Show Comments<i>&#xf078;</i></p>
                                 </dt>

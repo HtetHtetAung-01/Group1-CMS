@@ -41,8 +41,8 @@
     <div class="assignment-list">
       <dl class="accd-lists">
         @foreach ($courseDetails as $key => $value)
-        <div class="accd-li">
-          <dt class="accd-dt d-flex course">
+        <div class="accd-li course">
+          <dt class="accd-dt d-flex">
             <div class="d-flex">
               @if($isEnrolled==false)
               @if($assignmentStatus != NULL && $key < (count($assignmentStatus)) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed.png" alt="progress-icon">
@@ -55,7 +55,7 @@
                   {{ $courseDetails[$key]->name }}
                 </span>
             </div>
-            <i class="fas fa-chevron-down d-left"></i>
+            <i class="d-left accd-arrow">&#xf078;</i>
           </dt><!-- /.accd-dt -->
           <dd class="accd-dd">
             <div class="accd-content">

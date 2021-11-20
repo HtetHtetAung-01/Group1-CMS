@@ -224,53 +224,28 @@ a:hover {
     opacity: 0.7;
 }
 
-/* Accordian - Structure */
-
-.accd-dt span {
-    font-size: 18px;
-    float: left;
-}
-
-.accd-dt .fas {
-    float: right;
-}
-
-.accd-dt::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
-.accd-dt:hover {
-    cursor: pointer;
-}
-
-.accd-dd {
-    display: none;
-    padding: 10px 15px;
-}
-
 /* Accordian - Appearence */
 
-.accd-dt {
+.accd-li.course {
+    padding-bottom: 15px;
+}
+
+.accd-li.course .accd-dt {
     background-color: #ffffff;
     padding: 14px 31px 12px;
     color: #000000;
     box-shadow: 0px 3px 6px rgb(0 0 0 / 5%);
 }
 
-.accd-dd {
+.accd-li.course .accd-dd {
     background-color: #ffffff;
     padding: 0 0 0 92px;
     height: 408px;
 }
 
-.accd-li {
-    padding-bottom: 15px;
-}
-
-i.fas.fa-chevron-up,
-i.fas.fa-chevron-down {
+.accd-li.course .accd-dt i {
+    font-family: "FontAwsome-Solid";
+    font-style: normal;
     font-size: 22px;
     color: #1492E6;
 }

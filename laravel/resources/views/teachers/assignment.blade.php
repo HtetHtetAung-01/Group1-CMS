@@ -74,10 +74,9 @@
                                                         <tr>
                                                             <td colspan="4">
                                                                 <dl class="accd">
-                                                                    <div class="accd-li">
+                                                                    <div class="accd-li comment">
                                                                         <dt class="accd-dt">
-                                                                            <p class="cmt-toggle">Show
-                                                                                Comments<i>&#xf078;</i></p>
+                                                                            <p class="cmt-toggle">ShowComments<i>&#xf078;</i></p>
                                                                         </dt>
                                                                         <!-- /.accd-dt -->
                                                                         <dd class="accd-dd cmt-msg">

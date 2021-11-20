@@ -108,7 +108,7 @@ body {
   border-bottom: 3px solid #1492E6;
 }
 
-/* Accordian */
+/* Accordian for Comment*/
 
 .accd-dt span {
   font-size: 18px;
@@ -126,7 +126,6 @@ body {
 .accd-dt i{
   font-style: normal;
   font-family: 'FontAwsome-Solid';
-  /* margin-left: 5px; */
 }
 
 .cmt-toggle {
