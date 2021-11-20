@@ -323,7 +323,7 @@ i.fas.fa-chevron-down {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 45%;
+    width: 40%;
 }
 
 .modal-close {
@@ -371,4 +371,70 @@ i.fas.fa-chevron-down {
     background-color: #1492E6;
     margin-left: 20px;
     color: #ffffff;
+}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+    background-color: #1492E6;
+    color: white;
+    font-size: 16px;
+    padding-block: 5px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    width: 120px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 45%;
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 5%);
+    z-index: 9;
+    background-color: #a8a8a8;
+}
+
+/* Add styles to the form container */
+.form-container {
+    max-width: 700px;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+}
+
+/* Set a style for the submit/login button */
+.form-container .popup-btn {
+    background-color: #1492E6;
+    color: white;
+    padding: 13px 20px;
+    border: none;
+    cursor: pointer;
+    width: 75%;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+    background-color: #ffffff;
+    border: 1px solid #1492E6;
+    color: #1492E6;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover,
+.open-button:hover {
+    opacity: 1;
+}
+
+.mdl-title {
+    font-weight: bold;
+    width: 75%;
+    margin: 0 auto 5%;
+    line-height: 1.5;
 }
