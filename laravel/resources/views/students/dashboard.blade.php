@@ -1,5 +1,11 @@
 @extends ('layouts.app')
+
+@section('title', "Dashboard")
+
+@section('assets')
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+@endsection
+
 @section('content')
 
 <div class="statistics">
@@ -24,11 +30,11 @@
   google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
-    
+
     var data = google.visualization.arrayToDataTable([
-            ['assignmentName', 'assignmentGrade'],
-            <?php echo $studentChartData[0] ?>
-        ]);
+      ['assignmentName', 'assignmentGrade'],
+      <?php echo $studentChartData[0] ?>
+    ]);
 
     var options = {
       chart: {

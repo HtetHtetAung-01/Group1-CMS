@@ -1,9 +1,13 @@
 @extends ('layouts.app')
  
+@section('title', "Student Lists")
+
+@section('assets')
+<link rel="stylesheet" href="{{ asset('css/student-info.css') }}">
+@endsection
+
 @section('content')
 
-<!-- Styles -->
-<link rel="stylesheet" href="{{ asset('css/student-info.css') }}">
 @foreach($teacherCourse as $key => $value)
 
 <div class="table-view">

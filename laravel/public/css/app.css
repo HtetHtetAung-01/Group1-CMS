@@ -16,7 +16,7 @@ body {
 
 .nav {
   width: 100%;
-  background: #f1f1f1;
+  background: #ffffff;
   padding: 1% 4%;
 }
 
@@ -171,7 +171,7 @@ body {
 .content {
   float: left;
   width: 80%;
-  background: #ffffff;
+  background: #F6F6F6;
   padding: 3%;
 }
 
