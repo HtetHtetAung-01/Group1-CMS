@@ -79,11 +79,11 @@
                 </p>
                 @endif
                 @if($started[$key]==false)
-                <a href="{{route('student.course.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'file_name' => $courseDetails[$key]->file_path])}}" class="default-download-btn disabled-btn">
+                <a href="{{route('student.course.assignment.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn disabled-btn">
                   Download File
                 </a>
                 @else
-                <a href="{{route('student.course.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'file_name' => $courseDetails[$key]->file_path])}}" class="default-download-btn {{ $isEnrolled? 'disabled-btn' : 'download-btn'}}">
+                <a href="{{route('student.course.assignment.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn {{ $isEnrolled? 'disabled-btn' : 'download-btn'}}">
                   Download File
                 </a>
                 @endif

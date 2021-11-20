@@ -149,9 +149,10 @@ class AssignmentController extends Controller
      * @param $filename
      * @return View courseDetails
      */
-    public function downloadFile($filename)
+    public function downloadFile($id, $course_id, $assignment_id)
     {
-        return response()->download(storage_path('app/public/' . $filename));
+        return $this->assignmentInterface->downloadAssignment($assignment_id);
+        // return response()->download(storage_path('app/public/' . $id));
     }
 
     /**

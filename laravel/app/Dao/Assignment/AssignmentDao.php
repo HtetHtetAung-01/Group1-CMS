@@ -3,6 +3,7 @@
 namespace App\Dao\Assignment;
 
 use App\Contracts\Dao\Assignment\AssignmentDaoInterface;
+use App\Models\Assignment;
 use App\Models\StudentCourses;
 use App\Models\StudentAssignments;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,12 @@ use Illuminate\Support\Facades\DB;
  */
 class AssignmentDao implements AssignmentDaoInterface
 {
+
+  public function getAssignmentById($id)
+  {
+    return Assignment::find($id);
+  }
+
   /**
    * Interface for assignment service
    */
