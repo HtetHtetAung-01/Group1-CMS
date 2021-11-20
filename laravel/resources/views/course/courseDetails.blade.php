@@ -53,7 +53,9 @@
           </dt><!-- /.accd-dt -->
           <dd class="accd-dd">
             <div class="accd-content">
-              <button data-modal="modal-start" class="btn-show-modal start-assign-btn {{ $isEnrolled ? 'disabled-btn' : 'start-assignment'}}">Start</button>
+              @if($started[$key]==false)
+                <button data-modal="modal-start" class="btn-show-modal start-assign-btn {{ $isEnrolled ? 'disabled-btn' : 'start-assignment'}}">Start</button>
+              @endif
               <div id="modal-start" class="modal">
                 <div class="modalContent">
                   <span class="modal-close">×</span>
