@@ -24,7 +24,7 @@ class GradeSubmitRequest extends FormRequest
     public function rules()
     {
         return [
-            'grade' => 'required|max:255'
+            'grade' => 'required|max:3|numeric'
         ];
     }
 }
