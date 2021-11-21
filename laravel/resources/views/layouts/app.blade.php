@@ -84,6 +84,18 @@
             </div>
           </nav>
           <div class="main-visual">
+          @if (count($errors) > 0) 
+          <!-- Form Error List --> 
+          <div class="error-alert"> 
+          <i class="error-icon">&#xf06a;</i><strong>Whoops! Something went wrong!</strong> 
+              <br><br>
+               <ul> 
+                  @foreach ($errors->all() as $error)
+                   <li>{{ $error }}</li>
+                  @endforeach
+               </ul> 
+           </div>
+            @endif
             @yield('content')
           </div>
         </div>

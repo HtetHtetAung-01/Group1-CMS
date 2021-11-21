@@ -45,7 +45,7 @@
         <dt class="accd-dt d-flex">
           <div class="d-flex">
             @if($isEnrolled==false)
-            @if($assignmentStatus != NULL && $key < (count($assignmentStatus)) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed.png" alt="progress-icon">
+            @if($assignmentStatus != NULL && $key < (count($assignmentStatus)) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed_icon.png" alt="progress-icon">
               @else
               <img src="/img/progress.png" alt="progress-icon">
               @endif

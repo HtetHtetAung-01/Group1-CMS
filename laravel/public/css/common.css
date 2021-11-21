@@ -20,7 +20,6 @@
 }
 
 body {
-  /* margin: auto; */
   font-family: 'Poppings-Regular';
 }
 
@@ -32,6 +31,10 @@ body {
 
 .tab-nav {
   list-style: none;
+  overflow-x: scroll;
+  width: 100%;
+  display: -webkit-inline-box;
+  padding-bottom: 1.5%;
 }
 
 .tab-nav li {
@@ -97,10 +100,6 @@ body {
   border-bottom: 3px solid rgba(0, 0, 0, 0.1);
 }
 
-.course-tab li:not(:last-child) {
-  border-right: 2px solid rgba(0, 0, 0, .1);
-}
-
 .course-tab li:hover,
 .course-tab li.active {
   font-family: 'Poppings-Bold';
@@ -124,21 +123,24 @@ body {
 
 .accd-dt i{
   font-style: normal;
+  margin-left: 5px;
   font-family: 'FontAwsome-Solid';
 }
 
 .cmt-toggle {
-  font-size: 13px;
+  font-size: 16px;
+  padding-bottom: 3%;
   color: rgba(0, 0, 0, 0.5);
   font-family: 'Poppings-Bold';
 }
 
-.cmt-text:not(:last-child) {
+.cmt-text {
   margin-bottom: 20px;
 }
 
 .cmt-msg input {
-  height: 37px;
+  padding: 12px;
+  font-size: 22px;
   font-family: "FontAwsome-Solid";
   border-radius: 4px;
 }
@@ -150,7 +152,7 @@ body {
   font-size: 14px;
   font-family: Arial;
   color: #000000;
-  border: 2px solid #000000;
+  border: 0.5px solid #000000;
 }
 
 .cmt-msg input[type="submit"] {

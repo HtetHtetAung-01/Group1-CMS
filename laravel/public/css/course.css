@@ -1,13 +1,11 @@
 /* Course */
 
 .card {
-  width: 90%;
   background: #ffffff;
   padding: 1.5% 2%;
-  border-radius: 10px;
   line-height: 1.6;
   margin-bottom: 2%;
-  box-shadow: 0px 3px 6px rgb(0 0 0 / 5%);
+  box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
 }
 
 .course-ttl {
@@ -31,7 +29,6 @@
 .status {
   color: #ffffff;
   padding: 1% 5%;
-
   border-radius: 15px;
 }
 
