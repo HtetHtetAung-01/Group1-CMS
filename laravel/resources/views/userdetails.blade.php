@@ -12,7 +12,7 @@
             <div class="formbg">
                 <div class="formbg-inner">
                     <span class="login-title">User Profile</span>
-                    <form class="login-form">
+                    <form class="login-form" action="{{url('/useredit/'.$detail->id)}}" method="GET">
                         <div class="text">
                             <img src="{{asset($detail->profile_path)}}" alt="" width="100px" height="100px">
                         </div>
@@ -49,6 +49,9 @@
                         <div class="text">
                             <label for="address">Address</label>
                             <input type="text" name="address" value="{{ $detail->address }}" disabled> 
+                        </div>
+                        <div class="text">
+                        <button class="edit-btn">Edit Profile</button>
                         </div>
                     </form>
                 </div>
