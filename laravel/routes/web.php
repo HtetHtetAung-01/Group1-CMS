@@ -47,6 +47,7 @@ Route::middleware(['web','auth'])->group(function(){
   Route::post('/update/{id}',[AuthController::class, 'updateUser'])->name('user.update');
 });
 
+Route::middleware(['web','auth','checkstudent'])->group(function(){
 Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student-home');
 Route::get('/student/{id}/course', [CourseController::class, 'showStudentCourse'])->name('student.course');
 Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
@@ -56,7 +57,9 @@ Route::get('/student/{id}/course/{course_id}/download/{file_name}', [AssignmentC
 Route::get('/student/{id}/course/{course_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('student.course.addAssignment');
 Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('student.courseUpdateAssignment');
 Route::get('/student/{id}/dashboard/', [StudentController::class, 'showDashboard']);
+});
 
+Route::middleware(['web','auth','checkteacher'])->group(function(){
 Route::get('/teacher/{id}', [UserController::class, 'showLayout'])->name('teacher-home');
 Route::get('/teacher/{id}/assignment/', [TeacherController::class, 'showAssignments'])->name('teacher.assignment');
 Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment'])->name('teacher.assignment.download');
@@ -64,3 +67,4 @@ Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherControl
 Route::post('/teacher/{id}/assignment/{assignment_id}/grade', [TeacherController::class, 'submitGrade'])->name('teacher.assignment.grade.submit');
 Route::get('/teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard']);
 Route::get('/teacher/{id}/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
+});
