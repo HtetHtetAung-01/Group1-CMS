@@ -12,6 +12,11 @@
             <div class="formbg">
                 <div class="formbg-inner">
                     <span class="login-title">Login</span>
+                    @if (Session::has('message'))
+                         <div class="alert alert-success" role="alert">
+                            {{ Session::get('message') }}
+                        </div>
+                    @endif
                     <form class="login-form" form action="{{ route('login.custom')  }}" method="POST">
                         @csrf
                         <div class="text">

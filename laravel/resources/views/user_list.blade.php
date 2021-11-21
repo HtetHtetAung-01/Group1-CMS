@@ -10,16 +10,16 @@
                 <div>{{ $userList->name }}</div>
             </td>
             <td class="table-text">
-                <div><img src="{{asset($userList->photo)}}" alt="" width="100px" height="100px"></div>
+                <div><img src="{{asset($userList->profile_path)}}" alt="" width="100px" height="100px"></div>
             </td>
             <td class="table-text">
-                <div>{{ $userList->date_of_birth }}</div>
+                <div>{{ $userList->dob }}</div>
             </td>
             <td class="table-text">
                 <div>{{ $userList->gender }}</div>
             </td>
             <td class="table-text">
-                <div>{{ $userList->role_type }}</div>
+                <div>{{ $userList->role_id }}</div>
             </td>
             <td class="table-text">
                 <div>{{ $userList->email }}</div>
@@ -28,28 +28,14 @@
                 <div>{{ $userList->address }}</div>
             </td>
             <td class="table-text">
-                <div>{{ $userList->phone_number }}</div>
+                <div>{{ $userList->phone }}</div>
             </td>
             <!-- userList Details Button -->
-            <!-- <td>
-                <form action="{{url('userdetail/'.$userList->id)}}" method="GET">
-                    {{ csrf_field() }}
-                    <button type="submit" class="btn btn-warning">
-                        <i class="fa fa-btn fa-trash"></i>ShowDetail
-                    </button>
-                </form>
-            </td> -->
-            <!-- userList Update Button -->
             <td>
             <a href="{{url('userdetail/'.$userList->id)}}">Details</a>
             </td>
+            <!-- userList Update Button -->
             <td>
-                <!-- <form action="{{url('/useredit/'.$userList->id)}}" method="GET">
-                    {{ csrf_field() }}
-                    <button type="submit" class="btn btn-warning">
-                        <i class="fa fa-btn fa-trash"></i>Update
-                    </button>
-                </form> -->
             <a href="{{url('/useredit/'.$userList->id)}}">Update</a>
             </td>
             <!-- userList Delete Button -->

@@ -80,12 +80,12 @@ class UserDao implements UserDaoInterface
 			$userinformation->profile_path = $this->savePhoto($profile);
 		}
 
-		$userinformation->date_of_birth = $request->date_of_birth;
+		$userinformation->dob = $request->dob;
 		$userinformation->gender = $request->gender;
-		$userinformation->role_type = $request->role_type;
+		$userinformation->role_id = $request->role_id;
 		$userinformation->email = $request->email;
 		$userinformation->address = $request->address;
-		$userinformation->phone_number = $request->phone_number;
+		$userinformation->phone = $request->phone;
 		$userinformation->save();
 		return $userinformation;
 	}
