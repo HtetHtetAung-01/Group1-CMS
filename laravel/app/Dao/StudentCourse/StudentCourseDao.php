@@ -92,10 +92,7 @@ class StudentCourseDao implements StudentCourseDaoInterface
      */
     public function updateCourseComplete($student_id, $course_id, $status)
     {
-        info("update course completed");
         $update = DB::update('UPDATE student_courses set is_completed = '.$status .' where student_id =' .$student_id. 
-        ' AND course_id = ' .$course_id);
-        
-        info($update);
+        ' AND course_id = ' .$course_id);       
     }
 }

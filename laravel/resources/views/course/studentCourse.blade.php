@@ -32,7 +32,11 @@
     </div>
     <div class="clearfix">
         <p class="no-of-ass"> {{ $S_AssignmentNoList[$course->id] }} Assignments </p>
-        <a href="{{ route("student.courseDetail", ['id' => Auth::user()->id, 'course_id'=>$course->id ]) }}" class="course-detail">See details > </a>
+        @if($status == 'completed' || $status == 'progress')
+          <a href="{{ route("student.courseDetail", ['id' => Auth::user()->id, 'course_id'=>$course->id ]) }}" class="course-detail">See details >> </a>
+        @else
+          <a class="course-detail-disable">See details >></a>
+        @endif
     </div>
   </div>
   @endforeach

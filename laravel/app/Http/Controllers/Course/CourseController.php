@@ -43,10 +43,8 @@ class CourseController extends Controller
       $key++;
     }  
     $S_AssignmentNoList = $anl;
-    // info("Assignment no list");
-    // info($S_AssignmentNoList);
     $cst = $this->getCourseStatus($student_id, $courseIdList);
-
+    
     $index = 1;
     foreach($cst as $key => $value) {
       if($cst[$key] == "completed") {
@@ -76,7 +74,6 @@ class CourseController extends Controller
         $index ++;
       }
     }
-    
     // To get the user details to display layout
     $user = $this->userService->getUserById($student_id);
     $roles = $this->userService->getUserRole($student_id);
@@ -104,35 +101,24 @@ class CourseController extends Controller
         if($totalCourse[$key] == $enroll->course_id) {
           $isenroll = true;
           $assignmentComplete = $this->checkAllAssignmentCompleted($student_id, $enroll->course_id);
-          info("hello");
           if($assignmentComplete == true) {
-            info("true true true");
             $this->courseService->updateCourseComplete($student_id, $enroll->course_id, 1);
-            info("after updating");
-          }
-          else {
-            info("false false false");
-            $this->courseService->updateCourseComplete($student_id, $enroll->course_id, 0);
-          }
-            
-          if($enroll->is_completed == '1') 
             $courseStatusList[$key] = "completed";
+          }
           else {
+            $this->courseService->updateCourseComplete($student_id, $enroll->course_id, 0);
             if($this->isCompletedRequiredCourses($enroll->course_id, $student_id))
               $courseStatusList[$key] = "progress";
             else
               $courseStatusList[$key] = "unlock next";
-          } 
+          }
+           
             
         }
-        $this->isCompletedRequiredCourses($enroll->course_id, $student_id);
       }
       if(!$isenroll)
         $courseStatusList[$key] = "lock";
     } 
-    info("course status list");
-    info($courseStatusList);
-    
     return $courseStatusList;
   }
 
@@ -183,16 +169,13 @@ class CourseController extends Controller
    */
   public function checkAllAssignmentCompleted($student_id, $course_id)
   {
-    $complete = false;
-    $assignmentList = $this->assignmentService->getAssignmentNamesbyCourseId($course_id);
     $assignmentStatus = app('App\Http\Controllers\Assignment\AssignmentController')
     ->isCompletedAssignment($student_id, $course_id);
-    info("Assignmet Status ***");
-    info($assignmentStatus);
     foreach($assignmentStatus as $status) {
       if($status != 'completed')
         return false;
     }
+    
     return true;
   }
 
