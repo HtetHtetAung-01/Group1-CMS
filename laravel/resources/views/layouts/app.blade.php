@@ -18,25 +18,14 @@
     $route = Route::currentRouteName();
     $roleName = strtolower($role);
     @endphp
-    <nav class="nav clearfix">
-        <h1 class="cms">CMS</h1>
-        <div class="profile-blk">
-            <button class="profile-btn">
-                <p>{{ $user->name }} ({{ $roleName }})</p>
-            </button>
-            <div class="dropdown">
-                <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">
-                    Profile</a>
-                <a href="{{ route('signout') }}">Logout</a>
-            </div>
-        </div>
-    </nav>
+    
     @php
     $route = Route::currentRouteName();
     $roleName = strtolower($role);
     @endphp
     <div class="container clearfix">
         <aside class="sidebar">
+            <h3 class="cms">CMS</h3>
             <ul>
                 <li class="@if ($route == $roleName . 'dashboard') ? active : ''; @endif">
                     <a href="<?php echo '/' . $roleName . '/' . $user->id . '/dashboard'; ?>">
@@ -80,7 +69,22 @@
             </ul>
         </aside>
         <div class="content">
+          <nav class="nav clearfix">
+          <p class="text">Hello, Let's Learn Together!</p>
+            <div class="profile-blk">
+                <button class="profile-btn">
+                    <p>{{ $user->name }} ({{ $roleName }})</p>
+                </button>
+                <div class="dropdown">
+                    <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">
+                        Profile</a>
+                    <a href="{{ route('signout') }}">Logout</a>
+                </div>
+            </div>
+          </nav>
+          <div class="main-visual">
             @yield('content')
+          </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
