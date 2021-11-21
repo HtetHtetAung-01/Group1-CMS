@@ -113,7 +113,6 @@ class CourseController extends Controller
               $courseStatusList[$key] = "unlock next";
           }
            
-            
         }
       }
       if(!$isenroll)
@@ -129,19 +128,14 @@ class CourseController extends Controller
   private $i = 0;
   public function isCompletedRequiredCourses($course_id, $student_id)
   {
+    $this->array = [];
     $this->i ++ ;
-    $required_course = DB::table('courses')
-                          ->select('required_courses')
-                          ->where('id', $course_id)
-                          ->whereNull('deleted_at')
-                          ->get();
-
+    $required_course = $this->courseService->getRequiredCourseID($course_id);
     foreach($required_course as $course) {
-      if($course == null && $this->array == null) {
+      if($course->required_courses == null && count($this->array) == 0) {
         return true;
       }
-      $text = str_replace(array('[',']'), '', $course->required_courses);
-      $this->array = explode(",", $text);
+      $this->array = $this->changeStringToArray($course->required_courses);;
       foreach($this->array as $key => $value) {
         $is_completed = DB::table('student_courses')
               ->select('is_completed')
@@ -149,19 +143,29 @@ class CourseController extends Controller
               ->where('course_id', $this->array[$key])
               ->whereNull('deleted_at')
               ->get();
+        if(count($is_completed) == 0) {
+          return false;
+        }
         
         foreach($is_completed as $status) {
           if($status->is_completed == 0) {
             return false;
           }
           else {
-            return $this->isCompletedRequiredCourses($this->array[$key], $student_id);
+            return $this->isCompletedRequiredCourses($this->array[$key], $student_id, false);
           }
             
         }
       }
       return true;
     }
+  }
+
+  public function changeStringToArray($text)
+  {
+    $remove_text = str_replace(array('[',']'), '', $text);
+    $array = explode(",", $remove_text);
+    return $array;
   }
 
   /**

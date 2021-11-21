@@ -20,4 +20,16 @@ interface CourseServiceInterface
      * update the is_completed of the table student_courses
      */
     public function updateCourseComplete($student_id, $course_id, $status);
+
+  /**
+   * get the required course id for $course_id
+   * @return $requiredCourses
+   */
+  public function getRequiredCourseID($course_id);
+
+  /**
+   * get the required courses list
+   * @return $requiredCourses
+   */
+  public function getRequiredCourseList($requiredCourses);
 }
