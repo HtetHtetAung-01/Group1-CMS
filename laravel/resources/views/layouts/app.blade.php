@@ -15,34 +15,35 @@
 
 <body>
     @php
-    $route = Route::currentRouteName();
-    $roleName = strtolower($role);
+        $route = Route::currentRouteName();
+        if(Auth::user()->role_id == 1)
+            $role = 'student';
+        else if(Auth::user()->role_id == 2)
+            $role = 'teacher';
+        else
+            $role = 'admin';
     @endphp
     
-    @php
-    $route = Route::currentRouteName();
-    $roleName = strtolower($role);
-    @endphp
     <div class="container clearfix">
         <aside class="sidebar">
             <h3 class="cms">CMS</h3>
             <ul>
-                <li class="@if ($route == $roleName . 'dashboard') ? active : ''; @endif">
-                    <a href="<?php echo '/' . $roleName . '/' . $user->id . '/dashboard'; ?>">
+                <li class="@if ($route == $role . 'dashboard') ? active : ''; @endif">
+                    <a href="<?php echo '/' . $role . '/' . $user->id . '/dashboard'; ?>">
                         <i class="db-icon">&#xf201;</i>
                         Dashboard
                     </a>
                 </li>
-                @if ($roleName == 'student')
-                <li class="@if ($route == $roleName . '.course') ? active : ''; @endif">
-                    <a href="<?php echo '/' . $roleName . '/' . $user->id . '/course'; ?>" class="menu-btn">
+                @if ($role == 'student')
+                <li class="@if ($route == $role . '.course') ? active : ''; @endif">
+                    <a href="<?php echo '/' . $role . '/' . $user->id . '/course'; ?>" class="menu-btn">
                         <i class="db-icon">&#xf07b;</i>
                         Course
                     </a>
                 </li>
                 @endif
 
-                <li class="@if ($route == $roleName . '.assignment') ? active : ''; @endif">
+                <li class="@if ($route == $role . '.assignment') ? active : ''; @endif">
 
                     @if (Auth::user()->role_id == 1)
                     <a href="{{ route('student.assignment', ['id' => Auth::user()->id]) }}">
@@ -57,7 +58,7 @@
                     @endif
                 </li>
 
-                @if ($roleName == 'teacher')
+                @if ($role == 'teacher')
                 <li class="@if ($route == 'studentList') ? active : ''; @endif">
                     <a href="{{ route('studentList', ['id' => Auth::user()->id]) }} ">
                         <i class="db-icon">&#xf0c0;</i>
@@ -73,7 +74,7 @@
           <p class="text">Hello, Let's Learn Together!</p>
             <div class="profile-blk">
                 <button class="profile-btn">
-                    <p>{{ $user->name }} ({{ $roleName }})</p>
+                    <p>{{ $user->name }} ({{ $role }})</p>
                 </button>
                 <div class="dropdown">
                     <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">
