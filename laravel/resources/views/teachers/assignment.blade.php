@@ -88,21 +88,21 @@
                                                                                 </p>
                                                                             @endforeach
 
-                                                                            <form
-                                                                                action="{{ route('teacher.assignment.comment', ['id' => 4, 'assignment_id' => $item->id]) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                <label for="comment" hidden>Comment</label>
-                                                                                <input type="text" name="comment">
-                                                                                <input type="submit" value="&#xf1d8;">
-                                                                            </form>
-
+                                                                            
                                                                         </dd>
                                                                         <!-- /.accd-dd -->
                                                                     </div>
                                                                     <!-- /.accd-dt -->
                                                                 </dl>
                                                                 <!-- /.accd -->
+                                                                <form class="cmt-msg"
+                                                                    action="{{ route('teacher.assignment.comment', ['id' => 4, 'assignment_id' => $item->id]) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    <label for="comment" hidden>Comment</label>
+                                                                    <input type="text" name="comment" placeholder="Add a comment ...">
+                                                                    <input type="submit" value="&#xf1d8;">
+                                                                </form>
                                                             </td>
                                                         </tr>
                                                     @endforeach
