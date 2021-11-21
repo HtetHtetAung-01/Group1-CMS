@@ -31,6 +31,10 @@ body {
 
 .tab-nav {
   list-style: none;
+  overflow-x: scroll;
+  width: 100%;
+  display: -webkit-inline-box;
+  padding-bottom: 1.5%;
 }
 
 .tab-nav li {
