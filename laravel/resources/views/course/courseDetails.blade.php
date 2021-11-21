@@ -107,7 +107,7 @@
                 @else
                 <h3 class="homework-lbl {{ $isEnrolled? 'disabled-lbl' : ''}}">Homework</h3>
                 @endif
-                <form action="{{route('student.courseUpdateAssignment', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
+                <form action="{{route('student.course.UpdateAssignment', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
                     {{$courseDetails[$key]->id}}
                   <div class="homework d-flex">
                     @if($started[$key]==false)

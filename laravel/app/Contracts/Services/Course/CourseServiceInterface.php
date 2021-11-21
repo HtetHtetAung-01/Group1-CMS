@@ -15,4 +15,9 @@ interface CourseServiceInterface
    * @return $teacherCourseList
    */
   public function getTeacherCourse($id);
+
+  /**
+     * update the is_completed of the table student_courses
+     */
+    public function updateCourseComplete($student_id, $course_id, $status);
 }

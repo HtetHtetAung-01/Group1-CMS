@@ -67,17 +67,21 @@ class AssignmentController extends Controller
      * @param $course_id
      * @return View courseDetails
      */
-    public function isCompletedAssignment($course_id)
+    public function isCompletedAssignment($student_id, $course_id)
     {
         $assignment_details = $this->assignmentInterface->isCompleted($course_id);
         $key = 0;
         $assignmentStatus = [];
+        
         foreach ($assignment_details as $assignment) {
+            
             $is_completed = DB::table('student_assignments')
                 ->select('id', 'uploaded_date', 'file_path')
                 ->where('assignment_id', $assignment->id)
+                ->where('student_id', $student_id)
                 ->whereNull('deleted_at')
                 ->get();
+  
             if ($is_completed->count() == 0) {
                 $assignmentStatus[$key] = 'progress';
             } else {
@@ -89,7 +93,6 @@ class AssignmentController extends Controller
                     }
                 }
             }
-            // info("add status $assignmentStatus[$key]");
             $key++;
         }
         return $assignmentStatus;

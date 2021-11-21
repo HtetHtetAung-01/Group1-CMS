@@ -93,6 +93,7 @@ class AssignmentDao implements AssignmentDaoInterface
    */
   public function isCompleted($course_id)
   {
+    info("course id = $course_id");
     $assignment_details = DB::table('assignments')
       ->select('*')
       ->where('course_id', $course_id)
@@ -132,5 +133,20 @@ class AssignmentDao implements AssignmentDaoInterface
             LEFT OUTER JOIN courses AS C ON C.id = A.course_id 
             WHERE C.id = $course_id;"
     ));
+  }
+
+  /**
+   * get all assignment for the course $course_id
+   * @return $assignmentList
+   */
+  public function getAssignmentsForCourse($course_id)
+  {
+    $assignmentList =  DB::table('assignments')
+                        ->select('id', 'name')
+                        ->where('course_id', $course_id)
+                        ->whereNull('deleted_at')
+                        ->get();
+
+    return $assignmentList;                    
   }
 }

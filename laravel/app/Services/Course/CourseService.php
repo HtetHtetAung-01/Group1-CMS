@@ -34,4 +34,12 @@ class CourseService implements CourseServiceInterface
   {
     return $this->teacherCourseDao->getTeacherCourse($id);
   }
+
+  /**
+     * update the is_completed of the table student_courses
+     */
+    public function updateCourseComplete($student_id, $course_id, $status)
+    {
+      return $this->studentCourseDao->updateCourseComplete($student_id, $course_id, $status);
+    }
 }

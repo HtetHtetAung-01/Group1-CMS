@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Course;
 
+use App\Http\Controllers\Assignment\AssignmentController;
 use App\Http\Controllers\Controller;
+use App\Services\Assignment\AssignmentService;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
 use Illuminate\Support\Facades\DB;
@@ -11,11 +13,13 @@ class CourseController extends Controller
 {
   private $courseService;
   private $userService;
+  private $assignmentService;
 
-  public function __construct(UserService $userService, CourseService $courseService)
+  public function __construct(UserService $userService, CourseService $courseService, AssignmentService $assignmentService)
   {
     $this->courseService = $courseService;
     $this->userService = $userService;
+    $this->assignmentService = $assignmentService;
   }
 
   /**
@@ -28,8 +32,9 @@ class CourseController extends Controller
     foreach($scl as $key => $value) {
       $courseIdList[++$key] = $value->id;
     }
-
+    
     foreach($courseIdList as $key => $value) {
+      
       $number = DB::table('assignments')
               ->where('course_id', $courseIdList[$key])
               ->whereNull('deleted_at')
@@ -71,6 +76,7 @@ class CourseController extends Controller
         $index ++;
       }
     }
+    
     // To get the user details to display layout
     $user = $this->userService->getUserById($student_id);
     $roles = $this->userService->getUserRole($student_id);
@@ -97,17 +103,29 @@ class CourseController extends Controller
       foreach($enrolledCourseList as $enroll) {
         if($totalCourse[$key] == $enroll->course_id) {
           $isenroll = true;
+          $assignmentComplete = $this->checkAllAssignmentCompleted($student_id, $enroll->course_id);
+          info("hello");
+          if($assignmentComplete == true) {
+            info("true true true");
+            $this->courseService->updateCourseComplete($student_id, $enroll->course_id, 1);
+            info("after updating");
+          }
+          else {
+            info("false false false");
+            $this->courseService->updateCourseComplete($student_id, $enroll->course_id, 0);
+          }
+            
           if($enroll->is_completed == '1') 
             $courseStatusList[$key] = "completed";
           else {
-            if($this->isComplete($enroll->course_id, $student_id))
+            if($this->isCompletedRequiredCourses($enroll->course_id, $student_id))
               $courseStatusList[$key] = "progress";
             else
               $courseStatusList[$key] = "unlock next";
           } 
             
         }
-        $this->isComplete($enroll->course_id, $student_id);
+        $this->isCompletedRequiredCourses($enroll->course_id, $student_id);
       }
       if(!$isenroll)
         $courseStatusList[$key] = "lock";
@@ -123,7 +141,7 @@ class CourseController extends Controller
    */
   private $array = [];
   private $i = 0;
-  public function isComplete($course_id, $student_id)
+  public function isCompletedRequiredCourses($course_id, $student_id)
   {
     $this->i ++ ;
     $required_course = DB::table('courses')
@@ -151,13 +169,31 @@ class CourseController extends Controller
             return false;
           }
           else {
-            return $this->isComplete($this->array[$key], $student_id);
+            return $this->isCompletedRequiredCourses($this->array[$key], $student_id);
           }
             
         }
       }
       return true;
     }
+  }
+
+  /**
+   * check all the assignments are completed
+   */
+  public function checkAllAssignmentCompleted($student_id, $course_id)
+  {
+    $complete = false;
+    $assignmentList = $this->assignmentService->getAssignmentNamesbyCourseId($course_id);
+    $assignmentStatus = app('App\Http\Controllers\Assignment\AssignmentController')
+    ->isCompletedAssignment($student_id, $course_id);
+    info("Assignmet Status ***");
+    info($assignmentStatus);
+    foreach($assignmentStatus as $status) {
+      if($status != 'completed')
+        return false;
+    }
+    return true;
   }
 
   /**

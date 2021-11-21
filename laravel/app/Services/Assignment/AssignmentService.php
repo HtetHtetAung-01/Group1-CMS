@@ -79,4 +79,12 @@ class AssignmentService implements AssignmentServiceInterface
   {
     return $this->assignmentDao->isStarted($student_id, $assignment_id);
   }
+
+  /**
+   * get assignment for the course $course_id
+   */
+  public function getAssignmentNamesbyCourseId($course_id)
+  {
+    return $this->assignmentDao->getAssignmentNamesbyCourseId($course_id);
+  }
 }
