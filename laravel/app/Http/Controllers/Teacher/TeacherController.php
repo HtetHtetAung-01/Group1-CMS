@@ -45,7 +45,7 @@ class TeacherController extends Controller
 
     public function addCommentToAssignment(CommentFormRequest $request, $id, $assignmentId) {
         $validated = $request->validated();
-        $this->teacherService->addCommentToAssignment($validated, 3, $assignmentId);
+        $this->teacherService->addCommentToAssignment($validated, $id, $assignmentId);
         return back();
     }
 

@@ -48,13 +48,13 @@
                                             <td>{{$item->name}}</td>
                                             <td>{{$item->uploaded_date}}</td>
                                             <td class="file-path">
-                                                <a href="{{ route('teacher.assignment.download', ['id'=>3, 'assignment_id'=>$item->id]) }}">
+                                                <a href="{{ route('teacher.assignment.download', ['id'=>Auth::user()->id, 'assignment_id'=>$item->id]) }}">
                                                     {{basename($item->file_path)}}
                                                 </a>
                                             </td>
                                             <td>{{($item->grade != null)?$item->grade."%":""}}</td>
                                             <td>
-                                                <button class="open-button" onclick="openForm('{{route('teacher.assignment.grade.submit', ['id'=>4, 'assignment_id' => $item->id])}}')">Submit Grade</button>
+                                                <button class="open-button" onclick="openForm('{{route('teacher.assignment.grade.submit', ['id'=> Auth::user()->id, 'assignment_id' => $item->id])}}')">Submit Grade</button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -74,7 +74,7 @@
                                                             </p>
                                                             @endforeach
                                                             
-                                                            <form action="{{ route('teacher.assignment.comment', ['id'=>4, 'assignment_id' => $item->id]) }}" method="post">
+                                                            <form action="{{ route('teacher.assignment.comment', ['id'=> Auth::user()->id, 'assignment_id' => $item->id]) }}" method="post">
                                                                 @csrf
                                                                 <label for="comment" hidden>Comment</label>
                                                                 <input type="text" name="comment">

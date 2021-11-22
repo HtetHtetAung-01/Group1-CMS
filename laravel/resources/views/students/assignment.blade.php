@@ -18,8 +18,8 @@
       </ul>
       <div class="tab-body">
         @foreach ($courses as $course)
-          @if (count($course->assignments) > 0)
-          <div class="tab-cnt">
+        <div class="tab-cnt">
+            @if (count($course->assignments) > 0)
             <table class="tbl-assignment">
               <thead>
                 <tr>
@@ -63,8 +63,8 @@
                     @endforeach
                   </tbody>
                 </table>
+                @endif
               </div>
-          @endif
         @endforeach
       </div>
   </div>
