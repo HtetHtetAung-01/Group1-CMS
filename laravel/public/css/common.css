@@ -164,6 +164,12 @@ body {
   color: white;
 }
 
+.msg-box-empty  {
+  padding: 20px;
+  background-color: #E5E5E5;
+  font-size: 16px;
+}
+
 /* Common */
 .clearFix::after {
 	content: "";
