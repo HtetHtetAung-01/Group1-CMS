@@ -1,38 +1,37 @@
-<main class="login-form">
-  <div class="cotainer">
-      <div class="row justify-content-center">
-          <div class="col-md-8">
-              <div class="card">
-                  <div class="card-header">Reset Password</div>
-                  <div class="card-body">
-  
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
+</head>
+
+<body>
+    <div class="login-root">
+        <div class="box-root">git git
+            <div class="formbg">
+                <div class="formbg-inner">
+                    <span class="login-title">Reset Password</span>
                     @if (Session::has('message'))
-                         <div class="alert alert-success" role="alert">
-                            {{ Session::get('message') }}
-                        </div>
+                    <div>
+                       {{ Session::get('message') }}
+                    </div>
                     @endif
-  
-                      <form action="{{ route('forget.password.post') }}" method="POST">
-                          @csrf
-                          <div class="form-group row">
-                              <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-                              <div class="col-md-6">
-                                  <input type="text" id="email_address" class="form-control" name="email" required autofocus>
-                                  @if ($errors->has('email'))
-                                      <span class="text-danger">{{ $errors->first('email') }}</span>
-                                  @endif
-                              </div>
-                          </div>
-                          <div class="col-md-6 offset-md-4">
-                              <button type="submit" class="btn btn-primary">
-                                  Send Password Reset Link
-                              </button>
-                          </div>
-                      </form>
-                        
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</main>
+                    <form class="login-form" action="{{ route('forget.password.post') }}" method="POST">
+                        @csrf
+                        <div class="text">
+                            @if ($errors->has('email'))
+                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
+                            <label for="email">E-mail</label>
+                            <input type="email"  id="email_address" class="form-control" name="email" required autofocus>
+                        </div>
+                        <div class="text">
+                        <button type="submit" class="login-btn">Send Password Reset Link</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

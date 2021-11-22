@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Contracts\Services\User\UserServiceInterface;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Hash;
 
 
 class AuthController extends Controller
@@ -51,7 +51,17 @@ class AuthController extends Controller
             }
         }
         else{
-            return redirect()->back();
+            $message = "";
+            $checkUser = User::where('email',$request->email)->first();
+            if($checkUser){
+                $checkPassword = Hash::check($request->password, $checkUser->password);
+                if(!$checkPassword){
+                    $message .= "Incorrect Password";
+                }
+            }else{
+                $message .= "Your email is not registered in the system";
+            }
+            return redirect()->back()->with('message',$message);
         }
     }
 
@@ -129,6 +139,10 @@ class AuthController extends Controller
     public function updateUser($id,Request $request)
     {
         $this->userInterface->updateUser($id, $request);
-        return redirect('user-list');
+        if( Auth::user()->role_id == 1){
+            return redirect('/student/'.Auth::user()->id);
+         }else{
+             return redirect('/teacher/'.Auth::user()->id);
+        }
     }
 }

@@ -14,32 +14,29 @@
                     <form class="login-form" action="{{url('/update/'.$userEdit->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="text">
-                            <img src="C:\Users\Dell\Desktop\Design_auth\YQu5k.png" alt="">
-                        </div>
-                        <div class="text">
                             <label for="name">Name</label>
                             <input type="text" name="name" value="{{ $userEdit->name }}">
                         </div>
                         <div class="text">
                             <label for="Profile Picture">Profile Picture</label>
                             <input type="hidden" name="is_update" id="is_update" value="0">
-                            <div><img src="{{asset($userEdit->photo)}}" id="photo" alt="" width="100px" height="100px" onclick="browseFile()"></div>
-                            <input type="file" id="profile-picture" name="photo" onchange="showPreview(event);" accept="image/png, image/jpeg" style="display: none;">
+                            <div><img src="{{asset($userEdit->profile_path)}}" id="photo" alt="" width="100px" height="100px" onclick="browseFile()"></div>
+                            <input type="file" id="profile-picture" name="profile_path" onchange="showPreview(event);" accept="image/png, image/jpeg" style="display: none;">
                         </div>
                         <div class="text">
                             <label for="date_of_birth">Date_of_Birth</label>
-                            <input type="date" id="date-of-birth" name="date_of_birth" value="{{ $userEdit->date_of_birth }}">
+                            <input type="date" id="date-of-birth" name="dob" value="{{ $userEdit->dob }}">
                         </div>
                         <label for="gender">Gender</label><br>
-                        <input type="radio" name="gender" value="male" {{ $userEdit->gender == 'male' ? 'checked' : '' }} required>Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="gender" value="female" {{ $userEdit->gender == 'female' ? 'checked' : '' }} required>Female
+                        <input type="radio" name="gender" value="M" {{ $userEdit->gender == 'M' ? 'checked' : '' }} required>Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="gender" value="F" {{ $userEdit->gender == 'F' ? 'checked' : '' }} required>Female
                         <hr/>
                         <div class="text">
                             <label for="role_type">Role Type</label><br><br>
-                            <select name="role_type" id="role-select">
+                            <select name="role_id" id="role-select">
                                 <option value="">--Please choose a type--</option>
-                                <option value="student" {{($userEdit->role_type === 'student') ? 'Selected' : ''}}>Student</option>
-                                <option value="teacher" {{($userEdit->role_type === 'teacher') ? 'Selected' : ''}}>Teacher</option>
+                                <option value="1" {{($userEdit->role_id == '1') ? 'Selected' : ''}}>Student</option>
+                                <option value="2" {{($userEdit->role_id == '2') ? 'Selected' : ''}}>Teacher</option>
                             </select>
                         </div>
                         <hr/>
@@ -50,7 +47,7 @@
                         <hr/>
                         <div class="text">
                             <label for="phone_number">Phone Number</label>
-                            <input type="text" name="phone_number" value="{{ $userEdit->phone_number }}">
+                            <input type="text" name="phone" value="{{ $userEdit->phone }}">
                         </div>
                         <div class="text">
                             <label for="address">Address</label>
