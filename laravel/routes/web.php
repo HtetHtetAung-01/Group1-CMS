@@ -21,30 +21,30 @@ use App\Http\Controllers\Teacher\TeacherController;
 */
 
 Route::get('/', function () {
-  return view('welcome');
+    return view('welcome');
 });
 
 //registration
-Route::get('dashboard', [AuthController::class, 'userDashboard']); 
+Route::get('dashboard', [AuthController::class, 'userDashboard']);
 Route::get('login', [AuthController::class, 'Index'])->name('login');
-Route::post('custom-login', [AuthController::class, 'userCustomLogin'])->name('login.custom'); 
+Route::post('custom-login', [AuthController::class, 'userCustomLogin'])->name('login.custom');
 Route::get('registration', [AuthController::class, 'userRegistration'])->name('register-user');
-Route::post('custom-registration', [AuthController::class, 'userCustomRegistration'])->name('register.custom'); 
+Route::post('custom-registration', [AuthController::class, 'userCustomRegistration'])->name('register.custom');
 Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
 
 //forgetpassword
 Route::get('forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-Route::post('forget-password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::post('forget-password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 //user
-Route::middleware(['web','auth'])->group(function(){
-  Route::get('/user-list', [AuthController::class, 'showUserList'])->name('userlist'); 
-  Route::delete('/user/{id}', [AuthController::class, 'deleteUser'])->name('user.delete');
-  Route::get('/userdetail/{id}', [AuthController::class, 'userDetail'])->name('user.detail'); 
-  Route::get('/useredit/{id}', [AuthController::class, 'editUser'])->name('user.edit'); 
-  Route::post('/update/{id}',[AuthController::class, 'updateUser'])->name('user.update');
+Route::middleware(['web', 'auth'])->group(function () {
+    Route::get('/user-list', [AuthController::class, 'showUserList'])->name('userlist');
+    Route::delete('/user/{id}', [AuthController::class, 'deleteUser'])->name('user.delete');
+    Route::get('/userdetail/{id}', [AuthController::class, 'userDetail'])->name('user.detail');
+    Route::get('/useredit/{id}', [AuthController::class, 'editUser'])->name('user.edit');
+    Route::post('/update/{id}', [AuthController::class, 'updateUser'])->name('user.update');
 });
 
 Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student-home');
@@ -52,9 +52,9 @@ Route::get('/student/{id}/course', [CourseController::class, 'showStudentCourse'
 Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
 Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('student.courseDetail');
 Route::get('/student/{id}/course/{course_id}/enroll', [AssignmentController::class, 'enrollCourse'])->name('student.course.enroll');
-Route::get('/student/{id}/course/{course_id}/download/{file_name}', [AssignmentController::class,'downloadFile'])->name('student.course.download');
-Route::get('/student/{id}/course/{course_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('student.course.addAssignment');
-Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('student.courseUpdateAssignment');
+Route::get('/student/{id}/course/{course_id}/assignment/{assignment_id}/download', [AssignmentController::class, 'downloadFile'])->name('student.course.assignment.download');
+Route::post('/student/{id}/course/{course_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('student.course.addAssignment');
+Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('student.course.assignment.update');
 Route::get('/student/{id}/dashboard/', [StudentController::class, 'showDashboard'])->name('student.dashboard');
 
 Route::get('/teacher/{id}', [UserController::class, 'showLayout'])->name('teacher-home');

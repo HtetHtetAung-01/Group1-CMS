@@ -99,3 +99,7 @@
 .open-button:hover {
     opacity: 1;
 }
+
+.cmt-msg {
+    padding-top: 3%;
+}

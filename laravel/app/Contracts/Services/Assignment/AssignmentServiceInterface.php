@@ -43,4 +43,11 @@ interface AssignmentServiceInterface
    * To check assignment is started or not
    */
   public function isStarted($student_id, $assignment_id);
+
+  /**
+   * get assignment for the course $course_id
+   */
+  public function getAssignmentNamesbyCourseId($course_id);
+  
+  public function downloadAssignment($assignment_id);
 }

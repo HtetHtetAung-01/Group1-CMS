@@ -10,4 +10,16 @@ interface CourseDaoInterface
    * @return $enrolledCourse
    */
   public function getEnrolledCourse($id, $role);
+
+  /**
+   * get the required courses for $course_id
+   * @return $requiredCourses
+   */
+  public function getRequiredCourseID($course_id);
+
+  /**
+   * get the required courses list
+   * @return $requiredCourses
+   */
+  public function getRequiredCourseList($requiredCourses);
 }

@@ -28,7 +28,7 @@
         <aside class="sidebar">
             <h3 class="cms">CMS</h3>
             <ul>
-                <li class="@if ($route == $role . 'dashboard') ? active : ''; @endif">
+                <li class="@if ($route == $role . '.dashboard') ? active : ''; @endif">
                     <a href="<?php echo '/' . $role . '/' . $user->id . '/dashboard'; ?>">
                         <i class="db-icon">&#xf201;</i>
                         Dashboard

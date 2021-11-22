@@ -2,6 +2,10 @@
 
 @section('title', "Student Assignments")
 
+@section('scripts')
+<script src="{{ asset('js/lib/jquery.min.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="assignment-panel">
   <div class="tab-pnl">
@@ -12,8 +16,8 @@
     </ul>
     <div class="tab-body">
       @foreach ($courses as $course)
-      @if (count($course->assignments) > 0)
       <div class="tab-cnt">
+        @if (count($course->assignments) > 0)
         <table class="tbl-assignment">
           <thead>
             <tr>
@@ -57,8 +61,8 @@
             @endforeach
           </tbody>
         </table>
+        @endif
       </div>
-      @endif
       @endforeach
     </div>
   </div>

@@ -41,4 +41,40 @@ class CourseDao implements CourseDaoInterface
     return $enrolledCourse;
     
   }
+
+  /**
+   * get the required courses for $course_id
+   * @return $requiredCourses
+   */
+  public function getRequiredCourseID($course_id)
+  {
+    $requiredCourseID = DB::table('courses')
+              ->select('required_courses')
+              ->where('id', $course_id)
+              ->whereNull('deleted_at')
+              ->get();
+
+    return $requiredCourseID;          
+  }
+
+  /**
+   * get the required courses list
+   * @return $requiredCourses
+   */
+  public function getRequiredCourseList($requiredCourses)
+  {
+    $requiredCourseList = collect();
+    foreach($requiredCourses as $required) {
+      $course = DB::table('courses')
+                  ->select('id','title')
+                  ->where('id', $required)
+                  ->whereNull('deleted_at')
+                  ->get();
+
+      if(count($course) > 0) {
+        $requiredCourseList->push($course[0]);
+      }                 
+    }
+    return $requiredCourseList;
+  }
 }

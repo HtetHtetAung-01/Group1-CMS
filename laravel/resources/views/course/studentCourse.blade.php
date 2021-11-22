@@ -17,7 +17,6 @@ $roleName = strtolower($role);
 @endphp
 
 @foreach($studentCourseList as $course)
-
 @php
 $status = $courseStatusList[$key];
 $key++;

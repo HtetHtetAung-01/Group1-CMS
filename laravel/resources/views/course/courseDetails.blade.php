@@ -7,11 +7,37 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('js/library/jquery.min.js') }}"></script>
 <script src="{{ asset('js/library/accordian.js') }}"></script>
 <script src="{{ asset('js/library/confirm_modal.js') }}"></script>
+<script>
+  function openForm($route) {
+    document.getElementById("myForm").style.display = "block";
+    document.getElementById("submitForm").action = $route;
+  }
+
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+</script>
 @endsection
 
 @section('content')
+
+@php
+$first = true;
+$requiredCourses = "";
+foreach($requiredCourse as $course) {
+if($first == true) {
+$requiredCourses .="'" .$course->title."' ";
+$first = false;
+}
+else {
+$requiredCourses .= ", '".$course->title."' ";
+}
+}
+@endphp
+
 <div class="course-details">
   <div class="course-content">
     <div class="title-btn">
@@ -19,11 +45,12 @@
         {{ $courseDetails[0]->course_title }}
       </h2>
       <button data-modal="modal-enroll" class="btn-show-modal default-enroll-btn {{ $isEnrolled? 'start-btn' : 'disabled-btn'}}">{{ $isEnrolled? 'Get Started' : 'Enrolled'}}</button>
+      @if($completeRequiredCourse == true)
       <div id="modal-enroll" class="modal">
         <div class="modalContent">
           <span class="modal-close">×</span>
           <div class="mdl-inner">
-            <p>Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }} course? {{$courseDetails[0]->course_id}}</p>
+            <p>Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }} course?</p>
             <div class="mdl-btns">
               <button class="cancel-btn modal-close">Cancel</button>
               <a href="{{route('student.course.enroll', ['id' => Auth::user()->id, 'course_id'=> $courseDetails[0]->course_id])}}" class="confirm-btn">
@@ -33,6 +60,19 @@
           </div><!-- /.mdl-inner -->
         </div><!-- /.modal-content -->
       </div><!-- /#modal-enroll -->
+      @else
+      <div id="modal-enroll" class="modal">
+        <div class="modalContent">
+          <span class="modal-close">×</span>
+          <div class="mdl-inner">
+            <p>You can't enroll this course. You need to complete {{ $requiredCourses }} first!</p>
+            <div class="mdl-btns">
+              <button class="cancel-btn modal-close">Close</button>
+            </div>
+          </div><!-- /.mdl-inner -->
+        </div><!-- /.modal-content -->
+      </div><!-- /#modal-enroll -->
+      @endif
     </div><!-- /.title-btn -->
     <div class="course-description">
       {{ $courseDetails[0]->course_description }}
@@ -59,21 +99,9 @@
         </dt><!-- /.accd-dt -->
         <dd class="accd-dd">
           <div class="accd-content">
-            <button data-modal="modal-start" class="btn-show-modal start-assign-btn {{ $isEnrolled ? 'disabled-btn' : 'start-assignment'}}">Start</button>
-            <div id="modal-start" class="modal">
-              <div class="modalContent">
-                <span class="modal-close">×</span>
-                <div class="mdl-inner">
-                  <p>Are you sure you want to start this {{ $courseDetails[$key]->name }}?</p>
-                  <div class="mdl-btns">
-                    <button class="cancel-btn modal-close">Cancel</button>
-                    <a href="{{route('student.course.addAssignment', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="confirm-btn">
-                      Confirm
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div><!-- /#modal-start -->
+            @if($started[$key]==false)
+            <button class="btn-show-modal start-assign-btn {{ $isEnrolled ? 'disabled-btn' : 'start-assignment'}}" onclick="openForm('{{route('student.course.addAssignment', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}')">Start</button>
+            @endif
             <p class="assignment-duration">Duration :
               <strong>{{ $courseDetails[$key]->duration }}</strong> Days
             </p>
@@ -97,11 +125,11 @@
                 </p>
                 @endif
                 @if($started[$key]==false)
-                <a href="{{route('student.course.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'file_name' => $courseDetails[$key]->file_path])}}" class="default-download-btn disabled-btn">
+                <a href="{{route('student.course.assignment.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn disabled-btn">
                   Download File
                 </a>
                 @else
-                <a href="{{route('student.course.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'file_name' => $courseDetails[$key]->file_path])}}" class="default-download-btn {{ $isEnrolled? 'disabled-btn' : 'download-btn'}}">
+                <a href="{{route('student.course.assignment.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn {{ $isEnrolled? 'disabled-btn' : 'download-btn'}}">
                   Download File
                 </a>
                 @endif
@@ -113,7 +141,7 @@
               @else
               <h3 class="homework-lbl {{ $isEnrolled? 'disabled-lbl' : ''}}">Homework</h3>
               @endif
-              <form action="{{route('student.courseUpdateAssignment', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
+              <form action="{{route('student.course.assignment.update', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
                 <div class="homework d-flex">
                   @if($started[$key]==false)
                   <div class="disabled-input">
@@ -122,9 +150,9 @@
                       @endif
                       {{ csrf_field() }}
                       @if($started[$key]==false)
-                      <input type="file" name="inputfile" id="input-file-name" class="default-file-input disabled-file-input" disabled />
+                      <input type="file" name="inputFile" id="input-file-name" class="default-file-input disabled-file-input" disabled />
                       @else
-                      <input type="file" name="inputfile" id="input-file-name" class="default-file-input {{ $isEnrolled? 'disabled-file-input' : 'file-input'}}" {{ $isEnrolled? 'disabled' : ''}} />
+                      <input type="file" name="inputFile" id="input-file-name" class="default-file-input {{ $isEnrolled? 'disabled-file-input' : 'file-input'}}" {{ $isEnrolled? 'disabled' : ''}} />
                       @endif
                     </div>
                     <div class="d-flex">
@@ -157,4 +185,12 @@
     </dl><!-- /.accd-lists -->
   </div><!-- /.assignment-list -->
 </div><!-- /.course-details -->
+<div class="form-popup" id="myForm">
+  <form class="form-container" method="POST" id="submitForm">
+    {{ csrf_field() }}
+    <p class="mdl-title">Are you sure you want to start to do this?</p>
+    <button type="button" class="popup-btn cancel" onclick="closeForm()">Cancel</button>
+    <button type="submit" class="popup-btn">Confirm</button>
+  </form>
+</div><!-- /.form-popup -->
 @endsection
