@@ -52,9 +52,9 @@ Route::get('/student/{id}/course', [CourseController::class, 'showStudentCourse'
 Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
 Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('student.courseDetail');
 Route::get('/student/{id}/course/{course_id}/enroll', [AssignmentController::class, 'enrollCourse'])->name('student.course.enroll');
-Route::get('/student/{id}/course/{course_id}/download/{file_name}', [AssignmentController::class,'downloadFile'])->name('student.course.download');
-Route::get('/student/{id}/course/{course_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('student.course.addAssignment');
-Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('student.courseUpdateAssignment');
+Route::get('/student/{id}/course/{course_id}/assignment/{assignment_id}/download', [AssignmentController::class,'downloadFile'])->name('student.course.assignment.download');
+Route::post('/student/{id}/course/{course_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('student.course.addAssignment');
+Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('student.course.assignment.update');
 Route::get('/student/{id}/dashboard/', [StudentController::class, 'showDashboard']);
 
 Route::get('/teacher/{id}', [UserController::class, 'showLayout'])->name('teacher-home');
