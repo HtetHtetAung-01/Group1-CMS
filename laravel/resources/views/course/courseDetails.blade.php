@@ -6,6 +6,21 @@
 <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
 <link rel="stylesheet" href="{{ asset('css/courseDetails.css') }}">
 
+@php 
+  $first = true;
+  $requiredCourses = "";
+  foreach($requiredCourse as $course) {
+    if($first == true) {
+      $requiredCourses .="'" .$course->title."' ";
+      $first = false;
+    }
+    else {
+      $requiredCourses .= ", '".$course->title."' ";
+    }
+    
+  }
+@endphp
+
 <div class="course-details">
   <div class="course-content">
     <div class="title-btn">
@@ -13,20 +28,34 @@
         {{ $courseDetails[0]->course_title }}
       </h2>
       <button data-modal="modal-enroll" class="btn-show-modal default-enroll-btn {{ $isEnrolled? 'start-btn' : 'disabled-btn'}}">{{ $isEnrolled? 'Get Started' : 'Enrolled'}}</button>
-      <div id="modal-enroll" class="modal">
-        <div class="modalContent">
-          <span class="modal-close">×</span>
-          <div class="mdl-inner">
-            <p>Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }} course?</p>
-            <div class="mdl-btns">
-              <button class="cancel-btn modal-close">Cancel</button>
-              <a href="{{route('student.course.enroll', ['id' => Auth::user()->id, 'course_id'=> $courseDetails[0]->course_id])}}" class="confirm-btn">
-                Confirm
-              </a>
-            </div><!-- /.mdl-btns -->
-          </div><!-- /.mdl-inner -->
-        </div><!-- /.modal-content -->
-      </div><!-- /#modal-enroll -->
+      @if($completeRequiredCourse == true)
+        <div id="modal-enroll" class="modal">
+          <div class="modalContent">
+            <span class="modal-close">×</span>
+            <div class="mdl-inner">
+              <p>Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }} course?</p>
+              <div class="mdl-btns">
+                <button class="cancel-btn modal-close">Cancel</button>
+                <a href="{{route('student.course.enroll', ['id' => Auth::user()->id, 'course_id'=> $courseDetails[0]->course_id])}}" class="confirm-btn">
+                    Confirm
+                </a>
+              </div><!-- /.mdl-btns -->
+            </div><!-- /.mdl-inner -->
+          </div><!-- /.modal-content -->
+        </div><!-- /#modal-enroll -->
+      @else
+        <div id="modal-enroll" class="modal">
+          <div class="modalContent">
+            <span class="modal-close">×</span>
+            <div class="mdl-inner">
+              <p>You can't enroll this course. You need to complete {{ $requiredCourses }} first!</p>
+              <div class="mdl-btns">
+                <button class="cancel-btn modal-close">Close</button>
+              </div>
+            </div><!-- /.mdl-inner -->
+          </div><!-- /.modal-content -->
+        </div><!-- /#modal-enroll -->
+      @endif
     </div><!-- /.title-btn -->
     <div class="course-description">
       {{ $courseDetails[0]->course_description }}
@@ -153,7 +182,6 @@
     document.getElementById("myForm").style.display = "block";
     document.getElementById("submitForm").action = $route;
   }
-
   function closeForm() {
     document.getElementById("myForm").style.display = "none";
   }

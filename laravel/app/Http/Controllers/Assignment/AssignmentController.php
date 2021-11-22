@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Assignment;
 
 use App\Contracts\Services\Assignment\AssignmentServiceInterface;
+use App\Http\Controllers\Course;
 use App\Http\Controllers\Controller;
 use \App\Http\Requests\FileSubmitRequest;
+use App\Services\Course\CourseService;
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,14 +19,16 @@ class AssignmentController extends Controller
      */
     private $assignmentInterface;
     private $userService;
+    private $courseService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(AssignmentServiceInterface $assignmentServiceInterface, UserService $userService)
+    public function __construct(CourseService $courseService, AssignmentServiceInterface $assignmentServiceInterface, UserService $userService)
     {
+        $this->courseService = $courseService;
         $this->assignmentInterface = $assignmentServiceInterface;
         $this->userService = $userService;
     }
@@ -37,6 +41,8 @@ class AssignmentController extends Controller
      */
     public function isEnrolled($student_id, $course_id)
     {
+        $idArray = [];
+
         $courseDetails = $this->assignmentInterface->getCourseDetails($course_id);
         $isEnrolled = $this->assignmentInterface->isEnrolled($student_id, $course_id);
         $assignmentStatus = $this->isCompletedAssignment($student_id, $course_id);
@@ -45,10 +51,14 @@ class AssignmentController extends Controller
         $user = $this->userService->getUserById($student_id);
         $roles = $this->userService->getUserRole($student_id);
         $role = $roles->type;
-        info("user = $user->name");
-        info("role = $role");
-        info("courses ");
-        info("courseDetails");
+
+        // get the required courses list for $course_id
+        $requiredCourseID = $this->courseService->getRequiredCourseID($course_id);
+        $idArray = app('App\Http\Controllers\Course\CourseController')->changeStringToArray($requiredCourseID[0]->required_courses);
+        $requiredCourse = $this->courseService->getRequiredCourseList($idArray);
+
+        $completeRequiredCourse = app('App\Http\Controllers\Course\CourseController')
+        ->isCompletedRequiredCourses($course_id, $student_id);
         $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);  
         
         return view('course.courseDetails', [
@@ -59,6 +69,8 @@ class AssignmentController extends Controller
             'user' => $user,
             'role' => $role,
             'enrolledCourse' => $enrolledCourse,
+            'completeRequiredCourse' => $completeRequiredCourse,
+            'requiredCourse' => $requiredCourse,
         ]);
     }
 
@@ -67,17 +79,21 @@ class AssignmentController extends Controller
      * @param $course_id
      * @return View courseDetails
      */
-    public function isCompletedAssignment($course_id)
+    public function isCompletedAssignment($student_id, $course_id)
     {
         $assignment_details = $this->assignmentInterface->isCompleted($course_id);
         $key = 0;
         $assignmentStatus = [];
+        
         foreach ($assignment_details as $assignment) {
+            
             $is_completed = DB::table('student_assignments')
                 ->select('id', 'uploaded_date', 'file_path')
                 ->where('assignment_id', $assignment->id)
+                ->where('student_id', $student_id)
                 ->whereNull('deleted_at')
                 ->get();
+  
             if ($is_completed->count() == 0) {
                 $assignmentStatus[$key] = 'progress';
             } else {
@@ -89,7 +105,6 @@ class AssignmentController extends Controller
                     }
                 }
             }
-            // info("add status $assignmentStatus[$key]");
             $key++;
         }
         return $assignmentStatus;
@@ -109,9 +124,7 @@ class AssignmentController extends Controller
             ->where('course_id', $course_id)
             ->whereNull('deleted_at')
             ->get();
-        info("assignment list = $assignmentList");
         foreach ($assignmentList as $key => $values) {
-            info("assignment = " . $assignmentList[$key]->id);
             $start[$key] = $this->assignmentInterface->isStarted($student_id, $assignmentList[$key]->id);
         }
         return $start;

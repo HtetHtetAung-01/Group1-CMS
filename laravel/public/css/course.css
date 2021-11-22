@@ -74,6 +74,12 @@
   text-decoration: none;
 }
 
+.course-detail-disable {
+  float: right;
+  color: #64686bc7;
+  text-decoration: none;
+}
+
 .course-detail:hover {
   cursor: pointer;
 }
