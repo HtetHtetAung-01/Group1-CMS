@@ -11,10 +11,10 @@ class FileSubmitRequest extends FormRequest
      *
      * @return bool
      */
-    // public function authorize()
-    // {
-    //     return false;
-    // }
+    public function authorize()
+    {
+        return true;
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +24,7 @@ class FileSubmitRequest extends FormRequest
     public function rules()
     {
         return [
-            'file_path' => ['required', 'string' ],
+            'inputFile' => 'required|max:5120|mimes:doc,docx,pdf'
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Dao\Assignment;
 
 use App\Contracts\Dao\Assignment\AssignmentDaoInterface;
+use App\Models\Assignment;
 use App\Models\StudentCourses;
 use App\Models\StudentAssignments;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,12 @@ use Illuminate\Support\Facades\DB;
  */
 class AssignmentDao implements AssignmentDaoInterface
 {
+
+  public function getAssignmentById($id)
+  {
+    return Assignment::find($id);
+  }
+
   /**
    * Interface for assignment service
    */
@@ -71,12 +78,9 @@ class AssignmentDao implements AssignmentDaoInterface
    */
   public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
   {
-    info("student id = $student_id");
-    info("assignment id = $assignment_id");
     $array = DB::select("SELECT student_assignments.id FROM student_assignments WHERE student_id=" . $student_id
       . " AND assignment_id= " . $assignment_id . " ;");
 
-    info($array);
     $id =  $array[0]->id;
 
     $studentAssignment = StudentAssignments::FindorFail($id);
@@ -99,8 +103,6 @@ class AssignmentDao implements AssignmentDaoInterface
       ->whereNull('deleted_at')
       ->get();
 
-    info("assignment details ");
-    info($assignment_details);
     return $assignment_details;
   }
 
@@ -115,12 +117,9 @@ class AssignmentDao implements AssignmentDaoInterface
       ->where('assignment_id', $assignment_id)
       ->whereNull('deleted_at')
       ->get();
-    info("start = $start");
     if (count($start) == 0) {
-      info("not started");
       return false;
     } else {
-      info("started");
       return true;
     }
   }
@@ -132,5 +131,20 @@ class AssignmentDao implements AssignmentDaoInterface
             LEFT OUTER JOIN courses AS C ON C.id = A.course_id 
             WHERE C.id = $course_id;"
     ));
+  }
+
+  /**
+   * get all assignment for the course $course_id
+   * @return $assignmentList
+   */
+  public function getAssignmentsForCourse($course_id)
+  {
+    $assignmentList =  DB::table('assignments')
+                        ->select('id', 'name')
+                        ->where('course_id', $course_id)
+                        ->whereNull('deleted_at')
+                        ->get();
+
+    return $assignmentList;                    
   }
 }

@@ -86,4 +86,13 @@ class StudentCourseDao implements StudentCourseDaoInterface
         $courseList = DB::table('courses')->select('*')->whereNull('deleted_at')->get();
         return $courseList;
     }
+
+    /**
+     * update the is_completed of the table student_courses
+     */
+    public function updateCourseComplete($student_id, $course_id, $status)
+    {
+        $update = DB::update('UPDATE student_courses set is_completed = '.$status .' where student_id =' .$student_id. 
+        ' AND course_id = ' .$course_id);       
+    }
 }

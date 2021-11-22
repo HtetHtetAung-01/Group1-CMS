@@ -1,11 +1,5 @@
 @charset "UTF-8";
 
-body {
-    font-family: 'Poppins-Regular';
-    margin: auto;
-    overflow: hidden;
-}
-
 @font-face {
     font-family: 'Poppins-Regular';
     src: url(../fonts/Poppins-Regular.ttf);
@@ -14,16 +8,6 @@ body {
 @font-face {
     font-family: 'Poppins-Bold';
     src: url(../fonts/Poppins-Bold.ttf);
-}
-
-.course-details {
-    max-width: 990px;
-    /* margin: 71px 0 0 290px; */
-}
-
-.course-content {
-    background-color: #F6F6F6;
-    padding: 31px 0 0 57px;
 }
 
 .course-title {
@@ -36,7 +20,6 @@ body {
     display: flex;
     justify-content: space-between;
     font-size: 24px;
-    width: 810px;
 }
 
 /* Get Started Button */
@@ -75,32 +58,6 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
-}
-
-.assignment-list {
-    overflow-y: scroll;
-    background-color: #F6F6F6;
-    overflow-x: hidden;
-    padding: 31px 0 0 57px;
-    height: 466px;
-}
-
-.accd-lists {
-    width: 810px;
-}
-
-/* Scrollbar Styling */
-
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-::-webkit-scrollbar-track {
-    background-color: #ebebeb;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #d9d9d9;
 }
 
 .assignment-name {
@@ -224,53 +181,28 @@ a:hover {
     opacity: 0.7;
 }
 
-/* Accordian - Structure */
-
-.accd-dt span {
-    font-size: 18px;
-    float: left;
-}
-
-.accd-dt .fas {
-    float: right;
-}
-
-.accd-dt::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
-.accd-dt:hover {
-    cursor: pointer;
-}
-
-.accd-dd {
-    display: none;
-    padding: 10px 15px;
-}
-
 /* Accordian - Appearence */
 
-.accd-dt {
-    background-color: #ffffff;
-    padding: 14px 31px 12px;
-    color: #000000;
-    box-shadow: 0px 3px 6px rgb(0 0 0 / 5%);
-}
-
-.accd-dd {
-    background-color: #ffffff;
-    padding: 0 0 0 92px;
-    height: 408px;
-}
-
-.accd-li {
+.accd-li.course {
     padding-bottom: 15px;
 }
 
-i.fas.fa-chevron-up,
-i.fas.fa-chevron-down {
+.accd-li.course .accd-dt {
+    background-color: #ffffff;
+    padding: 14px 31px 12px;
+    color: #000000;
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
+}
+
+.accd-li.course .accd-dd {
+    background-color: #ffffff;
+    padding: 0 0 51px 92px;
+    box-shadow: 0px 7px 6px rgb(0 0 0 / 10%);
+}
+
+.accd-li.course .accd-dt i {
+    font-family: "FontAwsome-Solid";
+    font-style: normal;
     font-size: 22px;
     color: #1492E6;
 }
@@ -323,7 +255,7 @@ i.fas.fa-chevron-down {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 45%;
+    width: 40%;
 }
 
 .modal-close {
@@ -371,4 +303,70 @@ i.fas.fa-chevron-down {
     background-color: #1492E6;
     margin-left: 20px;
     color: #ffffff;
+}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+    background-color: #1492E6;
+    color: white;
+    font-size: 16px;
+    padding-block: 5px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    width: 120px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 45%;
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 5%);
+    z-index: 9;
+    background-color: #a8a8a8;
+}
+
+/* Add styles to the form container */
+.form-container {
+    max-width: 700px;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+}
+
+/* Set a style for the submit/login button */
+.form-container .popup-btn {
+    background-color: #1492E6;
+    color: white;
+    padding: 13px 20px;
+    border: none;
+    cursor: pointer;
+    width: 75%;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+    background-color: #ffffff;
+    border: 1px solid #1492E6;
+    color: #1492E6;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover,
+.open-button:hover {
+    opacity: 1;
+}
+
+.mdl-title {
+    font-weight: bold;
+    width: 75%;
+    margin: 0 auto 5%;
+    line-height: 1.5;
 }

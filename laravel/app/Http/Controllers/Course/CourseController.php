@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Course;
 
+use App\Http\Controllers\Assignment\AssignmentController;
 use App\Http\Controllers\Controller;
+use App\Services\Assignment\AssignmentService;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
 use Illuminate\Support\Facades\DB;
@@ -11,11 +13,13 @@ class CourseController extends Controller
 {
   private $courseService;
   private $userService;
+  private $assignmentService;
 
-  public function __construct(UserService $userService, CourseService $courseService)
+  public function __construct(UserService $userService, CourseService $courseService, AssignmentService $assignmentService)
   {
     $this->courseService = $courseService;
     $this->userService = $userService;
+    $this->assignmentService = $assignmentService;
   }
 
   /**
@@ -28,8 +32,9 @@ class CourseController extends Controller
     foreach($scl as $key => $value) {
       $courseIdList[++$key] = $value->id;
     }
-
+    
     foreach($courseIdList as $key => $value) {
+      
       $number = DB::table('assignments')
               ->where('course_id', $courseIdList[$key])
               ->whereNull('deleted_at')
@@ -38,10 +43,8 @@ class CourseController extends Controller
       $key++;
     }  
     $S_AssignmentNoList = $anl;
-    // info("Assignment no list");
-    // info($S_AssignmentNoList);
     $cst = $this->getCourseStatus($student_id, $courseIdList);
-
+    
     $index = 1;
     foreach($cst as $key => $value) {
       if($cst[$key] == "completed") {
@@ -97,24 +100,24 @@ class CourseController extends Controller
       foreach($enrolledCourseList as $enroll) {
         if($totalCourse[$key] == $enroll->course_id) {
           $isenroll = true;
-          if($enroll->is_completed == '1') 
+          $assignmentComplete = $this->checkAllAssignmentCompleted($student_id, $enroll->course_id);
+          if($assignmentComplete == true) {
+            $this->courseService->updateCourseComplete($student_id, $enroll->course_id, 1);
             $courseStatusList[$key] = "completed";
+          }
           else {
-            if($this->isComplete($enroll->course_id, $student_id))
+            $this->courseService->updateCourseComplete($student_id, $enroll->course_id, 0);
+            if($this->isCompletedRequiredCourses($enroll->course_id, $student_id))
               $courseStatusList[$key] = "progress";
             else
               $courseStatusList[$key] = "unlock next";
-          } 
-            
+          }
+           
         }
-        $this->isComplete($enroll->course_id, $student_id);
       }
       if(!$isenroll)
         $courseStatusList[$key] = "lock";
     } 
-    info("course status list");
-    info($courseStatusList);
-    
     return $courseStatusList;
   }
 
@@ -123,21 +126,16 @@ class CourseController extends Controller
    */
   private $array = [];
   private $i = 0;
-  public function isComplete($course_id, $student_id)
+  public function isCompletedRequiredCourses($course_id, $student_id)
   {
+    $this->array = [];
     $this->i ++ ;
-    $required_course = DB::table('courses')
-                          ->select('required_courses')
-                          ->where('id', $course_id)
-                          ->whereNull('deleted_at')
-                          ->get();
-
+    $required_course = $this->courseService->getRequiredCourseID($course_id);
     foreach($required_course as $course) {
-      if($course == null && $this->array == null) {
+      if($course->required_courses == null && count($this->array) == 0) {
         return true;
       }
-      $text = str_replace(array('[',']'), '', $course->required_courses);
-      $this->array = explode(",", $text);
+      $this->array = $this->changeStringToArray($course->required_courses);;
       foreach($this->array as $key => $value) {
         $is_completed = DB::table('student_courses')
               ->select('is_completed')
@@ -145,19 +143,44 @@ class CourseController extends Controller
               ->where('course_id', $this->array[$key])
               ->whereNull('deleted_at')
               ->get();
+        if(count($is_completed) == 0) {
+          return false;
+        }
         
         foreach($is_completed as $status) {
           if($status->is_completed == 0) {
             return false;
           }
           else {
-            return $this->isComplete($this->array[$key], $student_id);
+            return $this->isCompletedRequiredCourses($this->array[$key], $student_id, false);
           }
             
         }
       }
       return true;
     }
+  }
+
+  public function changeStringToArray($text)
+  {
+    $remove_text = str_replace(array('[',']'), '', $text);
+    $array = explode(",", $remove_text);
+    return $array;
+  }
+
+  /**
+   * check all the assignments are completed
+   */
+  public function checkAllAssignmentCompleted($student_id, $course_id)
+  {
+    $assignmentStatus = app('App\Http\Controllers\Assignment\AssignmentController')
+    ->isCompletedAssignment($student_id, $course_id);
+    foreach($assignmentStatus as $status) {
+      if($status != 'completed')
+        return false;
+    }
+    
+    return true;
   }
 
   /**

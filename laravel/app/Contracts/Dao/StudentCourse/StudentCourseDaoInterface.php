@@ -15,4 +15,9 @@ interface StudentCourseDaoInterface
      * @return $studentCourseList
      */
     public function getStudentCourse();
+
+    /**
+     * update the is_completed of the table student_courses
+     */
+    public function updateCourseComplete($student_id, $course_id, $status);
 }
