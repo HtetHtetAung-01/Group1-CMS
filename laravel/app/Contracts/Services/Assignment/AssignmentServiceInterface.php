@@ -48,4 +48,6 @@ interface AssignmentServiceInterface
    * get assignment for the course $course_id
    */
   public function getAssignmentNamesbyCourseId($course_id);
+  
+  public function downloadAssignment($assignment_id);
 }

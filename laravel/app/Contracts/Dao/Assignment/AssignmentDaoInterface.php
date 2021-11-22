@@ -7,6 +7,12 @@ namespace App\Contracts\Dao\Assignment;
  */
 interface AssignmentDaoInterface
 {
+
+  /**
+   * To get assignment by id
+   */
+  public function getAssignmentById($id);
+
   /**
    * To get assignment list by course id
    */

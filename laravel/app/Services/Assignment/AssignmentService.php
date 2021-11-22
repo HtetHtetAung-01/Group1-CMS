@@ -4,6 +4,7 @@ namespace App\Services\Assignment;
 
 use App\Contracts\Dao\Assignment\AssignmentDaoInterface;
 use App\Contracts\Services\Assignment\AssignmentServiceInterface;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Service class for assignment.
@@ -80,11 +81,20 @@ class AssignmentService implements AssignmentServiceInterface
     return $this->assignmentDao->isStarted($student_id, $assignment_id);
   }
 
+  
   /**
    * get assignment for the course $course_id
    */
   public function getAssignmentNamesbyCourseId($course_id)
   {
     return $this->assignmentDao->getAssignmentNamesbyCourseId($course_id);
+  }
+  /**
+   * To download assignment by ID
+   */
+  public function downloadAssignment($assignment_id)
+  {
+    $assignment = $this->assignmentDao->getAssignmentById($assignment_id);
+    return Storage::download($assignment->file_path);
   }
 }
