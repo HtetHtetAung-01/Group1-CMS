@@ -1,32 +1,29 @@
+@charset "UTF-8";
 
 .title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
-  letter-spacing: 2px;
-  margin: 5px 0;
-}
-
-.table-view {
-  padding: 5%;
+  margin-bottom: 15px;
 }
 
 .student-info {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 15px;
-  text-align: center;
+  border-collapse: collapse;
+  margin-bottom: 5%;
 }
 
 .student-info-header {
-  background: #1492E6;
-  color: #ffffff;
+  background: #E5E5E5;
+  font-size: 16px;
+  text-align: left;
+  text-transform: uppercase;
 }
 
 .student-info th,
 .student-info td {
-  padding: 1.5% 1%;
+  padding: 2% 1%;
 }
 
 .student-info-content {
-  background: #d8e1f3;
+  background: #EFF2F8;
 }

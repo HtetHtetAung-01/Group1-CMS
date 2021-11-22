@@ -1,5 +1,11 @@
 @extends ('layouts.app')
+
+@section('title', "Dashboard")
+
+@section('assets')
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+@endsection
+
 @section('content')
 
 <div class="statistics">
@@ -13,7 +19,9 @@
   </div>
 </div>
 
-<div id="columnchart_material" style="width: 500px; height: 400px;"></div>
+<div class="chart-bg">
+  <div id="columnchart_material" class="chart-pnl"></div>
+</div>
 
 <script src="{{asset('js/library/loader.js')}}"></script>
 <script>
@@ -24,17 +32,17 @@
   google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
-    
+
     var data = google.visualization.arrayToDataTable([
-            ['assignmentName', 'assignmentGrade'],
-            <?php echo $studentChartData[0] ?>
-        ]);
+      ['assignmentName', 'assignmentGrade'],
+      <?php echo $studentChartData[0] ?>
+    ]);
 
     var options = {
       chart: {
         title: 'Student Performance',
         subtitle: 'Basic and Intermediate: Assignments',
-        width: 900,
+        width: 1000,
       }
     };
 
