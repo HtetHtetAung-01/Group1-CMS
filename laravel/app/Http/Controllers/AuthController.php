@@ -139,6 +139,10 @@ class AuthController extends Controller
     public function updateUser($id,Request $request)
     {
         $this->userInterface->updateUser($id, $request);
-        return redirect('user-list');
+        if( Auth::user()->role_id == 1){
+            return redirect('/student/'.Auth::user()->id);
+         }else{
+             return redirect('/teacher/'.Auth::user()->id);
+        }
     }
 }
