@@ -34,7 +34,7 @@
   function drawChart() {
 
     var data = google.visualization.arrayToDataTable([
-      ['assignmentName', 'assignmentGrade'],
+      ['', 'assignmentGrade'],
       <?php echo $studentChartData[0] ?>
     ]);
 
@@ -42,13 +42,19 @@
       chart: {
         title: 'Student Performance',
         subtitle: 'Basic and Intermediate: Assignments',
-        width: 1000,
-      }
+      },
+      bars: 'horizontal',
+      height: 300,
+      hAxis: {
+        format: '#\'%\''
+      },
+      
     };
 
     var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
     chart.draw(data, google.charts.Bar.convertOptions(options));
+    
   }
 </script>
+
 @endsection
