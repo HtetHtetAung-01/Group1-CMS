@@ -26,7 +26,7 @@
         
     @endphp
 
-    <div class="container clearfix">
+    <div class="container">
         <aside class="sidebar">
             <h3 class="cms">CMS</h3>
             <ul>

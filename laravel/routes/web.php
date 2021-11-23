@@ -73,7 +73,8 @@ Route::middleware(['web', 'auth', 'checkteacher'])->group(function () {
 
 // Admin
 Route::get('/admin/{id}', [AdminController::class, 'showUserList'])->name('admin-home');
-Route::get('/admin/{id}/enroll/{teacher_id}/course/{course_id}',[AdminController::class, 'enrollTeacherCourse'])->name('enroll.teacherCourse');
+Route::get('/enroll/{teacher_id}',[AdminController::class, 'enrollTeacher'])->name('enroll.teacher');
+Route::post('/enroll/{teacher_id}/course',[AdminController::class, 'enrollTeacherCourse'])->name('enroll.teacherCourse');
 
 //AddNewCourse
 Route::get('/course/create-view', function () { 

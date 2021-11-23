@@ -104,6 +104,7 @@ td {
   padding: 15px;
   border: 1px solid rgb(197, 181, 226);
   border-radius: 10px;
+  text-decoration: none;
 }
 
 .enroll-btn:hover {
@@ -133,4 +134,45 @@ td {
 .new-course {
   margin: 0 auto;
   width: 30%;
+}
+
+.enroll-confirm {
+  border: none;
+}
+
+
+.enroll-box {
+  font-size: 20px;
+  margin: 30px auto;
+  padding: 2%;
+  width: 40%;
+  border-radius: 15px;
+  box-shadow: 4px 4px 4px 4px rgba(222, 212, 241, 0.5);
+}
+
+.course-select {
+  font-size: 16px;
+}
+
+.mdl-btns {
+  margin: 40px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-enroll {
+  text-decoration: none;
+  border: 2px solid #1492E6;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 7px 40px;
+  font-weight: normal;
+  background-color: #1492E6;
+  color: #ffffff;
+  margin: auto;
+}
+
+.confirm-enroll:hover {
+  cursor: pointer;
 }

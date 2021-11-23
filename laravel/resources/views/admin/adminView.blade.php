@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/courseDetails.css') }}">
+    
     @yield('assets')
 </head>
 
@@ -82,8 +82,8 @@
             <?php $index = 0; ?>
             @foreach($teacherList as $teacher)
               <tr class="row">
-                <td class="number"><button data-modal="modal-enroll" class="btn-show-modal enroll-btn" 
-                >Enroll</button></td>
+                <td class="number"><a type="button" href="/enroll/{{ $teacher->id }}" data-modal="modal-enroll" class="btn-show-modal enroll-btn" 
+                >Enroll</a></td>
                 
                 <td>{{ $teacher->id }}</td>
                 <td>{{ $teacher->name }}</td>
@@ -93,29 +93,7 @@
                 <td>{{ $teacher->dob }}</td>
                 <td><i class="fa fa-edit edit"></i>&emsp;<i class="fa fa-trash delete"></td>
               </tr>
-
-          <div id="modal-enroll" class="modal">
-            <div class="modalContent">
-              <span class="modal-close">×</span>
-              <div class="mdl-inner">
-                <p>Choose the course to enroll for teacher '{{ $teacher->name }}'</p>
-                <div class="course-select">
-                  <select name="course">
-                    <!-- <option value="0">Select Course</option> -->
-                    @foreach($courseList as $course)
-                      <option value="{{ ++$index }}">{{ $course->title }}</option> 
-                    @endforeach
-                  </select>
-                </div>
-                <div class="mdl-btns">
-                  <button class="cancel-btn modal-close">Cancel</button>
-                  <a href="/admin/1/enroll/{{ $teacher->id }}/course/1" class="confirm-btn">
-                    Enroll
-                  </a>
-                </div><!-- /.mdl-btns -->
-              </div><!-- /.mdl-inner -->
-            </div><!-- /.modal-content -->
-          </div><!-- /#modal-enroll -->
+              
             @endforeach
             </tbody>
           </table>
@@ -183,7 +161,6 @@
           </table>
         </div>
       </div>
-        
     </div>
     <script src="{{ asset('js/library/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/common/app.js') }}"></script>

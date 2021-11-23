@@ -9,9 +9,10 @@
 }
 
 body {
+    background: none;
     width: 1280px;
     max-width: 1920px;
-    margin: auto;
+    margin: 20px auto;
     font-family: 'Poppings-Regular';
 }
 

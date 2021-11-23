@@ -31,12 +31,29 @@ class TeacherCourseDao implements TeacherCourseDaoInterface
     return $teacherCourseID;                    
   }
 
+  public function findTeacherCourse($teacher_id, $course_id)
+  {
+    $list = DB::table('teacher_courses')
+                ->select('*')
+                ->where('teacher_id', $teacher_id)
+                ->where('course_id', $course_id)
+                ->whereNull('deleted_at')
+                ->get();
+
+    if(count($list) > 0)
+      return true;
+    else 
+      return false;            
+  }
+
   /**
-   * Enroll teacher coursee
+   * Enroll teacher course
    * 
    */
   public function enrollTeacherCourse($teacher_id, $course_id)
   {
+    if($this->findTeacherCourse($teacher_id, $course_id))
+      return null;
     $teacherCourse = new TeacherCourse();
     $teacherCourse->teacher_id = $teacher_id;
     $teacherCourse->course_id = $course_id;

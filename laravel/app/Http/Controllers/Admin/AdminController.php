@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TeacherCourseEnrollRequest;
 use App\Services\Admin\AdminService;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
@@ -27,18 +28,22 @@ class AdminController extends Controller
     $studentList = $this->userService->getAllStudent();
     $teacherList = $this->userService->getAllTeacher();
     $courseList = $this->courseService->getAllCourseList();
-    return view('layouts.admin', compact('userList', 'studentList', 'teacherList', 'courseList'));
+    return view('admin.adminView', compact('userList', 'studentList', 'teacherList', 'courseList'));
   }
 
-  public function enrollTeacherCourse($teacher_id, $course_id)
+  public function enrollTeacherCourse(TeacherCourseEnrollRequest $request)
   {
-
-    // $course = $request->get('course');
-    info("student = $teacher_id");
-    info("course = $course_id");
-    // info("course = $course");
+    $teacher_id = $request->teacher_id;
+    $course_id = $request->course_id;
     $teacherCourse = $this->adminService->enrollTeacherCourse($teacher_id, $course_id);
+    if($teacherCourse == null)
+    return redirect()->back()->with('teacherCourse');
+  }
 
-    return back();
+  public function enrollTeacher($teacher_id)
+  {
+    $teacher_name = $this->userService->getUserById($teacher_id)->name;
+    $courseList = $this->courseService->getAllCourseList();
+    return view('admin.teacherCourseEnroll', compact('teacher_id','teacher_name', 'courseList'));
   }
 }
