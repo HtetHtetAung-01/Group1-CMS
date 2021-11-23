@@ -29,4 +29,9 @@ interface CourseDaoInterface
    */
   public function getAllCourseList();
 
+  /**
+   * add new course
+   */
+  public function addNewCourse($request);
+
 }
