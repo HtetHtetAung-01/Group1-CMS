@@ -45,9 +45,9 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             if( Auth::user()->role_id == 1){
-               return redirect('/student/'.Auth::user()->id);
+               return redirect('/student/'.Auth::user()->id.'/dashboard');
             }else{
-                return redirect('/teacher/'.Auth::user()->id);
+                return redirect('/teacher/'.Auth::user()->id.'/dashboard');
             }
         }
         else{
