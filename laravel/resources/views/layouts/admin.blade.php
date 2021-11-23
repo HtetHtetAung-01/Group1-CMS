@@ -153,6 +153,9 @@
         </div>
 
         <div id="course" class="list-content">
+        <a href="/course/create-view" class="add-course-btn">
+          Add Course
+        </a>
           <table class="list">
             <tr>
               <th>No</th>

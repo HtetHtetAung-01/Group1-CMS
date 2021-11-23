@@ -38,4 +38,9 @@ interface CourseServiceInterface
    * @return $courseList
    */
   public function getAllCourseList();
+
+  /**
+   * add new course
+   */
+  public function addNewCourse($request);
 }
