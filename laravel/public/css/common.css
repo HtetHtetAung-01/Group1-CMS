@@ -31,9 +31,7 @@ body {
 
 .tab-nav {
   list-style: none;
-  overflow-x: scroll;
   width: 100%;
-  display: -webkit-inline-box;
 }
 
 ::-webkit-scrollbar {
@@ -95,6 +93,8 @@ body {
 
 .course-tab {
   margin-bottom: 30px;
+  overflow-x: scroll;
+  display: -webkit-inline-box;
 }
 
 .course-tab li {
