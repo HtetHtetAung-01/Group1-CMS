@@ -51,10 +51,13 @@
       
     };
 
-    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-    chart.draw(data, google.charts.Bar.convertOptions(options));
+    if (data.getNumberOfRows() === 0) {
+      $("#columnchart_material").append("No data yet.")
+    } else {
+      var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+      chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
     
   }
 </script>
-
 @endsection
