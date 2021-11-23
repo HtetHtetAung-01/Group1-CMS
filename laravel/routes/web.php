@@ -39,7 +39,7 @@ Route::get('reset-password/{token}', [ForgetPasswordController::class, 'showRese
 Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 //user
-Route::middleware(['web', 'auth'])->group(function () {
+Route::middleware(['web', 'auth','logout_back_history'])->group(function () {
     Route::get('/user-list', [AuthController::class, 'showUserList'])->name('userlist');
     Route::delete('/user/{id}', [AuthController::class, 'deleteUser'])->name('user.delete');
     Route::get('/userdetail/{id}', [AuthController::class, 'userDetail'])->name('user.detail');
@@ -47,7 +47,7 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::post('/update/{id}', [AuthController::class, 'updateUser'])->name('user.update');
 });
 
-Route::middleware(['web', 'auth', 'checkstudent'])->group(function () {
+Route::middleware(['web', 'auth', 'checkstudent','logout_back_history'])->group(function () {
     Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student-home');
     Route::get('/student/{id}/course', [CourseController::class, 'showStudentCourse'])->name('student.course');
     Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
@@ -59,7 +59,7 @@ Route::middleware(['web', 'auth', 'checkstudent'])->group(function () {
     Route::get('/student/{id}/dashboard/', [StudentController::class, 'showDashboard'])->name('student.dashboard');
 });
 
-Route::middleware(['web', 'auth', 'checkteacher'])->group(function () {
+Route::middleware(['web', 'auth', 'checkteacher','logout_back_history'])->group(function () {
     Route::get('/teacher/{id}', [UserController::class, 'showLayout'])->name('teacher-home');
     Route::get('/teacher/{id}/assignment/', [TeacherController::class, 'showAssignments'])->name('teacher.assignment');
     Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment'])->name('teacher.assignment.download');
