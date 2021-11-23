@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForgetPasswordController;
@@ -68,3 +69,8 @@ Route::middleware(['web', 'auth', 'checkteacher'])->group(function () {
     Route::get('/teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard'])->name('teacher.dashboard');
     Route::get('/teacher/{id}/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
 });
+
+
+// Admin
+Route::get('/admin/{id}', [AdminController::class, 'showUserList'])->name('admin-home');
+Route::get('/admin/{id}/enroll/{teacher_id}/course/{course_id}',[AdminController::class, 'enrollTeacherCourse'])->name('enroll.teacherCourse');

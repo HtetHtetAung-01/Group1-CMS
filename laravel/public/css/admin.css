@@ -1,0 +1,119 @@
+/* admin */
+
+.admin-body {
+  width: 100%;
+  margin: auto;
+}
+
+.admin-container {
+  min-height: 900px;
+}
+
+.admin-content {
+  padding: 4%;
+}
+
+.admin-nav {
+  background: rgba(222, 212, 241, 0.548);
+  box-shadow: inset 0px -2px 0px rgba(222, 212, 241);
+  padding-top: 20px;
+  margin: auto;
+}
+
+.tab {
+  padding: 0 4%;
+  color: #1492E6;
+}
+
+.tab button {
+  background: none;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 1% 4%;
+  font-size: 18px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.count {
+    font-size: 14px;
+}
+
+.tab button:hover,
+.tab button.active {
+  background-color: #ffffff;
+}
+
+.show {
+    display: block;
+}
+
+.list-content {
+  background: #ffffff;
+  display: none;
+  padding: 2% 12px;
+} 
+
+.list {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  border-spacing: 30px;
+
+}
+.row {
+  padding: 2% 0.5%;
+  border: 1px solid rgb(0 0 0 / 10%);
+  
+}
+
+.list th {
+  text-align: center;
+  padding: 1%;
+  margin: 0 0.5%;
+  
+}
+
+th,
+td {
+  text-align: center;
+  padding: 2%;
+  min-width: 20px;
+}
+
+.edit {
+  font-size: 24px;
+  color: rgb(20, 146, 230, 100%);
+}
+
+.delete {
+  font-size: 24px;
+  color: rgb(230, 19, 19);
+}
+
+.enroll-btn {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  color: #ffffff;
+  border: none;
+  background: rgb(197, 181, 226);
+  padding: 15px;
+  border: 1px solid rgb(197, 181, 226);
+  border-radius: 10px;
+}
+
+.enroll-btn:hover {
+  cursor: pointer;
+  border: 1px solid rgb(197, 181, 226);
+  color: rgb(197, 181, 226);
+  background: #ffffff;
+}
+
+.course-select {
+  margin-top: 10px;
+  font-size: 16px;
+}

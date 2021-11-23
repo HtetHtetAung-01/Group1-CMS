@@ -63,4 +63,13 @@ class CourseService implements CourseServiceInterface
   {
     return $this->courseDao->getRequiredCourseList($requiredCourses);
   }
+
+  /**
+   * get all the courses
+   * @return $courseList
+   */
+  public function getAllCourseList()
+  {
+    return $this->courseDao->getAllCourseList();
+  }
 }

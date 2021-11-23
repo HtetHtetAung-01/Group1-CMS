@@ -15,6 +15,7 @@
 
 <body>
     @php
+        
         $route = Route::currentRouteName();
         if(Auth::user()->role_id == 1)
             $role = 'student';
@@ -22,8 +23,13 @@
             $role = 'teacher';
         else
             $role = 'admin';
+        
+        $userCount = count($userList);
+        $studentCount = count($studentList);
+        $teacherCount = count($teacherList);
+        $courseCount = count($courseList);
     @endphp
-    
+
     <div class="container clearfix">
         <aside class="sidebar">
             <h3 class="cms">CMS</h3>
@@ -71,7 +77,7 @@
         </aside>
         <div class="content">
           <nav class="nav clearfix">
-          <p class="text">Hello, Let's Learn Together!</p>
+            <p class="text">Hello, Let's Learn Together!</p>
             <div class="profile-blk">
                 <button class="profile-btn">
                     <p>{{ $user->name }} ({{ $role }})</p>
@@ -104,7 +110,9 @@
     <script src="{{ asset('js/library/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/common/app.js') }}"></script>
     <script src="{{ asset('js/common.js') }}"></script>
+    <script src="{{ asset('js/tab.js') }}"></script>
     @yield('scripts')
+    
 </body>
 
 </html>

@@ -3,6 +3,7 @@
 namespace App\Dao\TeacherCourse;
 
 use App\Contracts\Dao\TeacherCourse\TeacherCourseDaoInterface;
+use App\Models\TeacherCourse;
 use Illuminate\Support\Facades\DB;
 
 class TeacherCourseDao implements TeacherCourseDaoInterface
@@ -28,5 +29,22 @@ class TeacherCourseDao implements TeacherCourseDaoInterface
                         ->get();
     
     return $teacherCourseID;                    
+  }
+
+  /**
+   * Enroll teacher coursee
+   * 
+   */
+  public function enrollTeacherCourse($teacher_id, $course_id)
+  {
+    $teacherCourse = new TeacherCourse();
+    $teacherCourse->teacher_id = $teacher_id;
+    $teacherCourse->course_id = $course_id;
+    $teacherCourse->created_at = \Carbon\Carbon::now();
+    $teacherCourse->updated_at = \Carbon\Carbon::now();
+    $teacherCourse->deleted_at = null;
+    $teacherCourse->save();
+
+    return $teacherCourse;
   }
 }

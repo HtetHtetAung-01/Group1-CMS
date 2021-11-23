@@ -77,4 +77,18 @@ class CourseDao implements CourseDaoInterface
     }
     return $requiredCourseList;
   }
+
+  /**
+   * get all the courses
+   * @return $courseList
+   */
+  public function getAllCourseList()
+  {
+    $courseList = DB::table('courses')
+                      ->select('*')
+                      ->whereNull('deleted_at')
+                      ->get();
+
+    return $courseList;                  
+  }
 }

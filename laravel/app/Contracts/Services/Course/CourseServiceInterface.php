@@ -32,4 +32,10 @@ interface CourseServiceInterface
    * @return $requiredCourses
    */
   public function getRequiredCourseList($requiredCourses);
+
+  /**
+   * get all the courses
+   * @return $courseList
+   */
+  public function getAllCourseList();
 }
