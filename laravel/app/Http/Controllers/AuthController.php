@@ -75,7 +75,7 @@ class AuthController extends Controller
         $data  = $request->validated();
         $this->userCreate($data);
          
-        return redirect("login")->withSuccess('You have signed-in');
+        return redirect("/")->withSuccess('You have signed-in');
     }
 
     public function userCreate($data)
@@ -95,14 +95,14 @@ class AuthController extends Controller
             return view('dashboard');
         }
   
-        return redirect("login")->withSuccess('You are not allowed to access');
+        return redirect("/")->withSuccess('You are not allowed to access');
     }
     
     public function signOut() {
         Session::flush();
         Auth::logout();
   
-        return Redirect('login');
+        return Redirect('/');
     }
 
     //userList function
