@@ -30,11 +30,13 @@ class AdminController extends Controller
     return view('layouts.admin', compact('userList', 'studentList', 'teacherList', 'courseList'));
   }
 
-  public function enrollTeacherCourse($teacher_id, $course_id, Request $request)
+  public function enrollTeacherCourse($teacher_id, $course_id)
   {
-    
-    $course = $request->get('course');
-    info("course = $course");
+
+    // $course = $request->get('course');
+    info("student = $teacher_id");
+    info("course = $course_id");
+    // info("course = $course");
     $teacherCourse = $this->adminService->enrollTeacherCourse($teacher_id, $course_id);
 
     return back();

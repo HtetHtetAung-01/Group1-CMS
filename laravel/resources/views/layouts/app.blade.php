@@ -24,10 +24,6 @@
         else
             $role = 'admin';
         
-        $userCount = count($userList);
-        $studentCount = count($studentList);
-        $teacherCount = count($teacherList);
-        $courseCount = count($courseList);
     @endphp
 
     <div class="container clearfix">
