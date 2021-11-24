@@ -94,4 +94,31 @@ class UserService implements UserServiceInterface
     $studentList = $this->userDao->getStudentList($teacher_id);
     return $studentList;
   }
+
+  /**
+	 * Get all the user list
+	 * @return $userList
+	 */
+	public function getAllUser()
+	{
+		return $this->userDao->getAllUser();
+	}
+
+	/**
+	 * Get all the student list
+	 * @return $studentList
+	 */
+	public function getAllStudent()
+	{
+        return $this->userDao->getAllStudent();
+	}
+
+	/**
+	 * Get all the teacher list
+	 * @return $teacherList
+	 */
+	public function getAllTeacher()
+	{
+        return $this->userDao->getAllTeacher();
+	}
 }

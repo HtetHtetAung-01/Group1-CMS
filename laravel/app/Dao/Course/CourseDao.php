@@ -3,6 +3,7 @@
 namespace App\Dao\Course;
 
 use App\Contracts\Dao\Course\CourseDaoInterface;
+use App\Models\Course;
 use Illuminate\Support\Facades\DB;
 
 class CourseDao implements CourseDaoInterface
@@ -76,5 +77,33 @@ class CourseDao implements CourseDaoInterface
       }                 
     }
     return $requiredCourseList;
+  }
+
+  /**
+   * get all the courses
+   * @return $courseList
+   */
+  public function getAllCourseList()
+  {
+    $courseList = DB::table('courses')
+                      ->select('*')
+                      ->whereNull('deleted_at')
+                      ->get();
+
+    return $courseList;                  
+  }
+
+  /**
+   * add new course
+   */
+  public function addNewCourse($request)
+  {
+    $course = new Course;
+    $course->title = $request->title;
+    $course->category = $request->category;
+    $course->description = $request->description;
+    $course->required_courses = $request->requiredCourses;
+    $course->save();
+    return $course;
   }
 }

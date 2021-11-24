@@ -22,4 +22,16 @@ interface CourseDaoInterface
    * @return $requiredCourses
    */
   public function getRequiredCourseList($requiredCourses);
+
+  /**
+   * get all the courses
+   * @return $courseList
+   */
+  public function getAllCourseList();
+
+  /**
+   * add new course
+   */
+  public function addNewCourse($request);
+
 }

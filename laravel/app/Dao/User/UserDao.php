@@ -190,4 +190,45 @@ class UserDao implements UserDaoInterface
 		);
 		return $totalStudent;
 	}
+
+	/**
+	 * Get all the user list
+	 * @return $userList
+	 */
+	public function getAllUser()
+	{
+		$userList = DB::table('users')
+						->select('*')
+						->whereNull('deleted_at')
+						->get();
+		return $userList;
+	}
+
+	/**
+	 * Get all the student list
+	 * @return $studentList
+	 */
+	public function getAllStudent()
+	{
+		$studentList = DB::table('users')
+						->select('*')
+						->where('role_id', '1')
+						->whereNull('deleted_at')
+						->get();
+		return $studentList;
+	}
+
+	/**
+	 * Get all the teacher list
+	 * @return $teacherList
+	 */
+	public function getAllTeacher()
+	{
+		$teacherList = DB::table('users')
+						->select('*')
+						->where('role_id', '2')
+						->whereNull('deleted_at')
+						->get();
+		return $teacherList;
+	}
 }

@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\DB;
  */
 class AssignmentDao implements AssignmentDaoInterface
 {
+  
+  public function addAssignment(Assignment $assignment)
+  {
+    $assignment->save();
+  }
 
   public function getAssignmentById($id)
   {
@@ -122,6 +127,14 @@ class AssignmentDao implements AssignmentDaoInterface
     } else {
       return true;
     }
+  }
+
+  public function getAllAssignment()
+  {
+    return DB::table('assignments')
+              ->select('*')
+              ->whereNull('deleted_at')
+              ->get();
   }
 
   public function getAssignmentNamesbyCourseId($course_id)

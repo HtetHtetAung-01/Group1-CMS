@@ -1,0 +1,214 @@
+/* admin */
+
+.admin-body {
+  width: 100%;
+  margin: auto;
+}
+
+.admin-container {
+  min-height: 900px;
+}
+
+.admin-content {
+  padding: 4%;
+}
+
+.admin-nav {
+  background: rgba(222, 212, 241, 0.548);
+  box-shadow: inset 0px -2px 0px rgba(222, 212, 241);
+  padding: 3% 4% 0 4%;
+  margin: auto;
+}
+
+.right-nav {
+  padding-bottom: 10px;
+}
+
+.tab {
+  padding: 0;
+  color: #1492E6;
+}
+
+.tab button {
+  background: none;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 1% 4%;
+  font-size: 18px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.count {
+    font-size: 14px;
+}
+
+.tab button:hover,
+.tab button.active {
+  background-color: #ffffff;
+}
+
+.show {
+    display: block;
+}
+
+.list-content {
+  background: #ffffff;
+  display: none;
+  padding: 2% 12px;
+} 
+
+.show {
+  display: block;
+}
+
+.list {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  border-spacing: 30px;
+
+}
+.row {
+  padding: 2% 0.5%;
+  border: 1px solid rgb(0 0 0 / 10%);
+  
+}
+
+.list th {
+  text-align: center;
+  padding: 1%;
+  margin: 0 0.5%;
+  
+}
+
+th,
+td {
+  text-align: center;
+  padding: 2%;
+  min-width: 20px;
+}
+
+.edit {
+  font-size: 24px;
+  color: rgb(20, 146, 230, 100%);
+}
+
+.delete {
+  font-size: 24px;
+  color: rgb(230, 19, 19);
+}
+
+.enroll-btn {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  color: #ffffff;
+  border: none;
+  background: rgb(197, 181, 226);
+  padding: 4% 6%;
+  border: 1px solid rgb(197, 181, 226);
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.enroll-btn:hover {
+  cursor: pointer;
+  border: 1px solid rgb(197, 181, 226);
+  color: rgb(197, 181, 226);
+  background: #ffffff;
+}
+
+.course-select {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+/* add new course */
+
+.add-course-btn,
+.assignment-pnl .btn {
+  padding: 15px;
+  background-color: rgb(197, 181, 226);
+  border-radius: 4px;
+  color: #ffffff;
+  text-decoration: none;
+  margin-bottom: 2%;
+  display: inline-block;
+}
+
+.new-course,
+.assignment-pnl {
+  margin: 0 auto;
+  width: 30%;
+}
+
+.enroll-confirm {
+  border: none;
+}
+
+
+.enroll-box {
+  font-size: 20px;
+  margin: 30px auto;
+  padding: 2%;
+  width: 40%;
+  border-radius: 15px;
+  box-shadow: 4px 4px 4px 4px rgba(222, 212, 241, 0.5);
+}
+
+.course-select {
+  font-size: 16px;
+}
+
+.mdl-btns {
+  margin: 40px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-enroll {
+  text-decoration: none;
+  border: 2px solid #1492E6;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 7px 40px;
+  font-weight: normal;
+  background-color: #1492E6;
+  color: #ffffff;
+  margin: auto;
+}
+
+.confirm-enroll:hover {
+  cursor: pointer;
+}
+
+.enroll-detail {
+  color: #1492E6;
+  margin-left: 2%;
+  border: none;
+  background: none;
+}
+
+.enroll-detail:hover {
+  cursor: pointer;
+}
+
+
+.default-file-input::file-selector-button {
+  border: none;
+  padding: 8px;
+  color: #ffffff;
+}
+
+.file-input::file-selector-button {
+  background-color: #7FBF38;
+}
+
+.file-input::file-selector-button:hover {
+  opacity: 0.7;
+}
