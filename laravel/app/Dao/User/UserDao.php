@@ -201,7 +201,6 @@ class UserDao implements UserDaoInterface
 						->select('*')
 						->whereNull('deleted_at')
 						->get();
-		info($userList);
 		return $userList;
 	}
 
