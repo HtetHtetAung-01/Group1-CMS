@@ -38,6 +38,6 @@ class UserController extends Controller
     $teacherCourse = $this->userService->getEnrolledCourse($teacher_id, 'Teacher');
     $studentList = $this->userService->getStudentList($teacherCourse);
     
-    return view('student-info.student-info', compact('user', 'role', 'enrolledCourse', 'teacherCourse' ,'studentList'));
+    return view('teachers.student-info', compact('user', 'role', 'enrolledCourse', 'teacherCourse' ,'studentList'));
   }
 }
