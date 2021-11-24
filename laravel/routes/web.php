@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForgetPasswordController;
@@ -64,4 +65,20 @@ Route::middleware(['web', 'auth', 'checkteacher','logout_back_history'])->group(
     Route::get('/setGrade',[TeacherController::class,'setGrade']);
     Route::get('/teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard'])->name('teacher.dashboard');
     Route::get('/teacher/{id}/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
+});
+
+Route::middleware(['web', 'auth'])->group(function () {
+// Admin
+Route::get('/admin/{id}', [AdminController::class, 'showUserList'])->name('admin-home');
+Route::get('/enroll/{teacher_id}',[AdminController::class, 'enrollTeacher'])->name('enroll.teacher');
+Route::post('/enroll/{teacher_id}/course',[AdminController::class, 'enrollTeacherCourse'])->name('enroll.teacherCourse');
+
+//AddNewCourse
+Route::get('/course/create-view', function () { 
+    return view('course.createCourse'); 
+});
+Route::post('/add/new/course', [CourseController::class, 'addNewCourse'])->name('add.new.course');
+
+Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
+Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
 });

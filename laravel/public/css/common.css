@@ -31,9 +31,7 @@ body {
 
 .tab-nav {
   list-style: none;
-  overflow-x: scroll;
   width: 100%;
-  display: -webkit-inline-box;
 }
 
 ::-webkit-scrollbar {
@@ -95,6 +93,8 @@ body {
 
 .course-tab {
   margin-bottom: 30px;
+  overflow-x: scroll;
+  display: -webkit-inline-box;
 }
 
 .course-tab li {
@@ -162,6 +162,12 @@ body {
   border-style: none;
   background-color: #2699FB;
   color: white;
+}
+
+.msg-box-empty  {
+  padding: 20px;
+  background-color: #E5E5E5;
+  font-size: 16px;
 }
 
 /* Common */

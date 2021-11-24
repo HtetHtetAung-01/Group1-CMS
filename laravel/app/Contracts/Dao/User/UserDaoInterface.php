@@ -66,4 +66,22 @@ interface UserDaoInterface
 	public function getTotalStudentByGender();
 
 	public function getTotalStudent();
+
+	/**
+	 * Get all the user list
+	 * @return $userList
+	 */
+	public function getAllUser();
+
+	/**
+	 * Get all the student list
+	 * @return $studentList
+	 */
+	public function getAllStudent();
+
+	/**
+	 * Get all the teacher list
+	 * @return $teacherList
+	 */
+	public function getAllTeacher();
 }

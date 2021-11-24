@@ -13,7 +13,10 @@ $(document).ready(function() {
       // Show Content
       $(this).addClass('active');
       $(content).eq( $(this).index()).addClass('active');
-  });  
+  });
+  
+  // Auto-click the first tab by default
+  $('.tab-nav li:first-child').click();
 
   // Accordian for Comment
   $('.accd-li.comment .accd-dt').click(function(){
@@ -29,7 +32,6 @@ $(document).ready(function() {
         dd.slideUp(duration);
         $(this).find('p').html('Show Comments<i>&#xf078;</i>');
     }
-
-});
+  });
 
 })

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Assignment\AssignmentService;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
+use \App\Http\Requests\AddNewCourseRequest;
 use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
@@ -218,5 +219,15 @@ class CourseController extends Controller
     $enrolledCourse = $this->userService->getEnrolledCourse($teacher_id, $role);
     
     return view('course.teacherCourse', compact('user', 'role', 'enrolledCourse', 'teacherCourseList', 'T_assignmentNoList'));
+  }
+
+  /**
+   * add new course
+   */
+  public function addNewCourse(AddNewCourseRequest $request)
+  {
+    $validated = $request->validated();
+    $this->courseService->addNewCourse($request);
+    return redirect()->back();
   }
 }

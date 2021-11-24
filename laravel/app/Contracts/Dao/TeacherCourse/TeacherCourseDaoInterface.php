@@ -10,4 +10,10 @@ interface TeacherCourseDaoInterface {
    * @return $teacherCourseList
    */
   public function getTeacherCourse($id);
+
+  /**
+   * Enroll teacher coursee
+   * 
+   */
+  public function enrollTeacherCourse($teacher_id, $course_id);
 }

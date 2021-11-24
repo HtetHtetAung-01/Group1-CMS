@@ -23,8 +23,8 @@
         else
             $role = 'admin';
     @endphp
-    
-    <div class="container clearfix">
+
+    <div class="container">
         <aside class="sidebar">
             <h3 class="cms">CMS</h3>
             <ul>
@@ -71,7 +71,7 @@
         </aside>
         <div class="content">
           <nav class="nav clearfix">
-          <p class="text">Hello, Let's Learn Together!</p>
+            <p class="text">Hello, Let's Learn Together!</p>
             <div class="profile-blk">
                 <button class="profile-btn">
                     <p>{{ $user->name }} ({{ $role }})</p>
@@ -104,7 +104,9 @@
     <script src="{{ asset('js/library/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/common/app.js') }}"></script>
     <script src="{{ asset('js/common.js') }}"></script>
+    <script src="{{ asset('js/tab.js') }}"></script>
     @yield('scripts')
+    
 </body>
 
 </html>

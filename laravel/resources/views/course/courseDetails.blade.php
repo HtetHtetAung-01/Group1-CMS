@@ -85,12 +85,16 @@ $requiredCourses .= ", '".$course->title."' ";
         <dt class="accd-dt d-flex">
           <div class="d-flex">
             @if($isEnrolled==false)
-            @if($assignmentStatus != NULL && $key < (count($assignmentStatus)) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed_icon.png" alt="progress-icon">
+              @if($assignmentStatus != NULL && $key < (count($assignmentStatus)) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed_icon.png" alt="progress-icon">
               @else
-              <img src="/img/progress.png" alt="progress-icon">
+                @if ($started[$key]==false)
+                <img src="/img/started_icon.png" alt="started-icon">
+                @else
+                <img src="/img/progress_icon.png" alt="progress-icon">
+                @endif
               @endif
-              @elseif ($isEnrolled==true) <img src="/img/lock_icon.png" alt="progress-icon">
-              @endif
+            @elseif ($isEnrolled==true) <img src="/img/lock_icon.png" alt="lock-icon">
+            @endif
               <span class="assign-name">
                 {{ $courseDetails[$key]->name }}
               </span>

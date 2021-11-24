@@ -103,3 +103,7 @@
 .cmt-msg {
     padding-top: 3%;
 }
+
+form.cmt-msg input[type = "submit"]{
+    cursor: pointer;
+}
