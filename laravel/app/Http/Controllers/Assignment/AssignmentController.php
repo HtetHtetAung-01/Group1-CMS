@@ -58,9 +58,9 @@ class AssignmentController extends Controller
         $requiredCourse = $this->courseService->getRequiredCourseList($idArray);
 
         $completeRequiredCourse = app('App\Http\Controllers\Course\CourseController')
-        ->isCompletedRequiredCourses($course_id, $student_id);
-        $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);  
-        
+            ->isCompletedRequiredCourses($course_id, $student_id);
+        $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);
+
         return view('course.courseDetails', [
             'courseDetails' => $courseDetails,
             'isEnrolled' => $isEnrolled,
@@ -84,7 +84,7 @@ class AssignmentController extends Controller
         $assignment_details = $this->assignmentInterface->isCompleted($course_id);
         $key = 0;
         $assignmentStatus = [];
-        
+
         foreach ($assignment_details as $assignment) {
             $status = $this->assignmentInterface->getAssignmentStatusByStudent($student_id, $assignment->id);
             $assignmentStatus[$key] = $status;
@@ -137,14 +137,12 @@ class AssignmentController extends Controller
     /**
      * To download file
      * @param $course_id
-     * @param $student_id
-     * @param $filename
+     * @param $assignment_id
      * @return View courseDetails
      */
     public function downloadFile($id, $course_id, $assignment_id)
     {
         return $this->assignmentInterface->downloadAssignment($assignment_id);
-        // return response()->download(storage_path('app/public/' . $id));
     }
 
     /**
@@ -162,7 +160,7 @@ class AssignmentController extends Controller
         if (!is_dir($ROOT_DIR)) {
             mkdir($ROOT_DIR);
         }
-        
+
         $validated = $filename->validated();
         $file = $validated['inputFile'];
         $inputFileName = Storage::putFileAs($ROOT_DIR, $file, $file->getClientOriginalName());

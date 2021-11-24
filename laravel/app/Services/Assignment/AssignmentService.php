@@ -9,150 +9,183 @@ use App\Models\Assignment;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Service class for assignment.
+ * Service class for assignment
  */
 class AssignmentService implements AssignmentServiceInterface
 {
-  /**
-   * assignment dao
-   */
-  private $assignmentDao;
-  private $studentAssignmentDao;
-  /**
-   * Class Constructor
-   * @param AssignmentDaoInterface
-   * @return
-   */
-  public function __construct(AssignmentDaoInterface $assignmentDao, StudentAssignmentDao $studentAssignmentDao)
-  {
-    $this->assignmentDao = $assignmentDao;
-    $this->studentAssignmentDao = $studentAssignmentDao;
-  }
+    /**
+     * assignment dao
+     */
+    private $assignmentDao;
+    private $studentAssignmentDao;
 
-  public function addAssignment($validated)
-  {
-
-    $ROOT_DIR = 'assignments';
-
-    if (!is_dir($ROOT_DIR)) {
-      mkdir($ROOT_DIR);
+    /**
+     * Class Constructor
+     * @param AssignmentDaoInterface
+     * @return 
+     */
+    public function __construct(AssignmentDaoInterface $assignmentDao, StudentAssignmentDao $studentAssignmentDao)
+    {
+        $this->assignmentDao = $assignmentDao;
+        $this->studentAssignmentDao = $studentAssignmentDao;
     }
 
-    $inputFile = $validated['file'];
-    $file_path = Storage::putFileAs($ROOT_DIR, $inputFile, $inputFile->getClientOriginalName());
+    /**
+     * Add assignment from admin view
+     * @param $assignment
+     */
+    public function addAssignment($validated)
+    {
+        $ROOT_DIR = 'assignments';
 
-    $assignment = new Assignment;
-    $assignment->name = $validated['name'];
-    $assignment->description = $validated['description'];
-    $assignment->duration = $validated['duration'];
-    $assignment->course_id = $validated['course_id'];
-    $assignment->file_path = $file_path;
+        if (!is_dir($ROOT_DIR)) {
+            mkdir($ROOT_DIR);
+        }
 
-    $this->assignmentDao->addAssignment($assignment);
-  }
+        $inputFile = $validated['file'];
+        $file_path = Storage::putFileAs($ROOT_DIR, $inputFile, $inputFile->getClientOriginalName());
 
-  public function getAllAssignment()
-  {
-    return $this->assignmentDao->getAllAssignment();
-  }
+        $assignment = new Assignment;
+        $assignment->name = $validated['name'];
+        $assignment->description = $validated['description'];
+        $assignment->duration = $validated['duration'];
+        $assignment->course_id = $validated['course_id'];
+        $assignment->file_path = $file_path;
 
-  /**
-   * To get assignment list by course id
-   */
-  public function getCourseDetails($id)
-  {
-    return $this->assignmentDao->getCourseDetails($id);
-  }
+        $this->assignmentDao->addAssignment($assignment);
+    }
 
-  /**
-   * To check enrolled or not
-   */
-  public function isEnrolled($student_id, $course_id)
-  {
-    return $this->assignmentDao->isEnrolled($student_id, $course_id);
-  }
+    /**
+     * To get all assignments
+     */
+    public function getAllAssignment()
+    {
+        return $this->assignmentDao->getAllAssignment();
+    }
 
-  /**
-   * To enroll course by student id
-   */
-  public function enrollCourse($student_id, $course_id)
-  {
-    return $this->assignmentDao->enrollCourse($student_id, $course_id);
-  }
+    /**
+     * To get assignment list by course id
+     * @param $course_id
+     * @return View courseDetails
+     */
+    public function getCourseDetails($id)
+    {
+        return $this->assignmentDao->getCourseDetails($id);
+    }
 
-  /**
-   * To start assignment
-   */
-  public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
-  {
-    return $this->assignmentDao->addNullStudentAssignment($student_id, $course_id, $assignment_id);
-  }
+    /**
+     * To check enroll or not
+     * @param $course_id
+     * @param $student_id
+     * @return View courseDetails
+     */
+    public function isEnrolled($student_id, $course_id)
+    {
+        return $this->assignmentDao->isEnrolled($student_id, $course_id);
+    }
 
-  /**
-   * To submit student's assignment
-   */
-  public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
-  {
-    return $this->assignmentDao->addStudentAssignment($student_id, $course_id, $assignment_id, $filename);
-  }
+    /**
+     * To enroll course by student id
+     * @param $course_id
+     * @param $student_id
+     * @return View courseDetails
+     */
+    public function enrollCourse($student_id, $course_id)
+    {
+        return $this->assignmentDao->enrollCourse($student_id, $course_id);
+    }
 
-  /**
-   * To check assignment is completed or not
-   */
-  public function isCompleted($course_id)
-  {
-    return $this->assignmentDao->isCompleted($course_id);
-  }
+    /**
+     * To start assignment
+     * @param $course_id
+     * @param $student_id
+     * @param $assignment_id
+     * @return View courseDetails
+     */
+    public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
+    {
+        return $this->assignmentDao->addNullStudentAssignment($student_id, $course_id, $assignment_id);
+    }
 
-  /**
-   * To check assignment is started or not
-   */
-  public function isStarted($student_id, $assignment_id)
-  {
-    return $this->assignmentDao->isStarted($student_id, $assignment_id);
-  }
+    /**
+     * To submit student's assignment
+     * @param $course_id
+     * @param $student_id
+     * @param $assignment_id
+     * @param FileSubmitRequest $filename Request form courseDetails
+     * @return View courseDetails
+     */
+    public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
+    {
+        return $this->assignmentDao->addStudentAssignment($student_id, $course_id, $assignment_id, $filename);
+    }
 
-  
-  /**
-   * get assignment for the course $course_id
-   */
-  public function getAssignmentNamesbyCourseId($course_id)
-  {
-    return $this->assignmentDao->getAssignmentNamesbyCourseId($course_id);
-  }
-  /**
-   * To download assignment by ID
-   */
-  public function downloadAssignment($assignment_id)
-  {
-    $assignment = $this->assignmentDao->getAssignmentById($assignment_id);
-    return Storage::download($assignment->file_path);
-  }
+    /**
+     * To check all assignments for $course_id completed or not
+     * @param $course_id
+     * @return $assignmentStatus
+     */
+    public function isCompleted($course_id)
+    {
+        return $this->assignmentDao->isCompleted($course_id);
+    }
 
-  /**
-   * Get the number of assignment by $course_id
-   * @return $number
-   */
-  public function getNoOfAssignmentByCourse($course_id)
-  {
-    return $this->assignmentDao->getNoOfAssignmentByCourse($course_id);
-  }
+    /**
+     * To check assignment is started or not
+     * @param $student_id
+     * @param $assignment_id
+     */
+    public function isStarted($student_id, $assignment_id)
+    {
+        return $this->assignmentDao->isStarted($student_id, $assignment_id);
+    }
 
-  /**
-   * get all assignments records of $course_id by $student_id
-   * @return $assignmentList
-   */
-  public function getAssignmentStatusByStudent($student_id, $assignment_id)
-  {
-    return $this->studentAssignmentDao->getAssignmentStatusByStudent($student_id, $assignment_id);
-  }
+    /**
+     * Get assignment for the course $course_id
+     * @param $course_id
+     */
+    public function getAssignmentNamesbyCourseId($course_id)
+    {
+        return $this->assignmentDao->getAssignmentNamesbyCourseId($course_id);
+    }
+    /**
+     * To download assignment by ID
+     * @param $assignment_id
+     */
+    public function downloadAssignment($assignment_id)
+    {
+        $assignment = $this->assignmentDao->getAssignmentById($assignment_id);
+        return Storage::download($assignment->file_path);
+    }
 
-  /**
-   * get all assignments by course
-   * @return $assignemtnList
-   */
-  public function getAllAssignmentByCourse($course_id)
-  {
-    return $this->assignmentDao->getAllAssignmentByCourse($course_id);
-  }
+    /**
+     * Get the number of assignment by $course_id
+     * @param $course_id
+     * @return $number
+     */
+    public function getNoOfAssignmentByCourse($course_id)
+    {
+        return $this->assignmentDao->getNoOfAssignmentByCourse($course_id);
+    }
+
+    /**
+     * Get all assignments records of $course_id by $student_id
+     * @param $student_id
+     * @param $assignment_id
+     * @return $assignmentList
+     */
+    public function getAssignmentStatusByStudent($student_id, $assignment_id)
+    {
+        return $this->studentAssignmentDao->getAssignmentStatusByStudent($student_id, $assignment_id);
+    }
+
+    /**
+     * Get all assignments by course
+     * @param $course_id
+     * @return $assignmentList
+     */
+    public function getAllAssignmentByCourse($course_id)
+    {
+        return $this->assignmentDao->getAllAssignmentByCourse($course_id);
+    }
 }
