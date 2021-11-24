@@ -226,8 +226,9 @@ class CourseController extends Controller
    */
   public function addNewCourse(AddNewCourseRequest $request)
   {
+    info("in add course");
     $validated = $request->validated();
     $this->courseService->addNewCourse($request);
-    return back();
+    // return back();
   }
 }

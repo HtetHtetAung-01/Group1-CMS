@@ -35,17 +35,16 @@
       </div>
 
       <div class="admin-content">
-        <div id="user" class="list-content ">
+        <div id="user" class="list-content show">
           <table class="list">
             <tr>
               <th>No</th>
               <th>User ID</th>
               <th>Name</th>
               <th>gender</th>
-              <th>Email</th>
-              <th>Phone</th>
               <th>DOB</th>
-              <th>Operation</th>
+              <th>Email</th>
+              <th>Phone</th>              
             </tr>
             <tbody>
             <?php $index = 0; ?>
@@ -54,12 +53,10 @@
                 <td class="number">{{ ++$index }}</td>
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
-                
                 <td ><p>{{ $user->gender }}</p></td>
+                <td>{{ $user->dob }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->phone }}</td>
-                <td>{{ $user->dob }}</td>
-                <td><i class="fa fa-edit edit"></i>&emsp;<i class="fa fa-trash delete"></td>
               </tr>
             @endforeach
             </tbody>
@@ -73,10 +70,9 @@
               <th>User ID</th>
               <th>Name</th>
               <th>gender</th>
+              <th>DOB</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>DOB</th>
-              <th>Operation</th>
             </tr>
             <tbody>
             <?php $index = 0; ?>
@@ -84,14 +80,12 @@
               <tr class="row">
                 <td class="number"><a type="button" href="/enroll/{{ $teacher->id }}" data-modal="modal-enroll" class="btn-show-modal enroll-btn" 
                 >Enroll</a></td>
-                
                 <td>{{ $teacher->id }}</td>
                 <td>{{ $teacher->name }}</td>
                 <td>{{ $teacher->gender }}</td>
+                <td>{{ $teacher->dob }}</td>
                 <td>{{ $teacher->email }}</td>
                 <td>{{ $teacher->phone }}</td>
-                <td>{{ $teacher->dob }}</td>
-                <td><i class="fa fa-edit edit"></i>&emsp;<i class="fa fa-trash delete"></td>
               </tr>
               
             @endforeach
@@ -107,10 +101,9 @@
               <th>User ID</th>
               <th>Name</th>
               <th>gender</th>
+              <th>DOB</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>DOB</th>
-              <th>Operation</th>
             </tr>
             <tbody>
             <?php $index = 0; ?>
@@ -120,10 +113,9 @@
                 <td>{{ $student->id }}</td>
                 <td>{{ $student->name }}</td>
                 <td>{{ $student->gender }}</td>
+                <td>{{ $student->dob }}</td>
                 <td>{{ $student->email }}</td>
                 <td>{{ $student->phone }}</td>
-                <td>{{ $student->dob }}</td>
-                <td><i class="fa fa-edit edit"></i>&emsp;<i class="fa fa-trash delete"></td>
               </tr>
             @endforeach
             </tbody>
