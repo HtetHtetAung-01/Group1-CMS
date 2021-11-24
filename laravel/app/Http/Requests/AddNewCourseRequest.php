@@ -27,7 +27,7 @@ class AddNewCourseRequest extends FormRequest
             'title' => 'required|max:255',
             'category' => 'required|max:255',
             'description' => 'required',
-            'required_courses' => 'required',
+            'requiredCourses' => 'required',
         ];
     }
 }

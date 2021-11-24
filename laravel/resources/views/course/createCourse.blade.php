@@ -25,7 +25,8 @@
                 <label for="description">Description</label><br><textarea name="description" rows="3" cols="50" required></textarea>
             </div>
             <div class="text">
-                <label for="requiredCourses">Required Courses</label><br><input type="text" placeholder="eg.,[1,2]" name="requiredCourses" required><br>
+                <label for="requiredCourses">Required Courses</label><br>
+                <input type="text" placeholder="eg.,[1,2]" name="requiredCourses" required><br>
             </div>
             <button type="submit" class="register-btn">Create Course</button>
         </form>

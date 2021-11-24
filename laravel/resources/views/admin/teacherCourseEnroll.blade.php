@@ -26,9 +26,7 @@
       </div><!-- /.mdl-btns -->
     </form>
   </div>
-  @if($teacherCourse == NULL)
-    <p>Already Enrolled!</p>
-  @endif
+  
   <div id="modal-enroll" class="modal">
     <div class="modalContent">
       <span class="modal-close">×</span>
