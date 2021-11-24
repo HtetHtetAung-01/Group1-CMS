@@ -43,4 +43,17 @@ interface CourseServiceInterface
    * add new course
    */
   public function addNewCourse($request);
+
+  /**
+   * get enrolled courses by student
+   * @return $enrolledCourses
+   */
+  public function getStudentEnrolledCourses($student_id);
+
+  /**
+   * get complete status of course by student
+   * @return $status
+   */
+  public function getCourseCompleteStatusByStudent($student_id, $course_id);
+
 }

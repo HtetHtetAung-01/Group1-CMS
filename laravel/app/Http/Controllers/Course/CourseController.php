@@ -29,17 +29,14 @@ class CourseController extends Controller
    */
   public function showStudentCourse($student_id)
   {
-    $scl = $this->courseService->getStudentCourse();
+    $scl = $this->courseService->getAllCourseList();
     foreach($scl as $key => $value) {
       $courseIdList[++$key] = $value->id;
     }
     
     foreach($courseIdList as $key => $value) {
       
-      $number = DB::table('assignments')
-              ->where('course_id', $courseIdList[$key])
-              ->whereNull('deleted_at')
-              ->count();
+      $number = $this->assignmentService->getNoOfAssignmentByCourse($courseIdList[$key]);
       $anl[$key] = $number;
       $key++;
     }  
@@ -89,12 +86,7 @@ class CourseController extends Controller
    */
   public function getCourseStatus($student_id, $totalCourse) 
   {
-    $enrolledCourseList = DB::table('student_courses')
-                          ->select('course_id', 'is_completed')
-                          ->where('student_id', $student_id)
-                          ->whereNull('deleted_at')
-                          ->get();
-
+    $enrolledCourseList = $this->courseService->getStudentEnrolledCourses($student_id);
     
     foreach($totalCourse as $key => $value) {
       $isenroll = false;
@@ -123,7 +115,8 @@ class CourseController extends Controller
   }
 
   /**
-   * check required courses are completed or not
+   * check required courses of $course_id by $student_id are completed or not
+   * @return -> true or false
    */
   private $array = [];
   private $i = 0;
@@ -138,24 +131,16 @@ class CourseController extends Controller
       }
       $this->array = $this->changeStringToArray($course->required_courses);;
       foreach($this->array as $key => $value) {
-        $is_completed = DB::table('student_courses')
-              ->select('is_completed')
-              ->where('student_id', $student_id)
-              ->where('course_id', $this->array[$key])
-              ->whereNull('deleted_at')
-              ->get();
-        if(count($is_completed) == 0) {
+        $status  = $this->courseService->getCourseCompleteStatusByStudent($student_id, $this->array[$key]);
+
+        if($status == NULL) {
           return false;
         }
-        
-        foreach($is_completed as $status) {
-          if($status->is_completed == 0) {
-            return false;
-          }
-          else {
-            return $this->isCompletedRequiredCourses($this->array[$key], $student_id, false);
-          }
-            
+        else if($status == 0) {
+          return false;
+        }
+        else {
+          return $this->isCompletedRequiredCourses($this->array[$key], $student_id);
         }
       }
       return true;
@@ -170,7 +155,8 @@ class CourseController extends Controller
   }
 
   /**
-   * check all the assignments are completed
+   * check all the assignments are completed or not
+   * @return -> true or false
    */
   public function checkAllAssignmentCompleted($student_id, $course_id)
   {
@@ -182,43 +168,6 @@ class CourseController extends Controller
     }
     
     return true;
-  }
-
-  /**
-   * show teacher courses
-   * @return view teachers.course
-   */
-  public function showTeacherCourse($teacher_id)
-  {
-    $teacherCourseID = $this->courseService->getTeacherCourse($teacher_id);
-
-    // get the course list of teacher $id
-    $index = 0;
-    $teacherCourseList = collect();
-    foreach($teacherCourseID as $course) {
-      $teacherCourse = DB::table('courses')
-                        ->where('id', $course->course_id)
-                        ->whereNull('deleted_at')
-                        ->get();
-
-      foreach($teacherCourse as $key => $value){
-        $teacherCourseList->push($teacherCourse[$key]);
-      }  
-
-      // get the number of assignments in each course
-      $number = DB::table('assignments')
-                ->where('course_id', $course->course_id)
-                ->whereNull('deleted_at')
-                ->count();                       
-      $T_assignmentNoList[$index] = $number; 
-      $index++;
-    }
-    $user = $this->userService->getUserById($teacher_id);
-    $roles = $this->userService->getUserRole($teacher_id);
-    $role = $roles->type;
-    $enrolledCourse = $this->userService->getEnrolledCourse($teacher_id, $role);
-    
-    return view('course.teacherCourse', compact('user', 'role', 'enrolledCourse', 'teacherCourseList', 'T_assignmentNoList'));
   }
 
   /**

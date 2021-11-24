@@ -160,4 +160,33 @@ class AssignmentDao implements AssignmentDaoInterface
 
     return $assignmentList;                    
   }
+
+  /**
+   * Get the number of assignment by $course_id
+   * @return $number
+   */
+  public function getNoOfAssignmentByCourse($course_id)
+  {
+    $number = DB::table('assignments')
+              ->where('course_id', $course_id)
+              ->whereNull('deleted_at')
+              ->count();
+
+    return $number;
+  }
+
+  /**
+   * get all assignments by course
+   * @return $assignemtnList
+   */
+  public function getAllAssignmentByCourse($course_id)
+  {
+    $assignmentList = DB::table('assignments')
+            ->select('*')
+            ->where('course_id', $course_id)
+            ->whereNull('deleted_at')
+            ->get();
+
+    return $assignmentList;
+  }
 }

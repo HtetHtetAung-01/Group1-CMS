@@ -62,4 +62,16 @@ interface AssignmentDaoInterface
   public function isStarted($student_id, $assignment_id);
 
   public function getAssignmentNamesbyCourseId($course_id);
+
+  /**
+   * Get the number of assignment by $course_id
+   * @return $number
+   */
+  public function getNoOfAssignmentByCourse($course_id);
+
+  /**
+   * get all assignments by course
+   * @return $assignemtnList
+   */
+  public function getAllAssignmentByCourse($course_id);
 }

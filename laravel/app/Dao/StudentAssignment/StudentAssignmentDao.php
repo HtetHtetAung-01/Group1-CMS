@@ -44,4 +44,28 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
             ->where('assignment_id', '=', $assignment_id)
             ->count();
     }
+
+    /**
+     * get all assignments records of $course_id by $student_id
+     * @return $assignmentList
+     */
+    public function getAssignmentStatusByStudent($student_id, $assignment_id)
+    {
+        $assignment= DB::table('student_assignments')
+                ->select('id', 'uploaded_date', 'file_path')
+                ->where('assignment_id', $assignment_id)
+                ->where('student_id', $student_id)
+                ->whereNull('deleted_at')
+                ->get();
+
+        if(count($assignment) == 0)
+            $status = 'progress';
+        else {
+            if($assignment[0]->uploaded_date != NULL && $assignment[0]->file_path != NULL)
+                $status = 'completed';
+            else
+                $status = 'progress';
+        }
+        return $status;
+    }
 }

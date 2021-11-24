@@ -75,9 +75,9 @@ class AssignmentController extends Controller
     }
 
     /**
-     * To check assignment is completed or not
+     * To check all assignments for $course_id completed or not
      * @param $course_id
-     * @return View courseDetails
+     * @return $assignmentStatus
      */
     public function isCompletedAssignment($student_id, $course_id)
     {
@@ -86,25 +86,8 @@ class AssignmentController extends Controller
         $assignmentStatus = [];
         
         foreach ($assignment_details as $assignment) {
-            
-            $is_completed = DB::table('student_assignments')
-                ->select('id', 'uploaded_date', 'file_path')
-                ->where('assignment_id', $assignment->id)
-                ->where('student_id', $student_id)
-                ->whereNull('deleted_at')
-                ->get();
-  
-            if ($is_completed->count() == 0) {
-                $assignmentStatus[$key] = 'progress';
-            } else {
-                foreach ($is_completed as $com) {
-                    if ($com->uploaded_date != NULL && $com->file_path != NULL) {
-                        $assignmentStatus[$key] = 'completed';
-                    } else {
-                        $assignmentStatus[$key] = 'progress';
-                    }
-                }
-            }
+            $status = $this->assignmentInterface->getAssignmentStatusByStudent($student_id, $assignment->id);
+            $assignmentStatus[$key] = $status;
             $key++;
         }
         return $assignmentStatus;
@@ -119,11 +102,7 @@ class AssignmentController extends Controller
     public function showStarted($student_id, $course_id)
     {
         $start = [];
-        $assignmentList = DB::table('assignments')
-            ->select('*')
-            ->where('course_id', $course_id)
-            ->whereNull('deleted_at')
-            ->get();
+        $assignmentList = $this->assignmentInterface->getAllAssignmentByCourse($course_id);
         foreach ($assignmentList as $key => $values) {
             $start[$key] = $this->assignmentInterface->isStarted($student_id, $assignmentList[$key]->id);
         }

@@ -4,6 +4,7 @@ namespace App\Services\Assignment;
 
 use App\Contracts\Dao\Assignment\AssignmentDaoInterface;
 use App\Contracts\Services\Assignment\AssignmentServiceInterface;
+use App\Dao\StudentAssignment\StudentAssignmentDao;
 use App\Models\Assignment;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,14 +17,16 @@ class AssignmentService implements AssignmentServiceInterface
    * assignment dao
    */
   private $assignmentDao;
+  private $studentAssignmentDao;
   /**
    * Class Constructor
    * @param AssignmentDaoInterface
    * @return
    */
-  public function __construct(AssignmentDaoInterface $assignmentDao)
+  public function __construct(AssignmentDaoInterface $assignmentDao, StudentAssignmentDao $studentAssignmentDao)
   {
     $this->assignmentDao = $assignmentDao;
+    $this->studentAssignmentDao = $studentAssignmentDao;
   }
 
   public function addAssignment($validated)
@@ -124,5 +127,32 @@ class AssignmentService implements AssignmentServiceInterface
   {
     $assignment = $this->assignmentDao->getAssignmentById($assignment_id);
     return Storage::download($assignment->file_path);
+  }
+
+  /**
+   * Get the number of assignment by $course_id
+   * @return $number
+   */
+  public function getNoOfAssignmentByCourse($course_id)
+  {
+    return $this->assignmentDao->getNoOfAssignmentByCourse($course_id);
+  }
+
+  /**
+   * get all assignments records of $course_id by $student_id
+   * @return $assignmentList
+   */
+  public function getAssignmentStatusByStudent($student_id, $assignment_id)
+  {
+    return $this->studentAssignmentDao->getAssignmentStatusByStudent($student_id, $assignment_id);
+  }
+
+  /**
+   * get all assignments by course
+   * @return $assignemtnList
+   */
+  public function getAllAssignmentByCourse($course_id)
+  {
+    return $this->assignmentDao->getAllAssignmentByCourse($course_id);
   }
 }

@@ -58,4 +58,22 @@ interface AssignmentServiceInterface
   public function getAssignmentNamesbyCourseId($course_id);
   
   public function downloadAssignment($assignment_id);
+
+  /**
+   * Get the number of assignment by $course_id
+   * @return $number
+   */
+  public function getNoOfAssignmentByCourse($course_id);
+
+  /**
+   * get all assignments records of $course_id by $student_id
+   * @return $assignmentList
+   */
+  public function getAssignmentStatusByStudent($student_id, $assignment_id);
+
+  /**
+   * get all assignments by course
+   * @return $assignemtnList
+   */
+  public function getAllAssignmentByCourse($course_id);
 }

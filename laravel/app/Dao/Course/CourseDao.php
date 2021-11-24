@@ -9,18 +9,19 @@ use Illuminate\Support\Facades\DB;
 class CourseDao implements CourseDaoInterface
 {
   /**
-   * get the enrolled enroll$enrolledCourse of user
+   * get the enrolled courses of user
    * @return $enrolledCourse
    */
   public function getEnrolledCourse($id, $role)
   {
     if($role == 'Student') {
       $enrolledCourseID = DB::table('student_courses')
-                  ->select('course_id')
+                  ->select('course_id', 'is_completed')
                   ->where('student_id', $id)
                   ->whereNull('deleted_at')
                   ->get();
     }
+    
     elseif($role == 'Teacher'){
       $enrolledCourseID = DB::table('teacher_courses')
                   ->select('course_id')
