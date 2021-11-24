@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="chart-bg">
+<div class="chart-bg" id="charts">
     <table class="columns">
         <tr>
             <td>
@@ -69,6 +69,10 @@
 
         var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
         barchart.draw(dataChart, barchart_options);
+
+        if (dataPie.getNumberOfRows() === 0 && dataChart.getNumberOfRows() === 0) {
+            $("#charts").append("No data yet.")
+        }
     }
 </script>
 @endsection
