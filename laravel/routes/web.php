@@ -20,9 +20,6 @@ use App\Http\Controllers\Teacher\TeacherController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 //registration
 Route::get('dashboard', [AuthController::class, 'userDashboard']);
@@ -64,7 +61,7 @@ Route::middleware(['web', 'auth', 'checkteacher','logout_back_history'])->group(
     Route::get('/teacher/{id}/assignment/', [TeacherController::class, 'showAssignments'])->name('teacher.assignment');
     Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment'])->name('teacher.assignment.download');
     Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment'])->name('teacher.assignment.comment');
-    Route::post('/teacher/{id}/assignment/{assignment_id}/grade', [TeacherController::class, 'submitGrade'])->name('teacher.assignment.grade.submit');
+    Route::get('/setGrade',[TeacherController::class,'setGrade']);
     Route::get('/teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard'])->name('teacher.dashboard');
     Route::get('/teacher/{id}/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
 });

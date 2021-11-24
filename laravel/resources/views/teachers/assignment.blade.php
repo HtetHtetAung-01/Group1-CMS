@@ -8,14 +8,61 @@
 
 @section('scripts')
 <script>
-  function openForm($route) {
+  //Tyi Edit
+  var student_id,assignment_id ="";
+  function openForm(sid,said) {
     document.getElementById("myForm").style.display = "block";
-    document.getElementById("submitForm").action = $route;
+    student_id = sid;
+    assignment_id = said;
+    console.log(student_id,assignment_id);
+    // document.getElementById("submitForm").action = $route;
   }
 
   function closeForm() {
     document.getElementById("myForm").style.display = "none";
   }
+   //Tyi Edit
+  $("#submitForm").submit(function(e){
+    e.preventDefault();
+    const grade=$('#student_grade').val();
+    console.log(student_id,assignment_id);
+    $.ajax({
+      type:'get',
+      url:'/setGrade',
+      data:{id:student_id,assignment_id:assignment_id,grade:grade},
+      success:function(response){
+        console.log(response);
+        if(response.success){
+          $('#student_grade'+assignment_id).html(grade+'%');
+          closeForm();
+          $('#student_grade').val('');
+        }
+      }
+    })
+  });
+
+ //commentForm
+  $("#commentForm").submit(function(e){
+    e.preventDefault();
+    const url = $('#commentForm').attr('action');
+    const form_data = $("#commentForm" ).serialize();
+    const commentor = "{{Auth::user()->name}}";
+    const commentBody = $('#commentBody').val();
+    $.ajax({
+      type:'post',
+      url:url,
+      data:form_data,
+      success:function(response){
+        console.log(response);
+        if(response.success){
+          const messageRow = '<p class="cmt-text"><b>'+commentor+':&nbsp;</b>'+commentBody+'</p>';
+          $('#commentList').append(messageRow);
+          $('#commentBody').val('');
+        }
+      }
+    })
+  });
+
 </script>
 @endsection
 
@@ -63,9 +110,9 @@
                         {{basename($item->file_path)}}
                       </a>
                     </td>
-                    <td>{{($item->grade != null)?$item->grade."%":""}}</td>
+                    <td id="student_grade{{$item->id}}">{{($item->grade != null)?$item->grade."%":""}}</td>
                     <td>
-                      <button class="open-button" onclick="openForm('{{route('teacher.assignment.grade.submit', ['id'=> Auth::user()->id, 'assignment_id' => $item->id])}}')">Submit Grade</button>
+                      <button class="open-button" onclick="openForm({{Auth::user()->id}},{{$item->id}})">Submit Grade</button>
                     </td>
                   </tr>
                   <tr>
@@ -76,12 +123,12 @@
                             <p class="cmt-toggle">Show Comments<i>&#xf078;</i></p>
                           </dt>
                           <!-- /.accd-dt -->
-                          <dd class="accd-dd cmt-msg">
+                          <dd class="accd-dd cmt-msg" id="commentList">
 
                             @foreach ($item->comments as $comment)
                             <p class="cmt-text">
                               <b>{{$comment->name}}:&nbsp;</b>
-                              {{$comment->message;}}
+                              {{$comment->message}}
                             </p>
                             @endforeach
                           </dd>
@@ -90,10 +137,10 @@
                         <!-- /.accd-dt -->
                       </dl>
                       <!-- /.accd -->
-                      <form class="cmt-msg" action="{{ route('teacher.assignment.comment', ['id'=> Auth::user()->id, 'assignment_id' => $item->id]) }}" method="post">
+                      <form class="cmt-msg" id="commentForm" action="{{ route('teacher.assignment.comment', ['id'=> Auth::user()->id, 'assignment_id' => $item->id]) }}" method="post">
                         @csrf
                         <label for="comment" hidden>Comment</label>
-                        <input type="text" name="comment" placeholder="Add a comment ...">
+                        <input type="text" id="commentBody" name="comment" placeholder="Add a comment ...">
                         <input type="submit" value="&#xf1d8;">
                       </form>
                     </td>
@@ -122,7 +169,7 @@
   <form class="form-container" method="POST" id="submitForm">
     {{ csrf_field() }}
     <label for="grade"><b>Grade : </b></label>
-    <input type="text" placeholder="1-100" name="grade" required>
+    <input type="text" placeholder="1-100" id="student_grade" name="grade" required>
     <button type="submit" class="popup-btn">Confirm</button>
     <button type="button" class="popup-btn cancel" onclick="closeForm()">Cancel</button>
   </form>
