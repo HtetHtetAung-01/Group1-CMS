@@ -9,7 +9,7 @@
 }
 
 body {
-    background: none;
+    background: #F6F6F6;
     width: 1280px;
     max-width: 1920px;
     margin: 20px auto;
@@ -17,26 +17,25 @@ body {
 }
 
 .container {
-  /* display: flex; */
-  position: relative;
+    /* display: flex; */
+    position: relative;
 }
 
 .content {
-  float: right;
-  width: 80%;
-  background: #F6F6F6;
-  padding-left: 2%;
-  min-height: 900px;
-  position: absolute;
-  right: 0;
+    float: right;
+    width: 80%;
+    padding-left: 2%;
+    min-height: 900px;
+    position: absolute;
+    right: 0;
 }
 
 .main-visual {
-  padding: 3% 3% 10%;
-  margin-top: 3%;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
+    padding: 3% 3% 10%;
+    margin-top: 3%;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
 }
 
 .nav {
@@ -48,14 +47,14 @@ body {
 }
 
 .text {
-  float: left;
-  font-size: 18px;
+    float: left;
+    font-size: 18px;
 }
 
 .cms {
     margin: 5% 0 15% 10%;
     font-size: 22px;
-    letter-spacing: 3px;  
+    letter-spacing: 3px;
 }
 
 .profile-btn {
@@ -148,11 +147,11 @@ body {
 }
 
 .db-icon {
-  font-family: "FontAwsome-Solid";
-  color: rgb(0, 0, 0, 80%);
-  font-size: 22px;
-  font-style: normal;
-  margin-right: 10px;
+    font-family: "FontAwsome-Solid";
+    color: rgb(0, 0, 0, 80%);
+    font-size: 22px;
+    font-style: normal;
+    margin-right: 10px;
 }
 
 .sidebar ul li.active a {
@@ -161,7 +160,7 @@ body {
 }
 
 .sidebar ul li.active .db-icon {
-  color: #ffffff;
+    color: #ffffff;
 }
 
 .sidebar ul ul {
