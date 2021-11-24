@@ -101,6 +101,10 @@
                   @endforeach
                 </tbody>
               </table>
+              @else
+              <div class="msg-box-empty">
+                <p>No Assignment Submitted Yet. Check back later.</p>
+              </div>
               @endif
             </div>
             <!-- /.tab-cnt -->

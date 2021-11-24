@@ -61,6 +61,10 @@
             @endforeach
           </tbody>
         </table>
+        @else
+          <div class="msg-box-empty">
+            <p>No Assignment Submitted Yet.</p>
+          </div>
         @endif
       </div>
       @endforeach
