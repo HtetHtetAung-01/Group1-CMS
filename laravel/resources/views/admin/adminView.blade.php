@@ -33,6 +33,7 @@
           <button class="tab-btn" onclick="showList(event,'student')">Student <br> <span class="count">{{$studentCount}} students</span></button>
           <button class="tab-btn" onclick="showList(event,'course')">Courses <br> <span class="count">{{$courseCount}} courses</button>
           <button class="tab-btn" onclick="showList(event,'assignment')">Assignments <br> <span class="count">{{$assignmentCount}} assignments</button>
+          <a href="{{route('signout')}}">logout</a>
         </div>
       </div>
 

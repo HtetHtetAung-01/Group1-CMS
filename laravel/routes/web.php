@@ -70,7 +70,7 @@ Route::middleware(['web', 'auth', 'checkteacher'])->group(function () {
     Route::get('/teacher/{id}/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
 });
 
-
+Route::middleware(['web', 'auth'])->group(function () {
 // Admin
 Route::get('/admin/{id}', [AdminController::class, 'showUserList'])->name('admin-home');
 Route::get('/enroll/{teacher_id}',[AdminController::class, 'enrollTeacher'])->name('enroll.teacher');
@@ -84,3 +84,4 @@ Route::post('/add/new/course', [CourseController::class, 'addNewCourse'])->name(
 
 Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
 Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
+});
