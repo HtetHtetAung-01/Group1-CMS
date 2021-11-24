@@ -42,12 +42,17 @@
   });
 
  //commentForm
-  $("#commentForm").submit(function(e){
+  $("form.cmt-msg").submit(function(e){
     e.preventDefault();
-    const url = $('#commentForm').attr('action');
-    const form_data = $("#commentForm" ).serialize();
+    
+    cmtMsg = $(this).find('input[name = "comment"]');
+    cmtList = $(this).prev().find('dd.cmt-msg');
+
+    const url = $(this).attr('action');
+    const form_data = $(this).serialize();
     const commentor = "{{Auth::user()->name}}";
-    const commentBody = $('#commentBody').val();
+    const commentBody =  cmtMsg.val();
+
     $.ajax({
       type:'post',
       url:url,
@@ -56,8 +61,8 @@
         console.log(response);
         if(response.success){
           const messageRow = '<p class="cmt-text"><b>'+commentor+':&nbsp;</b>'+commentBody+'</p>';
-          $('#commentList').append(messageRow);
-          $('#commentBody').val('');
+          cmtList.append(messageRow);
+          cmtMsg.val('');
         }
       }
     })
@@ -137,10 +142,10 @@
                         <!-- /.accd-dt -->
                       </dl>
                       <!-- /.accd -->
-                      <form class="cmt-msg" id="commentForm" action="{{ route('teacher.assignment.comment', ['id'=> Auth::user()->id, 'assignment_id' => $item->id]) }}" method="post">
+                      <form class="cmt-msg" action="{{ route('teacher.assignment.comment', ['id'=> Auth::user()->id, 'assignment_id' => $item->id]) }}" method="post">
                         @csrf
                         <label for="comment" hidden>Comment</label>
-                        <input type="text" id="commentBody" name="comment" placeholder="Add a comment ...">
+                        <input type="text" name="comment" placeholder="Add a comment ...">
                         <input type="submit" value="&#xf1d8;">
                       </form>
                     </td>
