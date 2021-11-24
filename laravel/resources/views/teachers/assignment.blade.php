@@ -8,30 +8,26 @@
 
 @section('scripts')
 <script>
-  //Tyi Edit
+  
   var student_id,assignment_id ="";
   function openForm(sid,said) {
     document.getElementById("myForm").style.display = "block";
     student_id = sid;
     assignment_id = said;
-    console.log(student_id,assignment_id);
-    // document.getElementById("submitForm").action = $route;
   }
 
   function closeForm() {
     document.getElementById("myForm").style.display = "none";
   }
-   //Tyi Edit
+
   $("#submitForm").submit(function(e){
     e.preventDefault();
     const grade=$('#student_grade').val();
-    console.log(student_id,assignment_id);
     $.ajax({
       type:'get',
       url:'/setGrade',
       data:{id:student_id,assignment_id:assignment_id,grade:grade},
       success:function(response){
-        console.log(response);
         if(response.success){
           $('#student_grade'+assignment_id).html(grade+'%');
           closeForm();
@@ -41,7 +37,7 @@
     })
   });
 
- //commentForm
+  //commentForm
   $("form.cmt-msg").submit(function(e){
     e.preventDefault();
     
