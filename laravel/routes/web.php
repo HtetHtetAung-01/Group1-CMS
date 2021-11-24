@@ -81,3 +81,6 @@ Route::get('/course/create-view', function () {
     return view('course.createCourse'); 
 });
 Route::post('/add/new/course', [CourseController::class, 'addNewCourse'])->name('add.new.course');
+
+Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
+Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');

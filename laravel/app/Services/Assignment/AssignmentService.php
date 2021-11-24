@@ -4,6 +4,7 @@ namespace App\Services\Assignment;
 
 use App\Contracts\Dao\Assignment\AssignmentDaoInterface;
 use App\Contracts\Services\Assignment\AssignmentServiceInterface;
+use App\Models\Assignment;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -23,6 +24,33 @@ class AssignmentService implements AssignmentServiceInterface
   public function __construct(AssignmentDaoInterface $assignmentDao)
   {
     $this->assignmentDao = $assignmentDao;
+  }
+
+  public function addAssignment($validated)
+  {
+
+    $ROOT_DIR = 'assignments';
+
+    if (!is_dir($ROOT_DIR)) {
+      mkdir($ROOT_DIR);
+    }
+
+    $inputFile = $validated['file'];
+    $file_path = Storage::putFileAs($ROOT_DIR, $inputFile, $inputFile->getClientOriginalName());
+
+    $assignment = new Assignment;
+    $assignment->name = $validated['name'];
+    $assignment->description = $validated['description'];
+    $assignment->duration = $validated['duration'];
+    $assignment->course_id = $validated['course_id'];
+    $assignment->file_path = $file_path;
+
+    $this->assignmentDao->addAssignment($assignment);
+  }
+
+  public function getAllAssignment()
+  {
+    return $this->assignmentDao->getAllAssignment();
   }
 
   /**

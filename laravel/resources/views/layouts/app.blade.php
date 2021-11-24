@@ -15,7 +15,6 @@
 
 <body>
     @php
-        
         $route = Route::currentRouteName();
         if(Auth::user()->role_id == 1)
             $role = 'student';
@@ -23,7 +22,6 @@
             $role = 'teacher';
         else
             $role = 'admin';
-        
     @endphp
 
     <div class="container">

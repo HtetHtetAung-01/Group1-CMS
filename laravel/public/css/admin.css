@@ -121,7 +121,8 @@ td {
 
 /* add new course */
 
-.add-course-btn {
+.add-course-btn,
+.assignment-pnl .btn {
   padding: 15px;
   background-color: #1492E6;
   border-radius: 4px;
@@ -131,7 +132,8 @@ td {
   display: inline-block;
 }
 
-.new-course {
+.new-course,
+.assignment-pnl {
   margin: 0 auto;
   width: 30%;
 }
@@ -175,4 +177,18 @@ td {
 
 .confirm-enroll:hover {
   cursor: pointer;
+}
+
+.default-file-input::file-selector-button {
+  border: none;
+  padding: 8px;
+  color: #ffffff;
+}
+
+.file-input::file-selector-button {
+  background-color: #7FBF38;
+}
+
+.file-input::file-selector-button:hover {
+  opacity: 0.7;
 }

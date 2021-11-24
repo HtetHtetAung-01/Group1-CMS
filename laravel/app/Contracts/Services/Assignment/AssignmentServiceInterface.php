@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
  */
 interface AssignmentServiceInterface
 {
+
+  public function addAssignment($validated);
+
+  /**
+   * To get all assignment list
+   */
+  public function getAllAssignment();
+
   /**
    * To get assignment list by course id
    */
