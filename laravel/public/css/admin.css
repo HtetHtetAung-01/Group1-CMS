@@ -16,12 +16,16 @@
 .admin-nav {
   background: rgba(222, 212, 241, 0.548);
   box-shadow: inset 0px -2px 0px rgba(222, 212, 241);
-  padding-top: 30px;
+  padding: 3% 4% 0 4%;
   margin: auto;
 }
 
+.right-nav {
+  padding-bottom: 10px;
+}
+
 .tab {
-  padding: 0 4%;
+  padding: 0;
   color: #1492E6;
 }
 
@@ -125,9 +129,10 @@ td {
 
 /* add new course */
 
-.add-course-btn {
+.add-course-btn,
+.assignment-pnl .btn {
   padding: 15px;
-  background-color: #1492E6;
+  background-color: rgb(197, 181, 226);
   border-radius: 4px;
   color: #ffffff;
   text-decoration: none;
@@ -135,8 +140,8 @@ td {
   display: inline-block;
 }
 
-/* Enroll Teacher Course */
-.new-course {
+.new-course,
+.assignment-pnl {
   margin: 0 auto;
   width: 30%;
 }
@@ -180,4 +185,30 @@ td {
 
 .confirm-enroll:hover {
   cursor: pointer;
+}
+
+.enroll-detail {
+  color: #1492E6;
+  margin-left: 2%;
+  border: none;
+  background: none;
+}
+
+.enroll-detail:hover {
+  cursor: pointer;
+}
+
+
+.default-file-input::file-selector-button {
+  border: none;
+  padding: 8px;
+  color: #ffffff;
+}
+
+.file-input::file-selector-button {
+  background-color: #7FBF38;
+}
+
+.file-input::file-selector-button:hover {
+  opacity: 0.7;
 }

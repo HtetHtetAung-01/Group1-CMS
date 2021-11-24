@@ -2,11 +2,23 @@
 
 namespace App\Contracts\Dao\Assignment;
 
+use App\Models\Assignment;
+
 /**
  * Interface for assignment service
  */
 interface AssignmentDaoInterface
 {
+
+  /**
+   * To add a new assignment
+   */
+  public function addAssignment(Assignment $assignment);
+
+  /**
+   * To get all assignment
+   */
+  public function getAllAssignment();
 
   /**
    * To get assignment by id
