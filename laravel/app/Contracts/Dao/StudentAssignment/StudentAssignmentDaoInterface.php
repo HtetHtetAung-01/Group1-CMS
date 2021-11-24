@@ -11,6 +11,7 @@ interface StudentAssignmentDaoInterface
 
     /**
      * get all assignments records of $course_id by $student_id
+     * @param $student_id, $assignment_id
      * @return $assignmentList
      */
     public function getAssignmentStatusByStudent($student_id, $assignment_id);

@@ -25,6 +25,7 @@ class CourseController extends Controller
 
   /**
    * show courses of each student
+   * @param $student_id
    * @return View students.course
    */
   public function showStudentCourse($student_id)
@@ -82,6 +83,7 @@ class CourseController extends Controller
 
   /**
    * get status list of student courses
+   * @param $student_id, $totalCourse
    * @return $courseStatusList
    */
   public function getCourseStatus($student_id, $totalCourse) 
@@ -116,6 +118,7 @@ class CourseController extends Controller
 
   /**
    * check required courses of $course_id by $student_id are completed or not
+   * @param $course_id, student_id
    * @return -> true or false
    */
   private $array = [];
@@ -147,6 +150,11 @@ class CourseController extends Controller
     }
   }
 
+  /**
+   * Change string to array
+   * @param $text
+   * @return $array
+   */
   public function changeStringToArray($text)
   {
     $remove_text = str_replace(array('[',']'), '', $text);
@@ -156,6 +164,7 @@ class CourseController extends Controller
 
   /**
    * check all the assignments are completed or not
+   * @param $student_id, $course_id
    * @return -> true or false
    */
   public function checkAllAssignmentCompleted($student_id, $course_id)
@@ -172,6 +181,8 @@ class CourseController extends Controller
 
   /**
    * add new course
+   * @param $requests
+   * @return redirect()->back();
    */
   public function addNewCourse(AddNewCourseRequest $request)
   {

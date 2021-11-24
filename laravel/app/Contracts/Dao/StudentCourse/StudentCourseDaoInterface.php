@@ -23,12 +23,14 @@ interface StudentCourseDaoInterface
 
     /**
      * get enrolled courses by student
+     * @param $student_id
      * @return $enrolledCourses
      */
     public function getStudentEnrolledCourses($student_id);
 
     /**
      * get complete status of course by student
+     * @param $student_id, $course_id
      * @return $status
      */
     public function getCourseCompleteStatusByStudent($student_id, $course_id);

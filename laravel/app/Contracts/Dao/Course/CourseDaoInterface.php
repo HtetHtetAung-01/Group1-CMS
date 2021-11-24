@@ -7,19 +7,22 @@ interface CourseDaoInterface
 {
   /**
    * get the enrolled courses of user
+   * @param $id, $role
    * @return $enrolledCourse
    */
   public function getEnrolledCourse($id, $role);
 
   /**
    * get the required courses for $course_id
+   * @param $course_id
    * @return $requiredCourses
    */
   public function getRequiredCourseID($course_id);
 
   /**
    * get the required courses list
-   * @return $requiredCourses
+   * @param $requiredCourses
+   * @return $requiredCourseList
    */
   public function getRequiredCourseList($requiredCourses);
 
@@ -31,6 +34,7 @@ interface CourseDaoInterface
 
   /**
    * add new course
+   * @param $request
    */
   public function addNewCourse($request);
 

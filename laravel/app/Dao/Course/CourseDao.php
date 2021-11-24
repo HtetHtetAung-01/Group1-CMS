@@ -10,6 +10,7 @@ class CourseDao implements CourseDaoInterface
 {
   /**
    * get the enrolled courses of user
+   * @param $id, $role
    * @return $enrolledCourse
    */
   public function getEnrolledCourse($id, $role)
@@ -46,6 +47,7 @@ class CourseDao implements CourseDaoInterface
 
   /**
    * get the required courses for $course_id
+   * @param $course_id
    * @return $requiredCourses
    */
   public function getRequiredCourseID($course_id)
@@ -61,7 +63,8 @@ class CourseDao implements CourseDaoInterface
 
   /**
    * get the required courses list
-   * @return $requiredCourses
+   * @param $requiredCourses
+   * @return $requiredCourseList
    */
   public function getRequiredCourseList($requiredCourses)
   {
@@ -96,6 +99,8 @@ class CourseDao implements CourseDaoInterface
 
   /**
    * add new course
+   * @param $request
+   * @return $course
    */
   public function addNewCourse($request)
   {

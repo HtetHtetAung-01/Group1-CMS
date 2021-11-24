@@ -18,16 +18,19 @@ class UserDao implements UserDaoInterface
 
 	/**
 	 * UserDao constructor,
-	 * 
 	 * @param User $user
 	 */
-
 	public function __construct(User $user, CourseDao $courseDao)
 	{
 		$this->user = $user;
 		$this->courseDao = $courseDao;
 	}
 
+	/**
+	 * create new user 
+	 * @param $data
+	 * @return $user
+	 */
 	public function createUser($data)
 	{
 		$profile = $data['profile_path'];
@@ -46,6 +49,11 @@ class UserDao implements UserDaoInterface
 		return $user;
 	}
 
+	/**
+	 * save user profile phpto
+	 * @param $profile
+	 * @return $imagePath
+	 */
 	public function savePhoto($profile)
 	{
 		$profileName = $profile->getClientOriginalName();
@@ -54,23 +62,42 @@ class UserDao implements UserDaoInterface
 		return $imagePath;
 	}
 
+	/**
+	 * get user list
+	 * @param $request
+	 * @return $userLists
+	 */
 	public function getUserList($request)
 	{
 		$userLists = User::all();
 		return $userLists;
 	}
 
+	/**
+	 * delete user
+	 * @param $id
+	 */
 	public function deleteUser($id)
 	{
 		User::findOrFail($id)->delete();
 	}
 
+	/**
+	 * Edit user info
+	 * @param $id
+	 * @return $userEdit
+	 */
 	public function editUser($id)
 	{
 		$userEdit = User::find($id);
 		return $userEdit;
 	}
 
+	/**
+	 * Update user info
+	 * @param $id, $request
+	 * @return $userInformation
+	 */
 	public function updateUser($id, $request)
 	{
 		$userinformation = User::find($id);
@@ -92,6 +119,7 @@ class UserDao implements UserDaoInterface
 
 	/**
 	 * get the user by id
+	 * @param $id
 	 * @return $user
 	 */
 	public function getUserById($id)
@@ -102,6 +130,7 @@ class UserDao implements UserDaoInterface
 
 	/**
 	 * get role of user
+	 * @param $id
 	 * @return $role
 	 */
 	public function getUserRole($id)
@@ -117,6 +146,7 @@ class UserDao implements UserDaoInterface
 
 	/**
 	 * get the list of users(role = student) 
+	 * @param $teacher_id
 	 * @return $studentList
 	 */
 	public function getStudent($teacher_id)
@@ -138,6 +168,7 @@ class UserDao implements UserDaoInterface
 
 	/**
 	 * get the list of users(role = student) who enrolled $teacherCourse
+	 * @param $teacherCourse
 	 * @return $studentList
 	 */
 	public function getStudentList($teacherCourse)

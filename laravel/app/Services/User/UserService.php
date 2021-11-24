@@ -18,38 +18,66 @@ class UserService implements UserServiceInterface
     private $courseDao;
 
     /**
-     * UserServices constructor,
-     * 
+     * UserServices constructor
      * @param UserDao $userDao
      */
-
     public function __construct(UserDao $userDao, CourseDao $courseDao)
     {
         $this->userDao=$userDao;
         $this->courseDao = $courseDao;
     }
+
+    /**
+	 * create new user 
+	 * @param $data
+	 * @return $user
+	 */
     public function createUser($data){
         return $this->userDao->createUser($data);
     }
 
+    /**
+	 * save user profile phpto
+	 * @param $profile
+	 * @return $imagePath
+	 */
     public function savePhoto($profile){
         return $this->userDao->savePhoto($profile);
     }
 
+    /**
+	 * get user list
+	 * @param $request
+	 * @return $userLists
+	 */
     public function getUserList($request){
         return $this->userDao->getUserList($request);
     }
 
+    /**
+	 * delete user
+	 * @param $id
+	 */
     public function deleteUser($id)
     {
         return $this->userDao->deleteUser($id);
     }
 
+    /**
+	 * Edit user info
+	 * @param $id
+	 * @return $userEdit
+	 */
     public function editUser($id)
     {
         return $this->userDao->editUser($id);
     }
 
+    /**
+	 * Update user info
+	 * @param $id, $request
+	 * @return $userInformation
+	 */
     public function updateUser($id, $request)
     {
         return $this->userDao->updateUser($id,$request);
@@ -110,7 +138,7 @@ class UserService implements UserServiceInterface
 	 */
 	public function getAllStudent()
 	{
-        return $this->userDao->getAllStudent();
+      return $this->userDao->getAllStudent();
 	}
 
 	/**
@@ -119,6 +147,6 @@ class UserService implements UserServiceInterface
 	 */
 	public function getAllTeacher()
 	{
-        return $this->userDao->getAllTeacher();
+      return $this->userDao->getAllTeacher();
 	}
 }
