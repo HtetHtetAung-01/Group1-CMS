@@ -25,17 +25,16 @@
 @section('content')
 
 @php
-$first = true;
-$requiredCourses = "";
-foreach($requiredCourse as $course) {
-if($first == true) {
-$requiredCourses .="'" .$course->title."' ";
-$first = false;
-}
-else {
-$requiredCourses .= ", '".$course->title."' ";
-}
-}
+  $first = true;
+  $requiredCourses = "";
+  foreach($requiredCourse as $course) {
+    if($first == true) {
+      $requiredCourses .="'" .$course->title."' ";
+      $first = false;
+    } else {
+    $requiredCourses .= ", '".$course->title."' ";
+    }
+  }
 @endphp
 
 <div class="course-details">
@@ -85,16 +84,16 @@ $requiredCourses .= ", '".$course->title."' ";
         <dt class="accd-dt d-flex">
           <div class="d-flex">
             @if($isEnrolled==false)
-              @if($assignmentStatus != NULL && $key < (count($assignmentStatus)) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed_icon.png" alt="progress-icon">
+            @if($assignmentStatus != NULL && $key < (count($assignmentStatus)) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed_icon.png" alt="progress-icon">
               @else
-                @if ($started[$key]==false)
-                <img src="/img/started_icon.png" alt="started-icon">
-                @else
-                <img src="/img/progress_icon.png" alt="progress-icon">
-                @endif
+              @if ($started[$key]==false)
+              <img src="/img/started_icon.png" alt="started-icon">
+              @else
+              <img src="/img/progress_icon.png" alt="progress-icon">
               @endif
-            @elseif ($isEnrolled==true) <img src="/img/lock_icon.png" alt="lock-icon">
-            @endif
+              @endif
+              @elseif ($isEnrolled==true) <img src="/img/lock_icon.png" alt="lock-icon">
+              @endif
               <span class="assign-name">
                 {{ $courseDetails[$key]->name }}
               </span>

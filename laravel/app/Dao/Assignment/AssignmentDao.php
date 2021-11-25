@@ -79,7 +79,7 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
     {
-        return DB::transaction(function () use ($student_id, $course_id, $assignment_id) {
+        return DB::transaction(function () use ($student_id, $assignment_id) {
             $studentAssignment = new StudentAssignments;
             $studentAssignment->started_date = \Carbon\Carbon::now();
             $studentAssignment->student_id = $student_id;
@@ -162,19 +162,6 @@ class AssignmentDao implements AssignmentDaoInterface
     }
 
     /**
-     * To get all assignments
-     */
-    public function getAllAssignment()
-    {
-        return DB::transaction(function () {
-        return DB::table('assignments')
-            ->select('*')
-            ->whereNull('deleted_at')
-            ->get();
-        });
-    }
-
-    /**
      * To get all assignments by course id
      * @param string $course_id
      */
@@ -204,7 +191,7 @@ class AssignmentDao implements AssignmentDaoInterface
 
         return $assignmentList;
         });
-        
+   
     }
 
     /**
@@ -227,7 +214,7 @@ class AssignmentDao implements AssignmentDaoInterface
     /**
      * Get all assignments by course
      * @param string $course_id
-     * @return $assignemtnList
+     * @return $assignmentList
      */
     public function getAllAssignmentByCourse($course_id)
     {
@@ -243,8 +230,23 @@ class AssignmentDao implements AssignmentDaoInterface
     }
 
     /**
+     * To get all assignments
+     * @return Object 
+     */
+    public function getAllAssignment()
+    {
+        return DB::transaction(function () {
+        return DB::table('assignments')
+            ->select('*')
+            ->whereNull('deleted_at')
+            ->get();
+        });
+    }
+
+    /**
      * Add assignment from admin view
      * @param string $assignment
+     * @return Object
      */
     public function addAssignment(Assignment $assignment)
     {
@@ -254,6 +256,7 @@ class AssignmentDao implements AssignmentDaoInterface
     /**
      * Get assignment id to add new assignment
      * @param string $id Assignment id
+     * @return Object
      */
     public function getAssignmentById($id)
     {
