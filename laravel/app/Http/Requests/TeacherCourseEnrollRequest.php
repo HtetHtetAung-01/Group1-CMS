@@ -24,8 +24,8 @@ class TeacherCourseEnrollRequest extends FormRequest
     public function rules()
     {
         return [
-            'teacher_id' => 'max:255',
-            'course_id' => 'required|max:255',
+            'teacher_id' => ['required', 'numeric'],
+            'course_id' => ['required', 'numeric'],
         ];
     }
 }

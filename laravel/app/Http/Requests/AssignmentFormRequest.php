@@ -24,11 +24,11 @@ class AssignmentFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'description' => 'required|max:255',
-            'duration' => 'required|numeric',
-            'course_id' => 'required|numeric',
-            'file' => 'required|max:5120|mimes:doc,docx,pdf'
+            'name' => ['required', 'max:255'],
+            'description' => ['required', 'max:255'],
+            'duration' => ['required', 'numeric'],
+            'course_id' => ['required', 'numeric'],
+            'file' => ['required', 'max:5120', 'mimes:doc, docx, pdf'],
         ];
     }
 }
