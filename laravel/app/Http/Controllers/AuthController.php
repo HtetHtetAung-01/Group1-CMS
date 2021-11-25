@@ -182,7 +182,6 @@ class AuthController extends Controller
      */
     public function editUser($id)
     {
-        // $userEdit= User::find($id);
         $userEdit = $this->userInterface->editUser($id);
         return view('update_user', compact('userEdit'));
     }
