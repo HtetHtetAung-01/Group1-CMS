@@ -197,7 +197,6 @@
           </div>
         </div>
     </div>
-    <script src="{{ asset('js/library/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/common/app.js') }}"></script>
     <script src="{{ asset('js/common.js') }}"></script>
     <script src="{{ asset('js/tab.js') }}"></script>
