@@ -73,11 +73,9 @@ Route::get('/admin/{id}', [AdminController::class, 'showUserList'])->name('admin
 Route::get('/enroll/{teacher_id}',[AdminController::class, 'enrollTeacher'])->name('enroll.teacher');
 Route::post('/enroll/{teacher_id}/course',[AdminController::class, 'enrollTeacherCourse'])->name('enroll.teacherCourse');
 
-//AddNewCourse
-Route::get('/course/create-view', function () { 
-    return view('course.createCourse'); 
-});
-Route::post('/add/new/course', [CourseController::class, 'addNewCourse'])->name('add.new.course');
+// Create New Course
+Route::get('/course/create', [CourseController::class, 'addNewCourseView'])->name('course-create-view');
+Route::post('/course/create', [CourseController::class, 'addNewCourse'])->name('course-create');
 
 Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
 Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
