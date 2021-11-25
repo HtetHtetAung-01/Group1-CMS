@@ -11,7 +11,16 @@ class Comment extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['id', 'message', 'student_assignment_id', 'teacher_id'];
+    protected $fillable = [
+        'id',
+        'message',
+        'student_assignment_id',
+        'teacher_id'
+    ];
 
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 }
