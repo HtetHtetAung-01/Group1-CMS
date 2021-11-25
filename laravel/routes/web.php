@@ -49,11 +49,11 @@ Route::middleware(['web', 'auth', 'checkstudent','logout_back_history'])->group(
     Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student-home');
     Route::get('/student/{id}/course', [CourseController::class, 'showStudentCourse'])->name('student.course');
     Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
-    Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('student.courseDetail');
-    Route::get('/student/{id}/course/{course_id}/enroll', [AssignmentController::class, 'enrollCourse'])->name('student.course.enroll');
-    Route::get('/student/{id}/course/{course_id}/assignment/{assignment_id}/download', [AssignmentController::class, 'downloadFile'])->name('student.course.assignment.download');
-    Route::post('/student/{id}/course/{course_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('student.course.addAssignment');
-    Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('student.course.assignment.update');
+    Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('course-detail');
+    Route::get('/student/{id}/course/{course_id}/enroll', [AssignmentController::class, 'enrollCourse'])->name('course-enroll');
+    Route::get('/student/{id}/course/{course_id}/assignment/{assignment_id}/download', [AssignmentController::class, 'downloadFile'])->name('assignment-resource');
+    Route::post('/student/{id}/course/{course_id}/create/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('assignment-start');
+    Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('assignment-submission');
     Route::get('/student/{id}/dashboard/', [StudentController::class, 'showDashboard'])->name('student.dashboard');
 });
 

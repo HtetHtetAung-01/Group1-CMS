@@ -64,7 +64,7 @@
             <p>Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }} course?</p>
             <div class="mdl-btns">
               <button class="cancel-btn modal-close">Cancel</button>
-              <a href="{{route('student.course.enroll', ['id' => Auth::user()->id, 'course_id'=> $courseDetails[0]->course_id])}}" class="confirm-btn">
+              <a href="{{route('course-enroll', ['id' => Auth::user()->id, 'course_id'=> $courseDetails[0]->course_id])}}" class="confirm-btn">
                 Confirm
               </a>
             </div><!-- /.mdl-btns -->
@@ -115,7 +115,7 @@
         <dd class="accd-dd">
           <div class="accd-content">
             @if($started[$key]==false)
-            <button class="btn-show-modal start-assign-btn {{ $isEnrolled ? 'disabled-btn' : 'start-assignment'}}" onclick="openForm('{{route('student.course.addAssignment', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}')">Start</button>
+            <button class="btn-show-modal start-assign-btn {{ $isEnrolled ? 'disabled-btn' : 'start-assignment'}}" onclick="openForm('{{route('assignment-start', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}')">Start</button>
             @endif
             <p class="assignment-duration">Duration :
               <strong>{{ $courseDetails[$key]->duration }}</strong> Days
@@ -140,11 +140,11 @@
                 </p>
                 @endif
                 @if($started[$key]==false)
-                <a href="{{route('student.course.assignment.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn disabled-btn">
+                <a href="{{route('assignment-resource', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="resource-btn disabled-btn">
                   Download File
                 </a>
                 @else
-                <a href="{{route('student.course.assignment.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn {{ $isEnrolled? 'disabled-btn' : 'download-btn'}}">
+                <a href="{{route('assignment-resource', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn {{ $isEnrolled? 'disabled-btn' : 'download-btn'}}">
                   Download File
                 </a>
                 @endif
@@ -156,7 +156,7 @@
               @else
               <h3 class="homework-lbl {{ $isEnrolled? 'disabled-lbl' : ''}}">Homework</h3>
               @endif
-              <form action="{{route('student.course.assignment.update', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
+              <form action="{{route('assignment-submission', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
                 <div class="homework d-flex">
                   @if($started[$key]==false)
                   <div class="disabled-input">
