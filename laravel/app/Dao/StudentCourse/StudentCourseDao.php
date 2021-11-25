@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\DB;
 
 class StudentCourseDao implements StudentCourseDaoInterface
 {
+    /**
+     * To get enrolled course titles by student's id
+     * @param string $student_id student's id
+     * @return object
+     */
     public function getEnrolledCourseTitlesByStudent($student_id)
     {
         $courseTitles = DB::select(
@@ -31,8 +36,9 @@ class StudentCourseDao implements StudentCourseDaoInterface
     }
 
     /**
-     * Get total number of enrolled courses by student id
-     * @return stdClass total number of enrolled courses by student id
+     * To get number of total enrolled coureses by student's id
+     * @param string $student_id student's id
+     * @return object
      */
     public function getTotalEnrolledCoursebyStudent($student_id) {
     
@@ -46,8 +52,9 @@ class StudentCourseDao implements StudentCourseDaoInterface
     }
 
     /**
-     * Get total number of completed courses by student id
-     * @return stdClass total number of completed courses by student id
+     * To get total number of completed courses by student's id
+     * @param string $student_id student's id
+     * @return object
      */
     public function getTotalCompletedCoursebyStudent($student_id) {
     
@@ -60,8 +67,9 @@ class StudentCourseDao implements StudentCourseDaoInterface
     }
 
     /**
-     * Get StudentPerformanceData
-     * @return stdClass getStudentPerformanceData
+     * To get student performance data
+     * @param string $student_id student's id
+     * @return object
      */
     public function getStudentPerformanceData($student_id) {
 
@@ -98,7 +106,7 @@ class StudentCourseDao implements StudentCourseDaoInterface
 
     /**
      * get enrolled courses by student
-     * @return $enrolledCourses
+     * @param $student_id student's id
      */
     public function getStudentEnrolledCourses($student_id)
     {
@@ -113,6 +121,7 @@ class StudentCourseDao implements StudentCourseDaoInterface
 
     /**
      * get complete status of course by student
+     * @param $student_id, $course_id
      * @return $status
      */
     public function getCourseCompleteStatusByStudent($student_id, $course_id)

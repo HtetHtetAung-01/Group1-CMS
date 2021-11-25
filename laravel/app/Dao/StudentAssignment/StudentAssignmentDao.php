@@ -8,10 +8,19 @@ use Illuminate\Support\Facades\DB;
 
 class StudentAssignmentDao implements StudentAssignmentDaoInterface
 {
+    /**
+     * To get student's assignment by ID
+     * @param string id assignment's id
+     * @return object
+     */
     public function getStudentAssignmentById($id) {
         return StudentAssignment::find($id);
     }
 
+    /**
+     * To upload assignment with assignment id
+     * @param string id assignment's id
+     */
     public function getUploadedAssignmentsByAssignmentId($assignment_id)
     {
         return DB::select(DB::raw(
@@ -23,6 +32,11 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
         ));
     }
 
+    /**
+     * To get uploaded assignment with student id and course id
+     * @param string $student_id student's id
+     * @param string $course_id course's id
+     */
     public function getUploadedAssignmentsByStudentAndCourse($student_id, $course_id)
     {    
         return DB::select(DB::raw(
@@ -35,6 +49,10 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
         ));
     }
 
+    /**
+     * To get total number of ungraded assignment by assignment id
+     * @param string $assignment_id assignment's id 
+     */
     public function getTotalCountOfUngradedAssignmentsbyAssignmentId($assignment_id)
     {
         return DB::table('student_assignments')

@@ -8,10 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class CommentDao implements CommentDaoInterface
 {
+    /**
+     * To add comment to an assignment
+     * @param Comment $comment assignment's comment
+     */
     public function addComment(Comment $comment) {
         $comment->save();
     }
     
+    /**
+     * To get comments by assignment id
+     * @param string $student_assignment_id student's assignment id
+     */
     public function getCommentsbyStudentAssignmentId($id)
     {
         return DB::select(DB::raw(
