@@ -11,7 +11,18 @@ class Assignment extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['id', 'name', 'description', 'duration', 'file_path', 'course_id'];
+    protected $fillable = [
+        'id',
+        'name',
+        'description',
+        'duration',
+        'file_path',
+        'course_id'
+    ];
 
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 }
