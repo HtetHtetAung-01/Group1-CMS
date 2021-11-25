@@ -57,7 +57,7 @@ class AssignmentController extends Controller
         $idArray = app('App\Http\Controllers\Course\CourseController')->changeStringToArray($requiredCourseID[0]->required_courses);
         $requiredCourse = $this->courseService->getRequiredCourseList($idArray);
 
-        $completeRequiredCourse = app('App\Http\Controllers\Course\CourseController')
+        $isCompleteRequiredCourse = app('App\Http\Controllers\Course\CourseController')
             ->isCompletedRequiredCourses($course_id, $student_id);
         $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);
 
@@ -69,7 +69,7 @@ class AssignmentController extends Controller
             'user' => $user,
             'role' => $role,
             'enrolledCourse' => $enrolledCourse,
-            'completeRequiredCourse' => $completeRequiredCourse,
+            'isCompleteRequiredCourse' => $isCompleteRequiredCourse,
             'requiredCourse' => $requiredCourse,
         ]);
     }
