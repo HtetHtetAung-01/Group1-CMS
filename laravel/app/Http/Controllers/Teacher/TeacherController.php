@@ -7,6 +7,7 @@ use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentFormRequest;
 use App\Http\Requests\GradeSubmitRequest;
+use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
@@ -42,22 +43,23 @@ class TeacherController extends Controller
     
         return view('teachers/dashboard', compact('user', 'role', 'enrolledCourse', 'chartData', 'totalStudent'));
     }
-
     public function addCommentToAssignment(CommentFormRequest $request, $id, $assignmentId) {
         $validated = $request->validated();
         $this->teacherService->addCommentToAssignment($validated, $id, $assignmentId);
-        return back();
+        return response()->json(['success' => true]);
     }
 
     public function downloadAssignment($teacher_id, $student_assignment_id) {
         return $this->teacherService->downloadStudentAssignment($student_assignment_id);
     }
-
-    public function submitGrade($id, $student_assignment_id, GradeSubmitRequest $request) {
-        $validated = $request->validated();
-        $grade = $request->grade;
-        $this->teacherService->submitGrade($student_assignment_id, $grade);
-        return back();
+    
+    public function setGrade(Request $request)
+    {
+       $id = $request->id;
+       $student_assignment_id = $request->assignment_id;
+       $grade = $request->grade;
+       $this->teacherService->submitGrade($student_assignment_id, $grade);
+       return response()->json(['success' => true]);
     }
 
 }

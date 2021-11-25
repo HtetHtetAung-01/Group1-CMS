@@ -7,7 +7,7 @@
 
 <body>
     <div class="login-root">
-        <div class="box-root">git git
+        <div class="box-root">
             <div class="formbg">
                 <div class="formbg-inner">
                     <span class="login-title">Reset Password</span>
