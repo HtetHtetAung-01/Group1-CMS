@@ -20,14 +20,19 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function getCourseDetails($id)
     {
-        $courseDetails = DB::select(
-            DB::raw("SELECT courses.id as course_id, courses.title as course_title, courses.description as course_description, assignments.*
-      FROM assignments
-      LEFT JOIN courses
-      ON assignments.course_id = courses.id 
-      WHERE courses.id=" . $id . ";")
-        );
-        return $courseDetails;
+        return DB::transaction(function () use ($id) {
+            $courseDetails = DB::select(
+                DB::raw("SELECT courses.id as course_id,
+                courses.title as course_title,
+                courses.description as course_description,
+                assignments.*
+                FROM assignments
+                LEFT JOIN courses
+                ON assignments.course_id = courses.id 
+                WHERE courses.id=" . $id . ";")
+            );
+            return $courseDetails;
+        });     
     }
 
     /**
@@ -38,9 +43,13 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function isEnrolled($student_id, $course_id)
     {
-        $isEnrolled = DB::select("SELECT * FROM student_courses WHERE student_id=" . $student_id
-            . " AND course_id= " . $course_id . " ;");
-        return $isEnrolled == null;
+        return DB::transaction(function () use ($student_id, $course_id) {
+            $isEnrolled = DB::select("SELECT * FROM student_courses 
+                WHERE student_id=" . $student_id
+                . " AND course_id= " . $course_id . " ;"
+            );
+            return $isEnrolled == null;
+        });
     }
 
     /**
@@ -51,12 +60,14 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function enrollCourse($student_id, $course_id)
     {
-        $enrollCourse = new StudentCourses;
-        $enrollCourse->student_id = $student_id;
-        $enrollCourse->course_id = $course_id;
-        $enrollCourse->enrolled_date = \Carbon\Carbon::now();
-        $enrollCourse->save();
-        return $enrollCourse;
+        return DB::transaction(function () use ($student_id, $course_id) {
+            $enrollCourse = new StudentCourses;
+            $enrollCourse->student_id = $student_id;
+            $enrollCourse->course_id = $course_id;
+            $enrollCourse->enrolled_date = \Carbon\Carbon::now();
+            $enrollCourse->save();
+            return $enrollCourse;
+        });
     }
 
     /**
@@ -68,15 +79,17 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
     {
-        $studentAssignment = new StudentAssignments;
-        $studentAssignment->started_date = \Carbon\Carbon::now();
-        $studentAssignment->uploaded_date = null;
-        $studentAssignment->file_path = null;
-        $studentAssignment->grade = null;
-        $studentAssignment->student_id = $student_id;
-        $studentAssignment->assignment_id = $assignment_id;
-        $studentAssignment->save();
-        return $studentAssignment;
+        return DB::transaction(function () use ($student_id, $course_id, $assignment_id) {
+            $studentAssignment = new StudentAssignments;
+            $studentAssignment->started_date = \Carbon\Carbon::now();
+            $studentAssignment->uploaded_date = null;
+            $studentAssignment->file_path = null;
+            $studentAssignment->grade = null;
+            $studentAssignment->student_id = $student_id;
+            $studentAssignment->assignment_id = $assignment_id;
+            $studentAssignment->save();
+            return $studentAssignment;
+        });
     }
 
     /**
@@ -89,18 +102,23 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
     {
-        $array = DB::select("SELECT student_assignments.id FROM student_assignments WHERE student_id=" . $student_id
-            . " AND assignment_id= " . $assignment_id . " ;");
+        return DB::transaction(function () use ($student_id, $course_id, $assignment_id, $filename) {
+            $array = DB::select("SELECT student_assignments.id 
+                FROM student_assignments
+                WHERE student_id=" . $student_id
+                . " AND assignment_id= " . $assignment_id . " ;"
+            );
 
-        $id =  $array[0]->id;
+            $id =  $array[0]->id;
 
-        $studentAssignment = StudentAssignments::FindorFail($id);
-        $studentAssignment->uploaded_date = \Carbon\Carbon::now();
-        $studentAssignment->file_path = $filename;
-        $studentAssignment->grade = null;
-        $studentAssignment->save();
+            $studentAssignment = StudentAssignments::FindorFail($id);
+            $studentAssignment->uploaded_date = \Carbon\Carbon::now();
+            $studentAssignment->file_path = $filename;
+            $studentAssignment->grade = null;
+            $studentAssignment->save();
 
-        return $assignment_id;
+            return $assignment_id;
+        });
     }
 
     /**
@@ -110,6 +128,7 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function isCompleted($course_id)
     {
+        return DB::transaction(function () use ($course_id) {
         $assignment_details = DB::table('assignments')
             ->select('*')
             ->where('course_id', $course_id)
@@ -117,6 +136,7 @@ class AssignmentDao implements AssignmentDaoInterface
             ->get();
 
         return $assignment_details;
+        });
     }
 
     /**
@@ -126,6 +146,7 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function isStarted($student_id, $assignment_id)
     {
+        return DB::transaction(function () use ($student_id, $assignment_id) {
         $start = DB::table('student_assignments')
             ->select("*")
             ->where('student_id', $student_id)
@@ -137,6 +158,7 @@ class AssignmentDao implements AssignmentDaoInterface
         } else {
             return true;
         }
+        });
     }
 
     /**
@@ -144,10 +166,12 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function getAllAssignment()
     {
+        return DB::transaction(function () {
         return DB::table('assignments')
             ->select('*')
             ->whereNull('deleted_at')
             ->get();
+        });
     }
 
     /**
@@ -156,11 +180,13 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function getAssignmentNamesbyCourseId($course_id)
     {
+        return DB::transaction(function () use ($course_id) {
         return DB::select(DB::raw(
             "SELECT A.id, A.name FROM assignments AS A
             LEFT OUTER JOIN courses AS C ON C.id = A.course_id 
             WHERE C.id = $course_id;"
-        ));
+            ));
+        });
     }
 
     /**
@@ -169,6 +195,7 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function getAssignmentsForCourse($course_id)
     {
+        return DB::transaction(function () use ($course_id) {
         $assignmentList =  DB::table('assignments')
             ->select('id', 'name')
             ->where('course_id', $course_id)
@@ -176,6 +203,8 @@ class AssignmentDao implements AssignmentDaoInterface
             ->get();
 
         return $assignmentList;
+        });
+        
     }
 
     /**
@@ -185,12 +214,14 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function getNoOfAssignmentByCourse($course_id)
     {
+        return DB::transaction(function () use ($course_id) {
         $number = DB::table('assignments')
             ->where('course_id', $course_id)
             ->whereNull('deleted_at')
             ->count();
 
         return $number;
+        });
     }
 
     /**
@@ -200,6 +231,7 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function getAllAssignmentByCourse($course_id)
     {
+        return DB::transaction(function () use ($course_id) {
         $assignmentList = DB::table('assignments')
             ->select('*')
             ->where('course_id', $course_id)
@@ -207,6 +239,7 @@ class AssignmentDao implements AssignmentDaoInterface
             ->get();
 
         return $assignmentList;
+        });
     }
 
     /**
