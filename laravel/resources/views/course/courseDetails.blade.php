@@ -10,6 +10,8 @@
 <script src="{{ asset('js/library/jquery.min.js') }}"></script>
 <script src="{{ asset('js/library/accordian.js') }}"></script>
 <script src="{{ asset('js/library/confirm_modal.js') }}"></script>
+
+<!-- To open the modal form after clicking the start button of assignment -->
 <script>
   function openForm($route) {
     document.getElementById("myForm").style.display = "block";

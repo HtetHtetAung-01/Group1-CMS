@@ -27,8 +27,8 @@ class CourseController extends Controller
      * @param $userService
      */
   public function __construct(UserService $userService, 
-              CourseService $courseService, 
-              AssignmentService $assignmentService)
+        CourseService $courseService, 
+        AssignmentService $assignmentService)
   {
     $this->courseService = $courseService;
     $this->userService = $userService;
