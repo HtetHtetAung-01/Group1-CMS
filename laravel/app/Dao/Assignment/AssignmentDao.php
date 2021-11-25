@@ -82,9 +82,6 @@ class AssignmentDao implements AssignmentDaoInterface
         return DB::transaction(function () use ($student_id, $course_id, $assignment_id) {
             $studentAssignment = new StudentAssignments;
             $studentAssignment->started_date = \Carbon\Carbon::now();
-            $studentAssignment->uploaded_date = null;
-            $studentAssignment->file_path = null;
-            $studentAssignment->grade = null;
             $studentAssignment->student_id = $student_id;
             $studentAssignment->assignment_id = $assignment_id;
             $studentAssignment->save();
@@ -114,7 +111,6 @@ class AssignmentDao implements AssignmentDaoInterface
             $studentAssignment = StudentAssignments::FindorFail($id);
             $studentAssignment->uploaded_date = \Carbon\Carbon::now();
             $studentAssignment->file_path = $filename;
-            $studentAssignment->grade = null;
             $studentAssignment->save();
 
             return $assignment_id;
