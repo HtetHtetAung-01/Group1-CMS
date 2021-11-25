@@ -58,9 +58,9 @@ class AssignmentController extends Controller
         $requiredCourse = $this->courseService->getRequiredCourseList($idArray);
 
         $completeRequiredCourse = app('App\Http\Controllers\Course\CourseController')
-        ->isCompletedRequiredCourses($course_id, $student_id);
-        $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);  
-        
+            ->isCompletedRequiredCourses($course_id, $student_id);
+        $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);
+
         return view('course.courseDetails', [
             'courseDetails' => $courseDetails,
             'isEnrolled' => $isEnrolled,
@@ -75,36 +75,19 @@ class AssignmentController extends Controller
     }
 
     /**
-     * To check assignment is completed or not
+     * To check all assignments for $course_id completed or not
      * @param $course_id
-     * @return View courseDetails
+     * @return $assignmentStatus
      */
     public function isCompletedAssignment($student_id, $course_id)
     {
         $assignment_details = $this->assignmentInterface->isCompleted($course_id);
         $key = 0;
         $assignmentStatus = [];
-        
+
         foreach ($assignment_details as $assignment) {
-            
-            $is_completed = DB::table('student_assignments')
-                ->select('id', 'uploaded_date', 'file_path')
-                ->where('assignment_id', $assignment->id)
-                ->where('student_id', $student_id)
-                ->whereNull('deleted_at')
-                ->get();
-  
-            if ($is_completed->count() == 0) {
-                $assignmentStatus[$key] = 'progress';
-            } else {
-                foreach ($is_completed as $com) {
-                    if ($com->uploaded_date != NULL && $com->file_path != NULL) {
-                        $assignmentStatus[$key] = 'completed';
-                    } else {
-                        $assignmentStatus[$key] = 'progress';
-                    }
-                }
-            }
+            $status = $this->assignmentInterface->getAssignmentStatusByStudent($student_id, $assignment->id);
+            $assignmentStatus[$key] = $status;
             $key++;
         }
         return $assignmentStatus;
@@ -119,11 +102,7 @@ class AssignmentController extends Controller
     public function showStarted($student_id, $course_id)
     {
         $start = [];
-        $assignmentList = DB::table('assignments')
-            ->select('*')
-            ->where('course_id', $course_id)
-            ->whereNull('deleted_at')
-            ->get();
+        $assignmentList = $this->assignmentInterface->getAllAssignmentByCourse($course_id);
         foreach ($assignmentList as $key => $values) {
             $start[$key] = $this->assignmentInterface->isStarted($student_id, $assignmentList[$key]->id);
         }
@@ -158,14 +137,12 @@ class AssignmentController extends Controller
     /**
      * To download file
      * @param $course_id
-     * @param $student_id
-     * @param $filename
+     * @param $assignment_id
      * @return View courseDetails
      */
     public function downloadFile($id, $course_id, $assignment_id)
     {
         return $this->assignmentInterface->downloadAssignment($assignment_id);
-        // return response()->download(storage_path('app/public/' . $id));
     }
 
     /**
@@ -183,7 +160,7 @@ class AssignmentController extends Controller
         if (!is_dir($ROOT_DIR)) {
             mkdir($ROOT_DIR);
         }
-        
+
         $validated = $filename->validated();
         $file = $validated['inputFile'];
         $inputFileName = Storage::putFileAs($ROOT_DIR, $file, $file->getClientOriginalName());

@@ -14,6 +14,10 @@ class CourseService implements CourseServiceInterface
   private $teacherCourseDao;
   private $courseDao;
 
+  /**
+   * CourseService constructor
+   * @param $courseDao, $studentCourseDao, $teacherCourseDao
+   */
   public function __construct(CourseDao $courseDao, StudentCourseDao $studentCourseDao, TeacherCourseDao $teacherCourseDao)
   {
     $this->courseDao = $courseDao;
@@ -31,6 +35,7 @@ class CourseService implements CourseServiceInterface
 
   /**
    * get teacher course
+   * @param $id
    * @return $teacherCourseList
    */
   public function getTeacherCourse($id)
@@ -40,6 +45,7 @@ class CourseService implements CourseServiceInterface
 
   /**
      * update the is_completed of the table student_courses
+     * @param $id, $course_id, $status
      */
     public function updateCourseComplete($student_id, $course_id, $status)
     {
@@ -48,6 +54,7 @@ class CourseService implements CourseServiceInterface
 
   /**
    * get the required courses for $course_id
+   * @param $course_id
    * @return $requiredCourses
    */
   public function getRequiredCourseID($course_id)
@@ -57,6 +64,7 @@ class CourseService implements CourseServiceInterface
 
   /**
    * get the required courses list
+   * @param $requiredCourses
    * @return $requiredCourses
    */
   public function getRequiredCourseList($requiredCourses)
@@ -75,9 +83,31 @@ class CourseService implements CourseServiceInterface
 
   /**
    * add new course
+   * @param $request
    */
   public function addNewCourse($request)
   {
     return $this->courseDao->addNewCourse($request);
   }
+
+  /**
+   * get enrolled courses by student
+   * @param $student_id
+   * @return $enrolledCourses
+   */
+  public function getStudentEnrolledCourses($student_id)
+  {
+    return $this->studentCourseDao->getStudentEnrolledCourses($student_id);
+  }
+
+  /**
+   * get complete status of course by student
+   * @param $student_id, $course_id
+   * @return $status
+   */
+  public function getCourseCompleteStatusByStudent($student_id, $course_id)
+  {
+    return $this->studentCourseDao->getCourseCompleteStatusByStudent($student_id, $course_id);
+  }
+  
 }

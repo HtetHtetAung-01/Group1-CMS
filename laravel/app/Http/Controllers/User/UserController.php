@@ -9,11 +9,20 @@ class UserController extends Controller
 {
   private $userService;
 
+  /**
+   * Constructor
+   * @param $userService
+   */
   public function __construct(UserService $userService)
   {
     $this->userService = $userService;
   }
 
+  /**
+   * show layout in view
+   * @param $id
+   * @return view layouts.app
+   */
   public function showLayout($id)
   {
     $user = $this->userService->getUserById($id);
@@ -26,6 +35,7 @@ class UserController extends Controller
 
   /**
    * show student information
+   * @param $teacher_id
    * @return view teachers.student-info 
    */
   public function showStudentsInfo($teacher_id) 
@@ -38,6 +48,6 @@ class UserController extends Controller
     $teacherCourse = $this->userService->getEnrolledCourse($teacher_id, 'Teacher');
     $studentList = $this->userService->getStudentList($teacherCourse);
     
-    return view('student-info.student-info', compact('user', 'role', 'enrolledCourse', 'teacherCourse' ,'studentList'));
+    return view('teachers.student-info', compact('user', 'role', 'enrolledCourse', 'teacherCourse' ,'studentList'));
   }
 }

@@ -11,51 +11,60 @@ interface UserDaoInterface
 {
 	/**
 	 * get the user by id
+	 * @param $id
 	 * @return $user
 	 */
 	public function getUserById($id);
 
 	/**
 	 * get role of user
+	 * @param $id
 	 * @return $role
 	 */
 	public function getUserRole($id);
 
 	/**
 	 * get the list of users(role = student) who enrolled $courseList
+	 * @param $courseList
 	 * @return $studentList
 	 */
 	public function getStudentList($courseList);
 
 	/**
 	 * To create user
+	 * @param $data
 	 * @return array $userCreate
 	 */
 	public function createUser($data);
 
 	/**
 	 * To create user
+	 * @param $profile
 	 * @return array $userCreate
 	 */
 	public function savePhoto($profile);
 
 	/**
 	 * To get userList
+	 * @param $request
 	 */
 	public function getUserList($request);
 
 	/**
 	 * To delete user
+	 * @param $id
 	 */
 	public function deleteUser($id);
 
 	/**
-	 * To delete user
+	 * To edit user
+	 * @param $id
 	 */
 	public function editUser($id);
 
 	/**
 	 * To update user
+	 * @param $id, $request
 	 */
 	public function updateUser($id, $request);
 
