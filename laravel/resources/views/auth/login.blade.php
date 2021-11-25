@@ -41,6 +41,7 @@
                         <div class="text">
                         <button class="login-btn">Login</button>
                         </div>
+                        <p>Don't have an account?<a href="{{route('register-user')}}"> Register Now</a></p>
                     </form>
                 </div>
             </div>
