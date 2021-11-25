@@ -3,8 +3,6 @@
 namespace App\Services\User;
 
 use App\Dao\Course\CourseDao;
-use Illuminate\Support\Facades\DB;
-use App\Contracts\Dao\User\UserDaoInterface;
 use App\Dao\User\UserDao;
 use App\Contracts\Services\User\UserServiceInterface;
 

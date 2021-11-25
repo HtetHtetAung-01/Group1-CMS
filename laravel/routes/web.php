@@ -25,10 +25,10 @@ use App\Http\Controllers\Teacher\TeacherController;
 //registration
 Route::get('dashboard', [AuthController::class, 'userDashboard']);
 Route::get('/', [AuthController::class, 'Index'])->name('login');
-Route::post('custom-login', [AuthController::class, 'userCustomLogin'])->name('login.custom');
-Route::get('registration', [AuthController::class, 'userRegistration'])->name('register-user');
-Route::post('custom-registration', [AuthController::class, 'userCustomRegistration'])->name('register.custom');
-Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
+Route::post('/login', [AuthController::class, 'userCustomLogin'])->name('login-custom');
+Route::get('/user/create', [AuthController::class, 'userRegistration'])->name('register-user');
+Route::post('/user/create', [AuthController::class, 'userCustomRegistration'])->name('register-custom');
+Route::get('/logout', [AuthController::class, 'signOut'])->name('logout');
 
 //forgetpassword
 Route::get('forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
