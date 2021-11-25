@@ -22,8 +22,11 @@ class AssignmentController extends Controller
      *
      * @return void
      */
-    public function __construct(CourseService $courseService, AssignmentServiceInterface $assignmentServiceInterface, UserService $userService)
-    {
+    public function __construct(
+        CourseService $courseService,
+        AssignmentServiceInterface $assignmentServiceInterface,
+        UserService $userService
+    ) {
         $this->courseService = $courseService;
         $this->assignmentInterface = $assignmentServiceInterface;
         $this->userService = $userService;
@@ -125,8 +128,11 @@ class AssignmentController extends Controller
      * @param string $assignment_id
      * @return View courseDetails
      */
-    public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
-    {
+    public function addNullStudentAssignment(
+        $student_id,
+        $course_id,
+        $assignment_id
+    ) {
         $this->assignmentInterface->addNullStudentAssignment($student_id, $course_id, $assignment_id);
         return back();
     }
@@ -137,8 +143,11 @@ class AssignmentController extends Controller
      * @param string $assignment_id
      * @return View courseDetails
      */
-    public function downloadFile($id, $course_id, $assignment_id)
-    {
+    public function downloadFile(
+        $id,
+        $course_id,
+        $assignment_id
+    ) {
         return $this->assignmentInterface->downloadAssignment($assignment_id);
     }
 
@@ -150,8 +159,12 @@ class AssignmentController extends Controller
      * @param FileSubmitRequest $filename Request form courseDetails
      * @return View courseDetails
      */
-    public function addStudentAssignment($student_id, $course_id, $assignment_id, FileSubmitRequest $filename)
-    {
+    public function addStudentAssignment(
+        $student_id,
+        $course_id,
+        $assignment_id,
+        FileSubmitRequest $filename
+    ) {
         $this->assignmentInterface->addStudentAssignment($student_id, $course_id, $assignment_id, $filename);
         return back();
     }
