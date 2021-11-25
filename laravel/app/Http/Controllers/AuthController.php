@@ -30,11 +30,20 @@ class AuthController extends Controller
         $this->userInterface = $userServiceInterface;
     }
 
+    /**
+     * To view the login page
+     * @return view auth.login
+     */
     public function Index()
     {
         return view('auth.login');
     }  
       
+    /**
+     * To view the login page
+     * @param $request
+     * @return redirect back()
+     */
     public function UserCustomLogin(Request $request)
     {
         $request->validate([
@@ -69,11 +78,20 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * To view the login page
+     * @return view auth.registration
+     */
     public function UserRegistration()
     {
         return view('auth.registration');
     }
 
+    /**
+     * To view the login page
+     * @param $request
+     * @return redirect "login"
+     */
     public function UserCustomRegistration(RegisterFormRequest $request)
     {  
         $data  = $request->validated();
@@ -82,17 +100,30 @@ class AuthController extends Controller
         return redirect("login")->withSuccess('You have signed-in');
     }
 
+    /**
+     * To view the login page
+     * @param $data
+     * @return $user
+     */
     public function userCreate($data)
     {   
         $user=$this->userInterface->createUser($data);
         return $user;
     }    
 
+    /**
+     * To view the login page
+     * @param $profile
+     */
     public function savePhoto($profile)
     {
         $this->userInterface->SavePhoto($profile);
     }
-    
+ 
+    /**
+     * To view the login page
+     * @return view dashboard
+     */
     public function userDashboard()
     {
         if(Auth::check()){
@@ -101,7 +132,11 @@ class AuthController extends Controller
   
         return redirect("login")->withSuccess('You are not allowed to access');
     }
-    
+ 
+    /**
+     * To view the login page
+     * @return redirect "login"
+     */
     public function signOut() {
         Session::flush();
         Auth::logout();
@@ -109,14 +144,22 @@ class AuthController extends Controller
         return Redirect('login');
     }
 
-    //userList function
+    /**
+     * To view the login page
+     * @param $request
+     * @return view user_list
+     */
     public function showUserList(Request $request)
     {
         $userLists=$this->userInterface->getUserList($request);
         return view('user_list', compact('userLists'));
     }
 
-    //delete user
+    /**
+     * To view the login page
+     * @param $id
+     * @return redirect "/user-list"
+     */
     public function deleteUser($id)
     {
         // User::findOrFail($id)->delete();
@@ -124,14 +167,22 @@ class AuthController extends Controller
         return redirect('/user-list');
     } 
     
-    //show userdetails
+    /**
+     * To view the login page
+     * @param $id
+     * @return view 'userdetils'
+     */
     public function userdetail($id)
     {
        $detail= User::find($id);
         return view('userdetails',compact('detail'));
     }
 
-    //Edit user
+    /**
+     * To view the login page
+     * @param $id
+     * @return view 'update_user'
+     */
     public function editUser($id)
     {
         // $userEdit= User::find($id);
@@ -139,7 +190,11 @@ class AuthController extends Controller
         return view('update_user',compact('userEdit'));
     }
 
-    //Update user
+    /**
+     * To view the login page
+     * @param $id, $request
+     * @return redirect '/student/{id}' or '/teacher/{id}'
+     */
     public function updateUser($id,Request $request)
     {
         $this->userInterface->updateUser($id, $request);
