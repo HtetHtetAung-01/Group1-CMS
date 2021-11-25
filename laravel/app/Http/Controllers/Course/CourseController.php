@@ -12,11 +12,23 @@ use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
+  /**
+   * variables
+   */
   private $courseService;
   private $userService;
   private $assignmentService;
 
-  public function __construct(UserService $userService, CourseService $courseService, AssignmentService $assignmentService)
+  /**
+     * CourseController constructor
+     * @param UserService $userService
+     * @param CourseService $courseService
+     * @param AssignmentService $assignmentService
+     * @param $userService
+     */
+  public function __construct(UserService $userService, 
+              CourseService $courseService, 
+              AssignmentService $assignmentService)
   {
     $this->courseService = $courseService;
     $this->userService = $userService;

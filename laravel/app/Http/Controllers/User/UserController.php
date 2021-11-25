@@ -7,6 +7,9 @@ use App\Services\User\UserService;
 
 class UserController extends Controller
 {
+  /**
+   * variables
+   */
   private $userService;
 
   /**

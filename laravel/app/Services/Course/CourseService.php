@@ -10,6 +10,9 @@ use App\Services\Student\StudentService;
 
 class CourseService implements CourseServiceInterface
 {
+  /**
+   * variables
+   */
   private $studentCourseDao;
   private $teacherCourseDao;
   private $courseDao;

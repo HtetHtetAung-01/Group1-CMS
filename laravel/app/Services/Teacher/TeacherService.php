@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Storage;
 
 class TeacherService implements TeacherServiceInterface
 {
+    /**
+     * variable
+     */
     private $assignmentDao;
     private $commentDao;
     private $studentAssignmentDao;
@@ -22,6 +25,15 @@ class TeacherService implements TeacherServiceInterface
     private $teacherCourseDao;
     private $userDao;
 
+    /**
+     * TeacherService constructor
+     * @param AssignmentDaoInterface $assignmentDao
+     * @param CommentDaoInterface $commentDao
+     * @param StudentAssignmentDaoInterface $studentAssignmentDao
+     * @param StudentCourseDaoInterface $studentCourseDao
+     * @param TeacherCourseDaoInterface $teacherCourseDao
+     * @param UserDaoInterface $userDao
+     */
     public function __construct( 
         AssignmentDaoInterface $assignmentDao, 
         CommentDaoInterface $commentDao,
@@ -38,6 +50,11 @@ class TeacherService implements TeacherServiceInterface
         $this->userDao = $userDao;
     }
 
+    /**
+     * get assignments by teacher's courses
+     * @param $teacher_id
+     * @return $courseTitles
+     */
     public function getAssignmentsByCourse($teacher_id)
     {
         $courseTitles = $this->teacherCourseDao->getEnrolledCoursesByTeacher($teacher_id);
@@ -63,6 +80,12 @@ class TeacherService implements TeacherServiceInterface
         return $courseTitles;
     }
 
+    /**
+     * add comment to assignment by teacher
+     * @param $validated
+     * @param $teacher_id
+     * @param $assignment_id
+     */
     public function addCommentToAssignment($validated, $teacher_id, $assignment_id)
     {
         $comment = new Comment;
@@ -72,6 +95,11 @@ class TeacherService implements TeacherServiceInterface
         $this->commentDao->addComment($comment);
     }
 
+    /**
+     * download student assignments
+     * @param $student_assignment_id
+     * @return Storage
+     */
     public function downloadStudentAssignment($student_assignment_id)
     {
         $studentAssignment = $this->studentAssignmentDao
@@ -79,6 +107,10 @@ class TeacherService implements TeacherServiceInterface
         return Storage::download($studentAssignment->file_path);
     }
 
+    /**
+     * get chart data
+     * @return array $charts
+     */
     public function getChartData()
     {
         $charts = array();
@@ -104,11 +136,21 @@ class TeacherService implements TeacherServiceInterface
         return $charts;
     }
 
+    /**
+     * get assignments by teacher's courses
+     * @return stdClass total number of completed courses by student id
+     */
     public function getTotalStudent()
     {
         return $this->userDao->getTotalStudent();
     }
     
+    /**
+     * submit grade 
+     * @param $student_assignment_id
+     * @param $request
+     * @return $submitGrade
+     */
     public function submitGrade($student_assignment_id, $request)
     {
         $submitGrade = StudentAssignment::FindorFail($student_assignment_id);

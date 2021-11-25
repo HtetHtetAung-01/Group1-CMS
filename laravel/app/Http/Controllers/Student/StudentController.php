@@ -8,15 +8,30 @@ use App\Services\User\UserService;
 
 class StudentController extends Controller
 {
+    /**
+     * variables
+     */
     private $studentInterface;
     private $userService;
 
-    public function __construct(StudentServiceInterface $studentServiceInterface, UserService $userService)
+    /**
+     * StudentController constructor
+     * @param StudentServiceInterface $studentServiceInterface
+     * @param UserService $userService
+     */
+    public function __construct(
+        StudentServiceInterface $studentServiceInterface, 
+        UserService $userService)
     {
         $this->studentInterface = $studentServiceInterface;
         $this->userService = $userService;
     }
 
+    /**
+     * Show student assignments
+     * @param $student_id
+     * @return view students/assignment
+     */
     public function showAssignments($student_id)
     {
         $user = $this->userService->getUserById($student_id);
@@ -27,7 +42,12 @@ class StudentController extends Controller
         return view('students/assignment', compact('user', 'role', 'enrolledCourse', 'courses'));
     }
     
-      public function showDashboard($id)
+    /**
+     * Show student assignments
+     * @param $id
+     * @return view students/dashboard
+     */
+    public function showDashboard($id)
     {
         $user = $this->userService->getUserById($id);
         $roles = $this->userService->getUserRole($id);

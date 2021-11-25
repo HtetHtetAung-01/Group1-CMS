@@ -13,11 +13,21 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+  /**
+   * variables
+   */
   private $userService;
   private $courseService;
   private $adminService;
   private $assignmentService;
 
+  /**
+   * AdminController constructor
+   * @param UserService $userService
+   * @param CourseService $courseService
+   * @param AdminService $adminService
+   * @param AssignmentService $assignmentService
+   */
   public function __construct(UserService $userService, CourseService $courseService, 
     AdminService $adminService, AssignmentService $assignmentService)
   {
@@ -27,6 +37,10 @@ class AdminController extends Controller
     $this->assignmentService = $assignmentService;
   }
 
+  /**
+   * show list of all users
+   * @return view admin.admin
+   */
   public function showUserList()
   {
     $userList = $this->userService->getAllUser();
@@ -37,6 +51,11 @@ class AdminController extends Controller
     return view('admin.adminView', compact('userList', 'studentList', 'teacherList', 'courseList', 'assignmentList'));
   }
 
+  /**
+   * enroll teacher course
+   * @param TeacherCourseEnrollRequest $request
+   * @return redirect()->back()
+   */
   public function enrollTeacherCourse(TeacherCourseEnrollRequest $request)
   {
     $teacher_id = $request->teacher_id;
@@ -45,6 +64,11 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
+  /**
+   * show enroll teacher page
+   * @param $teacher_id
+   * @return view admin.teacherCourseEnroll
+   */
   public function enrollTeacher($teacher_id)
   {
     $teacher_name = $this->userService->getUserById($teacher_id)->name;
@@ -52,11 +76,21 @@ class AdminController extends Controller
     return view('admin.teacherCourseEnroll', compact('teacher_id','teacher_name', 'courseList'));
   }
 
+  /**
+   * show add assignment view
+   * @param $assignment_id
+   * @return view assignments.add
+   */
   public function showAddAssignmentView($assignment_id)
   {
     return view('assignments.add', compact('assignment_id'));
   }
 
+  /**
+   * submit add assignment view
+   * @param AssignmentFormRequest $request
+   * @return redirect()->back()
+   */
   public function submitAddAssignmentView(AssignmentFormRequest $request)
   {
     $validated = $request->validated();
