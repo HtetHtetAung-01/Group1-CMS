@@ -11,11 +11,23 @@
 <script src="{{ asset('js/library/accordian.js') }}"></script>
 <script src="{{ asset('js/library/confirm_modal.js') }}"></script>
 <script>
+  /**
+   * Create Modal box to confirm for assignment start-btn.
+   *
+   * Open Modal when click on start-btn.
+   * @param {route} The action to add nullable assignment to db.
+   */
   function openForm($route) {
     document.getElementById("myForm").style.display = "block";
     document.getElementById("submitForm").action = $route;
   }
 
+  /**
+   * Create Modal box to confirm for assignment start-btn.
+   *
+   * Close Modal when click on cancel-btn.
+   * @return back 
+   */
   function closeForm() {
     document.getElementById("myForm").style.display = "none";
   }
@@ -25,16 +37,16 @@
 @section('content')
 
 @php
-  $first = true;
-  $requiredCourses = "";
-  foreach($requiredCourse as $course) {
-    if($first == true) {
-      $requiredCourses .="'" .$course->title."' ";
-      $first = false;
-    } else {
-    $requiredCourses .= ", '".$course->title."' ";
+    $first = true;
+    $requiredCourses = "";
+    foreach($requiredCourse as $course) {
+      if($first == true) {
+        $requiredCourses .="'" .$course->title."' ";
+        $first = false;
+      } else {
+        $requiredCourses .= ", '".$course->title."' ";
+      }
     }
-  }
 @endphp
 
 <div class="course-details">
