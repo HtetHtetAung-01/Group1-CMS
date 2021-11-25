@@ -15,7 +15,7 @@ class AssignmentDao implements AssignmentDaoInterface
 {
     /**
      * Get each course info data to show courseDetails
-     * @param $id course id
+     * @param string $id course id
      * @return $courseDetails
      */
     public function getCourseDetails($id)
@@ -37,8 +37,8 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * To check enroll or not
-     * @param $student_id
-     * @param $course_id
+     * @param string $student_id
+     * @param string $course_id
      * @return $isEnrolled flag data
      */
     public function isEnrolled($student_id, $course_id)
@@ -54,8 +54,8 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * To enroll course by student id
-     * @param $student_id
-     * @param $course_id
+     * @param string $student_id
+     * @param string $course_id
      * @return Object $enrollCourse enroll course by student
      */
     public function enrollCourse($student_id, $course_id)
@@ -72,9 +72,9 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * To start assignment 
-     * @param $student_id
-     * @param $course_id
-     * @param $assignment_id
+     * @param string $student_id
+     * @param string $course_id
+     * @param string $assignment_id
      * @return Object $studentAssignment register to start assignment
      */
     public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
@@ -91,23 +91,27 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * To submit student's assignment
-     * @param $student_id
-     * @param $course_id
-     * @param $assignment_id
-     * @param $filename Request form courseDetails
+     * @param string $student_id
+     * @param string $course_id
+     * @param string $assignment_id
+     * @param $filename request form courseDetails
      * @return $assignment_id
      */
     public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
     {
-        return DB::transaction(function () use ($student_id, $course_id, $assignment_id, $filename) {
+        return DB::transaction(function () use ($student_id, $assignment_id, $filename) {
             $array = DB::select("SELECT student_assignments.id 
                 FROM student_assignments
                 WHERE student_id=" . $student_id
                 . " AND assignment_id= " . $assignment_id . " ;"
             );
 
-            $id =  $array[0]->id;
-
+            if (count($array) == 0) {
+                // $array -> is null
+            } else {
+                $id =  $array[0]->id; 
+            }
+            
             $studentAssignment = StudentAssignments::FindorFail($id);
             $studentAssignment->uploaded_date = \Carbon\Carbon::now();
             $studentAssignment->file_path = $filename;
@@ -119,7 +123,7 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * To check assignment is completed or not
-     * @param $course_id
+     * @param string $course_id
      * @return $assignment_details 
      */
     public function isCompleted($course_id)
@@ -137,8 +141,8 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * To check assignment is started or not
-     * @param $student_id
-     * @param $assignment_id
+     * @param string $student_id
+     * @param string $assignment_id
      */
     public function isStarted($student_id, $assignment_id)
     {
@@ -172,7 +176,7 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * To get all assignments by course id
-     * @param $course_id
+     * @param string $course_id
      */
     public function getAssignmentNamesbyCourseId($course_id)
     {
@@ -205,7 +209,7 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * Get the number of assignment by $course_id
-     * @param $course_id
+     * @param string $course_id
      * @return $number 
      */
     public function getNoOfAssignmentByCourse($course_id)
@@ -222,7 +226,7 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * Get all assignments by course
-     * @param $course_id
+     * @param string $course_id
      * @return $assignemtnList
      */
     public function getAllAssignmentByCourse($course_id)
@@ -240,7 +244,7 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * Add assignment from admin view
-     * @param $assignment
+     * @param string $assignment
      */
     public function addAssignment(Assignment $assignment)
     {
@@ -249,7 +253,7 @@ class AssignmentDao implements AssignmentDaoInterface
 
     /**
      * Get assignment id to add new assignment
-     * @param $id Assignment id
+     * @param string $id Assignment id
      */
     public function getAssignmentById($id)
     {
