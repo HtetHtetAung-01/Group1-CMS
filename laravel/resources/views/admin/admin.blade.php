@@ -95,7 +95,7 @@
             @foreach($teacherList as $teacher)
               <tr class="row">
                 <td class="number">{{ ++$index }}</td>
-                <td><a type="button" href="/enroll/{{ $teacher->id }}" data-modal="modal-enroll" 
+                <td><a type="button" href="{{ route('enroll.teacher', ['teacher_id' => $teacher->id]) }}" data-modal="modal-enroll" 
                       class="btn-show-modal enroll-btn">Enroll</a></td>
                 <td>{{ $teacher->id }}</td>
                 <td>{{ $teacher->name }}</td>

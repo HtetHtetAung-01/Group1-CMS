@@ -104,7 +104,8 @@ class UserDao implements UserDaoInterface
 		$userinformation->name = $request->name;
 		if ($request->is_update == 1) {
 			$profile = $request->profile_path;
-			$userinformation->profile_path = $this->savePhoto($profile);
+			$userinformation->profile_path = $this->
+										savePhoto($profile);
 		}
 
 		$userinformation->dob = $request->dob;
@@ -151,7 +152,8 @@ class UserDao implements UserDaoInterface
 	 */
 	public function getStudent($teacher_id)
 	{
-		$teacherCourse = $this->courseDao->getEnrolledCourse($teacher_id, 'Teacher');
+		$teacherCourse = $this->courseDao->
+					getEnrolledCourse($teacher_id, 'Teacher');
 
 		$studentList = collect();
 		foreach ($teacherCourse as $tc) {

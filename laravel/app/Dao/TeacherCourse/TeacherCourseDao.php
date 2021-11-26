@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class TeacherCourseDao implements TeacherCourseDaoInterface
 {
+  /**
+   * get the enrolled course by teacher
+   * @param $teacher_id
+   * @return object
+   */
   public function getEnrolledCoursesByTeacher($teacher_id)
   {
     return DB::select(DB::raw(
@@ -31,6 +36,12 @@ class TeacherCourseDao implements TeacherCourseDaoInterface
     return $teacherCourseID;                    
   }
 
+  /**
+   * find the teacher is enrolled the course $coursee_id
+   * @param $teacher_id
+   * @param $course_id
+   * @return boolean
+   */
   public function findTeacherCourse($teacher_id, $course_id)
   {
     $list = DB::table('teacher_courses')
@@ -48,7 +59,9 @@ class TeacherCourseDao implements TeacherCourseDaoInterface
 
   /**
    * Enroll teacher course
-   * 
+   * @param $teacher_id
+   * @param $course_id
+   * @return TeacherCourse $teacherCourse
    */
   public function enrollTeacherCourse($teacher_id, $course_id)
   {

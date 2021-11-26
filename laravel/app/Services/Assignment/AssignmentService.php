@@ -43,7 +43,9 @@ class AssignmentService implements AssignmentServiceInterface
         }
 
         $inputFile = $validated['file'];
-        $file_path = Storage::putFileAs($ROOT_DIR, $inputFile, $inputFile->getClientOriginalName());
+        $file_path = Storage::putFileAs(
+                    $ROOT_DIR, $inputFile, $inputFile->
+                    getClientOriginalName());
 
         $assignment = new Assignment;
         $assignment->name = $validated['name'];
@@ -81,7 +83,8 @@ class AssignmentService implements AssignmentServiceInterface
      */
     public function isEnrolled($student_id, $course_id)
     {
-        return $this->assignmentDao->isEnrolled($student_id, $course_id);
+        return $this->assignmentDao->
+                isEnrolled($student_id, $course_id);
     }
 
     /**
@@ -92,7 +95,8 @@ class AssignmentService implements AssignmentServiceInterface
      */
     public function enrollCourse($student_id, $course_id)
     {
-        return $this->assignmentDao->enrollCourse($student_id, $course_id);
+        return $this->assignmentDao->
+                enrollCourse($student_id, $course_id);
     }
 
     /**
@@ -104,7 +108,9 @@ class AssignmentService implements AssignmentServiceInterface
      */
     public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
     {
-        return $this->assignmentDao->addNullStudentAssignment($student_id, $course_id, $assignment_id);
+        return $this->assignmentDao->
+                addNullStudentAssignment($student_id, 
+                            $course_id, $assignment_id);
     }
 
     /**
@@ -115,9 +121,12 @@ class AssignmentService implements AssignmentServiceInterface
      * @param FileSubmitRequest $filename Request form courseDetails
      * @return View courseDetails
      */
-    public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
+    public function addStudentAssignment($student_id, 
+                    $course_id, $assignment_id, $filename)
     {
-        return $this->assignmentDao->addStudentAssignment($student_id, $course_id, $assignment_id, $filename);
+        return $this->assignmentDao->
+        addStudentAssignment($student_id, $course_id, 
+                            $assignment_id, $filename);
     }
 
     /**
@@ -137,7 +146,8 @@ class AssignmentService implements AssignmentServiceInterface
      */
     public function isStarted($student_id, $assignment_id)
     {
-        return $this->assignmentDao->isStarted($student_id, $assignment_id);
+        return $this->assignmentDao->
+                isStarted($student_id, $assignment_id);
     }
 
     /**
@@ -146,7 +156,8 @@ class AssignmentService implements AssignmentServiceInterface
      */
     public function getAssignmentNamesbyCourseId($course_id)
     {
-        return $this->assignmentDao->getAssignmentNamesbyCourseId($course_id);
+        return $this->assignmentDao->
+                getAssignmentNamesbyCourseId($course_id);
     }
     /**
      * To download assignment by ID
@@ -154,7 +165,8 @@ class AssignmentService implements AssignmentServiceInterface
      */
     public function downloadAssignment($assignment_id)
     {
-        $assignment = $this->assignmentDao->getAssignmentById($assignment_id);
+        $assignment = $this->assignmentDao->
+                    getAssignmentById($assignment_id);
         return Storage::download($assignment->file_path);
     }
 
@@ -165,7 +177,8 @@ class AssignmentService implements AssignmentServiceInterface
      */
     public function getNoOfAssignmentByCourse($course_id)
     {
-        return $this->assignmentDao->getNoOfAssignmentByCourse($course_id);
+        return $this->assignmentDao->
+                    getNoOfAssignmentByCourse($course_id);
     }
 
     /**
@@ -176,7 +189,9 @@ class AssignmentService implements AssignmentServiceInterface
      */
     public function getAssignmentStatusByStudent($student_id, $assignment_id)
     {
-        return $this->studentAssignmentDao->getAssignmentStatusByStudent($student_id, $assignment_id);
+        return $this->studentAssignmentDao->
+                getAssignmentStatusByStudent(
+                    $student_id, $assignment_id);
     }
 
     /**
@@ -186,6 +201,67 @@ class AssignmentService implements AssignmentServiceInterface
      */
     public function getAllAssignmentByCourse($course_id)
     {
-        return $this->assignmentDao->getAllAssignmentByCourse($course_id);
+        return $this->assignmentDao->
+                getAllAssignmentByCourse($course_id);
+    }
+
+    /**
+     * To check all assignments for $course_id completed or not
+     * @param $course_id
+     * @return $assignmentStatus
+     */
+    public function isCompletedAssignment($student_id, $course_id)
+    {
+        $assignment_details = $this->assignmentDao->
+                                isCompleted($course_id);
+        $key = 0;
+        $assignmentStatus = [];
+
+        foreach ($assignment_details as $assignment) {
+            $status = $this->studentAssignmentDao->
+                        getAssignmentStatusByStudent(
+                            $student_id, $assignment->id);
+
+            $assignmentStatus[$key] = $status;
+            $key++;
+        }
+        return $assignmentStatus;
+    }
+
+    /**
+     * check all the assignments are completed or not
+     * @param $student_id, $course_id
+     * @return -> true or false
+     */
+    public function checkAllAssignmentCompleted($student_id, $course_id)
+    {
+        $assignmentStatus = $this->
+                isCompletedAssignment($student_id, $course_id); 
+        foreach($assignmentStatus as $status) {
+        if($status != 'completed')
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * To show assignment is started or not
+     * @param $course_id
+     * @param $student_id
+     * @return View courseDetails
+     */
+    public function showStarted($student_id, $course_id)
+    {
+        $start = [];
+        $assignmentList = $this->assignmentDao->
+                getAllAssignmentByCourse($course_id);
+
+        foreach ($assignmentList as $key => $values) {
+            $start[$key] = $this->assignmentDao->
+                        isStarted($student_id, 
+                        $assignmentList[$key]->id);
+        }
+        return $start; 
     }
 }

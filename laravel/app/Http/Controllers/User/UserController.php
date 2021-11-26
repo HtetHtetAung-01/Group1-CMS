@@ -7,6 +7,9 @@ use App\Services\User\UserService;
 
 class UserController extends Controller
 {
+  /**
+   * variables
+   */
   private $userService;
 
   /**
@@ -28,7 +31,8 @@ class UserController extends Controller
     $user = $this->userService->getUserById($id);
     $roles = $this->userService->getUserRole($id);
     $role = $roles->type;
-    $enrolledCourse = $this->userService->getEnrolledCourse($id, $role);  
+    $enrolledCourse = $this->userService->
+                  getEnrolledCourse($id, $role);  
     
     return view('layouts.app', compact('user', 'role', 'enrolledCourse'));
   }
@@ -43,11 +47,20 @@ class UserController extends Controller
     $user = $this->userService->getUserById($teacher_id);
     $roles = $this->userService->getUserRole($teacher_id);
     $role = $roles->type;
-    $enrolledCourse = $this->userService->getEnrolledCourse($teacher_id, $role);
+    $enrolledCourse = $this->userService->
+              getEnrolledCourse($teacher_id, $role);
     
-    $teacherCourse = $this->userService->getEnrolledCourse($teacher_id, 'Teacher');
-    $studentList = $this->userService->getStudentList($teacherCourse);
+    $teacherCourse = $this->userService->
+              getEnrolledCourse($teacher_id, 'Teacher');
+    $studentList = $this->userService->
+              getStudentList($teacherCourse);
     
-    return view('teachers.student-info', compact('user', 'role', 'enrolledCourse', 'teacherCourse' ,'studentList'));
+    return view('teachers.student-info', [
+      'user' => $user, 
+      'role' => $role, 
+      'enrolledCourse' => $enrolledCourse, 
+      'teacherCourse' => $teacherCourse,
+      'studentList' => $studentList
+    ]);
   }
 }

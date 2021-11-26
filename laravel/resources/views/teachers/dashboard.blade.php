@@ -30,6 +30,8 @@
 
 @section('scripts')
 <script src="{{ asset('js/library/loader.js') }}"></script>
+
+<!-- To show the chart -->
 <script>
     // Load Charts and the corechart and barchart packages.
     google.charts.load('current', {
