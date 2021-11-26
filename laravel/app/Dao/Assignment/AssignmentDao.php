@@ -14,8 +14,14 @@ use Illuminate\Support\Facades\DB;
 class AssignmentDao implements AssignmentDaoInterface
 {
   
-  public function addAssignment(Assignment $assignment)
+  public function addAssignment($validated)
   {
+    $assignment = new Assignment;
+    $assignment->name = $validated['name'];
+    $assignment->description = $validated['description'];
+    $assignment->duration = $validated['duration'];
+    $assignment->course_id = $validated['course_id'];
+    $assignment->file_path = $validated['file_path'];
     $assignment->save();
   }
 

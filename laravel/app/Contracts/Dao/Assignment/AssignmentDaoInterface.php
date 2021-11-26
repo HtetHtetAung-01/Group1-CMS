@@ -13,7 +13,7 @@ interface AssignmentDaoInterface
   /**
    * To add a new assignment
    */
-  public function addAssignment(Assignment $assignment);
+  public function addAssignment($validated);
 
   /**
    * To get all assignment

@@ -8,7 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 class CommentDao implements CommentDaoInterface
 {
-    public function addComment(Comment $comment) {
+    public function addComment($validated, $teacher_id, $assignment_id)
+    {
+        $comment = new Comment;
+        $comment->teacher_id = $teacher_id;
+        $comment->student_assignment_id = $assignment_id;
+        $comment->message = $validated['comment'];
         $comment->save();
     }
     

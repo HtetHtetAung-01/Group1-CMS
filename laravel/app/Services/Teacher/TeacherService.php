@@ -65,11 +65,7 @@ class TeacherService implements TeacherServiceInterface
 
     public function addCommentToAssignment($validated, $teacher_id, $assignment_id)
     {
-        $comment = new Comment;
-        $comment->teacher_id = $teacher_id;
-        $comment->student_assignment_id = $assignment_id;
-        $comment->message = $validated['comment'];
-        $this->commentDao->addComment($comment);
+        $this->commentDao->addComment($validated, $teacher_id, $assignment_id);
     }
 
     public function downloadStudentAssignment($student_assignment_id)
