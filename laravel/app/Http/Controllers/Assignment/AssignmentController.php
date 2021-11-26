@@ -48,7 +48,8 @@ class AssignmentController extends Controller
                         isEnrolled($student_id, $course_id);
         $assignmentStatus = $this->assignmentInterface->
                 isCompletedAssignment($student_id, $course_id);
-        $started = $this->assignmentInterface->showStarted($student_id, $course_id);
+        $started = $this->assignmentInterface->
+                    showStarted($student_id, $course_id);
 
         $user = $this->userService->getUserById($student_id);
         $roles = $this->userService->getUserRole($student_id);
@@ -117,7 +118,8 @@ class AssignmentController extends Controller
      */
     public function downloadFile($id, $course_id, $assignment_id)
     {
-        return $this->assignmentInterface->downloadAssignment($assignment_id);
+        return $this->assignmentInterface->
+                    downloadAssignment($assignment_id);
     }
 
     /**
@@ -138,9 +140,12 @@ class AssignmentController extends Controller
 
         $validated = $filename->validated();
         $file = $validated['inputFile'];
-        $inputFileName = Storage::putFileAs($ROOT_DIR, $file, $file->getClientOriginalName());
+        $inputFileName = Storage::putFileAs(
+            $ROOT_DIR, $file, $file->getClientOriginalName());
 
-        $this->assignmentInterface->addStudentAssignment($student_id, $course_id, $assignment_id, $inputFileName);
+        $this->assignmentInterface->
+                addStudentAssignment($student_id, 
+                    $course_id, $assignment_id, $inputFileName);
 
         return back();
     }

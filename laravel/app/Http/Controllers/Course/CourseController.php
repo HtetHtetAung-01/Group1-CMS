@@ -39,19 +39,32 @@ class CourseController extends Controller
     $courseIdList = $this->courseService->getAllCourseIdList();
     $courseList = $this->courseService->getAllCourseList();
     
-    $S_AssignmentNoList = $this->courseService->getNoOfAssignmentsList($courseIdList);;
-    $courseStatusList = $this->courseService->getCourseStatus($student_id, $courseIdList);
+    $S_AssignmentNoList = $this->courseService->
+              getNoOfAssignmentsList($courseIdList);;
+    $courseStatusList = $this->courseService->
+              getCourseStatus($student_id, $courseIdList);
     
     // sorting the course list and status list in order of compete status
-    $studentCourseList = $this->courseService->sortCourses($courseStatusList, $courseList, 1);  
-    $courseStatusList = $this->courseService->sortCourses($courseStatusList, $courseStatusList, 0);
+    $studentCourseList = $this->courseService->
+            sortCourses($courseStatusList, $courseList, 1);  
+    $courseStatusList = $this->courseService->
+            sortCourses($courseStatusList, $courseStatusList, 0);
     
     // To get the user details to display layout
     $user = $this->userService->getUserById($student_id);
     $roles = $this->userService->getUserRole($student_id);
     $role = $roles->type;
-    $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role); 
-    return view('course.studentCourse', compact('user', 'role', 'enrolledCourse', 'studentCourseList', 'S_AssignmentNoList', 'courseStatusList'));
+    $enrolledCourse = $this->userService->
+          getEnrolledCourse($student_id, $role); 
+
+    return view('course.studentCourse', [
+      'user' => $user, 
+      'role' => $role, 
+      'enrolledCourse' => $enrolledCourse, 
+      'studentCourseList' => $studentCourseList, 
+      'S_AssignmentNoList' => $S_AssignmentNoList, 
+      'courseStatusList' => $courseStatusList
+    ]);
   }
 
   /**

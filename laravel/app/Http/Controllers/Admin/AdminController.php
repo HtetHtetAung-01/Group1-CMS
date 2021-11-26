@@ -28,8 +28,10 @@ class AdminController extends Controller
    * @param AdminService $adminService
    * @param AssignmentService $assignmentService
    */
-  public function __construct(UserService $userService, CourseService $courseService, 
-    AdminService $adminService, AssignmentService $assignmentService)
+  public function __construct(UserService $userService, 
+    CourseService $courseService, 
+    AdminService $adminService, 
+    AssignmentService $assignmentService)
   {
     $this->userService = $userService;
     $this->courseService = $courseService;
@@ -48,7 +50,13 @@ class AdminController extends Controller
     $teacherList = $this->userService->getAllTeacher();
     $courseList = $this->courseService->getAllCourseList();
     $assignmentList = $this->assignmentService->getAllAssignment();
-    return view('admin.admin', compact('userList', 'studentList', 'teacherList', 'courseList', 'assignmentList'));
+    return view('admin.admin', [
+      'userList' => $userList, 
+      'studentList' => $studentList, 
+      'teacherList' => $teacherList, 
+      'courseList' => $courseList, 
+      'assignmentList' => $assignmentList
+    ]);
   }
 
   /**
@@ -60,7 +68,8 @@ class AdminController extends Controller
   {
     $teacher_id = $request->teacher_id;
     $course_id = $request->course_id;
-    $teacherCourse = $this->adminService->enrollTeacherCourse($teacher_id, $course_id);
+    $teacherCourse = $this->adminService->
+              enrollTeacherCourse($teacher_id, $course_id);
     return redirect()->back();
   }
 
@@ -71,9 +80,14 @@ class AdminController extends Controller
    */
   public function enrollTeacher($teacher_id)
   {
-    $teacher_name = $this->userService->getUserById($teacher_id)->name;
+    $teacher_name = $this->userService->
+                  getUserById($teacher_id)->name;
     $courseList = $this->courseService->getAllCourseList();
-    return view('admin.teacherCourseEnroll', compact('teacher_id','teacher_name', 'courseList'));
+    return view('admin.teacherCourseEnroll', [
+      'teacher_id' => $teacher_id,
+      'teacher_name' => $teacher_name, 
+      'courseList' => $courseList
+    ]);
   }
 
   /**
@@ -83,7 +97,9 @@ class AdminController extends Controller
    */
   public function showAddAssignmentView($assignment_id)
   {
-    return view('assignments.add', compact('assignment_id'));
+    return view('assignments.add', [
+      'assignment_id' => $assignment_id
+    ]);
   }
 
   /**

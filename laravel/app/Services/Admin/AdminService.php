@@ -28,6 +28,7 @@ class AdminService implements AdminServiceInterface
    */
   public function enrollTeacherCourse($teacher_id, $course_id)
   {
-    return $this->teacherCourseDao->enrollTeacherCourse($teacher_id, $course_id);
+    return $this->teacherCourseDao->
+            enrollTeacherCourse($teacher_id, $course_id);
   }
 }

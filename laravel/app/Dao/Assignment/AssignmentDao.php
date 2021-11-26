@@ -21,11 +21,15 @@ class AssignmentDao implements AssignmentDaoInterface
     public function getCourseDetails($id)
     {
         $courseDetails = DB::select(
-            DB::raw("SELECT courses.id as course_id, courses.title as course_title, courses.description as course_description, assignments.*
-      FROM assignments
-      LEFT JOIN courses
-      ON assignments.course_id = courses.id 
-      WHERE courses.id=" . $id . ";")
+            DB::raw("SELECT 
+            courses.id as course_id, 
+            courses.title as course_title, 
+            courses.description as course_description, 
+            assignments.*
+            FROM assignments
+            LEFT JOIN courses
+            ON assignments.course_id = courses.id 
+            WHERE courses.id=" . $id . ";")
         );
         return $courseDetails;
     }
@@ -38,7 +42,8 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function isEnrolled($student_id, $course_id)
     {
-        $isEnrolled = DB::select("SELECT * FROM student_courses WHERE student_id=" . $student_id
+        $isEnrolled = DB::select("SELECT * FROM student_courses 
+                WHERE student_id=" . $student_id
             . " AND course_id= " . $course_id . " ;");
         return $isEnrolled == null;
     }
@@ -66,7 +71,8 @@ class AssignmentDao implements AssignmentDaoInterface
      * @param $assignment_id
      * @return Object $studentAssignment register to start assignment
      */
-    public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
+    public function addNullStudentAssignment($student_id, 
+                                    $course_id, $assignment_id)
     {
         $studentAssignment = new StudentAssignments;
         $studentAssignment->started_date = \Carbon\Carbon::now();
@@ -87,9 +93,12 @@ class AssignmentDao implements AssignmentDaoInterface
      * @param $filename Request form courseDetails
      * @return $assignment_id
      */
-    public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
+    public function addStudentAssignment($student_id, 
+                $course_id, $assignment_id, $filename)
     {
-        $array = DB::select("SELECT student_assignments.id FROM student_assignments WHERE student_id=" . $student_id
+        $array = DB::select("SELECT student_assignments.id 
+                FROM student_assignments 
+                WHERE student_id=" . $student_id
             . " AND assignment_id= " . $assignment_id . " ;");
 
         $id =  $array[0]->id;

@@ -54,17 +54,23 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             if (Auth::user()->role_id == 1) {
-                return redirect('/student/' . Auth::user()->id . '/dashboard');
-            } elseif (Auth::user()->role_id == 2) {
-                return redirect('/teacher/' . Auth::user()->id . '/dashboard');
-            } else {
+                return redirect('/student/' . 
+                Auth::user()->id . '/dashboard');
+            } 
+            elseif (Auth::user()->role_id == 2) {
+                return redirect('/teacher/' .
+                 Auth::user()->id . '/dashboard');
+            } 
+            else {
                 return redirect('/admin/' . Auth::user()->id);
             }
         } else {
             $message = "";
-            $checkUser = User::where('email', $request->email)->first();
+            $checkUser = User::where('email', $request->email)
+                                ->first();
             if ($checkUser) {
-                $checkPassword = Hash::check($request->password, $checkUser->password);
+                $checkPassword = Hash::check($request->password, 
+                                            $checkUser->password);
                 if (!$checkPassword) {
                     $message .= "Incorrect Password";
                 }
@@ -127,7 +133,8 @@ class AuthController extends Controller
             return view('dashboard');
         }
 
-        return redirect("/")->withSuccess('You are not allowed to access');
+        return redirect("/")->
+                withSuccess('You are not allowed to access');
     }
 
     /**

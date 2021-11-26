@@ -37,8 +37,11 @@ class StudentController extends Controller
         $user = $this->userService->getUserById($student_id);
         $roles = $this->userService->getUserRole($student_id);
         $role = $roles->type;
-        $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);
-        $courses = $this->studentInterface->getUploadedAssignmentsByStudentId($student_id);
+        $enrolledCourse = $this->userService->
+                getEnrolledCourse($student_id, $role);
+        $courses = $this->studentInterface->
+                getUploadedAssignmentsByStudentId($student_id);
+
         return view('students/assignment', compact('user', 'role', 'enrolledCourse', 'courses'));
     }
     
@@ -54,9 +57,12 @@ class StudentController extends Controller
         $role = $roles->type;
         $enrolledCourse = $this->userService->getEnrolledCourse($id, $role);
 
-        $enrolledData =  $this->studentInterface->getEnrolledData($id); 
-        $completedData =  $this->studentInterface->getCompletedData($id); 
-        $studentChartData =  $this->studentInterface->getStudentGradeData($id); 
+        $enrolledData =  $this->studentInterface->
+                    getEnrolledData($id); 
+        $completedData =  $this->studentInterface->
+                    getCompletedData($id); 
+        $studentChartData =  $this->studentInterface->
+                    getStudentGradeData($id); 
         return view('students/dashboard', compact('user', 'role', 'enrolledCourse', 'enrolledData', 'completedData', 'studentChartData'));
     }
 }

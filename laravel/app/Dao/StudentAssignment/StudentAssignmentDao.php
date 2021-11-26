@@ -24,8 +24,10 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
     public function getUploadedAssignmentsByAssignmentId($assignment_id)
     {
         return DB::select(DB::raw(
-            "SELECT S.name, SA.id, SA.uploaded_date, SA.file_path, SA.grade FROM users AS S
-            LEFT OUTER JOIN student_assignments AS SA ON S.id = SA.student_id
+            "SELECT S.name, SA.id, SA.uploaded_date, 
+            SA.file_path, SA.grade FROM users AS S
+            LEFT OUTER JOIN student_assignments AS SA 
+            ON S.id = SA.student_id
             WHERE SA.file_path IS NOT NULL
             AND SA.assignment_id = $assignment_id
             AND SA.deleted_at IS NULL;"
@@ -37,11 +39,13 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
      * @param string $student_id student's id
      * @param string $course_id course's id
      */
-    public function getUploadedAssignmentsByStudentAndCourse($student_id, $course_id)
+    public function getUploadedAssignmentsByStudentAndCourse(
+                                        $student_id, $course_id)
     {    
         return DB::select(DB::raw(
             "SELECT SA.* from student_assignments AS SA 
-            LEFT OUTER JOIN assignments AS A ON A.id = SA.assignment_id
+            LEFT OUTER JOIN assignments AS A 
+            ON A.id = SA.assignment_id
             LEFT OUTER JOIN courses AS C ON C.id = A.course_id
             WHERE SA.student_id = $student_id AND C.id= $course_id
             AND SA.uploaded_date IS NOT NULL
@@ -79,7 +83,8 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
         if(count($assignment) == 0)
             $status = 'progress';
         else {
-            if($assignment[0]->uploaded_date != NULL && $assignment[0]->file_path != NULL)
+            if($assignment[0]->uploaded_date != NULL && 
+                    $assignment[0]->file_path != NULL)
                 $status = 'completed';
             else
                 $status = 'progress';

@@ -36,7 +36,7 @@ class CourseService implements CourseServiceInterface
    * get student course list
    * @return $studentCourseList
    */
-  public function getStudentCourse()
+  public function getStudentCourse() 
   {
     return $this->studentCourseDao->getStudentCourse();
   }
@@ -55,9 +55,11 @@ class CourseService implements CourseServiceInterface
      * update the is_completed of the table student_courses
      * @param $id, $course_id, $status
      */
-    public function updateCourseComplete($student_id, $course_id, $status)
+    public function updateCourseComplete($student_id, 
+                                        $course_id, $status)
     {
-      return $this->studentCourseDao->updateCourseComplete($student_id, $course_id, $status);
+      return $this->studentCourseDao->
+          updateCourseComplete($student_id, $course_id, $status);
     }
 
   /**
@@ -77,7 +79,8 @@ class CourseService implements CourseServiceInterface
    */
   public function getRequiredCourseList($requiredCourses)
   {
-    return $this->courseDao->getRequiredCourseList($requiredCourses);
+    return $this->courseDao->
+              getRequiredCourseList($requiredCourses);
   }
 
   /**
@@ -105,7 +108,8 @@ class CourseService implements CourseServiceInterface
    */
   public function getStudentEnrolledCourses($student_id)
   {
-    return $this->studentCourseDao->getStudentEnrolledCourses($student_id);
+    return $this->studentCourseDao->
+                    getStudentEnrolledCourses($student_id);
   }
 
   /**
@@ -115,7 +119,9 @@ class CourseService implements CourseServiceInterface
    */
   public function getCourseCompleteStatusByStudent($student_id, $course_id)
   {
-    return $this->studentCourseDao->getCourseCompleteStatusByStudent($student_id, $course_id);
+    return $this->studentCourseDao->
+                  getCourseCompleteStatusByStudent(
+                              $student_id, $course_id);
   }
 
   /**
@@ -129,23 +135,33 @@ class CourseService implements CourseServiceInterface
     {
         $this->array = [];
         $this->i ++ ;
-        $required_course = $this->courseDao->getRequiredCourseID($course_id);
+        $required_course = $this->courseDao->
+                        getRequiredCourseID($course_id);
+
         foreach($required_course as $course) {
-        if($course->required_courses == null && count($this->array) == 0) {
+        if($course->required_courses == null && 
+                    count($this->array) == 0) {
             return true;
         }
-        $this->array = $this->changeStringToArray($course->required_courses);;
+
+        $this->array = $this->
+              changeStringToArray($course->required_courses);
+
         foreach($this->array as $key => $value) {
-            $status  = $this->studentCourseDao->getCourseCompleteStatusByStudent($student_id, $this->array[$key]);
+            $status  = $this->studentCourseDao->
+                          getCourseCompleteStatusByStudent(
+                            $student_id, $this->array[$key]);
 
             if($status == NULL) {
-            return false;
+              return false;
             }
             else if($status == 0) {
-            return false;
+              return false;
             }
             else {
-            return $this->isCompletedRequiredCourses($this->array[$key], $student_id);
+              return $this->
+              isCompletedRequiredCourses(
+                $this->array[$key], $student_id);
             }
         }
         return true;
@@ -171,21 +187,30 @@ class CourseService implements CourseServiceInterface
    */
   public function getCourseStatus($student_id, $totalCourse) 
   {
-    $enrolledCourseList = $this->studentCourseDao->getStudentEnrolledCourses($student_id);
+    $enrolledCourseList = $this->studentCourseDao->
+                    getStudentEnrolledCourses($student_id);
     
     foreach($totalCourse as $key => $value) {
       $isenroll = false;
       foreach($enrolledCourseList as $enroll) {
         if($totalCourse[$key] == $enroll->course_id) {
           $isenroll = true;
-          $assignmentComplete = $this->assignmentService->checkAllAssignmentCompleted($student_id, $enroll->course_id);
+          $assignmentComplete = $this->assignmentService->
+                              checkAllAssignmentCompleted(
+                              $student_id, $enroll->course_id);
+
           if($assignmentComplete == true) {
-            $this->studentCourseDao->updateCourseComplete($student_id, $enroll->course_id, 1);
+            $this->studentCourseDao->updateCourseComplete(
+                    $student_id, $enroll->course_id, 1);
+
             $courseStatusList[$key] = "completed";
           }
           else {
-            $this->studentCourseDao->updateCourseComplete($student_id, $enroll->course_id, 0);
-            if($this->isCompletedRequiredCourses($enroll->course_id, $student_id))
+            $this->studentCourseDao->updateCourseComplete(
+                      $student_id, $enroll->course_id, 0);
+
+            if($this->isCompletedRequiredCourses(
+                        $enroll->course_id, $student_id))
               $courseStatusList[$key] = "progress";
             else
               $courseStatusList[$key] = "unlock next";
@@ -259,7 +284,8 @@ class CourseService implements CourseServiceInterface
     
     foreach($courseIdList as $key => $value) {
       
-      $number = $this->assignmentService->getNoOfAssignmentByCourse($courseIdList[$key]);
+      $number = $this->assignmentService->
+              getNoOfAssignmentByCourse($courseIdList[$key]);
       $assignmentNoList[$key] = $number;
       $key++;
     }  
