@@ -36,11 +36,12 @@ class AssignmentDao implements AssignmentDaoInterface
   public function getCourseDetails($id)
   {
     $courseDetails = DB::select(
-      DB::raw("SELECT courses.id as course_id, courses.title as course_title, courses.description as course_description, assignments.*
+      "SELECT courses.id as course_id, courses.title as course_title, 
+      courses.description as course_description, assignments.*
       FROM assignments
       LEFT JOIN courses
       ON assignments.course_id = courses.id 
-      WHERE courses.id=" . $id . ";")
+      WHERE courses.id= $id;"
     );
     return $courseDetails;
   }
@@ -50,8 +51,11 @@ class AssignmentDao implements AssignmentDaoInterface
    */
   public function isEnrolled($student_id, $course_id)
   {
-    $isEnrolled = DB::select("SELECT * FROM student_courses WHERE student_id=" . $student_id
-      . " AND course_id= " . $course_id . " ;");
+    $isEnrolled = DB::select(
+      "SELECT * FROM student_courses 
+      WHERE student_id= $student_id 
+      AND course_id= $course_id;"
+    );
     return $isEnrolled == null;
   }
 
@@ -89,7 +93,8 @@ class AssignmentDao implements AssignmentDaoInterface
    */
   public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
   {
-    $array = DB::select("SELECT student_assignments.id FROM student_assignments WHERE student_id=" . $student_id
+    $array = DB::select("SELECT student_assignments.id 
+      FROM student_assignments WHERE student_id=" . $student_id
       . " AND assignment_id= " . $assignment_id . " ;");
 
     $id =  $array[0]->id;
@@ -145,11 +150,11 @@ class AssignmentDao implements AssignmentDaoInterface
 
   public function getAssignmentNamesbyCourseId($course_id)
   {
-    return DB::select(DB::raw(
+    return DB::select(
       "SELECT A.id, A.name FROM assignments AS A
-            LEFT OUTER JOIN courses AS C ON C.id = A.course_id 
-            WHERE C.id = $course_id;"
-    ));
+      LEFT OUTER JOIN courses AS C ON C.id = A.course_id 
+      WHERE C.id = $course_id;"
+    );
   }
 
   /**

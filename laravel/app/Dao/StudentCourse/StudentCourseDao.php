@@ -10,10 +10,10 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getEnrolledCourseTitlesByStudent($student_id)
     {
         $courseTitles = DB::select(
-            DB::raw("SELECT C.id, C.title FROM courses AS C
+            "SELECT C.id, C.title FROM courses AS C
             LEFT OUTER JOIN student_courses AS SC ON SC.course_id = C.id
             WHERE SC.student_id = $student_id;"
-        ));
+        );
 
         return $courseTitles;
     }
@@ -37,10 +37,10 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getTotalEnrolledCoursebyStudent($student_id) {
     
         $totalEnrolledCourse = DB::select(
-            DB::raw("SELECT count(course_id) as totalEnrolledCourse, student_id 
+            "SELECT count(course_id) as totalEnrolledCourse, student_id 
             FROM student_courses
-            WHERE student_id =".$student_id.";"
-        ));
+            WHERE student_id = $student_id;"
+        );
 
         return $totalEnrolledCourse;
     }
@@ -52,10 +52,10 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getTotalCompletedCoursebyStudent($student_id) {
     
         $totalCompletedCourse = DB::select(
-            DB::raw("SELECT count(course_id) as totalCompletedCourse, student_id 
+            "SELECT count(course_id) as totalCompletedCourse, student_id 
             FROM student_courses
             WHERE is_completed=1 AND student_id =". $student_id.";"
-        ));
+        );
         return $totalCompletedCourse;
     }
 
@@ -66,13 +66,13 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getStudentPerformanceData($student_id) {
 
             $studentPerformance = DB::select(
-                DB::raw("SELECT SC.student_id, SC.course_id, C.title as courseTitle, 
+                "SELECT SC.student_id, SC.course_id, C.title as courseTitle, 
                 A.id as assignmentID, A.name as assignmentName, SA.grade as assignmentGrade
                 FROM student_courses AS SC
                 LEFT JOIN courses AS C ON C.id = SC.course_id
                 LEFT JOIN assignments AS A ON C.id = A.course_id
                 LEFT JOIN student_assignments AS SA ON SA.assignment_id = A.id
-                WHERE SC.student_id = $student_id AND SA.student_id = $student_id AND SA.grade IS NOT NULL;")
+                WHERE SC.student_id = $student_id AND SA.student_id = $student_id AND SA.grade IS NOT NULL;"
               );
               return $studentPerformance;
     }

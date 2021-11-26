@@ -184,9 +184,9 @@ class UserDao implements UserDaoInterface
 	public function getTotalStudent()
 	{
 
-		$totalStudent = DB::select(DB::raw(
+		$totalStudent = DB::select(
 			"SELECT count(id) as totalStudent FROM users
-			WHERE role_id=1;")
+			WHERE role_id= 1;"
 		);
 		return $totalStudent;
 	}
