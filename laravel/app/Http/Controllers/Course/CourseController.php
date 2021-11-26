@@ -75,12 +75,8 @@ class CourseController extends Controller
         $index ++;
       }
     }
-    // To get the user details to display layout
-    $user = $this->userService->getUserById($student_id);
-    $roles = $this->userService->getUserRole($student_id);
-    $role = $roles->type;
-    $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role); 
-    return view('course.studentCourse', compact('user', 'role', 'enrolledCourse', 'studentCourseList', 'S_AssignmentNoList', 'courseStatusList'));
+
+    return view('course.studentCourse', compact('studentCourseList', 'S_AssignmentNoList', 'courseStatusList'));
   }
 
   /**
@@ -213,12 +209,8 @@ class CourseController extends Controller
       $T_assignmentNoList[$index] = $number; 
       $index++;
     }
-    $user = $this->userService->getUserById($teacher_id);
-    $roles = $this->userService->getUserRole($teacher_id);
-    $role = $roles->type;
-    $enrolledCourse = $this->userService->getEnrolledCourse($teacher_id, $role);
-    
-    return view('course.teacherCourse', compact('user', 'role', 'enrolledCourse', 'teacherCourseList', 'T_assignmentNoList'));
+
+    return view('course.teacherCourse', compact('teacherCourseList', 'T_assignmentNoList'));
   }
 
   /**

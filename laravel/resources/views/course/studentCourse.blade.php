@@ -13,7 +13,6 @@
 
 @php
 $key = 1;
-$roleName = strtolower($role);
 @endphp
 
 @foreach($studentCourseList as $course)

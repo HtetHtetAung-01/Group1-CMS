@@ -9,7 +9,6 @@ use App\Services\Admin\AdminService;
 use App\Services\Assignment\AssignmentService;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -41,7 +40,7 @@ class AdminController extends Controller
   {
     $teacher_id = $request->teacher_id;
     $course_id = $request->course_id;
-    $teacherCourse = $this->adminService->enrollTeacherCourse($teacher_id, $course_id);
+    $this->adminService->enrollTeacherCourse($teacher_id, $course_id);
     return redirect()->back();
   }
 
