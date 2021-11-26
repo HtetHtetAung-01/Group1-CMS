@@ -106,7 +106,8 @@ class UserService implements UserServiceInterface
    */
   public function getEnrolledCourse($id, $role)
   {
-    $enrolledCourse = $this->courseDao->getEnrolledCourse($id, $role);
+    $enrolledCourse = $this->courseDao->
+                    getEnrolledCourse($id, $role);
     return $enrolledCourse;
   }
 
@@ -116,7 +117,8 @@ class UserService implements UserServiceInterface
    */
   public function getStudentList($teacher_id)
   {
-    $studentList = $this->userDao->getStudentList($teacher_id);
+    $studentList = $this->userDao->
+                    getStudentList($teacher_id);
     return $studentList;
   }
 

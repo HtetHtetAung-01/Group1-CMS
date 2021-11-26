@@ -112,4 +112,26 @@ interface AssignmentServiceInterface
      * @return Object
      */
     public function addAssignment($validated);
+
+    /** 
+     * To check all assignments for $course_id completed or not
+     * @param $course_id
+     * @return $assignmentStatus
+     */
+    public function isCompletedAssignment($student_id, $course_id);
+
+    /**
+     * check all the assignments are completed or not
+     * @param $student_id, $course_id
+     * @return -> true or false
+     */
+    public function checkAllAssignmentCompleted($student_id, $course_id);
+    
+    /**
+     * To show assignment is started or not
+     * @param $course_id
+     * @param $student_id
+     * @return View courseDetails
+     */
+    public function showStarted($student_id, $course_id);
 }

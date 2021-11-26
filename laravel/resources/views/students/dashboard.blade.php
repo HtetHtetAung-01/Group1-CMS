@@ -24,6 +24,8 @@
 </div>
 
 <script src="{{asset('js/library/loader.js')}}"></script>
+
+<!-- To show the chart -->
 <script>
   // Load the current library release
   google.charts.load('current', {

@@ -28,11 +28,20 @@ class AuthController extends Controller
         $this->userInterface = $userServiceInterface;
     }
 
+    /**
+     * show the login page
+     * @return view auth.login
+     */
     public function Index()
     {
         return view('auth.login');
     }
 
+    /**
+     * user custom login
+     * @param Request $request
+     * @return redirect()->back()
+     */
     public function UserCustomLogin(Request $request)
     {
         $request->validate([
@@ -43,17 +52,23 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             if (Auth::user()->role_id == 1) {
-                return redirect('/student/' . Auth::user()->id . '/dashboard');
-            } elseif (Auth::user()->role_id == 2) {
-                return redirect('/teacher/' . Auth::user()->id . '/dashboard');
-            } else {
+                return redirect('/student/' . 
+                Auth::user()->id . '/dashboard');
+            } 
+            elseif (Auth::user()->role_id == 2) {
+                return redirect('/teacher/' .
+                 Auth::user()->id . '/dashboard');
+            } 
+            else {
                 return redirect('/admin/' . Auth::user()->id);
             }
         } else {
             $message = "";
-            $checkUser = User::where('email', $request->email)->first();
+            $checkUser = User::where('email', $request->email)
+                                ->first();
             if ($checkUser) {
-                $checkPassword = Hash::check($request->password, $checkUser->password);
+                $checkPassword = Hash::check($request->password, 
+                                            $checkUser->password);
                 if (!$checkPassword) {
                     $message .= "Incorrect Password";
                 }
@@ -64,11 +79,20 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * show user registration page
+     * @return view auth.registeration
+     */
     public function UserRegistration()
     {
         return view('auth.registration');
     }
 
+    /**
+     * user custom registeration
+     * @param RegisterFormRequest $request
+     * @return redirect('/')
+     */
     public function UserCustomRegistration(RegisterFormRequest $request)
     {
         $data  = $request->validated();
@@ -77,26 +101,44 @@ class AuthController extends Controller
         return redirect("/")->withSuccess('You have signed-in');
     }
 
+    /**
+     * create new user
+     * @param $data
+     * @return $user
+     */
     public function userCreate($data)
     {
         $user = $this->userInterface->createUser($data);
         return $user;
     }
 
+    /**
+     * save photo
+     * @param $profile
+     */
     public function savePhoto($profile)
     {
         $this->userInterface->SavePhoto($profile);
     }
 
+    /**
+     * show user dashboard
+     * @return view 'dashboard'
+     */
     public function userDashboard()
     {
         if (Auth::check()) {
             return view('dashboard');
         }
 
-        return redirect("/")->withSuccess('You are not allowed to access');
+        return redirect("/")->
+                withSuccess('You are not allowed to access');
     }
 
+    /**
+     * signout
+     * @return redirect('/')
+     */
     public function signOut()
     {
         Session::flush();
@@ -105,37 +147,56 @@ class AuthController extends Controller
         return Redirect('/');
     }
 
-    //userList function
+    /**
+     * show user list
+     * @param Request $request
+     * @return view user_list
+     */
     public function showUserList(Request $request)
     {
         $userLists = $this->userInterface->getUserList($request);
         return view('user_list', compact('userLists'));
     }
 
-    //delete user
+    /**
+     * delete user
+     * @param $id
+     * @return redirect('/user-list')
+     */
     public function deleteUser($id)
     {
-        // User::findOrFail($id)->delete();
         $this->userInterface->deleteUser($id);
         return redirect('/user-list');
     }
 
-    //show userdetails
+    /**
+     * show user details
+     * @param $id
+     * @return view userdetails
+     */
     public function userdetail($id)
     {
         $detail = User::find($id);
         return view('userdetails', compact('detail'));
     }
 
-    //Edit user
+    /**
+     * edit user
+     * @param $id
+     * @return view update_user
+     */
     public function editUser($id)
     {
-        // $userEdit= User::find($id);
         $userEdit = $this->userInterface->editUser($id);
         return view('update_user', compact('userEdit'));
     }
 
-    //Update user
+    /**
+     * update user
+     * @param $id
+     * @param Request $request
+     * @return redirect('/student/') or ('/teacher/')
+     */
     public function updateUser($id, Request $request)
     {
         $this->userInterface->updateUser($id, $request);

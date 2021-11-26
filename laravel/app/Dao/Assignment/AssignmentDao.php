@@ -20,17 +20,17 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function getCourseDetails($id)
     {
-            $courseDetails = DB::select(
-                DB::raw("SELECT courses.id as course_id,
-                courses.title as course_title,
-                courses.description as course_description,
-                assignments.*
-                FROM assignments
-                LEFT JOIN courses
-                ON assignments.course_id = courses.id 
-                WHERE courses.id=" . $id . ";")
-            );
-            return $courseDetails;    
+        $courseDetails = DB::select(
+            DB::raw("SELECT courses.id as course_id,
+            courses.title as course_title,
+            courses.description as course_description,
+            assignments.*
+            FROM assignments
+            LEFT JOIN courses
+            ON assignments.course_id = courses.id 
+            WHERE courses.id=" . $id . ";")
+        );
+        return $courseDetails;    
     }
 
     /**
@@ -41,11 +41,11 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function isEnrolled($student_id, $course_id)
     {
-            $isEnrolled = DB::select("SELECT * FROM student_courses 
-                WHERE student_id=" . $student_id
-                . " AND course_id= " . $course_id . " ;"
-            );
-            return $isEnrolled == null;
+        $isEnrolled = DB::select("SELECT * FROM student_courses 
+            WHERE student_id=" . $student_id
+            . " AND course_id= " . $course_id . " ;"
+        );
+        return $isEnrolled == null;
     }
 
     /**
@@ -73,7 +73,8 @@ class AssignmentDao implements AssignmentDaoInterface
      * @param string $assignment_id
      * @return Object $studentAssignment register to start assignment
      */
-    public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
+    public function addNullStudentAssignment($student_id, 
+                                    $course_id, $assignment_id)
     {
         return DB::transaction(function () use ($student_id, $assignment_id) {
             $studentAssignment = new StudentAssignments;
@@ -93,7 +94,8 @@ class AssignmentDao implements AssignmentDaoInterface
      * @param $filename request form courseDetails
      * @return $assignment_id
      */
-    public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
+    public function addStudentAssignment($student_id, 
+                $course_id, $assignment_id, $filename)
     {
         $array = DB::select("SELECT student_assignments.id 
                 FROM student_assignments

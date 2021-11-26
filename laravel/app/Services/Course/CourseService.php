@@ -6,28 +6,37 @@ use App\Contracts\Services\Course\CourseServiceInterface;
 use App\Dao\Course\CourseDao;
 use App\Dao\StudentCourse\StudentCourseDao;
 use App\Dao\TeacherCourse\TeacherCourseDao;
+use App\Services\Assignment\AssignmentService;
 
 class CourseService implements CourseServiceInterface
 {
+  /**
+   * variables
+   */
   private $studentCourseDao;
   private $teacherCourseDao;
   private $courseDao;
+  private $assignmentService;
 
   /**
    * CourseService constructor
    * @param $courseDao, $studentCourseDao, $teacherCourseDao
    */
-  public function __construct(CourseDao $courseDao, StudentCourseDao $studentCourseDao, TeacherCourseDao $teacherCourseDao)
+  public function __construct(CourseDao $courseDao, 
+    StudentCourseDao $studentCourseDao, 
+    TeacherCourseDao $teacherCourseDao,
+    AssignmentService $assignmentService)
   {
     $this->courseDao = $courseDao;
     $this->studentCourseDao = $studentCourseDao;
     $this->teacherCourseDao = $teacherCourseDao;
+    $this->assignmentService = $assignmentService;
   }
   /**
    * get student course list
    * @return $studentCourseList
    */
-  public function getStudentCourse()
+  public function getStudentCourse() 
   {
     return $this->studentCourseDao->getStudentCourse();
   }
@@ -46,9 +55,11 @@ class CourseService implements CourseServiceInterface
      * update the is_completed of the table student_courses
      * @param $id, $course_id, $status
      */
-    public function updateCourseComplete($student_id, $course_id, $status)
+    public function updateCourseComplete($student_id, 
+                                        $course_id, $status)
     {
-      return $this->studentCourseDao->updateCourseComplete($student_id, $course_id, $status);
+      return $this->studentCourseDao->
+          updateCourseComplete($student_id, $course_id, $status);
     }
 
   /**
@@ -68,7 +79,8 @@ class CourseService implements CourseServiceInterface
    */
   public function getRequiredCourseList($requiredCourses)
   {
-    return $this->courseDao->getRequiredCourseList($requiredCourses);
+    return $this->courseDao->
+              getRequiredCourseList($requiredCourses);
   }
 
   /**
@@ -96,7 +108,8 @@ class CourseService implements CourseServiceInterface
    */
   public function getStudentEnrolledCourses($student_id)
   {
-    return $this->studentCourseDao->getStudentEnrolledCourses($student_id);
+    return $this->studentCourseDao->
+                    getStudentEnrolledCourses($student_id);
   }
 
   /**
@@ -106,7 +119,177 @@ class CourseService implements CourseServiceInterface
    */
   public function getCourseCompleteStatusByStudent($student_id, $course_id)
   {
-    return $this->studentCourseDao->getCourseCompleteStatusByStudent($student_id, $course_id);
+    return $this->studentCourseDao->
+                  getCourseCompleteStatusByStudent(
+                              $student_id, $course_id);
+  }
+
+  /**
+     * check required courses of $course_id by $student_id are completed or not
+     * @param $course_id, student_id
+     * @return -> true or false
+     */
+    private $array = [];
+    private $i = 0;
+    public function isCompletedRequiredCourses($course_id, $student_id)
+    {
+        $this->array = [];
+        $this->i ++ ;
+        $required_course = $this->courseDao->
+                        getRequiredCourseID($course_id);
+
+        foreach($required_course as $course) {
+        if($course->required_courses == null && 
+                    count($this->array) == 0) {
+            return true;
+        }
+
+        $this->array = $this->
+              changeStringToArray($course->required_courses);
+
+        foreach($this->array as $key => $value) {
+            $status  = $this->studentCourseDao->
+                          getCourseCompleteStatusByStudent(
+                            $student_id, $this->array[$key]);
+
+            if($status == NULL) {
+              return false;
+            }
+            else if($status == 0) {
+              return false;
+            }
+            else {
+              return $this->
+              isCompletedRequiredCourses(
+                $this->array[$key], $student_id);
+            }
+        }
+        return true;
+        }
+    }
+
+    /**
+     * Change string to array
+     * @param $text
+     * @return $array
+     */
+    public function changeStringToArray($text)
+    {
+        $remove_text = str_replace(array('[',']'), '', $text);
+        $array = explode(",", $remove_text);
+        return $array;
+    }
+
+    /**
+   * get status list of student courses
+   * @param $student_id, $totalCourse
+   * @return $courseStatusList
+   */
+  public function getCourseStatus($student_id, $totalCourse) 
+  {
+    $enrolledCourseList = $this->studentCourseDao->
+                    getStudentEnrolledCourses($student_id);
+    
+    foreach($totalCourse as $key => $value) {
+      $isenroll = false;
+      foreach($enrolledCourseList as $enroll) {
+        if($totalCourse[$key] == $enroll->course_id) {
+          $isenroll = true;
+          $assignmentComplete = $this->assignmentService->
+                              checkAllAssignmentCompleted(
+                              $student_id, $enroll->course_id);
+
+          if($assignmentComplete == true) {
+            $this->studentCourseDao->updateCourseComplete(
+                    $student_id, $enroll->course_id, 1);
+
+            $courseStatusList[$key] = "completed";
+          }
+          else {
+            $this->studentCourseDao->updateCourseComplete(
+                      $student_id, $enroll->course_id, 0);
+
+            if($this->isCompletedRequiredCourses(
+                        $enroll->course_id, $student_id))
+              $courseStatusList[$key] = "progress";
+            else
+              $courseStatusList[$key] = "unlock next";
+          }
+           
+        }
+      }
+      if(!$isenroll)
+        $courseStatusList[$key] = "lock";
+    } 
+    return $courseStatusList;
+  }
+  
+  /**
+   * sort courses in order of completed status
+   * @param $statusArray
+   * @param $sortingArray
+   * @param $decrease
+   * @return $newArray
+   */
+  public function sortCourses($statusArray, $sortingArray, $decrease)
+  {
+    $index = 1;
+    foreach($statusArray as $key => $value) {
+      if($statusArray[$key] == "completed") {
+        $newArray[$index] = $sortingArray[$key-$decrease];
+        $index ++;
+      }
+    }
+    foreach($statusArray as $key => $value) {
+      if($statusArray[$key] == "progress") {
+        $newArray[$index] = $sortingArray[$key-$decrease];
+        $index ++;
+      }
+    }
+    foreach($statusArray as $key => $value) {
+      if($statusArray[$key] == "unlock next") {
+        $newArray[$index] = $sortingArray[$key-$decrease];
+        $index ++;
+      }
+    }
+    foreach($statusArray as $key => $value) {
+      if($statusArray[$key] == "lock") {
+        $newArray[$index] = $sortingArray[$key-$decrease];
+        $index ++;
+      }
+    }
+
+    return $newArray;
+  }
+
+  /**
+   * get all the course id list
+   * @return $courseIdList
+   */
+  public function getAllCourseIdList()
+  {
+    $courseList = $this->getAllCourseList();
+    foreach($courseList as $key => $value) {
+      $courseIdList[++$key] = $value->id;
+    }
+    return $courseIdList;
+  }
+  /**
+   * get the list of number of assignments 
+   * @return $assignmentNoList
+   */
+  public function getNoOfAssignmentsList()
+  {    
+    $courseIdList = $this->getAllCourseIdList();
+    
+    foreach($courseIdList as $key => $value) {
+      
+      $number = $this->assignmentService->
+              getNoOfAssignmentByCourse($courseIdList[$key]);
+      $assignmentNoList[$key] = $number;
+      $key++;
+    }  
+    return $assignmentNoList;
   }
   
 }

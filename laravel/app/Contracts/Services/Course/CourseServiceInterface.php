@@ -63,4 +63,26 @@ interface CourseServiceInterface
    */
   public function getCourseCompleteStatusByStudent($student_id, $course_id);
 
+  /**
+   * get status list of student courses
+   * @param $student_id, $totalCourse
+   * @return $courseStatusList
+   */
+  public function getCourseStatus($student_id, $totalCourse) ;
+
+  /**
+   * sort courses in order of completed status
+   */
+  public function sortCourses($statusArray, $sortingArray, $index);
+
+  /**
+   * get all the course id list
+   */
+  public function getAllCourseIdList();
+
+  /**
+   * get the list of number of assignments 
+   */
+  public function getNoOfAssignmentsList();
+
 }

@@ -14,18 +14,18 @@ use Illuminate\Support\Str;
 class ForgetPasswordController extends Controller
 {
     /**
-      * Write code on Method
+      * show forget password form
       *
-      * @return response()
+      * @return view forgetpassword.forgetPassword
     */
     public function showForgetPasswordForm(){
         return view('forgetpassword.forgetPassword');
     }
       
     /**
-      * Write code on Method
-      *
-      * @return response()
+      * submit forget password form
+      * @param Request $request
+      * @return back()
     */
     public function submitForgetPasswordForm(Request $request)
     {
@@ -49,17 +49,17 @@ class ForgetPasswordController extends Controller
         return back()->with('message', 'We have e-mailed your password reset link!');
     }
     /**
-      * Write code on Method
-      *
-      * @return response()
+      * show reset password form
+      * @param $token
+      * @return view forgetpassword.forgetPasswordLink
     */
     public function showResetPasswordForm($token){
         return view('forgetpassword.forgetPasswordLink', ['token' => $token]);
     }
       
     /**
-      * Write code on Method
-      *
+      * submit reset password form
+      * @param Request $request
       * @return response()
     */
     public function submitResetPasswordForm(Request $request)
@@ -78,14 +78,17 @@ class ForgetPasswordController extends Controller
                           ->first();
 
         if(!$updatePassword){
-            return back()->withInput()->with('error', 'Invalid token!');
+            return back()->withInput()->
+                  with('error', 'Invalid token!');
         }
 
         $user = User::where('email', $request->email)
                   ->update(['password' => Hash::make($request->password)]);
 
-        DB::table('password_resets')->where(['email'=> $request->email])->delete();
+        DB::table('password_resets')
+            ->where(['email'=> $request->email])->delete();
 
-        return redirect('/')->with('message', 'Your password has been changed!');
+        return redirect('/')
+              ->with('message', 'Your password has been changed!');
     }
 }

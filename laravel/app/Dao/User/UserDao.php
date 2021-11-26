@@ -153,7 +153,8 @@ class UserDao implements UserDaoInterface
 	 */
 	public function getStudent($teacher_id)
 	{
-		$teacherCourse = $this->courseDao->getEnrolledCourse($teacher_id, 'Teacher');
+		$teacherCourse = $this->courseDao->
+					getEnrolledCourse($teacher_id, 'Teacher');
 
 		$studentList = collect();
 		foreach ($teacherCourse as $tc) {

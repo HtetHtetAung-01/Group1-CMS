@@ -10,6 +10,8 @@
 <script src="{{ asset('js/library/jquery.min.js') }}"></script>
 <script src="{{ asset('js/library/accordian.js') }}"></script>
 <script src="{{ asset('js/library/confirm_modal.js') }}"></script>
+
+<!-- To open the modal form after clicking the start button of assignment -->
 <script>
   /**
    * Create Modal box to confirm for assignment start-btn.
@@ -56,7 +58,7 @@
         {{ $courseDetails[0]->course_title }}
       </h2>
       <button data-modal="modal-enroll" class="btn-show-modal default-enroll-btn {{ $isEnrolled? 'start-btn' : 'disabled-btn'}}">{{ $isEnrolled? 'Get Started' : 'Enrolled'}}</button>
-      @if($completeRequiredCourse == true)
+      @if($isCompleteRequiredCourse == true)
       <div id="modal-enroll" class="modal">
         <div class="modalContent">
           <span class="modal-close">×</span>
