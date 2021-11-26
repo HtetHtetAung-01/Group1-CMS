@@ -91,7 +91,10 @@ class StudentCourseDao implements StudentCourseDaoInterface
      */
     public function getStudentCourse()
     {
-        $courseList = DB::table('courses')->select('*')->whereNull('deleted_at')->get();
+        $courseList = DB::table('courses')
+        ->select('*')
+        ->whereNull('deleted_at')
+        ->get();
         return $courseList;
     }
 
@@ -100,8 +103,10 @@ class StudentCourseDao implements StudentCourseDaoInterface
      */
     public function updateCourseComplete($student_id, $course_id, $status)
     {
-        $update = DB::update('UPDATE student_courses set is_completed = '.$status .' where student_id =' .$student_id. 
-        ' AND course_id = ' .$course_id);       
+        return DB::transaction(function () use ($student_id, $course_id, $status) {
+            $update = DB::update('UPDATE student_courses set is_completed = '.$status .' where student_id =' .$student_id. 
+            ' AND course_id = ' .$course_id);   
+        });    
     }
 
     /**

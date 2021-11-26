@@ -20,7 +20,6 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function getCourseDetails($id)
     {
-        return DB::transaction(function () use ($id) {
             $courseDetails = DB::select(
                 DB::raw("SELECT courses.id as course_id,
                 courses.title as course_title,
@@ -31,8 +30,7 @@ class AssignmentDao implements AssignmentDaoInterface
                 ON assignments.course_id = courses.id 
                 WHERE courses.id=" . $id . ";")
             );
-            return $courseDetails;
-        });     
+            return $courseDetails;    
     }
 
     /**

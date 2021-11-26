@@ -100,21 +100,23 @@ class UserDao implements UserDaoInterface
 	 */
 	public function updateUser($id, $request)
 	{
-		$userinformation = User::find($id);
-		$userinformation->name = $request->name;
-		if ($request->is_update == 1) {
-			$profile = $request->profile_path;
-			$userinformation->profile_path = $this->savePhoto($profile);
-		}
-
-		$userinformation->dob = $request->dob;
-		$userinformation->gender = $request->gender;
-		$userinformation->role_id = $request->role_id;
-		$userinformation->email = $request->email;
-		$userinformation->address = $request->address;
-		$userinformation->phone = $request->phone;
-		$userinformation->save();
-		return $userinformation;
+		return DB::transaction(function () use ($id, $request) {
+			$userinformation = User::find($id);
+			$userinformation->name = $request->name;
+			if ($request->is_update == 1) {
+				$profile = $request->profile_path;
+				$userinformation->profile_path = $this->savePhoto($profile);
+			}
+	
+			$userinformation->dob = $request->dob;
+			$userinformation->gender = $request->gender;
+			$userinformation->role_id = $request->role_id;
+			$userinformation->email = $request->email;
+			$userinformation->address = $request->address;
+			$userinformation->phone = $request->phone;
+			$userinformation->save();
+			return $userinformation;
+		});
 	}
 
 	/**

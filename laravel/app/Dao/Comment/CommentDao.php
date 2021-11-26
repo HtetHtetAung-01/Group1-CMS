@@ -13,7 +13,9 @@ class CommentDao implements CommentDaoInterface
      * @param Comment $comment assignment's comment
      */
     public function addComment(Comment $comment) {
-        $comment->save();
+        return DB::transaction(function () use ($comment) {
+            $comment->save();
+        });
     }
     
     /**
