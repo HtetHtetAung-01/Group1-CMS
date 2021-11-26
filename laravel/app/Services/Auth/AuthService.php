@@ -3,7 +3,6 @@
 namespace App\Services\Auth;
 
 use Illuminate\Support\Facades\DB;
-use App\Contracts\Dao\Auth\AuthDaoInterface;
 use App\Dao\User\UserDao;
 use App\Contracts\Services\Auth\AuthServiceInterface;
 use App\Dao\Auth\AuthDao;
