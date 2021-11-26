@@ -8,7 +8,7 @@ use App\Services\Assignment\AssignmentService;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
 use \App\Http\Requests\AddNewCourseRequest;
-use Illuminate\Support\Facades\DB;
+use App\utils\CommonFunction;
 
 class CourseController extends Controller
 {
@@ -18,6 +18,7 @@ class CourseController extends Controller
   private $courseService;
   private $userService;
   private $assignmentService;
+  private $common;
 
   /**
      * CourseController constructor
@@ -28,11 +29,13 @@ class CourseController extends Controller
      */
   public function __construct(UserService $userService, 
         CourseService $courseService, 
-        AssignmentService $assignmentService)
+        AssignmentService $assignmentService,
+        CommonFunction $common)
   {
     $this->courseService = $courseService;
     $this->userService = $userService;
     $this->assignmentService = $assignmentService;
+    $this->common = $common;
   }
 
   /**
@@ -181,8 +184,8 @@ class CourseController extends Controller
    */
   public function checkAllAssignmentCompleted($student_id, $course_id)
   {
-    $assignmentStatus = app('App\Http\Controllers\Assignment\AssignmentController')
-    ->isCompletedAssignment($student_id, $course_id);
+    $assignmentStatus = $this->common
+    ->isCompletedAssignment($student_id, $course_id); 
     foreach($assignmentStatus as $status) {
       if($status != 'completed')
         return false;

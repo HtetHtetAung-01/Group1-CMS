@@ -47,7 +47,7 @@ $requiredCourses .= ", '".$course->title."' ";
         {{ $courseDetails[0]->course_title }}
       </h2>
       <button data-modal="modal-enroll" class="btn-show-modal default-enroll-btn {{ $isEnrolled? 'start-btn' : 'disabled-btn'}}">{{ $isEnrolled? 'Get Started' : 'Enrolled'}}</button>
-      @if($completeRequiredCourse == true)
+      @if($isCompleteRequiredCourse == true)
       <div id="modal-enroll" class="modal">
         <div class="modalContent">
           <span class="modal-close">×</span>

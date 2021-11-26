@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use \App\Http\Requests\FileSubmitRequest;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
+use App\utils\CommonFunction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -20,17 +21,22 @@ class AssignmentController extends Controller
     private $assignmentInterface;
     private $userService;
     private $courseService;
+    private $common;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(CourseService $courseService, AssignmentServiceInterface $assignmentServiceInterface, UserService $userService)
+    public function __construct(CourseService $courseService, 
+    AssignmentServiceInterface $assignmentServiceInterface, 
+    UserService $userService,
+    CommonFunction $common)
     {
         $this->courseService = $courseService;
         $this->assignmentInterface = $assignmentServiceInterface;
         $this->userService = $userService;
+        $this->common = $common;
     }
 
     /**
@@ -43,9 +49,12 @@ class AssignmentController extends Controller
     {
         $idArray = [];
 
-        $courseDetails = $this->assignmentInterface->getCourseDetails($course_id);
-        $isEnrolled = $this->assignmentInterface->isEnrolled($student_id, $course_id);
-        $assignmentStatus = $this->isCompletedAssignment($student_id, $course_id);
+        $courseDetails = $this->assignmentInterface->
+                        getCourseDetails($course_id);
+        $isEnrolled = $this->assignmentInterface->
+                        isEnrolled($student_id, $course_id);
+        $assignmentStatus = $this->
+                isCompletedAssignment($student_id, $course_id);
         $started = $this->showStarted($student_id, $course_id);
 
         $user = $this->userService->getUserById($student_id);
@@ -53,13 +62,19 @@ class AssignmentController extends Controller
         $role = $roles->type;
 
         // get the required courses list for $course_id
-        $requiredCourseID = $this->courseService->getRequiredCourseID($course_id);
-        $idArray = app('App\Http\Controllers\Course\CourseController')->changeStringToArray($requiredCourseID[0]->required_courses);
-        $requiredCourse = $this->courseService->getRequiredCourseList($idArray);
+        $requiredCourseID = $this->courseService->
+                    getRequiredCourseID($course_id);
 
-        $isCompleteRequiredCourse = app('App\Http\Controllers\Course\CourseController')
+        $idArray = $this->common->
+            changeStringToArray($requiredCourseID[0]->required_courses);
+        
+            $requiredCourse = $this->courseService->
+                getRequiredCourseList($idArray);
+
+        $isCompleteRequiredCourse = $this->common
             ->isCompletedRequiredCourses($course_id, $student_id);
-        $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);
+        $enrolledCourse = $this->userService->
+            getEnrolledCourse($student_id, $role);
 
         return view('course.courseDetails', [
             'courseDetails' => $courseDetails,
@@ -102,9 +117,11 @@ class AssignmentController extends Controller
     public function showStarted($student_id, $course_id)
     {
         $start = [];
-        $assignmentList = $this->assignmentInterface->getAllAssignmentByCourse($course_id);
+        $assignmentList = $this->assignmentInterface->
+                getAllAssignmentByCourse($course_id);
         foreach ($assignmentList as $key => $values) {
-            $start[$key] = $this->assignmentInterface->isStarted($student_id, $assignmentList[$key]->id);
+            $start[$key] = $this->assignmentInterface->
+                isStarted($student_id, $assignmentList[$key]->id);
         }
         return $start;
     }
@@ -117,7 +134,8 @@ class AssignmentController extends Controller
      */
     public function enrollCourse($student_id, $course_id)
     {
-        $this->assignmentInterface->enrollCourse($student_id, $course_id);
+        $this->assignmentInterface->
+            enrollCourse($student_id, $course_id);
         return back();
     }
 
@@ -130,7 +148,8 @@ class AssignmentController extends Controller
      */
     public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
     {
-        $this->assignmentInterface->addNullStudentAssignment($student_id, $course_id, $assignment_id);
+        $this->assignmentInterface->addNullStudentAssignment
+                    ($student_id, $course_id, $assignment_id);
         return back();
     }
 

@@ -48,7 +48,7 @@ class AdminController extends Controller
     $teacherList = $this->userService->getAllTeacher();
     $courseList = $this->courseService->getAllCourseList();
     $assignmentList = $this->assignmentService->getAllAssignment();
-    return view('admin.adminView', compact('userList', 'studentList', 'teacherList', 'courseList', 'assignmentList'));
+    return view('admin.admin', compact('userList', 'studentList', 'teacherList', 'courseList', 'assignmentList'));
   }
 
   /**
