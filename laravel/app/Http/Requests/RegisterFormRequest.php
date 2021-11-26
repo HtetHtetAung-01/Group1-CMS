@@ -25,7 +25,7 @@ class RegisterFormRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:255'],
-            'profile_path' => ['required', 'max:255'],
+            'profile_path' => ['max:5120'],
             'email' => ['required', 'max:255', 'email', 'unique:users'],
             'password' => ['min:6', 'max:255'],
             'confirm_password' => ['min:6', 'max:255', 'required_with:password', 'same:password'],
