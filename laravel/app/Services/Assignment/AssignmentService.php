@@ -188,4 +188,57 @@ class AssignmentService implements AssignmentServiceInterface
     {
         return $this->assignmentDao->getAllAssignmentByCourse($course_id);
     }
+
+    /**
+     * To check all assignments for $course_id completed or not
+     * @param $course_id
+     * @return $assignmentStatus
+     */
+    public function isCompletedAssignment($student_id, $course_id)
+    {
+        $assignment_details = $this->assignmentDao->isCompleted($course_id);
+        $key = 0;
+        $assignmentStatus = [];
+
+        foreach ($assignment_details as $assignment) {
+            $status = $this->studentAssignmentDao->getAssignmentStatusByStudent($student_id, $assignment->id);
+            $assignmentStatus[$key] = $status;
+            $key++;
+        }
+        return $assignmentStatus;
+    }
+
+    /**
+     * check all the assignments are completed or not
+     * @param $student_id, $course_id
+     * @return -> true or false
+     */
+    public function checkAllAssignmentCompleted($student_id, $course_id)
+    {
+        $assignmentStatus = $this->isCompletedAssignment($student_id, $course_id); 
+        foreach($assignmentStatus as $status) {
+        if($status != 'completed')
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * To show assignment is started or not
+     * @param $course_id
+     * @param $student_id
+     * @return View courseDetails
+     */
+    public function showStarted($student_id, $course_id)
+    {
+        $start = [];
+        $assignmentList = $this->assignmentDao->
+                getAllAssignmentByCourse($course_id);
+        foreach ($assignmentList as $key => $values) {
+            $start[$key] = $this->assignmentDao->
+                isStarted($student_id, $assignmentList[$key]->id);
+        }
+        return $start;
+    }
 }

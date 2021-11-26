@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Assignment;
 
 use App\Contracts\Services\Assignment\AssignmentServiceInterface;
-use App\Http\Controllers\Course;
 use App\Http\Controllers\Controller;
 use \App\Http\Requests\FileSubmitRequest;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
-use App\utils\CommonFunction;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 
 class AssignmentController extends Controller
 {
@@ -21,7 +17,6 @@ class AssignmentController extends Controller
     private $assignmentInterface;
     private $userService;
     private $courseService;
-    private $common;
 
     /**
      * Create a new controller instance.
@@ -30,13 +25,11 @@ class AssignmentController extends Controller
      */
     public function __construct(CourseService $courseService, 
     AssignmentServiceInterface $assignmentServiceInterface, 
-    UserService $userService,
-    CommonFunction $common)
+    UserService $userService)
     {
         $this->courseService = $courseService;
         $this->assignmentInterface = $assignmentServiceInterface;
         $this->userService = $userService;
-        $this->common = $common;
     }
 
     /**
@@ -53,9 +46,9 @@ class AssignmentController extends Controller
                         getCourseDetails($course_id);
         $isEnrolled = $this->assignmentInterface->
                         isEnrolled($student_id, $course_id);
-        $assignmentStatus = $this->
+        $assignmentStatus = $this->assignmentInterface->
                 isCompletedAssignment($student_id, $course_id);
-        $started = $this->showStarted($student_id, $course_id);
+        $started = $this->assignmentInterface->showStarted($student_id, $course_id);
 
         $user = $this->userService->getUserById($student_id);
         $roles = $this->userService->getUserRole($student_id);
@@ -65,13 +58,13 @@ class AssignmentController extends Controller
         $requiredCourseID = $this->courseService->
                     getRequiredCourseID($course_id);
 
-        $idArray = $this->common->
+        $idArray = $this->courseService->
             changeStringToArray($requiredCourseID[0]->required_courses);
         
             $requiredCourse = $this->courseService->
                 getRequiredCourseList($idArray);
 
-        $isCompleteRequiredCourse = $this->common
+        $isCompleteRequiredCourse = $this->courseService
             ->isCompletedRequiredCourses($course_id, $student_id);
         $enrolledCourse = $this->userService->
             getEnrolledCourse($student_id, $role);
@@ -87,43 +80,6 @@ class AssignmentController extends Controller
             'isCompleteRequiredCourse' => $isCompleteRequiredCourse,
             'requiredCourse' => $requiredCourse,
         ]);
-    }
-
-    /**
-     * To check all assignments for $course_id completed or not
-     * @param $course_id
-     * @return $assignmentStatus
-     */
-    public function isCompletedAssignment($student_id, $course_id)
-    {
-        $assignment_details = $this->assignmentInterface->isCompleted($course_id);
-        $key = 0;
-        $assignmentStatus = [];
-
-        foreach ($assignment_details as $assignment) {
-            $status = $this->assignmentInterface->getAssignmentStatusByStudent($student_id, $assignment->id);
-            $assignmentStatus[$key] = $status;
-            $key++;
-        }
-        return $assignmentStatus;
-    }
-
-    /**
-     * To show assignment is started or not
-     * @param $course_id
-     * @param $student_id
-     * @return View courseDetails
-     */
-    public function showStarted($student_id, $course_id)
-    {
-        $start = [];
-        $assignmentList = $this->assignmentInterface->
-                getAllAssignmentByCourse($course_id);
-        foreach ($assignmentList as $key => $values) {
-            $start[$key] = $this->assignmentInterface->
-                isStarted($student_id, $assignmentList[$key]->id);
-        }
-        return $start;
     }
 
     /**
