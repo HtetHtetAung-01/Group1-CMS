@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Course;
 
-use App\Http\Controllers\Assignment\AssignmentController;
 use App\Http\Controllers\Controller;
 use App\Services\Assignment\AssignmentService;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
 use \App\Http\Requests\AddNewCourseRequest;
-use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {

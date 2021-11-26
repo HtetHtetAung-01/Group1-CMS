@@ -6,7 +6,6 @@ use App\Contracts\Services\Course\CourseServiceInterface;
 use App\Dao\Course\CourseDao;
 use App\Dao\StudentCourse\StudentCourseDao;
 use App\Dao\TeacherCourse\TeacherCourseDao;
-use App\Services\Student\StudentService;
 
 class CourseService implements CourseServiceInterface
 {

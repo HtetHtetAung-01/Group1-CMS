@@ -2,8 +2,6 @@
 
 namespace App\Contracts\Services\User;
 
-use Illuminate\Http\Request;
-
 /**
  * Interface for user service
  */

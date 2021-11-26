@@ -6,7 +6,6 @@ use App\Contracts\Services\Teacher\TeacherServiceInterface;
 use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentFormRequest;
-use App\Http\Requests\GradeSubmitRequest;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
