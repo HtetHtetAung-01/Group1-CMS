@@ -104,12 +104,14 @@ class CourseDao implements CourseDaoInterface
    */
   public function addNewCourse($request)
   {
-    $course = new Course;
-    $course->title = $request->title;
-    $course->category = $request->category;
-    $course->description = $request->description;
-    $course->required_courses = $request->requiredCourses;
-    $course->save();
-    return $course;
+    return DB::transaction(function () use ($request) {
+      $course = new Course;
+      $course->title = $request->title;
+      $course->category = $request->category;
+      $course->description = $request->description;
+      $course->required_courses = $request->requiredCourses;
+      $course->save();
+      return $course;
+    });
   }
 }
