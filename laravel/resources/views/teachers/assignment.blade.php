@@ -70,6 +70,7 @@
 @section('content')
 <div class="assignment-panel">
   <div class="tab-pnl course-pnl">
+    @if (count($courseTitles) > 0)
     <ul class="tab-nav course-tab clearFix">
       @foreach ($courseTitles as $item)
       <li>{{ $item->title }}</li>
@@ -167,6 +168,9 @@
 
     </div>
     <!-- /.tab-body -->
+    @else
+      <div class="msg-box-empty"><p>Results not found</p></div>
+    @endif
   </div>
   <!-- /.tab-pnl -->
 </div>

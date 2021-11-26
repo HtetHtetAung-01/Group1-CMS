@@ -8,10 +8,11 @@
 
 @section('content')
 
+@if (count($teacherCourse) > 0)
 @foreach($teacherCourse as $key => $value)
-
 <div class="table-view">
   <h2 class="title"> Students Enrolled {{$teacherCourse[$key]->title}} </h2>
+  @if (count($studentList[$key]) > 0)
   <table class="student-info">
     <tr class="student-info-header">
       <th>Student ID</th>
@@ -35,6 +36,12 @@
       </tr>
       @endforeach
   </table>
+  @else
+    <div class="msg-box-empty"><p>Results not found</p></div>
+  @endif
 </div>
 @endforeach
+@else
+  <div class="msg-box-empty"><p>Results not found</p></div>
+@endif
 @endsection

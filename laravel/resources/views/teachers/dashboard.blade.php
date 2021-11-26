@@ -71,7 +71,7 @@
         barchart.draw(dataChart, barchart_options);
 
         if (dataPie.getNumberOfRows() === 0 && dataChart.getNumberOfRows() === 0) {
-            $("#charts").append("No data yet.")
+            $("#charts").append("<div class='msg-box-empty'><p>Results not found</p></div>")
         }
     }
 </script>

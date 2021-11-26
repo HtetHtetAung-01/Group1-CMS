@@ -52,7 +52,7 @@
     };
 
     if (data.getNumberOfRows() === 0) {
-      $("#columnchart_material").append("No data yet.")
+      $("#columnchart_material").append("<div class='msg-box-empty'><p>Results not found</p></div>");
     } else {
       var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
       chart.draw(data, google.charts.Bar.convertOptions(options));
