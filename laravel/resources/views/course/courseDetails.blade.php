@@ -7,7 +7,6 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/library/jquery.min.js') }}"></script>
 <script src="{{ asset('js/library/accordian.js') }}"></script>
 <script src="{{ asset('js/library/confirm_modal.js') }}"></script>
 <script>

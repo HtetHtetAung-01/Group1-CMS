@@ -2,10 +2,6 @@
 
 @section('title', "Student Assignments")
 
-@section('scripts')
-<script src="{{ asset('js/lib/jquery.min.js') }}"></script>
-@endsection
-
 @section('content')
 <div class="assignment-panel">
   <div class="tab-pnl">
