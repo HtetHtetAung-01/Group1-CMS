@@ -95,16 +95,14 @@ class AssignmentDao implements AssignmentDaoInterface
    */
   public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
   {
-    // $array = DB::select("SELECT student_assignments.id 
-    //   FROM student_assignments WHERE student_id=" . $student_id
-    //   . " AND assignment_id= " . $assignment_id . " ;");
     $array = DB::select("
       SELECT student_assignments.id 
-      FROM student_assignments WHERE student_id= $student_id 
+      FROM student_assignments WHERE student_id= :student_id 
       AND assignment_id= :assignment_id;",
-      [ 'student_id', $student_id,
-        'assignment_id', $assignment_id
-      ]);
+      [ 'student_id'=> $student_id,
+        'assignment_id'=> $assignment_id
+      ]
+    );
 
     $id =  $array[0]->id;
 
