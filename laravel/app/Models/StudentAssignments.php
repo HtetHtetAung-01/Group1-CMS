@@ -10,6 +10,11 @@ class StudentAssignments extends Model
     use HasFactory;
 
     protected $fillable = [
-        'started_date', 'uploaded_date', 'file_path', 'grade', 'student_id', 'assignment_id',
+        'started_date',
+        'uploaded_date',
+        'file_path',
+        'grade',
+        'student_id',
+        'assignment_id',
     ];
 }

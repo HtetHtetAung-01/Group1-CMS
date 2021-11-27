@@ -140,7 +140,7 @@
         </div>
 
         <div id="course" class="list-content">
-        <a href="/course/create-view" class="add-course-btn">
+        <a href="{{route('course-create-view')}}" class="add-course-btn">
           Add Course
         </a>
           <table class="list">

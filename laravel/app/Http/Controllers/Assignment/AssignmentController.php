@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Assignment;
 
 use App\Contracts\Services\Assignment\AssignmentServiceInterface;
 use App\Http\Controllers\Controller;
-use \App\Http\Requests\FileSubmitRequest;
+use App\Http\Requests\FileSubmitRequest;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
-use Illuminate\Support\Facades\Storage;
 
 class AssignmentController extends Controller
 {
@@ -34,9 +33,9 @@ class AssignmentController extends Controller
 
     /**
      * To check enroll or not
-     * @param $course_id
-     * @param $student_id
-     * @return View courseDetails
+     * @param string $student_id
+     * @param string $course_id
+     * @return $isEnrolled flag data
      */
     public function isEnrolled($student_id, $course_id)
     {
@@ -85,8 +84,8 @@ class AssignmentController extends Controller
 
     /**
      * To enroll course by student id
-     * @param $course_id
-     * @param $student_id
+     * @param string $course_id
+     * @param string $student_id
      * @return View courseDetails
      */
     public function enrollCourse($student_id, $course_id)
@@ -98,9 +97,9 @@ class AssignmentController extends Controller
 
     /**
      * To start assignment
-     * @param $course_id
-     * @param $student_id
-     * @param $assignment_id
+     * @param string $course_id
+     * @param string $student_id
+     * @param string $assignment_id
      * @return View courseDetails
      */
     public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
@@ -112,8 +111,8 @@ class AssignmentController extends Controller
 
     /**
      * To download file
-     * @param $course_id
-     * @param $assignment_id
+     * @param string $course_id
+     * @param string $assignment_id
      * @return View courseDetails
      */
     public function downloadFile($id, $course_id, $assignment_id)
@@ -124,29 +123,19 @@ class AssignmentController extends Controller
 
     /**
      * To submit student's assignment
-     * @param $course_id
-     * @param $student_id
-     * @param $assignment_id
+     * @param string $course_id
+     * @param string $student_id
+     * @param string $assignment_id
      * @param FileSubmitRequest $filename Request form courseDetails
      * @return View courseDetails
      */
-    public function addStudentAssignment($student_id, $course_id, $assignment_id, FileSubmitRequest $filename)
-    {
-        $ROOT_DIR = 'new_assignments';
-
-        if (!is_dir($ROOT_DIR)) {
-            mkdir($ROOT_DIR);
-        }
-
-        $validated = $filename->validated();
-        $file = $validated['inputFile'];
-        $inputFileName = Storage::putFileAs(
-            $ROOT_DIR, $file, $file->getClientOriginalName());
-
-        $this->assignmentInterface->
-                addStudentAssignment($student_id, 
-                    $course_id, $assignment_id, $inputFileName);
-
+    public function addStudentAssignment(
+        $student_id,
+        $course_id,
+        $assignment_id,
+        FileSubmitRequest $filename
+    ) {
+        $this->assignmentInterface->addStudentAssignment($student_id, $course_id, $assignment_id, $filename);
         return back();
     }
 }

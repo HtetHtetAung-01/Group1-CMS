@@ -9,7 +9,6 @@ use App\Services\Admin\AdminService;
 use App\Services\Assignment\AssignmentService;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {

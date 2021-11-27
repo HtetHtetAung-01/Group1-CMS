@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use App\Contracts\Services\Auth\AuthServiceInterface;
 use App\Http\Requests\RegisterFormRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Contracts\Services\User\UserServiceInterface;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
-
 
 class AuthController extends Controller
 {

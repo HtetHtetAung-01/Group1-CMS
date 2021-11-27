@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Course;
 
-use App\Http\Controllers\Assignment\AssignmentController;
 use App\Http\Controllers\Controller;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
@@ -68,13 +67,21 @@ class CourseController extends Controller
   }
 
   /**
+   * add new course view
+   * @return View course-create
+   */
+  public function addNewCourseView()
+  {
+    return view('course.createCourse');
+  }
+
+  /**
    * add new course
    * @param $requests
    * @return redirect()->back();
    */
   public function addNewCourse(AddNewCourseRequest $request)
   {
-    $validated = $request->validated();
     $this->courseService->addNewCourse($request);
     return redirect()->back();
   }

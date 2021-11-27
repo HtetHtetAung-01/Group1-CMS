@@ -78,25 +78,24 @@ class StudentCourseDao implements StudentCourseDaoInterface
      * @return object
      */
     public function getStudentPerformanceData($student_id) {
-
-            $studentPerformance = DB::select(
-                DB::raw("SELECT SC.student_id, SC.course_id, 
-                C.title as courseTitle, 
-                A.id as assignmentID, 
-                A.name as assignmentName, 
-                SA.grade as assignmentGrade
-                FROM student_courses AS SC
-                LEFT JOIN courses AS C 
-                ON C.id = SC.course_id
-                LEFT JOIN assignments AS A 
-                ON C.id = A.course_id
-                LEFT JOIN student_assignments AS SA 
-                ON SA.assignment_id = A.id
-                WHERE SC.student_id = $student_id 
-                AND SA.student_id = $student_id 
-                AND SA.grade IS NOT NULL;")
-              );
-              return $studentPerformance;
+        $studentPerformance = DB::select(
+            DB::raw("SELECT SC.student_id, SC.course_id, 
+            C.title as courseTitle, 
+            A.id as assignmentID, 
+            A.name as assignmentName, 
+            SA.grade as assignmentGrade
+            FROM student_courses AS SC
+            LEFT JOIN courses AS C 
+            ON C.id = SC.course_id
+            LEFT JOIN assignments AS A 
+            ON C.id = A.course_id
+            LEFT JOIN student_assignments AS SA 
+            ON SA.assignment_id = A.id
+            WHERE SC.student_id = $student_id 
+            AND SA.student_id = $student_id 
+            AND SA.grade IS NOT NULL;")
+          );
+          return $studentPerformance;
     }
 
     /**
@@ -105,7 +104,10 @@ class StudentCourseDao implements StudentCourseDaoInterface
      */
     public function getStudentCourse()
     {
-        $courseList = DB::table('courses')->select('*')->whereNull('deleted_at')->get();
+        $courseList = DB::table('courses')
+        ->select('*')
+        ->whereNull('deleted_at')
+        ->get();
         return $courseList;
     }
 
@@ -114,10 +116,12 @@ class StudentCourseDao implements StudentCourseDaoInterface
      */
     public function updateCourseComplete($student_id, $course_id, $status)
     {
-        $update = DB::update('UPDATE student_courses 
-        set is_completed = '.$status .' 
-        where student_id =' .$student_id. 
-        ' AND course_id = ' .$course_id);       
+        return DB::transaction(function () use ($student_id, $course_id, $status) {
+            $update = DB::update('UPDATE student_courses 
+            set is_completed = '.$status .' 
+            where student_id =' .$student_id. 
+            ' AND course_id = ' .$course_id);   
+        });          
     }
 
     /**

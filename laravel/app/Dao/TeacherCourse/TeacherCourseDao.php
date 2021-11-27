@@ -66,15 +66,17 @@ class TeacherCourseDao implements TeacherCourseDaoInterface
   public function enrollTeacherCourse($teacher_id, $course_id)
   {
     if($this->findTeacherCourse($teacher_id, $course_id))
-      return null;
-    $teacherCourse = new TeacherCourse();
-    $teacherCourse->teacher_id = $teacher_id;
-    $teacherCourse->course_id = $course_id;
-    $teacherCourse->created_at = \Carbon\Carbon::now();
-    $teacherCourse->updated_at = \Carbon\Carbon::now();
-    $teacherCourse->deleted_at = null;
-    $teacherCourse->save();
-
-    return $teacherCourse;
+    return null;
+    return DB::transaction(function () use ($teacher_id, $course_id) {
+        $teacherCourse = new TeacherCourse();
+        $teacherCourse->teacher_id = $teacher_id;
+        $teacherCourse->course_id = $course_id;
+        $teacherCourse->created_at = \Carbon\Carbon::now();
+        $teacherCourse->updated_at = \Carbon\Carbon::now();
+        $teacherCourse->deleted_at = null;
+        $teacherCourse->save();
+    
+        return $teacherCourse;
+    });
   }
 }
