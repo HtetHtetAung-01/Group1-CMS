@@ -22,7 +22,8 @@ class CommentDao implements CommentDaoInterface
         return DB::select(
             "SELECT T.name, C.message FROM comments AS C
             LEFT OUTER JOIN users AS T ON T.id = C.teacher_id
-            WHERE C.student_assignment_id = $id;"
+            WHERE C.student_assignment_id = :id;",
+            ['id' => $id]
         );
     }
 }

@@ -18,8 +18,9 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
             "SELECT S.name, SA.id, SA.uploaded_date, SA.file_path, SA.grade FROM users AS S
             LEFT OUTER JOIN student_assignments AS SA ON S.id = SA.student_id
             WHERE SA.file_path IS NOT NULL
-            AND SA.assignment_id = $assignment_id
-            AND SA.deleted_at IS NULL;"
+            AND SA.assignment_id = :assignment_id
+            AND SA.deleted_at IS NULL;",
+            ['assignment_id' => $assignment_id]
         );
     }
 
@@ -29,9 +30,10 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
             "SELECT SA.* from student_assignments AS SA 
             LEFT OUTER JOIN assignments AS A ON A.id = SA.assignment_id
             LEFT OUTER JOIN courses AS C ON C.id = A.course_id
-            WHERE SA.student_id = $student_id AND C.id= $course_id
+            WHERE SA.student_id = :student_id AND C.id= :course_id
             AND SA.uploaded_date IS NOT NULL
-            AND SA.deleted_at IS NULL;"
+            AND SA.deleted_at IS NULL;",
+            ['student_id' => $student_id, 'course_id' => $course_id]
         );
     }
 

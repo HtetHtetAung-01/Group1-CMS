@@ -41,7 +41,7 @@ class AssignmentDao implements AssignmentDaoInterface
       FROM assignments
       LEFT JOIN courses
       ON assignments.course_id = courses.id 
-      WHERE courses.id= $id;"
+      WHERE courses.id= :id;", ['id' => $id]
     );
     return $courseDetails;
   }
@@ -53,8 +53,10 @@ class AssignmentDao implements AssignmentDaoInterface
   {
     $isEnrolled = DB::select(
       "SELECT * FROM student_courses 
-      WHERE student_id= $student_id 
-      AND course_id= $course_id;"
+      WHERE student_id= :student_id 
+      AND course_id= :course_id;",
+      ['student_id' => $student_id,
+       'course_id' => $course_id]
     );
     return $isEnrolled == null;
   }
@@ -93,9 +95,16 @@ class AssignmentDao implements AssignmentDaoInterface
    */
   public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
   {
-    $array = DB::select("SELECT student_assignments.id 
-      FROM student_assignments WHERE student_id=" . $student_id
-      . " AND assignment_id= " . $assignment_id . " ;");
+    // $array = DB::select("SELECT student_assignments.id 
+    //   FROM student_assignments WHERE student_id=" . $student_id
+    //   . " AND assignment_id= " . $assignment_id . " ;");
+    $array = DB::select("
+      SELECT student_assignments.id 
+      FROM student_assignments WHERE student_id= $student_id 
+      AND assignment_id= :assignment_id;",
+      [ 'student_id', $student_id,
+        'assignment_id', $assignment_id
+      ]);
 
     $id =  $array[0]->id;
 
@@ -153,7 +162,8 @@ class AssignmentDao implements AssignmentDaoInterface
     return DB::select(
       "SELECT A.id, A.name FROM assignments AS A
       LEFT OUTER JOIN courses AS C ON C.id = A.course_id 
-      WHERE C.id = $course_id;"
+      WHERE C.id = :course_id;",
+      ['course_id' => $course_id]
     );
   }
 

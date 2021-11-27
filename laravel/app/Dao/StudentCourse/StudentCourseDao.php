@@ -12,7 +12,7 @@ class StudentCourseDao implements StudentCourseDaoInterface
         $courseTitles = DB::select(
             "SELECT C.id, C.title FROM courses AS C
             LEFT OUTER JOIN student_courses AS SC ON SC.course_id = C.id
-            WHERE SC.student_id = $student_id;"
+            WHERE SC.student_id = :student_id;", ['student_id' => $student_id]
         );
 
         return $courseTitles;
@@ -37,9 +37,9 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getTotalEnrolledCoursebyStudent($student_id) {
     
         $totalEnrolledCourse = DB::select(
-            "SELECT count(course_id) as totalEnrolledCourse, student_id 
-            FROM student_courses
-            WHERE student_id = $student_id;"
+            "SELECT count(course_id) as totalEnrolledCourse  
+            FROM student_courses WHERE student_id = :student_id",
+            ['student_id' => $student_id]
         );
 
         return $totalEnrolledCourse;
@@ -52,9 +52,10 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getTotalCompletedCoursebyStudent($student_id) {
     
         $totalCompletedCourse = DB::select(
-            "SELECT count(course_id) as totalCompletedCourse, student_id 
+            "SELECT count(course_id) as totalCompletedCourse  
             FROM student_courses
-            WHERE is_completed=1 AND student_id =". $student_id.";"
+            WHERE is_completed=1 AND student_id = :student_id;",
+            ['student_id' => $student_id]
         );
         return $totalCompletedCourse;
     }
@@ -72,7 +73,9 @@ class StudentCourseDao implements StudentCourseDaoInterface
                 LEFT JOIN courses AS C ON C.id = SC.course_id
                 LEFT JOIN assignments AS A ON C.id = A.course_id
                 LEFT JOIN student_assignments AS SA ON SA.assignment_id = A.id
-                WHERE SC.student_id = $student_id AND SA.student_id = $student_id AND SA.grade IS NOT NULL;"
+                WHERE SC.student_id = :student_id 
+                AND SA.grade IS NOT NULL;", 
+                ['student_id' => $student_id]
               );
               return $studentPerformance;
     }
