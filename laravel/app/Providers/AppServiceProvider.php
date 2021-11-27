@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Contracts\Dao\Auth\AuthDaoInterface;
 use App\Contracts\Dao\Assignment\AssignmentDaoInterface;
 use App\Contracts\Dao\Comment\CommentDaoInterface;
 use App\Contracts\Dao\Course\CourseDaoInterface;
@@ -15,7 +14,6 @@ use App\Contracts\Services\Assignment\AssignmentServiceInterface;
 use App\Contracts\Services\Student\StudentServiceInterface;
 use App\Contracts\Services\Teacher\TeacherServiceInterface;
 use App\Contracts\Services\User\UserServiceInterface;
-use App\Dao\Auth\AuthDao;
 use App\Dao\Assignment\AssignmentDao;
 use App\Dao\Comment\CommentDao;
 use App\Dao\Course\CourseDao;
@@ -40,7 +38,6 @@ class AppServiceProvider extends ServiceProvider
     {
 
         // Dao Registration
-        $this->app->bind(AuthDaoInterface::class, AuthDao::class); 
         $this->app->bind(UserDaoInterface::class, UserDao::class); 
         $this->app->bind(CourseDaoInterface::class, CourseDao::class); 
         $this->app->bind(AssignmentDaoInterface::class, AssignmentDao::class);
