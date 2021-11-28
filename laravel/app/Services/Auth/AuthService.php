@@ -5,7 +5,6 @@ namespace App\Services\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Dao\User\UserDao;
 use App\Contracts\Services\Auth\AuthServiceInterface;
-use App\Dao\Auth\AuthDao;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
@@ -17,18 +16,14 @@ use Illuminate\Support\Carbon;
 
 class AuthService implements AuthServiceInterface
 {
-    /**
-     * @var $AuthDao
-     */
-    private $authDao;
 
     /**
      * AuthServices constructor
      * @param UserDao $authDao
      */
-    public function __construct(AuthDao $authDao)
+    public function __construct()
     {
-        $this->authDao = $authDao;
+        
     }
 
     /**
