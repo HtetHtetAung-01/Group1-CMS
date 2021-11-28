@@ -19,9 +19,7 @@
   </div>
 </div>
 
-<div class="chart-bg">
-  <div id="columnchart_material" class="chart-pnl"></div>
-</div>
+<div id="columnchart_material" class="chart-pnl"></div>
 
 <script src="{{asset('js/library/loader.js')}}"></script>
 <script>
@@ -52,7 +50,7 @@
     };
 
     if (data.getNumberOfRows() === 0) {
-      $("#columnchart_material").append("<div class='msg-box-empty'><p>Results not found</p></div>");
+      $("#columnchart_material").append("<div class='msg-box-empty'><p>No Data Yet.</p></div>");
     } else {
       var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
       chart.draw(data, google.charts.Bar.convertOptions(options));

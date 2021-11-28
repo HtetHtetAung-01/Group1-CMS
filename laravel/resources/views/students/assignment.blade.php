@@ -67,7 +67,7 @@
       @endforeach
     </div>
     @else
-      <div class="msg-box-empty"><p>Results not found</p></div>
+      <div class="msg-box-empty"><p>No Results Found.</p></div>
     @endif
   </div>
   @endsection
