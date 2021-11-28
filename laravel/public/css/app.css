@@ -65,6 +65,9 @@ body {
     font-weight: bold;
     border: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .profile-blk {
@@ -72,6 +75,18 @@ body {
     position: relative;
 }
 
+.profile-picture {
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+
+.profile-name {
+    float: right;
+    text-align: center;
+}
 .dropdown {
     display: none;
     position: absolute;

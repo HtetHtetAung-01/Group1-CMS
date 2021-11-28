@@ -22,6 +22,11 @@
             $role = 'teacher';
         else
             $role = 'admin';
+        
+        if (File::exists(public_path(Auth::user()->profile_path)))
+            $image = Auth::user()->profile_path;
+        else  
+            $image = "";
     @endphp
 
     <div class="container">
@@ -73,8 +78,13 @@
           <nav class="nav clearfix">
             <p class="text">Hello, Let's Learn Together!</p>
             <div class="profile-blk">
-                <button class="profile-btn">
-                    <p>{{ Auth::user()->name }} ({{ $role }})</p>
+                <button class="profile-btn clearfix">
+                    @if($image == "")
+                        <img class="profile-picture" src="/img/profile-default.png">
+                    @else
+                        <img class="profile-picture" src="{{ asset($image) }}" alt="profile-picture">
+                    @endif
+                    <p class="profile-name">{{ Auth::user()->name }} ({{ $role }})</p>
                 </button>
                 <div class="dropdown">
                     <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">
