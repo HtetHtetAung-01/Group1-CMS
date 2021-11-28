@@ -51,19 +51,25 @@ Route::middleware(['web', 'auth', 'checkstudent','logout_back_history'])->group(
     Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
     Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('student.courseDetail');
     Route::get('/student/{id}/course/{course_id}/enroll', [AssignmentController::class, 'enrollCourse'])->name('student.course.enroll');
-    Route::get('/student/{id}/course/{course_id}/assignment/{assignment_id}/download', [AssignmentController::class, 'downloadFile'])->name('student.course.assignment.download');
     Route::post('/student/{id}/course/{course_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('student.course.addAssignment');
     Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('student.course.assignment.update');
     Route::get('/student/{id}/dashboard/', [StudentController::class, 'showDashboard'])->name('student.dashboard');
 });
 
+Route::middleware(['web', 'auth', 'checkstudent'])->group(function () {
+    Route::get('/student/{id}/course/{course_id}/assignment/{assignment_id}/download', [AssignmentController::class, 'downloadFile'])->name('student.course.assignment.download');
+});
+
 Route::middleware(['web', 'auth', 'checkteacher','logout_back_history'])->group(function () {
     Route::get('/teacher/{id}/assignment/', [TeacherController::class, 'showAssignments'])->name('teacher.assignment');
-    Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment'])->name('teacher.assignment.download');
     Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment'])->name('teacher.assignment.comment');
     Route::get('/setGrade',[TeacherController::class,'setGrade']);
     Route::get('/teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard'])->name('teacher.dashboard');
     Route::get('/teacher/{id}/student-info', [UserController::class, 'showStudentsInfo'])->name('studentList');
+});
+
+Route::middleware(['web', 'auth', 'checkteacher'])->group(function () {
+    Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment'])->name('teacher.assignment.download');
 });
 
 Route::middleware(['web', 'auth'])->group(function () {
