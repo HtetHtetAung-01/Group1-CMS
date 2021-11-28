@@ -112,3 +112,11 @@
 .search-btn:active {
   border: none;
 }
+
+.empty-course {
+  width: 40%;
+  text-align: center;
+  background: rgb(20, 146, 230, 20%);
+  margin: 20px auto;
+  padding: 15px 0;
+}

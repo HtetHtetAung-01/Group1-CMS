@@ -189,7 +189,7 @@ class CourseService implements CourseServiceInterface
   {
     $enrolledCourseList = $this->studentCourseDao->
                     getStudentEnrolledCourses($student_id);
-    
+    $courseStatusList = [];
     foreach($totalCourse as $key => $value) {
       $isenroll = false;
       foreach($enrolledCourseList as $enroll) {
@@ -221,9 +221,6 @@ class CourseService implements CourseServiceInterface
       if(!$isenroll)
         $courseStatusList[$key] = "lock";
     } 
-
-    info("search course status list");
-    info($courseStatusList);
     return $courseStatusList;
   }
   
@@ -237,6 +234,7 @@ class CourseService implements CourseServiceInterface
   public function sortCourses($statusArray, $sortingArray, $decrease)
   {
     $index = 1;
+    $newArray = [];
     foreach($statusArray as $key => $value) {
       if($statusArray[$key] == "completed") {
         $newArray[$index] = $sortingArray[$key-$decrease];
@@ -283,17 +281,6 @@ class CourseService implements CourseServiceInterface
    */
   public function getCourseListWithAssignmentNo($courseList)
   {    
-    
-    // foreach($courseIdList as $key => $value) {
-      
-    //   $number = $this->assignmentService->
-    //           getNoOfAssignmentByCourse($courseIdList[$key]);
-    //   $assignmentNoList[$key] = $number;
-    //   $key++;
-    // }  
-    // info("search no of assignment list");
-    // info($assignmentNoList);
-    // return $assignmentNoList;
     $assignmentNoList = $courseList;
 
     foreach($courseList as $key => $value) {
@@ -302,8 +289,6 @@ class CourseService implements CourseServiceInterface
       $assignmentNoList[$key]->assignmentNo = $number;
       $key++;
     }
-    info("search no of assignment list");
-    info($assignmentNoList);
     return $assignmentNoList;
 
   }
@@ -330,8 +315,6 @@ class CourseService implements CourseServiceInterface
       $courseIdList[++$key] = $id;
     }
 
-    info("search course id list");
-    info($courseIdList);
     return $courseIdList;
   }
   
