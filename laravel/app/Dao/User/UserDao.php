@@ -109,7 +109,6 @@ class UserDao implements UserDaoInterface
 
 		$userinformation->dob = $request->dob;
 		$userinformation->gender = $request->gender;
-		$userinformation->role_id = $request->role_id;
 		$userinformation->email = $request->email;
 		$userinformation->address = $request->address;
 		$userinformation->phone = $request->phone;
