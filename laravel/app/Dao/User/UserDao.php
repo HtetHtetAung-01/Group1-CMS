@@ -262,4 +262,20 @@ class UserDao implements UserDaoInterface
 						->get();
 		return $teacherList;
 	}
+
+	/**
+	 * To check if email is exist or not
+	 * @param string $email user's email
+	 * @return boolean is email is exist or not
+	 */
+	public function getUserByEmail($email)
+	{
+		return User::where('email', $email)->first();
+	}
+
+	public function updateUserPasswordByEmail($email, $password) 
+	{
+		User::where('email', $email)
+			->update(['password' => Hash::make($password)]);
+	}
 }

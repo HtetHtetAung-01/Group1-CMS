@@ -2,9 +2,12 @@
 
 namespace App\Services\Auth;
 
+use App\Contracts\Dao\PasswordReset\PasswordResetDaoInterface;
+use App\Contracts\Dao\User\UserDaoInterface;
 use Illuminate\Support\Facades\DB;
-use App\Dao\User\UserDao;
 use App\Contracts\Services\Auth\AuthServiceInterface;
+use App\Dao\PasswordReset\PasswordResetDao;
+use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
@@ -17,13 +20,20 @@ use Illuminate\Support\Carbon;
 class AuthService implements AuthServiceInterface
 {
 
+    private $userDao;
+    private $passwordResetDao;
+
     /**
      * AuthServices constructor
-     * @param UserDao $authDao
+     * @param UserDao $userDao
      */
-    public function __construct()
+    public function __construct(
+        UserDaoInterface $userDaoInterface, 
+        PasswordResetDaoInterface $passwordResetDaoInterface
+    )
     {
-        
+        $this->userDao = $userDaoInterface;
+        $this->passwordResetDao = $passwordResetDaoInterface;
     }
 
     /**
@@ -34,11 +44,6 @@ class AuthService implements AuthServiceInterface
      */
     public function saveUserCustomLogin($request)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             if (Auth::user()->role_id == 1) {
@@ -53,7 +58,7 @@ class AuthService implements AuthServiceInterface
         }
         else {
             $message = "";
-            $checkUser = User::where('email', $request->email)->first();
+            $checkUser = $this->userDao->getUserByEmail($request->ema);;
             if ($checkUser) {
                 $checkPassword = Hash::check($request->password, $checkUser->password);
                 if (!$checkPassword) {
@@ -84,17 +89,10 @@ class AuthService implements AuthServiceInterface
      */
     public function savesubmitForgetPasswordForm($request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users',
-        ]);
+        $token = Str::random(64);        
+        $request->token = $token;
 
-        $token = Str::random(64);
-
-        DB::table('password_resets')->insert([
-            'email' => $request->email,
-            'token' => $token,
-            'created_at' => Carbon::now()
-        ]);
+        $this->passwordResetDao->insertPasswordReset($request);
 
         Mail::send('email.forgetPassword', ['token' => $token], function ($message) use ($request) {
             $message->to($request->email);
@@ -112,27 +110,18 @@ class AuthService implements AuthServiceInterface
      */
     public function savesubmitResetPasswordForm($request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users',
-            'password' => 'required|string|min:6|confirmed',
-            'password_confirmation' => 'required'
-        ]);
-
-        $updatePassword = DB::table('password_resets')
-            ->where([
-            'email' => $request->email,
-            'token' => $request->token
-        ])
-            ->first();
-
+        $updatePassword = $this->passwordResetDao
+            ->getPasswordResetByEmailAndToken(
+                $request->email,
+                $request->token
+            );
+                        
         if (!$updatePassword) {
             return back()->withInput()->with('error', 'Invalid token!');
         }
 
-        $user = User::where('email', $request->email)
-            ->update(['password' => Hash::make($request->password)]);
-
-        DB::table('password_resets')->where(['email' => $request->email])->delete();
+        $this->userDao->updateUserPasswordByEmail($request->email, $request);
+        $this->passwordResetDao->deletePasswordResetbyEmail($request->email);
 
         return redirect('/')->with('message', 'Your password has been changed!');
     }

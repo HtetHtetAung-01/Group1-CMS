@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Services\Auth\AuthServiceInterface;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ForgetPasswordFormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -65,7 +66,7 @@ class ForgetPasswordController extends Controller
      *
      * @return response()
      */
-    public function submitResetPasswordForm(Request $request)
+    public function submitResetPasswordForm(ForgetPasswordFormRequest $request)
     {
         return $this->authInterface->savesubmitResetPasswordForm($request);
     }

@@ -40,6 +40,10 @@ class AuthController extends Controller
 
     public function UserCustomLogin(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email|exists:users'
+        ]);
+
         return $this->authInterface->saveUserCustomLogin($request);
     }
 
