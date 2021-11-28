@@ -8,7 +8,7 @@ use App\Http\Requests\RegisterFormRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Contracts\Services\User\UserServiceInterface;
-
+use App\Http\Requests\LoginFormRequest;
 
 class AuthController extends Controller
 {
@@ -38,12 +38,8 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function UserCustomLogin(Request $request)
+    public function UserCustomLogin(LoginFormRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users'
-        ]);
-
         return $this->authInterface->saveUserCustomLogin($request);
     }
 
