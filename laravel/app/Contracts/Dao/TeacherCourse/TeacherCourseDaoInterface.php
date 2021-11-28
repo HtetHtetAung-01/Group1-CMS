@@ -3,7 +3,13 @@
 namespace App\Contracts\Dao\TeacherCourse;
 
 interface TeacherCourseDaoInterface {
-    public function getEnrolledCoursesByTeacher($teacher_id);
+    
+  /**
+   * get enrolled courses by teacher
+   * @param $teacher_id
+   * @return object
+   */
+  public function getEnrolledCoursesByTeacher($teacher_id);
 
   /**
    * get teacher course

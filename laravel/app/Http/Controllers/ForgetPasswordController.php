@@ -15,7 +15,6 @@ class ForgetPasswordController extends Controller
      */
     private $authInterface;
 
-
     /**
      * Create a new controller instance.
      * @param AuthServiceInterface $authServiceInterface
@@ -25,40 +24,40 @@ class ForgetPasswordController extends Controller
     {
         $this->authInterface = $authServiceInterface;
     }
+    
     /**
-     * Write code on Method
+     * show forget password form
      *
-     * @return response()
+     * @return view forgetpassword.forgetPassword
      */
-    public function showForgetPasswordForm()
-    {
+    public function showForgetPasswordForm(){
         return view('forgetpassword.forgetPassword');
     }
 
     /**
-     * Write code on Method
-     *
-     * @return response()
+     * submit forget password form
+     * @param Request $request
+     * @return back()
      */
     public function submitForgetPasswordForm(Request $request)
     {
         return $this->authInterface->savesubmitForgetPasswordForm($request);
     }
+
     /**
-     * Write code on Method
-     *
-     * @return response()
+     * show reset password form
+     * @param $token
+     * @return view forgetpassword.forgetPasswordLink
      */
-    public function showResetPasswordForm($token)
-    {
+    public function showResetPasswordForm($token){
         return view('forgetpassword.forgetPasswordLink', ['token' => $token]);
     }
 
     /**
-     * Write code on Method
-     *
+     * submit reset password form
+     * @param Request $request
      * @return response()
-     */
+    */
     public function submitResetPasswordForm(ForgetPasswordFormRequest $request)
     {
         return $this->authInterface->savesubmitResetPasswordForm($request);

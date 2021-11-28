@@ -1,3 +1,9 @@
+
+/**
+ * Navigation tab and show content
+ * @param {enent} evt 
+ * @param {string} type type of list to show in content
+ */
 function showList(evt, type) {
     
     // Declare all variables

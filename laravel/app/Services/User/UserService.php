@@ -6,7 +6,6 @@ use App\Dao\Course\CourseDao;
 use App\Dao\User\UserDao;
 use App\Contracts\Services\User\UserServiceInterface;
 
-
 class UserService implements UserServiceInterface
 {
     /**
@@ -107,7 +106,8 @@ class UserService implements UserServiceInterface
    */
   public function getEnrolledCourse($id, $role)
   {
-    $enrolledCourse = $this->courseDao->getEnrolledCourse($id, $role);
+    $enrolledCourse = $this->courseDao->
+                    getEnrolledCourse($id, $role);
     return $enrolledCourse;
   }
 
@@ -117,7 +117,8 @@ class UserService implements UserServiceInterface
    */
   public function getStudentList($teacher_id)
   {
-    $studentList = $this->userDao->getStudentList($teacher_id);
+    $studentList = $this->userDao->
+                    getStudentList($teacher_id);
     return $studentList;
   }
 
