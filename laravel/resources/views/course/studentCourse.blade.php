@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 <link rel="stylesheet" href="{{ asset('css/course.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @endsection
 
 @section('content')
@@ -25,11 +24,11 @@ $key++;
   <h3 class="course-category">{{ $course->category }}</h3>
   <div class="status-blk @if($status == 'completed')complete-status-blk @elseif($status=='progress') progress-status-blk @elseif($status == 'lock')lock-status-blk @elseif($status == 'unlock next')unlock-status-blk @endif">
     @if($status == 'completed')
-    <p><span class="status complete-status ">{{ $status }}</span>&emsp;Well Done! You completed {{ $course->title }} course.</p>
+    <p><span class="status complete-status "><i class="status-icon">&#xf00c;</i>&ensp;{{ $status }}</span>&emsp;Well Done! You completed {{ $course->title }} course.</p>
     @elseif($status == 'progress')
-    <p><span class="status progress-status">{{ $status }}</span>&emsp;Let's learn more about {{ $course->title }}.</p>
+    <p><span class="status progress-status"><i class="status-icon">&#xf110;</i>&ensp;{{ $status }}</span>&emsp;Let's learn more about {{ $course->title }}.</p>
     @else
-    <p></i><span class="status lock-status"><i class="fa fa-lock"></i>&ensp;{{ $status }}</span>&emsp;Lock will open when you complete above course.</p>
+    <p></i><span class="status lock-status"><i class="status-icon">&#xf023;</i>&ensp;{{ $status }}</span>&emsp;Lock will open when you complete above course.</p>
     @endif
   </div>
   <div class="clearfix">
