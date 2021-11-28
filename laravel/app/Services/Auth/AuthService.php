@@ -40,14 +40,16 @@ class AuthService implements AuthServiceInterface
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            if (Auth::user()->role_id == 1) {
-                return redirect('/student/' . Auth::user()->id . '/dashboard');
-            }
-            elseif (Auth::user()->role_id == 2) {
-                return redirect('/teacher/' . Auth::user()->id . '/dashboard');
-            }
-            else {
-                return redirect('/admin/' . Auth::user()->id);
+            switch(Auth::user()->role_id) {
+                case 1:
+                    return redirect()->route('student.dashboard', ['id' => Auth::user()->id]);
+                    break;
+                case 2:
+                    return redirect()->route('teacher.dashboard', ['id' => Auth::user()->id]);
+                    break;
+                case 3:
+                    return redirect()->route('admin-home', ['id' => Auth::user()->id]);
+                    break;
             }
         }
         else {
