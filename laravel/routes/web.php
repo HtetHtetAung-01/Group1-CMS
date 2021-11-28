@@ -67,7 +67,7 @@ Route::middleware(['web', 'auth', 'checkteacher','logout_back_history'])->group(
     Route::get('/teacher/{id}/student-info', [UserController::class, 'showStudentsInfo', 'showLayout'])->name('studentList');
 });
 
-Route::middleware(['web', 'auth'])->group(function () {
+Route::middleware(['web', 'auth', 'checkadmin', 'logout_back_history'])->group(function () {
 // Admin
 Route::get('/admin/{id}', [AdminController::class, 'showUserList'])->name('admin-home');
 Route::get('/enroll/{teacher_id}',[AdminController::class, 'enrollTeacher'])->name('enroll.teacher');
