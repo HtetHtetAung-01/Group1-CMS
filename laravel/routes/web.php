@@ -79,4 +79,7 @@ Route::post('/course/create', [CourseController::class, 'addNewCourse'])->name('
 
 Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
 Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
+
+// Search Course
+Route::get('student/{student_id}/courseSearch', [CourseController::class, 'searchCourse'])->name('search-course');
 });

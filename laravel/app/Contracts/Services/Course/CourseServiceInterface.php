@@ -83,6 +83,18 @@ interface CourseServiceInterface
   /**
    * get the list of number of assignments 
    */
-  public function getNoOfAssignmentsList();
+  public function getCourseListWithAssignmentNo($courseIdList);
+
+  /**
+   * search course
+   * @return $courseList
+   */
+  public function getSearchCourseList();
+
+  /**
+   * search course
+   * @return $courseIdList
+   */
+  public function getSearchCourseIdList($courseList);
 
 }

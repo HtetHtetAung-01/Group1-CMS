@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 @if ($role == 'student')
-                <li class="@if ($route == $role . '.course') ? active : ''; @endif">
+                <li class="@if (str_contains($route, 'course')) ? active : ''; @endif">
                     <a href="{{ route($role. '.course' ,['id' => Auth::user()->id]) }}">
                         <i class="db-icon">&#xf07b;</i>
                         Course
@@ -74,7 +74,7 @@
             <p class="text">Hello, Let's Learn Together!</p>
             <div class="profile-blk">
                 <button class="profile-btn">
-                    <p>{{ $user->name }} ({{ $role }})</p>
+                    <p>{{ Auth::user()->name }} ({{ $role }})</p>
                 </button>
                 <div class="dropdown">
                     <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">

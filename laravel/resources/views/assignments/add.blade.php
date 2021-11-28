@@ -47,7 +47,7 @@
               <label for="file">File</label><br>
               <input type="file" name="file" class="default-file-input file-input"/>
             </div>
-            <button type="submit" class="register-btn">Add Course</button>
+            <button type="submit" class="register-btn">Add Assignment</button>
         </form>
     </div>
 </body>

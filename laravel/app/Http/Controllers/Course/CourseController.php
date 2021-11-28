@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
 use \App\Http\Requests\AddNewCourseRequest;
+use App\Models\Course;
 
 class CourseController extends Controller
 {
@@ -38,14 +39,14 @@ class CourseController extends Controller
     $courseIdList = $this->courseService->getAllCourseIdList();
     $courseList = $this->courseService->getAllCourseList();
     
-    $S_AssignmentNoList = $this->courseService->
-              getNoOfAssignmentsList($courseIdList);;
+    $courseListWithAssignmentNo = $this->courseService->
+                    getCourseListWithAssignmentNo($courseList);
     $courseStatusList = $this->courseService->
               getCourseStatus($student_id, $courseIdList);
     
     // sorting the course list and status list in order of compete status
     $studentCourseList = $this->courseService->
-            sortCourses($courseStatusList, $courseList, 1);  
+            sortCourses($courseStatusList, $courseListWithAssignmentNo, 1);  
     $courseStatusList = $this->courseService->
             sortCourses($courseStatusList, $courseStatusList, 0);
     
@@ -57,11 +58,7 @@ class CourseController extends Controller
           getEnrolledCourse($student_id, $role); 
 
     return view('course.studentCourse', [
-      'user' => $user, 
-      'role' => $role, 
-      'enrolledCourse' => $enrolledCourse, 
-      'studentCourseList' => $studentCourseList, 
-      'S_AssignmentNoList' => $S_AssignmentNoList, 
+      'studentCourseList' => $studentCourseList,  
       'courseStatusList' => $courseStatusList
     ]);
   }
@@ -84,5 +81,32 @@ class CourseController extends Controller
   {
     $this->courseService->addNewCourse($request);
     return redirect()->back();
+  }
+
+  /**
+   * search course
+   * @return $courseList
+   */
+  public function searchCourse($student_id)
+  {
+
+    $courseList = $this->courseService->getSearchCourseList();
+    $courseIdList = $this->courseService->getSearchCourseIdList($courseList);
+
+    $courseListWithAssignmentNo = $this->courseService->
+                  getCourseListWithAssignmentNo($courseList);;
+    $courseStatusList = $this->courseService->
+              getCourseStatus($student_id, $courseIdList);
+    
+    // sorting the course list and status list in order of compete status
+    $studentCourseList = $this->courseService->
+            sortCourses($courseStatusList, $courseListWithAssignmentNo, 1);  
+    $courseStatusList = $this->courseService->
+            sortCourses($courseStatusList, $courseStatusList, 0);
+     
+    return view('course.studentCourse', [
+      'studentCourseList' => $studentCourseList, 
+      'courseStatusList' => $courseStatusList,
+    ]);
   }
 }

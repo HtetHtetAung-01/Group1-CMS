@@ -221,6 +221,9 @@ class CourseService implements CourseServiceInterface
       if(!$isenroll)
         $courseStatusList[$key] = "lock";
     } 
+
+    info("search course status list");
+    info($courseStatusList);
     return $courseStatusList;
   }
   
@@ -278,18 +281,58 @@ class CourseService implements CourseServiceInterface
    * get the list of number of assignments 
    * @return $assignmentNoList
    */
-  public function getNoOfAssignmentsList()
+  public function getCourseListWithAssignmentNo($courseList)
   {    
-    $courseIdList = $this->getAllCourseIdList();
     
-    foreach($courseIdList as $key => $value) {
+    // foreach($courseIdList as $key => $value) {
       
+    //   $number = $this->assignmentService->
+    //           getNoOfAssignmentByCourse($courseIdList[$key]);
+    //   $assignmentNoList[$key] = $number;
+    //   $key++;
+    // }  
+    // info("search no of assignment list");
+    // info($assignmentNoList);
+    // return $assignmentNoList;
+    $assignmentNoList = $courseList;
+
+    foreach($courseList as $key => $value) {
       $number = $this->assignmentService->
-              getNoOfAssignmentByCourse($courseIdList[$key]);
-      $assignmentNoList[$key] = $number;
+                getNoOfAssignmentByCourse($courseList[$key]->id);
+      $assignmentNoList[$key]->assignmentNo = $number;
       $key++;
-    }  
+    }
+    info("search no of assignment list");
+    info($assignmentNoList);
     return $assignmentNoList;
+
+  }
+
+  /**
+   * search course
+   * @return $courseList
+   */
+  public function getSearchCourseList()
+  {
+    return $this->courseDao->getSearchCourseList();
+  }
+
+  /**
+   * search course
+   * @return $courseIdList
+   */
+  public function getSearchCourseIdList($courseList)
+  {
+    $courseIdList = [];
+    $key = 0;
+    foreach($courseList as $course) {
+      $id = $course->id;
+      $courseIdList[++$key] = $id;
+    }
+
+    info("search course id list");
+    info($courseIdList);
+    return $courseIdList;
   }
   
 }

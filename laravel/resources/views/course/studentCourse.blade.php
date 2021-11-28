@@ -13,8 +13,16 @@
 
 @php
 $key = 1;
-$roleName = strtolower($role);
+$role = 'student';
 @endphp
+
+  <div class="clearfix">            
+    <form class="search-form" type="get" action="{{ route('search-course', ['student_id' => Auth::user()->id]) }}">
+      <input class="search-input" name="search-text" 
+      type="text" id="search-input" placeholder="Enter Course Name"/>
+      <button class="search-btn" id="search-click">Search</button>
+    </form>
+  </div>
 
 @foreach($studentCourseList as $course)
 @php
@@ -34,8 +42,8 @@ $key++;
     @endif
   </div>
   <div class="clearfix">
-    <p class="no-of-ass"> {{ $S_AssignmentNoList[$course->id] }} Assignments </p>
-    <a href="{{ route("course-detail", ['id' => Auth::user()->id, 'course_id'=>$course->id ]) }}" class="course-detail">See Details > </a>
+    <p class="no-of-ass"> {{ $course->assignmentNo }} Assignments </p>
+    <a href="{{ route('course-detail', ['id' => Auth::user()->id, 'course_id'=>$course->id ]) }}" class="course-detail">See Details > </a>
   </div>
 </div>
 @endforeach
