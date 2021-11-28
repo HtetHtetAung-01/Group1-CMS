@@ -4,18 +4,12 @@ namespace App\Services\Auth;
 
 use App\Contracts\Dao\PasswordReset\PasswordResetDaoInterface;
 use App\Contracts\Dao\User\UserDaoInterface;
-use Illuminate\Support\Facades\DB;
 use App\Contracts\Services\Auth\AuthServiceInterface;
-use App\Dao\PasswordReset\PasswordResetDao;
-use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
-
 
 class AuthService implements AuthServiceInterface
 {
