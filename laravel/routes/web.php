@@ -31,14 +31,14 @@ Route::post('/user/create', [AuthController::class, 'userCustomRegistration'])->
 Route::get('/logout', [AuthController::class, 'signOut'])->name('logout');
 
 //forgetpassword
-Route::get('forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-Route::post('forget-password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
-Route::get('reset-password/{token}', [ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
-Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+Route::get('forget_password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget_password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('reset_password/{token}', [ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset_password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 //user
 Route::middleware(['web', 'auth','logout_back_history'])->group(function () {
-    Route::get('/user-list', [AuthController::class, 'showUserList'])->name('userlist');
+    Route::get('/user/list', [AuthController::class, 'showUserList'])->name('userlist');
     Route::delete('/user/{id}', [AuthController::class, 'deleteUser'])->name('user.delete');
     Route::get('/userdetail/{id}', [AuthController::class, 'userDetail'])->name('user.detail');
     Route::get('/useredit/{id}', [AuthController::class, 'editUser'])->name('user.edit');
@@ -65,7 +65,7 @@ Route::middleware(['web', 'auth', 'checkteacher','logout_back_history'])->group(
     Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment'])->name('teacher.assignment.comment');
     Route::get('/setGrade',[TeacherController::class,'setGrade']);
     Route::get('/teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard'])->name('teacher.dashboard');
-    Route::get('/teacher/{id}/student_list', [UserController::class, 'showStudentsInfo'])->name('studentList');
+    Route::get('/teacher/{id}/student/list', [UserController::class, 'showStudentsInfo'])->name('studentList');
 });
 
 Route::middleware(['web', 'auth', 'checkteacher'])->group(function () {
