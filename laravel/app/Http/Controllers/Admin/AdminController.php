@@ -9,6 +9,7 @@ use App\Services\Admin\AdminService;
 use App\Services\Assignment\AssignmentService;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -61,15 +62,15 @@ class AdminController extends Controller
   /**
    * enroll teacher course
    * @param TeacherCourseEnrollRequest $request
-   * @return redirect()->back()
+   * @return RedirectResponse
    */
   public function enrollTeacherCourse(TeacherCourseEnrollRequest $request)
   {
     $teacher_id = $request->teacher_id;
     $course_id = $request->course_id;
-    $teacherCourse = $this->adminService->
+    $this->adminService->
               enrollTeacherCourse($teacher_id, $course_id);
-    return redirect()->back();
+    return redirect()->route('admin-home', ['id'=>Auth::user()->id]);
   }
 
   /**
@@ -104,12 +105,12 @@ class AdminController extends Controller
   /**
    * submit add assignment view
    * @param AssignmentFormRequest $request
-   * @return redirect()->back()
+   * @return RedirectResponse
    */
   public function submitAddAssignmentView(AssignmentFormRequest $request)
   {
     $validated = $request->validated();
     $this->assignmentService->addAssignment($validated);
-    return redirect()->back();
+    return redirect()->route('admin-home', ['id'=>Auth::user()->id]);
   }
 }
