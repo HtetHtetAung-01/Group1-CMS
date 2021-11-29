@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /* admin */
 
 .admin-body {
@@ -14,8 +16,8 @@
 }
 
 .admin-nav {
-  background: rgba(222, 212, 241, 0.548);
-  box-shadow: inset 0px -2px 0px rgba(222, 212, 241);
+  background: rgb(20 146 230 / 10%);
+  box-shadow: inset 0px -2px 0px rgb(20 146 230);
   padding: 3% 4% 0 4%;
   margin: auto;
 }
@@ -104,22 +106,16 @@ td {
 
 .enroll-btn {
   font-size: 16px;
-  font-weight: bold;
-  letter-spacing: 1.2px;
   color: #ffffff;
   border: none;
-  background: rgb(197, 181, 226);
-  padding: 4% 6%;
-  border: 1px solid rgb(197, 181, 226);
-  border-radius: 10px;
+  background: rgb(20 146 230);
+  padding: 6% 10%;
+  border-radius: 4px;
   text-decoration: none;
 }
 
 .enroll-btn:hover {
-  cursor: pointer;
-  border: 1px solid rgb(197, 181, 226);
-  color: rgb(197, 181, 226);
-  background: #ffffff;
+  opacity: 0.7;
 }
 
 .course-select {
@@ -132,7 +128,7 @@ td {
 .add-course-btn,
 .assignment-pnl .btn {
   padding: 15px;
-  background-color: rgb(197, 181, 226);
+  background-color: rgb(20 146 230);
   border-radius: 4px;
   color: #ffffff;
   text-decoration: none;
@@ -150,18 +146,17 @@ td {
   border: none;
 }
 
-
 .enroll-box {
-  font-size: 20px;
-  margin: 30px auto;
+  font-size: 16px;
+  margin: 5% auto;
   padding: 2%;
-  width: 40%;
-  border-radius: 15px;
-  box-shadow: 4px 4px 4px 4px rgba(222, 212, 241, 0.5);
+  width: 35%;
+  border: 3px solid #f1f1f1;
 }
 
 .course-select {
   font-size: 16px;
+  width: 100%;
 }
 
 .mdl-btns {
@@ -185,6 +180,7 @@ td {
 
 .confirm-enroll:hover {
   cursor: pointer;
+  opacity: 0.7;
 }
 
 .enroll-detail {
