@@ -25,7 +25,10 @@
 
     <div class="container">
         <aside class="sidebar">
-            <h3 class="cms">CMS</h3>
+            <h1 class="logo">
+                <a href="{{route('login')}}">
+                    <img src="/img/logo.png" alt="logo"></h1>
+                </a>
             <ul>
                 <li class="@if ($route == $role . '.dashboard') ? active : ''; @endif">
                     <a href="<?php echo '/' . $role . '/' . Auth::user()->id . '/dashboard'; ?>">
@@ -67,6 +70,15 @@
                 @endif
 
             </ul>
+            <div class="scm-link">
+                <p>Seattle Consulting Myanmar Co., Ltd.</p>
+                <a href="http://seattleconsultingmyanmar.com/" target="_blank">
+                    <span>
+                        <i class="globe-icon">&#xf0ac;</i>
+                        SCM
+                    </span>
+                </a>
+            </div>
         </aside>
         <div class="content">
           <nav class="nav clearfix">

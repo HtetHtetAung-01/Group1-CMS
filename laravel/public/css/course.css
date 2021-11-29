@@ -70,6 +70,10 @@
   text-decoration: none;
 }
 
+.course-detail:hover {
+  opacity: 0.7;
+}
+
 .course-detail-disable {
   float: right;
   color: #64686bc7;
