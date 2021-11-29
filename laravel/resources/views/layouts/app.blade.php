@@ -79,7 +79,7 @@
                 <div class="dropdown">
                     <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">
                         Profile</a>
-                    <a href="{{ route('signout') }}">Logout</a>
+                    <a href="{{ route('logout') }}">Logout</a>
                 </div>
             </div>
           </nav>

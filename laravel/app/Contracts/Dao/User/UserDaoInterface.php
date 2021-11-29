@@ -91,4 +91,13 @@ interface UserDaoInterface
 	 * @return $teacherList
 	 */
 	public function getAllTeacher();
+
+	/**
+	 * To check if email is exist or not
+	 * @param string $email user's email
+	 * @return User
+	 */
+	public function getUserByEmail($email);
+
+	public function updateUserPasswordByEmail($email, $password);
 }

@@ -2,30 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\RegisterFormRequest;
-use Illuminate\Http\Request;
-use App\Models\User;
+use App\Contracts\Services\Auth\AuthServiceInterface;
 use App\Contracts\Services\User\UserServiceInterface;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\LoginFormRequest;
+use App\Http\Requests\RegisterFormRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     /**
      * User Interface
+     * Auuth AuthInterface
      */
     private $userInterface;
+    private $authInterface;
 
 
     /**
      * Create a new controller instance.
      * @param UserServiceInterface $userServiceInterface
+     * @param AuthServiceInterface $authServiceInterface
      * @return void
      */
-    public function __construct(UserServiceInterface $userServiceInterface)
+    public function __construct(UserServiceInterface $userServiceInterface,
+        AuthServiceInterface $authServiceInterface)
     {
         $this->userInterface = $userServiceInterface;
+        $this->authInterface = $authServiceInterface;
     }
 
     /**
@@ -37,46 +42,9 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    /**
-     * user custom login
-     * @param Request $request
-     * @return redirect()->back()
-     */
-    public function UserCustomLogin(Request $request)
+    public function UserCustomLogin(LoginFormRequest $request)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            if (Auth::user()->role_id == 1) {
-                return redirect('/student/' . 
-                Auth::user()->id . '/dashboard');
-            } 
-            elseif (Auth::user()->role_id == 2) {
-                return redirect('/teacher/' .
-                 Auth::user()->id . '/dashboard');
-            } 
-            else {
-                return redirect('/admin/' . Auth::user()->id);
-            }
-        } else {
-            $message = "";
-            $checkUser = User::where('email', $request->email)
-                                ->first();
-            if ($checkUser) {
-                $checkPassword = Hash::check($request->password, 
-                                            $checkUser->password);
-                if (!$checkPassword) {
-                    $message .= "Incorrect Password";
-                }
-            } else {
-                $message .= "Your email is not registered in the system";
-            }
-            return redirect()->back()->with('message', $message);
-        }
+        return $this->authInterface->saveUserCustomLogin($request);
     }
 
     /**
@@ -95,7 +63,7 @@ class AuthController extends Controller
      */
     public function UserCustomRegistration(RegisterFormRequest $request)
     {
-        $data  = $request->validated();
+        $data = $request->validated();
         $this->userCreate($data);
 
         return redirect("/")->withSuccess('You have signed-in');
@@ -118,7 +86,7 @@ class AuthController extends Controller
      */
     public function savePhoto($profile)
     {
-        $this->userInterface->SavePhoto($profile);
+        return $this->userInterface->savePhoto($profile);
     }
 
     /**
@@ -141,10 +109,7 @@ class AuthController extends Controller
      */
     public function signOut()
     {
-        Session::flush();
-        Auth::logout();
-
-        return Redirect('/');
+        return $this->authInterface->logout();
     }
 
     /**
@@ -155,7 +120,7 @@ class AuthController extends Controller
     public function showUserList(Request $request)
     {
         $userLists = $this->userInterface->getUserList($request);
-        return view('user_list', compact('userLists'));
+        return view('user_list', ['userLists' => $userLists]);
     }
 
     /**
@@ -177,7 +142,7 @@ class AuthController extends Controller
     public function userdetail($id)
     {
         $detail = User::find($id);
-        return view('userdetails', compact('detail'));
+        return view('userdetails', ['detail' => $detail]);
     }
 
     /**
@@ -188,7 +153,7 @@ class AuthController extends Controller
     public function editUser($id)
     {
         $userEdit = $this->userInterface->editUser($id);
-        return view('update_user', compact('userEdit'));
+        return view('update_user', ['userEdit' => $userEdit]);
     }
 
     /**
@@ -200,10 +165,17 @@ class AuthController extends Controller
     public function updateUser($id, Request $request)
     {
         $this->userInterface->updateUser($id, $request);
-        if (Auth::user()->role_id == 1) {
-            return redirect('/student/' . Auth::user()->id);
-        } else {
-            return redirect('/teacher/' . Auth::user()->id);
+
+        switch(Auth::user()->role_id) {
+            case 1:
+                return redirect()->route('student.dashboard', ['id' => Auth::user()->id]);
+                break;
+            case 2:
+                return redirect()->route('teacher.dashboard', ['id' => Auth::user()->id]);
+                break;
+            case 3:
+                return redirect()->route('admin-home', ['id' => Auth::user()->id]);
+                break;
         }
     }
 }

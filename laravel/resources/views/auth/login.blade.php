@@ -17,7 +17,7 @@
                             {{ Session::get('message') }}
                         </div>
                     @endif
-                    <form class="login-form" form action="{{ route('login.custom')  }}" method="POST">
+                    <form class="login-form" form action="{{ route('login-custom')  }}" method="POST">
                         @csrf
                         <div class="text">
                             <label for="email">E-mail</label>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta routeName="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    <title>Admin Homepage</title>
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -36,7 +36,7 @@
               <div class="dropdown">
                   <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">
                       Profile</a>
-                  <a href="{{ route('signout') }}">Logout</a>
+                  <a href="{{ route('logout') }}">Logout</a>
               </div>
           </div>
         </div>

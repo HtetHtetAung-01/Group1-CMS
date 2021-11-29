@@ -1,7 +1,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Stackfindover: Sign in</title>
+  <title>User Profile</title>
   <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
 </head>
 
@@ -29,19 +29,9 @@
                         <input type="radio" name="gender" value="F" {{ $detail->gender == 'F' ? 'checked' : '' }} disabled>Female
                         <hr/>
                         <div class="text">
-                            <label for="role_type">Role Type</label><br><br>
-                            <select name="role_id" id="role-select" disabled>
-                                <option value="">--Please choose a type--</option>
-                                <option value="1" {{($detail->role_id == '1') ? 'Selected' : ''}} >Student</option>
-                                <option value="2" {{($detail->role_id == '2') ? 'Selected' : ''}} >Teacher</option>
-                            </select>
-                        </div>
-                        <hr/>
-                        <div class="text">
                             <label for="email">E-mail</label>
                             <input type="email" name="email" value="{{ $detail->email }}" disabled>
                         </div>
-                        <hr/>
                         <div class="text">
                             <label for="phone_number">Phone Number</label>
                             <input type="text" name="phone" value="{{ $detail->phone}}" disabled>

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Course;
 use App\Http\Controllers\Controller;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
-use \App\Http\Requests\AddNewCourseRequest;
+use App\Http\Requests\AddNewCourseRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -83,6 +84,6 @@ class CourseController extends Controller
   public function addNewCourse(AddNewCourseRequest $request)
   {
     $this->courseService->addNewCourse($request);
-    return redirect()->back();
+    return redirect()->route('admin-home', ['id'=>Auth::user()->id]);
   }
 }
