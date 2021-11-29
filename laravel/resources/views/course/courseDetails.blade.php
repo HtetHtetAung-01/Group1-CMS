@@ -9,12 +9,26 @@
 @section('scripts')
 <script src="{{ asset('js/library/accordian.js') }}"></script>
 <script src="{{ asset('js/library/confirm_modal.js') }}"></script>
+
+<!-- To open the modal form after clicking the start button of assignment -->
 <script>
+  /**
+   * Create Modal box to confirm for assignment start-btn.
+   *
+   * Open Modal when click on start-btn.
+   * @param {route} The action to add nullable assignment to db.
+   */
   function openForm($route) {
     document.getElementById("myForm").style.display = "block";
     document.getElementById("submitForm").action = $route;
   }
 
+  /**
+   * Create Modal box to confirm for assignment start-btn.
+   *
+   * Close Modal when click on cancel-btn.
+   * @return back 
+   */
   function closeForm() {
     document.getElementById("myForm").style.display = "none";
   }
@@ -24,23 +38,21 @@
 @section('content')
 
 @php
-$first = true;
-$requiredCourses = "";
-foreach($requiredCourse as $course) {
-if($first == true) {
-$requiredCourses .="'" .$course->title."' ";
-$first = false;
-}
-else {
-$requiredCourses .= ", '".$course->title."' ";
-}
-}
-foreach ($courseDetails as $key => $value) {
-  if($courseDetails[$key]->id == NULL)
-  {
-    $courseDetails = "";
+  $first = true;
+  $requiredCourses = "";
+  foreach($requiredCourse as $course) {
+    if($first == true) {
+      $requiredCourses .="'" .$course->title."' ";
+      $first = false;
+    } else {
+      $requiredCourses .= ", '".$course->title."' ";
+    }
   }
-}
+  foreach ($courseDetails as $key => $value) {
+    if($courseDetails[$key]->id == NULL) {
+      $courseDetails = "";
+    }
+  }
 @endphp
 
 @if($courseDetails != NULL)
@@ -51,7 +63,7 @@ foreach ($courseDetails as $key => $value) {
         {{ $courseDetails[0]->course_title }}
       </h2>
       <button data-modal="modal-enroll" class="btn-show-modal default-enroll-btn {{ $isEnrolled? 'start-btn' : 'disabled-btn'}}">{{ $isEnrolled? 'Get Started' : 'Enrolled'}}</button>
-      @if($completeRequiredCourse == true)
+      @if($isCompleteRequiredCourse == true)
       <div id="modal-enroll" class="modal">
         <div class="modalContent">
           <span class="modal-close">×</span>
@@ -59,7 +71,7 @@ foreach ($courseDetails as $key => $value) {
             <p>Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }} course?</p>
             <div class="mdl-btns">
               <button class="cancel-btn modal-close">Cancel</button>
-              <a href="{{route('student.course.enroll', ['id' => Auth::user()->id, 'course_id'=> $courseDetails[0]->course_id])}}" class="confirm-btn">
+              <a href="{{route('course-enroll', ['id' => Auth::user()->id, 'course_id'=> $courseDetails[0]->course_id])}}" class="confirm-btn">
                 Confirm
               </a>
             </div><!-- /.mdl-btns -->
@@ -91,16 +103,16 @@ foreach ($courseDetails as $key => $value) {
         <dt class="accd-dt d-flex">
           <div class="d-flex">
             @if($isEnrolled==false)
-              @if($assignmentStatus != NULL && $key < (count($assignmentStatus)) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed_icon.png" alt="progress-icon">
+            @if($assignmentStatus != NULL && $key < (count($assignmentStatus)) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed_icon.png" alt="progress-icon">
               @else
-                @if ($started[$key]==false)
-                <img src="/img/started_icon.png" alt="started-icon">
-                @else
-                <img src="/img/progress_icon.png" alt="progress-icon">
-                @endif
+              @if ($started[$key]==false)
+              <img src="/img/started_icon.png" alt="started-icon">
+              @else
+              <img src="/img/progress_icon.png" alt="progress-icon">
               @endif
-            @elseif ($isEnrolled==true) <img src="/img/lock_icon.png" alt="lock-icon">
-            @endif
+              @endif
+              @elseif ($isEnrolled==true) <img src="/img/lock_icon.png" alt="lock-icon">
+              @endif
               <span class="assign-name">
                 {{ $courseDetails[$key]->name }}
               </span>
@@ -110,7 +122,7 @@ foreach ($courseDetails as $key => $value) {
         <dd class="accd-dd">
           <div class="accd-content">
             @if($started[$key]==false)
-            <button class="btn-show-modal start-assign-btn {{ $isEnrolled ? 'disabled-btn' : 'start-assignment'}}" onclick="openForm('{{route('student.course.addAssignment', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}')">Start</button>
+            <button class="btn-show-modal start-assign-btn {{ $isEnrolled ? 'disabled-btn' : 'start-assignment'}}" onclick="openForm('{{route('assignment-start', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}')">Start</button>
             @endif
             <p class="assignment-duration">Duration :
               <strong>{{ $courseDetails[$key]->duration }}</strong> Days
@@ -135,11 +147,11 @@ foreach ($courseDetails as $key => $value) {
                 </p>
                 @endif
                 @if($started[$key]==false)
-                <a href="{{route('student.course.assignment.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn disabled-btn">
+                <a href="{{route('assignment-resource', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="resource-btn disabled-btn">
                   Download File
                 </a>
                 @else
-                <a href="{{route('student.course.assignment.download', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn {{ $isEnrolled? 'disabled-btn' : 'download-btn'}}">
+                <a href="{{route('assignment-resource', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn {{ $isEnrolled? 'disabled-btn' : 'download-btn'}}">
                   Download File
                 </a>
                 @endif
@@ -151,7 +163,7 @@ foreach ($courseDetails as $key => $value) {
               @else
               <h3 class="homework-lbl {{ $isEnrolled? 'disabled-lbl' : ''}}">Homework</h3>
               @endif
-              <form action="{{route('student.course.assignment.update', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
+              <form action="{{route('assignment-submission', ['id' => Auth::user()->id,'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" enctype="multipart/form-data" method="POST">
                 <div class="homework d-flex">
                   @if($started[$key]==false)
                   <div class="disabled-input">

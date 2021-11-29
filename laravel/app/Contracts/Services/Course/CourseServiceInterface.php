@@ -12,24 +12,28 @@ interface CourseServiceInterface
 
   /**
    * get teacher course
+   * @param $id
    * @return $teacherCourseList
    */
   public function getTeacherCourse($id);
 
   /**
      * update the is_completed of the table student_courses
+     * @param $student_id, $course_id, $status
      */
     public function updateCourseComplete($student_id, $course_id, $status);
 
   /**
    * get the required course id for $course_id
+   * @param $course_id
    * @return $requiredCourses
    */
   public function getRequiredCourseID($course_id);
 
   /**
    * get the required courses list
-   * @return $requiredCourses
+   * @param $requiredCourse
+   * @return $requiredCourseList
    */
   public function getRequiredCourseList($requiredCourses);
 
@@ -41,6 +45,44 @@ interface CourseServiceInterface
 
   /**
    * add new course
+   * @param $request
    */
   public function addNewCourse($request);
+
+  /**
+   * get enrolled courses by student
+   * @param $student_id
+   * @return $enrolledCourses
+   */
+  public function getStudentEnrolledCourses($student_id);
+
+  /**
+   * get complete status of course by student
+   * @param $student_id, $course_id
+   * @return $status
+   */
+  public function getCourseCompleteStatusByStudent($student_id, $course_id);
+
+  /**
+   * get status list of student courses
+   * @param $student_id, $totalCourse
+   * @return $courseStatusList
+   */
+  public function getCourseStatus($student_id, $totalCourse) ;
+
+  /**
+   * sort courses in order of completed status
+   */
+  public function sortCourses($statusArray, $sortingArray, $index);
+
+  /**
+   * get all the course id list
+   */
+  public function getAllCourseIdList();
+
+  /**
+   * get the list of number of assignments 
+   */
+  public function getNoOfAssignmentsList();
+
 }

@@ -31,14 +31,14 @@
                 </a>
             <ul>
                 <li class="@if ($route == $role . '.dashboard') ? active : ''; @endif">
-                    <a href="<?php echo '/' . $role . '/' . Auth::user()->id . '/dashboard'; ?>">
+                    <a href="{{ route($role. '.dashboard' ,['id' => Auth::user()->id]) }}">
                         <i class="db-icon">&#xf201;</i>
                         Dashboard
                     </a>
                 </li>
                 @if ($role == 'student')
                 <li class="@if ($route == $role . '.course') ? active : ''; @endif">
-                    <a href="<?php echo '/' . $role . '/' . Auth::user()->id . '/course'; ?>" class="menu-btn">
+                    <a href="{{ route($role. '.course' ,['id' => Auth::user()->id]) }}" class="menu-btn">
                         <i class="db-icon">&#xf07b;</i>
                         Course
                     </a>
@@ -90,7 +90,7 @@
                 <div class="dropdown">
                     <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">
                         Profile</a>
-                    <a href="{{ route('signout') }}">Logout</a>
+                    <a href="{{ route('logout') }}">Logout</a>
                 </div>
             </div>
           </nav>

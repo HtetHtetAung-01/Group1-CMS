@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <title>Create Course</title>
+    <title>Add New Course</title>
 </head>
 
 <body>
     <div class="new-course">
         <h2>Add new course</h2>
-        <form action="/add/new/course" method="POST">
+        <form action="{{route('course-create')}}" method="POST">
             {{ csrf_field() }}
             <div class="text">
                 <label for="title">Title</label><br><input type="text" name="title" required>

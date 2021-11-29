@@ -12,7 +12,7 @@
             <div class="formbg">
                 <div class="formbg-inner">
                     <span class="login-title">Registration</span>
-                    <form class="login-form" action="{{ route('register.custom') }}" method="POST" enctype="multipart/form-data">
+                    <form class="login-form" action="{{ route('register-custom') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="text">
                         @if ($errors->has('name'))

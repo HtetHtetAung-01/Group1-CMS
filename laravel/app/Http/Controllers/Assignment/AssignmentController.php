@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Assignment;
 
 use App\Contracts\Services\Assignment\AssignmentServiceInterface;
-use App\Http\Controllers\Course;
 use App\Http\Controllers\Controller;
-use \App\Http\Requests\FileSubmitRequest;
+use App\Http\Requests\FileSubmitRequest;
 use App\Services\Course\CourseService;
 use App\Services\User\UserService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 
 class AssignmentController extends Controller
 {
@@ -26,7 +22,9 @@ class AssignmentController extends Controller
      *
      * @return void
      */
-    public function __construct(CourseService $courseService, AssignmentServiceInterface $assignmentServiceInterface, UserService $userService)
+    public function __construct(CourseService $courseService, 
+    AssignmentServiceInterface $assignmentServiceInterface, 
+    UserService $userService)
     {
         $this->courseService = $courseService;
         $this->assignmentInterface = $assignmentServiceInterface;
@@ -35,32 +33,42 @@ class AssignmentController extends Controller
 
     /**
      * To check enroll or not
-     * @param $course_id
-     * @param $student_id
-     * @return View courseDetails
+     * @param string $student_id
+     * @param string $course_id
+     * @return $isEnrolled flag data
      */
     public function isEnrolled($student_id, $course_id)
     {
         $idArray = [];
 
-        $courseDetails = $this->assignmentInterface->getCourseDetails($course_id);
-        $isEnrolled = $this->assignmentInterface->isEnrolled($student_id, $course_id);
-        $assignmentStatus = $this->isCompletedAssignment($student_id, $course_id);
-        $started = $this->showStarted($student_id, $course_id);
+        $courseDetails = $this->assignmentInterface->
+                        getCourseDetails($course_id);
+        $isEnrolled = $this->assignmentInterface->
+                        isEnrolled($student_id, $course_id);
+        $assignmentStatus = $this->assignmentInterface->
+                isCompletedAssignment($student_id, $course_id);
+        $started = $this->assignmentInterface->
+                    showStarted($student_id, $course_id);
 
         $user = $this->userService->getUserById($student_id);
         $roles = $this->userService->getUserRole($student_id);
         $role = $roles->type;
 
         // get the required courses list for $course_id
-        $requiredCourseID = $this->courseService->getRequiredCourseID($course_id);
-        $idArray = app('App\Http\Controllers\Course\CourseController')->changeStringToArray($requiredCourseID[0]->required_courses);
-        $requiredCourse = $this->courseService->getRequiredCourseList($idArray);
+        $requiredCourseID = $this->courseService->
+                    getRequiredCourseID($course_id);
 
-        $completeRequiredCourse = app('App\Http\Controllers\Course\CourseController')
-        ->isCompletedRequiredCourses($course_id, $student_id);
-        $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);  
+        $idArray = $this->courseService->
+            changeStringToArray($requiredCourseID[0]->required_courses);
         
+            $requiredCourse = $this->courseService->
+                getRequiredCourseList($idArray);
+
+        $isCompleteRequiredCourse = $this->courseService
+            ->isCompletedRequiredCourses($course_id, $student_id);
+        $enrolledCourse = $this->userService->
+            getEnrolledCourse($student_id, $role);
+
         return view('course.courseDetails', [
             'courseDetails' => $courseDetails,
             'isEnrolled' => $isEnrolled,
@@ -69,127 +77,65 @@ class AssignmentController extends Controller
             'user' => $user,
             'role' => $role,
             'enrolledCourse' => $enrolledCourse,
-            'completeRequiredCourse' => $completeRequiredCourse,
+            'isCompleteRequiredCourse' => $isCompleteRequiredCourse,
             'requiredCourse' => $requiredCourse,
         ]);
     }
 
     /**
-     * To check assignment is completed or not
-     * @param $course_id
-     * @return View courseDetails
-     */
-    public function isCompletedAssignment($student_id, $course_id)
-    {
-        $assignment_details = $this->assignmentInterface->isCompleted($course_id);
-        $key = 0;
-        $assignmentStatus = [];
-        
-        foreach ($assignment_details as $assignment) {
-            
-            $is_completed = DB::table('student_assignments')
-                ->select('id', 'uploaded_date', 'file_path')
-                ->where('assignment_id', $assignment->id)
-                ->where('student_id', $student_id)
-                ->whereNull('deleted_at')
-                ->get();
-  
-            if ($is_completed->count() == 0) {
-                $assignmentStatus[$key] = 'progress';
-            } else {
-                foreach ($is_completed as $com) {
-                    if ($com->uploaded_date != NULL && $com->file_path != NULL) {
-                        $assignmentStatus[$key] = 'completed';
-                    } else {
-                        $assignmentStatus[$key] = 'progress';
-                    }
-                }
-            }
-            $key++;
-        }
-        return $assignmentStatus;
-    }
-
-    /**
-     * To show assignment is started or not
-     * @param $course_id
-     * @param $student_id
-     * @return View courseDetails
-     */
-    public function showStarted($student_id, $course_id)
-    {
-        $start = [];
-        $assignmentList = DB::table('assignments')
-            ->select('*')
-            ->where('course_id', $course_id)
-            ->whereNull('deleted_at')
-            ->get();
-        foreach ($assignmentList as $key => $values) {
-            $start[$key] = $this->assignmentInterface->isStarted($student_id, $assignmentList[$key]->id);
-        }
-        return $start;
-    }
-
-    /**
      * To enroll course by student id
-     * @param $course_id
-     * @param $student_id
+     * @param string $course_id
+     * @param string $student_id
      * @return View courseDetails
      */
     public function enrollCourse($student_id, $course_id)
     {
-        $this->assignmentInterface->enrollCourse($student_id, $course_id);
+        $this->assignmentInterface->
+            enrollCourse($student_id, $course_id);
         return back();
     }
 
     /**
      * To start assignment
-     * @param $course_id
-     * @param $student_id
-     * @param $assignment_id
+     * @param string $course_id
+     * @param string $student_id
+     * @param string $assignment_id
      * @return View courseDetails
      */
     public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
     {
-        $this->assignmentInterface->addNullStudentAssignment($student_id, $course_id, $assignment_id);
+        $this->assignmentInterface->addNullStudentAssignment
+                    ($student_id, $course_id, $assignment_id);
         return back();
     }
 
     /**
      * To download file
-     * @param $course_id
-     * @param $student_id
-     * @param $filename
+     * @param string $course_id
+     * @param string $assignment_id
      * @return View courseDetails
      */
     public function downloadFile($id, $course_id, $assignment_id)
     {
-        return $this->assignmentInterface->downloadAssignment($assignment_id);
-        // return response()->download(storage_path('app/public/' . $id));
+        return $this->assignmentInterface->
+                    downloadAssignment($assignment_id);
     }
 
     /**
      * To submit student's assignment
-     * @param $course_id
-     * @param $student_id
-     * @param $assignment_id
+     * @param string $course_id
+     * @param string $student_id
+     * @param string $assignment_id
      * @param FileSubmitRequest $filename Request form courseDetails
      * @return View courseDetails
      */
-    public function addStudentAssignment($student_id, $course_id, $assignment_id, FileSubmitRequest $filename)
-    {
-        $ROOT_DIR = 'new_assignments';
-
-        if (!is_dir($ROOT_DIR)) {
-            mkdir($ROOT_DIR);
-        }
-        
-        $validated = $filename->validated();
-        $file = $validated['inputFile'];
-        $inputFileName = Storage::putFileAs($ROOT_DIR, $file, $file->getClientOriginalName());
-
-        $this->assignmentInterface->addStudentAssignment($student_id, $course_id, $assignment_id, $inputFileName);
-
+    public function addStudentAssignment(
+        $student_id,
+        $course_id,
+        $assignment_id,
+        FileSubmitRequest $filename
+    ) {
+        $this->assignmentInterface->addStudentAssignment($student_id, $course_id, $assignment_id, $filename);
         return back();
     }
 }

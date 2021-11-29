@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta routeName="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    <title>Admin Homepage</title>
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
@@ -35,7 +35,7 @@
               <div class="dropdown">
                   <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">
                       Profile</a>
-                  <a href="{{ route('signout') }}">Logout</a>
+                  <a href="{{ route('logout') }}">Logout</a>
               </div>
           </div>
         </div>
@@ -94,7 +94,7 @@
             @foreach($teacherList as $teacher)
               <tr class="row">
                 <td class="number">{{ ++$index }}</td>
-                <td><a type="button" href="/enroll/{{ $teacher->id }}" data-modal="modal-enroll" 
+                <td><a type="button" href="{{ route('enroll.teacher', ['teacher_id' => $teacher->id]) }}" data-modal="modal-enroll" 
                       class="btn-show-modal enroll-btn">Enroll</a></td>
                 <td>{{ $teacher->id }}</td>
                 <td>{{ $teacher->name }}</td>
@@ -139,7 +139,7 @@
         </div>
 
         <div id="course" class="list-content">
-        <a href="/course/create-view" class="add-course-btn">
+        <a href="{{route('course-create-view')}}" class="add-course-btn">
           Add Course
         </a>
           <table class="list">

@@ -1,3 +1,6 @@
+/**
+ * assignment tab to show content
+ */
 $(document).ready(function() {
 
   // Tab

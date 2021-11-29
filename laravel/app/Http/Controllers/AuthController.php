@@ -2,149 +2,180 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Contracts\Services\Auth\AuthServiceInterface;
-use App\Http\Requests\RegisterFormRequest;
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Contracts\Services\User\UserServiceInterface;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Hash;
-
+use App\Http\Requests\LoginFormRequest;
+use App\Http\Requests\RegisterFormRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-  /**
-   * User Interface
-   */
-  private $userInterface;
+    /**
+     * User Interface
+     * Auuth AuthInterface
+     */
+    private $userInterface;
+    private $authInterface;
 
 
-  /**
-   * Create a new controller instance.
-   * @param UserServiceInterface $userServiceInterface
-   * @return void
-   */
-  public function __construct(UserServiceInterface $userServiceInterface)
-  {
-    $this->userInterface = $userServiceInterface;
-  }
+    /**
+     * Create a new controller instance.
+     * @param UserServiceInterface $userServiceInterface
+     * @param AuthServiceInterface $authServiceInterface
+     * @return void
+     */
+    public function __construct(UserServiceInterface $userServiceInterface,
+        AuthServiceInterface $authServiceInterface)
+    {
+        $this->userInterface = $userServiceInterface;
+        $this->authInterface = $authServiceInterface;
+    }
 
-  public function Index()
-  {
-    return view('auth.login');
-  }
+    /**
+     * show the login page
+     * @return view auth.login
+     */
+    public function Index()
+    {
+        return view('auth.login');
+    }
 
-  public function UserCustomLogin(Request $request)
-  {
-    $request->validate([
-      'email' => 'required',
-      'password' => 'required',
-    ]);
+    public function UserCustomLogin(LoginFormRequest $request)
+    {
+        return $this->authInterface->saveUserCustomLogin($request);
+    }
 
-    $credentials = $request->only('email', 'password');
-    if (Auth::attempt($credentials)) {
-      if (Auth::user()->role_id == 1) {
-        return redirect('/student/' . Auth::user()->id.'/dashboard');
-      } elseif (Auth::user()->role_id == 2) {
-        return redirect('/teacher/' . Auth::user()->id.'/dashboard');
-      } else {
-        return redirect('/admin/' . Auth::user()->id);
-      }
-    } else {
-      $message = "";
-      $checkUser = User::where('email', $request->email)->first();
-      if ($checkUser) {
-        $checkPassword = Hash::check($request->password, $checkUser->password);
-        if (!$checkPassword) {
-          $message .= "Incorrect Password";
+    /**
+     * show user registration page
+     * @return view auth.registeration
+     */
+    public function UserRegistration()
+    {
+        return view('auth.registration');
+    }
+
+    /**
+     * user custom registeration
+     * @param RegisterFormRequest $request
+     * @return redirect('/')
+     */
+    public function UserCustomRegistration(RegisterFormRequest $request)
+    {
+        $data = $request->validated();
+        $this->userCreate($data);
+
+        return redirect("/")->withSuccess('You have signed-in');
+    }
+
+    /**
+     * create new user
+     * @param $data
+     * @return $user
+     */
+    public function userCreate($data)
+    {
+        $user = $this->userInterface->createUser($data);
+        return $user;
+    }
+
+    /**
+     * save photo
+     * @param $profile
+     */
+    public function savePhoto($profile)
+    {
+        return $this->userInterface->savePhoto($profile);
+    }
+
+    /**
+     * show user dashboard
+     * @return view 'dashboard'
+     */
+    public function userDashboard()
+    {
+        if (Auth::check()) {
+            return view('dashboard');
         }
-      } else {
-        $message .= "Your email is not registered in the system";
-      }
-      return redirect()->back()->with('message', $message);
-    }
-  }
 
-  public function UserRegistration()
-  {
-    return view('auth.registration');
-  }
-
-  public function UserCustomRegistration(RegisterFormRequest $request)
-  {
-    $data  = $request->validated();
-    $this->userCreate($data);
-
-    return redirect("/")->withSuccess('You have signed-in');
-  }
-
-  public function userCreate($data)
-  {
-    $user = $this->userInterface->createUser($data);
-    return $user;
-  }
-
-  public function savePhoto($profile)
-  {
-    $this->userInterface->SavePhoto($profile);
-  }
-
-  public function userDashboard()
-  {
-    if (Auth::check()) {
-      return view('dashboard');
+        return redirect("/")->
+                withSuccess('You are not allowed to access');
     }
 
-    return redirect("/")->withSuccess('You are not allowed to access');
-  }
-
-  public function signOut()
-  {
-    Session::flush();
-    Auth::logout();
-
-    return Redirect('/');
-  }
-
-  //userList function
-  public function showUserList(Request $request)
-  {
-    $userLists = $this->userInterface->getUserList($request);
-    return view('user_list', compact('userLists'));
-  }
-
-  //delete user
-  public function deleteUser($id)
-  {
-    // User::findOrFail($id)->delete();
-    $this->userInterface->deleteUser($id);
-    return redirect('/user-list');
-  }
-
-  //show userdetails
-  public function userdetail($id)
-  {
-    $detail = User::find($id);
-    return view('userdetails', compact('detail'));
-  }
-
-  //Edit user
-  public function editUser($id)
-  {
-    // $userEdit= User::find($id);
-    $userEdit = $this->userInterface->editUser($id);
-    return view('update_user', compact('userEdit'));
-  }
-
-  //Update user
-  public function updateUser($id, Request $request)
-  {
-    $this->userInterface->updateUser($id, $request);
-    if (Auth::user()->role_id == 1) {
-      return redirect('/student/' . Auth::user()->id);
-    } else {
-      return redirect('/teacher/' . Auth::user()->id);
+    /**
+     * signout
+     * @return redirect('/')
+     */
+    public function signOut()
+    {
+        return $this->authInterface->logout();
     }
-  }
+
+    /**
+     * show user list
+     * @param Request $request
+     * @return view user_list
+     */
+    public function showUserList(Request $request)
+    {
+        $userLists = $this->userInterface->getUserList($request);
+        return view('user_list', ['userLists' => $userLists]);
+    }
+
+    /**
+     * delete user
+     * @param $id
+     * @return redirect('/user-list')
+     */
+    public function deleteUser($id)
+    {
+        $this->userInterface->deleteUser($id);
+        return redirect('/user-list');
+    }
+
+    /**
+     * show user details
+     * @param $id
+     * @return view userdetails
+     */
+    public function userdetail($id)
+    {
+        $detail = User::find($id);
+        return view('userdetails', ['detail' => $detail]);
+    }
+
+    /**
+     * edit user
+     * @param $id
+     * @return view update_user
+     */
+    public function editUser($id)
+    {
+        $userEdit = $this->userInterface->editUser($id);
+        return view('update_user', ['userEdit' => $userEdit]);
+    }
+
+    /**
+     * update user
+     * @param $id
+     * @param Request $request
+     * @return redirect('/student/') or ('/teacher/')
+     */
+    public function updateUser($id, Request $request)
+    {
+        $this->userInterface->updateUser($id, $request);
+
+        switch(Auth::user()->role_id) {
+            case 1:
+                return redirect()->route('student.dashboard', ['id' => Auth::user()->id]);
+                break;
+            case 2:
+                return redirect()->route('teacher.dashboard', ['id' => Auth::user()->id]);
+                break;
+            case 3:
+                return redirect()->route('admin-home', ['id' => Auth::user()->id]);
+                break;
+        }
+    }
 }

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <title>Create Course</title>
+    <title>Add New Assignment</title>
 </head>
 
 <body>
@@ -47,7 +47,7 @@
               <label for="file">File</label><br>
               <input type="file" name="file" class="default-file-input file-input"/>
             </div>
-            <button type="submit" class="register-btn">Add Course</button>
+            <button type="submit" class="register-btn">Add Assignment</button>
         </form>
     </div>
 </body>

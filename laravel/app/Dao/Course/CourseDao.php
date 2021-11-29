@@ -9,18 +9,20 @@ use Illuminate\Support\Facades\DB;
 class CourseDao implements CourseDaoInterface
 {
   /**
-   * get the enrolled enroll$enrolledCourse of user
+   * get the enrolled courses of user
+   * @param $id, $role
    * @return $enrolledCourse
    */
   public function getEnrolledCourse($id, $role)
   {
     if($role == 'Student') {
       $enrolledCourseID = DB::table('student_courses')
-                  ->select('course_id')
+                  ->select('course_id', 'is_completed')
                   ->where('student_id', $id)
                   ->whereNull('deleted_at')
                   ->get();
     }
+    
     elseif($role == 'Teacher'){
       $enrolledCourseID = DB::table('teacher_courses')
                   ->select('course_id')
@@ -45,6 +47,7 @@ class CourseDao implements CourseDaoInterface
 
   /**
    * get the required courses for $course_id
+   * @param $course_id
    * @return $requiredCourses
    */
   public function getRequiredCourseID($course_id)
@@ -60,7 +63,8 @@ class CourseDao implements CourseDaoInterface
 
   /**
    * get the required courses list
-   * @return $requiredCourses
+   * @param $requiredCourses
+   * @return $requiredCourseList
    */
   public function getRequiredCourseList($requiredCourses)
   {
@@ -95,15 +99,19 @@ class CourseDao implements CourseDaoInterface
 
   /**
    * add new course
+   * @param $request
+   * @return $course
    */
   public function addNewCourse($request)
   {
-    $course = new Course;
-    $course->title = $request->title;
-    $course->category = $request->category;
-    $course->description = $request->description;
-    $course->required_courses = $request->requiredCourses;
-    $course->save();
-    return $course;
+    return DB::transaction(function () use ($request) {
+      $course = new Course;
+      $course->title = $request->title;
+      $course->category = $request->category;
+      $course->description = $request->description;
+      $course->required_courses = $request->requiredCourses;
+      $course->save();
+      return $course;
+    });
   }
 }

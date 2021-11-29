@@ -33,7 +33,7 @@ $key++;
   </div>
   <div class="clearfix">
     <p class="no-of-ass"> {{ $S_AssignmentNoList[$course->id] }} Assignments </p>
-    <a href="{{ route("student.courseDetail", ['id' => Auth::user()->id, 'course_id'=>$course->id ]) }}" class="course-detail">See Details > </a>
+    <a href="{{ route("course-detail", ['id' => Auth::user()->id, 'course_id'=>$course->id ]) }}" class="course-detail">See Details > </a>
   </div>
 </div>
 @endforeach

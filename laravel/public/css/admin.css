@@ -13,6 +13,8 @@
 
 .admin-content {
   padding: 4%;
+  background: white;
+  min-height: 800px;
 }
 
 .admin-nav {

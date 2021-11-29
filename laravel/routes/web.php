@@ -25,10 +25,10 @@ use App\Http\Controllers\Teacher\TeacherController;
 //registration
 Route::get('dashboard', [AuthController::class, 'userDashboard']);
 Route::get('/', [AuthController::class, 'Index'])->name('login');
-Route::post('custom-login', [AuthController::class, 'userCustomLogin'])->name('login.custom');
-Route::get('registration', [AuthController::class, 'userRegistration'])->name('register-user');
-Route::post('custom-registration', [AuthController::class, 'userCustomRegistration'])->name('register.custom');
-Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
+Route::post('/login', [AuthController::class, 'userCustomLogin'])->name('login-custom');
+Route::get('/user/create', [AuthController::class, 'userRegistration'])->name('register-user');
+Route::post('/user/create', [AuthController::class, 'userCustomRegistration'])->name('register-custom');
+Route::get('/logout', [AuthController::class, 'signOut'])->name('logout');
 
 //forgetpassword
 Route::get('forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
@@ -49,15 +49,15 @@ Route::middleware(['web', 'auth', 'checkstudent','logout_back_history'])->group(
     Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student-home');
     Route::get('/student/{id}/course', [CourseController::class, 'showStudentCourse'])->name('student.course');
     Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
-    Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('student.courseDetail');
-    Route::get('/student/{id}/course/{course_id}/enroll', [AssignmentController::class, 'enrollCourse'])->name('student.course.enroll');
-    Route::post('/student/{id}/course/{course_id}/add/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('student.course.addAssignment');
-    Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('student.course.assignment.update');
+    Route::get('/student/{id}/course/{course_id}', [AssignmentController::class, 'isEnrolled'])->name('course-detail');
+    Route::get('/student/{id}/course/{course_id}/enroll', [AssignmentController::class, 'enrollCourse'])->name('course-enroll');
+    Route::post('/student/{id}/course/{course_id}/create/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('assignment-start');
+    Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('assignment-submission');
     Route::get('/student/{id}/dashboard/', [StudentController::class, 'showDashboard'])->name('student.dashboard');
 });
 
 Route::middleware(['web', 'auth', 'checkstudent'])->group(function () {
-    Route::get('/student/{id}/course/{course_id}/assignment/{assignment_id}/download', [AssignmentController::class, 'downloadFile'])->name('student.course.assignment.download');
+    Route::get('/student/{id}/course/{course_id}/assignment/{assignment_id}/download', [AssignmentController::class, 'downloadFile'])->name('assignment-resource');
 });
 
 Route::middleware(['web', 'auth', 'checkteacher','logout_back_history'])->group(function () {
@@ -72,17 +72,15 @@ Route::middleware(['web', 'auth', 'checkteacher'])->group(function () {
     Route::get('/teacher/{id}/assignment/{assignment_id}/download/', [TeacherController::class, 'downloadAssignment'])->name('teacher.assignment.download');
 });
 
-Route::middleware(['web', 'auth'])->group(function () {
+Route::middleware(['web', 'auth', 'checkadmin', 'logout_back_history'])->group(function () {
 // Admin
 Route::get('/admin/{id}', [AdminController::class, 'showUserList'])->name('admin-home');
 Route::get('/enroll/{teacher_id}',[AdminController::class, 'enrollTeacher'])->name('enroll.teacher');
 Route::post('/enroll/{teacher_id}/course',[AdminController::class, 'enrollTeacherCourse'])->name('enroll.teacherCourse');
 
-//AddNewCourse
-Route::get('/course/create-view', function () { 
-    return view('course.createCourse'); 
-});
-Route::post('/add/new/course', [CourseController::class, 'addNewCourse'])->name('add.new.course');
+// Create New Course
+Route::get('/course/create', [CourseController::class, 'addNewCourseView'])->name('course-create-view');
+Route::post('/course/create', [CourseController::class, 'addNewCourse'])->name('course-create');
 
 Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
 Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
