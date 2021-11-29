@@ -32,7 +32,7 @@ class TeacherController extends Controller
     public function showAssignments($teacher_id)
     {
         $courseTitles = $this->teacherService->getAssignmentsByCourse($teacher_id);
-        return view('teachers/assignment', compact('courseTitles'));
+        return view('teachers/assignment', ['courseTitles' => $courseTitles]);
     }
 
     /**
@@ -44,7 +44,10 @@ class TeacherController extends Controller
     {
         $chartData = $this->teacherService->getChartData();
         $totalStudent = $this->teacherService->getTotalStudent();
-        return view('teachers/dashboard', compact('chartData', 'totalStudent'));
+        return view('teachers/dashboard', [
+            'chartData' => $chartData, 
+            'totalStudent' => $totalStudent, 
+          ]);
     }
 
     /**

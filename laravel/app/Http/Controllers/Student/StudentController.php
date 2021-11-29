@@ -29,7 +29,7 @@ class StudentController extends Controller
     public function showAssignments($student_id)
     {
         $courses = $this->studentInterface->getUploadedAssignmentsByStudentId($student_id);
-        return view('students/assignment', compact('courses'));
+        return view('students/assignment', ['courses' => $courses]);
     }
     
     /**
@@ -42,6 +42,10 @@ class StudentController extends Controller
         $enrolledData =  $this->studentInterface->getEnrolledData($id); 
         $completedData =  $this->studentInterface->getCompletedData($id); 
         $studentChartData =  $this->studentInterface->getStudentGradeData($id); 
-        return view('students/dashboard', compact('enrolledData', 'completedData', 'studentChartData'));
+        return view('students/dashboard', [
+            'enrolledData' => $enrolledData, 
+            'completedData' => $completedData, 
+            'studentChartData' => $studentChartData, 
+          ]);
     }
 }
