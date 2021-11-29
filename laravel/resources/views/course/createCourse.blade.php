@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <title>Create Course</title>
+    <title>Add New Course</title>
 </head>
 
 <body>
