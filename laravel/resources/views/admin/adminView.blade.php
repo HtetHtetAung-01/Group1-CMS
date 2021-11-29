@@ -42,7 +42,7 @@
         <div class="tab clearfix">
           <button class="tab-btn active" onclick="showList(event,'user')">All Users <br> <span class="count">{{$userCount}} users</span></button>
           <button class="tab-btn" onclick="showList(event,'teacher')">Teachers <br> <span class="count">{{$teacherCount}} teachers</span></button>
-          <button class="tab-btn" onclick="showList(event,'student')">Student <br> <span class="count">{{$studentCount}} students</span></button>
+          <button class="tab-btn" onclick="showList(event,'student')">Students <br> <span class="count">{{$studentCount}} students</span></button>
           <button class="tab-btn" onclick="showList(event,'course')">Courses <br> <span class="count">{{$courseCount}} courses</button>
           <button class="tab-btn" onclick="showList(event,'assignment')">Assignments <br> <span class="count">{{$assignmentCount}} assignments</button>
         </div>
