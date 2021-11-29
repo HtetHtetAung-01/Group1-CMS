@@ -69,7 +69,7 @@ class AssignmentController extends Controller
         $enrolledCourse = $this->userService->
             getEnrolledCourse($student_id, $role);
 
-        return view('course.courseDetails', [
+        return view('course.details', [
             'courseDetails' => $courseDetails,
             'isEnrolled' => $isEnrolled,
             'assignmentStatus' => $assignmentStatus,

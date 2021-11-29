@@ -33,7 +33,7 @@ class UserController extends Controller
     $studentList = $this->userService
         ->getStudentList($teacherCourse);
     
-    return view('teachers.student-info', [
+    return view('teachers.student_list', [
       'teacherCourse' => $teacherCourse,
       'studentList' => $studentList
     ]);

@@ -147,7 +147,7 @@
                 </p>
                 @endif
                 @if($started[$key]==false)
-                <a href="{{route('assignment-resource', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="resource-btn disabled-btn">
+                <a href="{{route('assignment-resource', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id])}}" class="default-download-btn disabled-btn">
                   Download File
                 </a>
                 @else

@@ -57,7 +57,7 @@ class CourseController extends Controller
     $enrolledCourse = $this->userService->
           getEnrolledCourse($student_id, $role); 
 
-    return view('course.studentCourse', [
+    return view('course.student', [
       'user' => $user, 
       'role' => $role, 
       'enrolledCourse' => $enrolledCourse, 
@@ -73,7 +73,7 @@ class CourseController extends Controller
    */
   public function addNewCourseView()
   {
-    return view('course.createCourse');
+    return view('course.create');
   }
 
   /**

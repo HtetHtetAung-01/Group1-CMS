@@ -120,7 +120,7 @@ class AuthController extends Controller
     public function showUserList(Request $request)
     {
         $userLists = $this->userInterface->getUserList($request);
-        return view('user_list', ['userLists' => $userLists]);
+        return view('user.list', ['userLists' => $userLists]);
     }
 
     /**
@@ -142,7 +142,7 @@ class AuthController extends Controller
     public function userdetail($id)
     {
         $detail = User::find($id);
-        return view('userdetails', ['detail' => $detail]);
+        return view('user.details', ['detail' => $detail]);
     }
 
     /**
@@ -153,7 +153,7 @@ class AuthController extends Controller
     public function editUser($id)
     {
         $userEdit = $this->userInterface->editUser($id);
-        return view('update_user', ['userEdit' => $userEdit]);
+        return view('user.update', ['userEdit' => $userEdit]);
     }
 
     /**

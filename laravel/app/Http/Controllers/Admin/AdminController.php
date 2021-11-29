@@ -35,7 +35,7 @@ class AdminController extends Controller
 
   /**
    * show list of all users
-   * @return view admin.admin
+   * @return view admin home page
    */
   public function showUserList()
   {
@@ -44,7 +44,7 @@ class AdminController extends Controller
     $teacherList = $this->userService->getAllTeacher();
     $courseList = $this->courseService->getAllCourseList();
     $assignmentList = $this->assignmentService->getAllAssignment();
-    return view('admin.admin', [
+    return view('admin.home', [
       'userList' => $userList, 
       'studentList' => $studentList, 
       'teacherList' => $teacherList, 

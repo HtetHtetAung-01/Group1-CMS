@@ -65,7 +65,7 @@ Route::middleware(['web', 'auth', 'checkteacher','logout_back_history'])->group(
     Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment'])->name('teacher.assignment.comment');
     Route::get('/setGrade',[TeacherController::class,'setGrade']);
     Route::get('/teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard'])->name('teacher.dashboard');
-    Route::get('/teacher/{id}/student-info', [UserController::class, 'showStudentsInfo'])->name('studentList');
+    Route::get('/teacher/{id}/student_list', [UserController::class, 'showStudentsInfo'])->name('studentList');
 });
 
 Route::middleware(['web', 'auth', 'checkteacher'])->group(function () {
