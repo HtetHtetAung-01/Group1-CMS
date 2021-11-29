@@ -35,8 +35,15 @@ else {
 $requiredCourses .= ", '".$course->title."' ";
 }
 }
+foreach ($courseDetails as $key => $value) {
+  if($courseDetails[$key]->id == NULL)
+  {
+    $courseDetails = "";
+  }
+}
 @endphp
 
+@if($courseDetails != NULL)
 <div class="course-details">
   <div class="course-content">
     <div class="title-btn">
@@ -188,6 +195,8 @@ $requiredCourses .= ", '".$course->title."' ";
     </dl><!-- /.accd-lists -->
   </div><!-- /.assignment-list -->
 </div><!-- /.course-details -->
+@else <div class="msg-box-empty"><p>No Assignment Yet. Come back later.</p></div>
+@endif
 <div class="form-popup" id="myForm">
   <form class="form-container" method="POST" id="submitForm">
     {{ csrf_field() }}
