@@ -116,7 +116,7 @@ class AuthService implements AuthServiceInterface
             return back()->withInput()->with('error', 'Invalid token!');
         }
 
-        $this->userDao->updateUserPasswordByEmail($request->email, $request);
+        $this->userDao->updateUserPasswordByEmail($request->email, $request->password);
         $this->passwordResetDao->deletePasswordResetbyEmail($request->email);
 
         return redirect('/')->with('message', 'Your password has been changed!');
