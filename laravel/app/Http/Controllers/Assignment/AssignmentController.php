@@ -97,7 +97,8 @@ class AssignmentController extends Controller
     public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
     {
         $this->assignmentInterface->addNullStudentAssignment($student_id, $course_id, $assignment_id);
-        return back();
+        $redirectPath = '/student/'.$student_id.'/course/'.$course_id.'?active='.$assignment_id;
+        return redirect($redirectPath);
     }
 
     /**
