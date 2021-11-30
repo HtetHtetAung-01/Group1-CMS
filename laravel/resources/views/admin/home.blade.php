@@ -172,7 +172,7 @@
                                 <td>{{ $course->required_courses }}</td>
                                 <td>
                                     <a href="{{ route('assignment.add', ['assignment_id' => $course->id]) }}"
-                                        class="add-course-btn">Add</a>
+                                        class="add-course-btn btn-padding">Add</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -25,7 +25,7 @@
 }
 
 .right-nav {
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 
 .tab {
@@ -121,8 +121,10 @@ td {
 }
 
 .course-select {
+  font-size: 16px;
   margin-top: 10px;
   font-size: 16px;
+  width: 50%;
 }
 
 /* add new course */
@@ -154,11 +156,6 @@ td {
   padding: 2%;
   width: 35%;
   border: 3px solid #f1f1f1;
-}
-
-.course-select {
-  font-size: 16px;
-  width: 100%;
 }
 
 .mdl-btns {
@@ -209,4 +206,181 @@ td {
 
 .file-input::file-selector-button:hover {
   opacity: 0.7;
+}
+
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+  /*Admin home view*/
+  .profile-btn {
+    font-size: 16px;
+  }
+
+  .tab button {
+    width: 18%;
+    font-size: 2vw;
+    text-align: center;
+    padding: 1%;
+  }
+
+  .count {
+    font-size: 1.6vw;
+  }
+
+  .list th {
+    font-size: 2vw;
+    padding: 2% 1%;
+  }
+
+  .list td {
+    font-size: 1.6vw;
+    padding: 2% 1%;
+  }
+
+  .enroll-btn {
+    font-size: 1.6vw;
+    padding: 3% 6%;
+  }
+
+  .add-course-btn {
+    font-size: 1.7vw;
+  }
+
+  .btn-padding {
+    padding: 9% 15%;
+  }
+
+  .new-course {
+    font-size: 2.1vw;
+    width: 45%;
+  }
+
+  /* New course add page */
+  .text {
+    font-size: 1.8vw;
+  }
+
+  .text input, textarea{
+    width: 100%;
+  }
+
+  .register-btn {
+    width: 100%;
+  }
+
+  /* New assigment add */
+  .assignment-pnl {
+    width: 50%;
+    font-size: 2.1vw;
+  }
+
+  /* Teacher course enroll page*/
+  .enroll-box {
+    width: 50%;
+  }
+
+  .enroll-box p {
+    font-size: 1.9vw;
+  }
+
+  .course-select {
+    font-size: 1.7vw;
+  }
+
+  .confirm-enroll {
+    font-size: 1.8vw;
+  }
+
+  
+
+}
+
+@media screen and (max-width: 640px) {
+
+  /*Admin home view*/
+
+  .admin-nav {
+    padding: 3% 0 0 1%;
+  }
+
+  .admin-content {
+    padding: 4% 0 0 1%;
+  }
+  .profile-btn {
+    font-size: 12px;
+  }
+
+  .tab button {
+    width: 18%;
+    font-size: 2.1vw;
+    text-align: center;
+    padding: 1% 0;
+  }
+
+  .count {
+    font-size: 1.7vw;
+  }
+
+  .list th {
+    font-size: 2.2vw;
+    padding: 2% 1%;
+  }
+
+  .list td {
+    font-size: 1.9vw;
+    padding: 3% 1%;
+  }
+
+  .enroll-btn {
+    font-size: 2.1vw;
+    padding: 6%;
+  }
+
+  .add-course-btn {
+    font-size: 2.2vw;
+  }
+
+  .btn-padding {
+    padding: 9% 15%;
+  }
+
+  .new-course {
+    font-size: 2.2vw;
+    width: 80%;
+  }
+
+  /* New course add page */
+  .text {
+    font-size: 2.5vw;
+  }
+
+  .text input, textarea{
+    font-size: 2.5vw;
+    width: 100%;
+  }
+
+  .register-btn {
+    width: 100%;
+  }
+
+  /* New assigment add */
+  .assignment-pnl {
+    width: 80%;
+    font-size: 2.2vw;
+  }
+
+  /* Teacher course enroll page*/
+  .enroll-box {
+    width: 80%;
+  }
+
+  .enroll-box p {
+    font-size: 2.6vw;
+  }
+
+  .course-select {
+    font-size: 2.2vw;
+  }
+
+  .confirm-enroll {
+    font-size: 2.4vw;
+  }
 }
