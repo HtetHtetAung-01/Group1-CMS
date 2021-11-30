@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enroll Course</title>
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/courseDetails.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/course_details.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
 </head>
 

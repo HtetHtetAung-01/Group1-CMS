@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/courseDetails.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/course_details.css') }}">
 
     @yield('assets')
 </head>
