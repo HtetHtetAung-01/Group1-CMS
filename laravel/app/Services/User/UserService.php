@@ -43,24 +43,6 @@ class UserService implements UserServiceInterface
     }
 
     /**
-	 * get user list
-	 * @param $request
-	 * @return $userLists
-	 */
-    public function getUserList($request){
-        return $this->userDao->getUserList($request);
-    }
-
-    /**
-	 * delete user
-	 * @param $id
-	 */
-    public function deleteUser($id)
-    {
-        return $this->userDao->deleteUser($id);
-    }
-
-    /**
 	 * Edit user info
 	 * @param $id
 	 * @return $userEdit

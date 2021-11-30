@@ -63,26 +63,6 @@ class UserDao implements UserDaoInterface
 	}
 
 	/**
-	 * get user list
-	 * @param $request
-	 * @return $userLists
-	 */
-	public function getUserList($request)
-	{
-		$userLists = User::all();
-		return $userLists;
-	}
-
-	/**
-	 * delete user
-	 * @param $id
-	 */
-	public function deleteUser($id)
-	{
-		User::findOrFail($id)->delete();
-	}
-
-	/**
 	 * Edit user info
 	 * @param $id
 	 * @return $userEdit

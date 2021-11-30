@@ -49,18 +49,6 @@ interface UserServiceInterface
   public function savePhoto($profile);
 
   /**
-  * To get userList
-  * @param $request
-  */
-  public function getUserList($request);
-
-  /**
-    * To delete user
-    * @param $id
-    */
-  public function deleteUser($id);
-
-  /**
     * To edit user
     * @param $id
     */

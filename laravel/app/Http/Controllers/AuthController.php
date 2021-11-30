@@ -113,28 +113,6 @@ class AuthController extends Controller
     }
 
     /**
-     * show user list
-     * @param Request $request
-     * @return view user_list
-     */
-    public function showUserList(Request $request)
-    {
-        $userLists = $this->userInterface->getUserList($request);
-        return view('user.list', ['userLists' => $userLists]);
-    }
-
-    /**
-     * delete user
-     * @param $id
-     * @return redirect('/user-list')
-     */
-    public function deleteUser($id)
-    {
-        $this->userInterface->deleteUser($id);
-        return redirect('/user-list');
-    }
-
-    /**
      * show user details
      * @param $id
      * @return view userdetails

@@ -38,8 +38,6 @@ Route::post('reset_password', [ForgetPasswordController::class, 'submitResetPass
 
 //user
 Route::middleware(['web', 'auth','logout_back_history'])->group(function () {
-    Route::get('/user/list', [AuthController::class, 'showUserList'])->name('userlist');
-    Route::delete('/user/{id}', [AuthController::class, 'deleteUser'])->name('user.delete');
     Route::get('/userdetail/{id}', [AuthController::class, 'userDetail'])->name('user.detail');
     Route::get('/useredit/{id}', [AuthController::class, 'editUser'])->name('user.edit');
     Route::post('/update/{id}', [AuthController::class, 'updateUser'])->name('user.update');
