@@ -168,7 +168,7 @@ $courseDetails = '';
                             @endif
                             <form action="{{ route('assignment-submission', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id]) }}" enctype="multipart/form-data" method="POST">
                                 <div class="homework d-flex">
-                                    @if ($started[$key] == false)
+                                    @if ($started[$key] == false || $assignmentStatus[$key] == 'completed')
                                     <div class="disabled-input">
                                         @else
                                         <div class="{{ $isEnrolled ? 'disabled-input' : 'upload-hw' }}">
