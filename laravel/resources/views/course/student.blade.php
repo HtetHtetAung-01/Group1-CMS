@@ -22,8 +22,8 @@
         </form>
     </div>
     @if(count($studentCourseList) == 0)
-        <div class="empty-course">
-            <p>No Course Found Match "{{ $_GET['search-text'] }}"</p>
+        <div class="msg-box-empty">
+            <p>No Course Found Match "{{ $_GET['search-text'] }}".</p>
         </div>
 
     @else
