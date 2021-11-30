@@ -20,7 +20,7 @@
                             @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif<br>
-                            <label for="name">Name</label>
+                            <label for="name">Name</label><br>
                             <input type="text" name="name" required>
                         </div>
                         <div class="text">
@@ -31,7 +31,7 @@
                             @if ($errors->has('dob'))
                                 <span class="text-danger">{{ $errors->first('dob') }}</span>
                             @endif<br>
-                            <label for="dob">Date_of_Birth</label>
+                            <label for="dob">Date of Birth</label>
                             <input type="date" id="date-of-birth" name="dob">
                         </div>
                         @if ($errors->has('gender'))

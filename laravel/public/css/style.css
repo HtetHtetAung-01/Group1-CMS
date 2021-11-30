@@ -1,11 +1,16 @@
+@font-face {
+    font-family: 'Poppings-Regular';
+    src: url(../fonts/Poppins-Regular.ttf);
+}
+
 * {
     color: #1a1f36;
     box-sizing: border-box;
-    font-family: Poppins;
+    font-family: 'Poppings-Regular';
 }
+
 .login-root {
     margin: 0 auto;
-    width: 1400px;
 }
 a {
     color: #1492E6;
@@ -27,24 +32,27 @@ a {
 .text {
     padding-bottom: 24px;
 }
-.login-title {
+
+span.login-title {
     font-size: 24px;
     font-weight: bold;
     padding-bottom: 15px;
     padding-bottom: 42px;
+    color: #000000;
 }
+
 span {
     display: inline-block;
-    font-size: 20px;
+    font-size: 15px;
     line-height: 28px;
-    color: #1a1f36;
+    color: rgb(255, 0, 0);
 }
 label {
     display: inline-block;
     margin-bottom: 10px;
 }
 .formbg-inner{
-    padding: 48px 178px;
+    padding: 25px 152px;
 }
 .reset-pass{
     display: inline-block;
@@ -99,6 +107,7 @@ textarea {
     font-size: 16px;
 }
 hr {
+    width: 360px;
     display: block;
     height: 1px;
     border: 0;
@@ -106,7 +115,7 @@ hr {
     margin: 55px 0 55px 0px;
 }
 #role-select{
-    width: 100%;
+    width: 360px;
     padding: 8px 16px;
     border-radius: 9px;
 }
