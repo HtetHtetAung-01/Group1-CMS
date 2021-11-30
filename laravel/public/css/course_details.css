@@ -33,12 +33,6 @@
     font-size: 16px;
 }
 
-button:hover,
-a:hover {
-    opacity: 0.8;
-    cursor: pointer;
-}
-
 .start-btn {
     background-color: #7FBF38;
 }
@@ -103,6 +97,14 @@ a:hover {
 
 .download-btn {
     background-color: #1492E6;
+}
+
+.confirm-btn:hover,
+.start-assignment:hover,
+.start-btn:hover,
+.download-btn:hover {
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .homework-blk {
@@ -191,13 +193,17 @@ a:hover {
     background-color: #ffffff;
     padding: 14px 31px 12px;
     color: #000000;
-    box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
+    border: 1px solid #dce2e5;
+    border-bottom: none;
+    box-shadow: 0 4px 0 #eceff0;
 }
 
 .accd-li.course .accd-dd {
     background-color: #ffffff;
     padding: 0 0 51px 92px;
-    box-shadow: 0px 7px 6px rgb(0 0 0 / 10%);
+    border: 1px solid #dce2e5;
+    box-shadow: 0 4px 0 #eceff0;
+    border-top: none;
 }
 
 .accd-li.course .accd-dt i {
@@ -321,21 +327,23 @@ a:hover {
 
 /* The popup form - hidden by default */
 .form-popup {
-    display: none;
     position: fixed;
-    top: 30%;
-    left: 45%;
-    box-shadow: 0px 3px 6px rgb(0 0 0 / 5%);
-    z-index: 9;
-    background-color: #a8a8a8;
+    z-index: 1;
+    padding-top: 10%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Add styles to the form container */
 .form-container {
-    max-width: 700px;
-    padding: 20px;
+    width: 23%;
+    padding: 1%;
+    margin: 0 auto;
     text-align: center;
-    background-color: white;
+    background-color: #ffffff;
     border: 3px solid #f1f1f1;
 }
 
@@ -363,6 +371,11 @@ a:hover {
 .form-container .btn:hover,
 .open-button:hover {
     opacity: 1;
+}
+
+.form-container .popup-btn:hover,
+.form-container .cancel:hover {
+    opacity: 0.7;
 }
 
 .mdl-title {

@@ -5,16 +5,19 @@
   padding: 1.5% 2%;
   line-height: 1.6;
   margin-bottom: 2%;
-  box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
+  border: 1px solid #dce2e5;
+  box-shadow: 0 4px 0 #eceff0;
 }
 
 .course-ttl {
   font-size: 22px;
+  text-transform: uppercase;
 }
 
 .course-category {
   font-size: 16px;
   font-weight: normal;
+  text-transform: capitalize;
 }
 
 .status-blk {
