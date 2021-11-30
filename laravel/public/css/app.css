@@ -29,9 +29,7 @@ body {
 .content {
     width: 80%;
     padding: 0 2%;
-    position: absolute;
-    right: 0;
-    z-index: 2;
+    float: right;
 }
 
 .main-visual {
