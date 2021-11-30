@@ -189,7 +189,7 @@ class CourseService implements CourseServiceInterface
     public function getCourseStatus($student_id, $totalCourse)
     {
         $enrolledCourseList = $this->studentCourseDao->getStudentEnrolledCourses($student_id);
-
+        $courseStatusList = [];
         foreach ($totalCourse as $key => $value) {
             $isenroll = false;
             foreach ($enrolledCourseList as $enroll) {
@@ -241,6 +241,7 @@ class CourseService implements CourseServiceInterface
     public function sortCourses($statusArray, $sortingArray, $decrease)
     {
         $index = 1;
+        $newArray = [];
         foreach ($statusArray as $key => $value) {
             if ($statusArray[$key] == "completed") {
                 $newArray[$index] = $sortingArray[$key - $decrease];
@@ -296,5 +297,48 @@ class CourseService implements CourseServiceInterface
             $key++;
         }
         return $assignmentNoList;
+    }
+
+    /**
+     * get the list of number of assignments 
+     * @return $assignmentNoList
+     */
+    public function getCourseListWithAssignmentNo($courseList)
+    {    
+        $assignmentNoList = $courseList;
+
+        foreach($courseList as $key => $value) {
+        $number = $this->assignmentService->
+                    getNoOfAssignmentByCourse($courseList[$key]->id);
+        $assignmentNoList[$key]->assignmentNo = $number;
+        $key++;
+        }
+        return $assignmentNoList;
+
+    }
+
+    /**
+     * search course
+     * @return $courseList
+     */
+    public function getSearchCourseList()
+    {
+        return $this->courseDao->getSearchCourseList();
+    }
+
+    /**
+     * search course
+     * @return $courseIdList
+     */
+    public function getSearchCourseIdList($courseList)
+    {
+        $courseIdList = [];
+        $key = 0;
+        foreach($courseList as $course) {
+        $id = $course->id;
+        $courseIdList[++$key] = $id;
+        }
+
+        return $courseIdList;
     }
 }

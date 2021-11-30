@@ -76,12 +76,24 @@ interface CourseServiceInterface
     public function sortCourses($statusArray, $sortingArray, $index);
 
     /**
-     * get all the course id list
-     */
-    public function getAllCourseIdList();
-
-    /**
      * get the list of number of assignments 
      */
-    public function getNoOfAssignmentsList();
+    public function getCourseListWithAssignmentNo($courseIdList);
+
+    /**
+     * search course
+     * @return $courseList
+     */
+    public function getSearchCourseList();
+
+    /**
+     * search course
+     * @return $courseIdList
+     */
+    public function getSearchCourseIdList($courseList);
+
+        /**
+         * get the list of number of assignments 
+         */
+        public function getNoOfAssignmentsList();
 }

@@ -125,7 +125,8 @@ class AssignmentController extends Controller
         $assignment_id,
         FileSubmitRequest $filename
     ) {
-        $this->assignmentInterface->addStudentAssignment($student_id, $course_id, $assignment_id, $filename);
+        $this->assignmentInterface->addStudentAssignment(
+            $student_id, $course_id, $assignment_id, $filename);
         return back();
     }
 }

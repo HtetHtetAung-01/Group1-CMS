@@ -22,9 +22,13 @@
         } else {
             $role = 'admin';
         }
+        if (File::exists(public_path(Auth::user()->profile_path)))
+            $image = Auth::user()->profile_path;
+        else  
+            $image = "";
     @endphp
 
-    <div class="container">
+    <div class="container clearfix">
         <aside class="sidebar">
             <h1 class="logo">
                 <a href="{{ route('login') }}">
@@ -39,12 +43,12 @@
                     </a>
                 </li>
                 @if ($role == 'student')
-                    <li class="@if ($route == $role . '.course') ? active : ''; @endif">
-                        <a href="{{ route($role . '.course', ['id' => Auth::user()->id]) }}" class="menu-btn">
-                            <i class="db-icon">&#xf07b;</i>
-                            Course
-                        </a>
-                    </li>
+                <li class="@if (str_contains($route, 'course')) ? active : ''; @endif">
+                    <a href="{{ route($role. '.course' ,['id' => Auth::user()->id]) }}">
+                        <i class="db-icon">&#xf07b;</i>
+                        Course
+                    </a>
+                </li>
                 @endif
 
                 <li class="@if ($route == $role . '.assignment') ? active : ''; @endif">
@@ -83,17 +87,21 @@
             </div>
         </aside>
         <div class="content">
-            <nav class="nav clearfix">
-                <p class="text">Hello, Let's Learn Together!</p>
-                <div class="profile-blk">
-                    <button class="profile-btn">
-                        <p>{{ Auth::user()->name }} ({{ $role }})</p>
-                    </button>
-                    <div class="dropdown">
-                        <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">
-                            Profile</a>
-                        <a href="{{ route('logout') }}">Logout</a>
-                    </div>
+          <nav class="nav clearfix">
+            <p class="text">Hello, Let's Learn Together!</p>
+            <div class="profile-blk">
+                <button class="profile-btn clearfix">
+                    @if($image == "")
+                        <img class="profile-picture" src="/img/profile-default.png">
+                    @else
+                        <img class="profile-picture" src="{{ asset($image) }}" alt="profile-picture">
+                    @endif
+                    <p class="profile-name">{{ Auth::user()->name }} ({{ $role }})</p>
+                </button>
+                <div class="dropdown">
+                    <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}">
+                        Profile</a>
+                    <a href="{{ route('logout') }}">Logout</a>
                 </div>
             </nav>
             <div class="main-visual">

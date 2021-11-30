@@ -37,4 +37,11 @@ interface CourseDaoInterface
    * @param $request
    */
   public function addNewCourse($request);
+
+  /**
+   * search course
+   * @return $courseList
+   */
+  public function getSearchCourseList();
+
 }
