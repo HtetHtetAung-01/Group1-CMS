@@ -2,8 +2,8 @@
 
 namespace App\Contracts\Dao\TeacherCourse;
 
-interface TeacherCourseDaoInterface {
-    
+interface TeacherCourseDaoInterface
+{
   /**
    * get enrolled courses by teacher
    * @param $teacher_id

@@ -37,7 +37,6 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\LogoutBackHistory::class,
         ],
 
         'api' => [
@@ -66,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkstudent' => \App\Http\Middleware\CheckStudent::class,
         'checkteacher' => \App\Http\Middleware\CheckTeacher::class,
+        'checkadmin' => \App\Http\Middleware\CheckAdmin::class,
         'logout_back_history' => \App\Http\Middleware\LogoutBackHistory::class,
     ];
 }

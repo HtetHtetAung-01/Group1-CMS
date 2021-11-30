@@ -24,16 +24,16 @@ class RegisterFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'             => 'required',
-            'profile_path'            =>'required',
-            'email'            => 'required|email|unique:users',
-            'password'         => 'min:6',
-            'confirm_password' => 'min:6|required_with:password|same:password',
-            'dob'    =>'required',
-            'gender'           => 'required',
-            'role_id'        =>'required',
-            'address'          =>'required',
-            'phone'     =>'required|min:11|numeric',   
+            'name' => ['required', 'max:255'],
+            'profile_path' => ['max:5120'],
+            'email' => ['required', 'max:255', 'email', 'unique:users'],
+            'password' => ['min:6', 'max:255'],
+            'confirm_password' => ['min:6', 'max:255', 'required_with:password', 'same:password'],
+            'dob' => ['required', 'max:255'],
+            'gender' => ['required'],
+            'role_id' => ['required'],
+            'address' => ['required'],
+            'phone' => ['required', 'min:11', 'numeric'],
         ];
     }
 }

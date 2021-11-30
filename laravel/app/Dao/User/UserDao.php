@@ -63,26 +63,6 @@ class UserDao implements UserDaoInterface
 	}
 
 	/**
-	 * get user list
-	 * @param $request
-	 * @return $userLists
-	 */
-	public function getUserList($request)
-	{
-		$userLists = User::all();
-		return $userLists;
-	}
-
-	/**
-	 * delete user
-	 * @param $id
-	 */
-	public function deleteUser($id)
-	{
-		User::findOrFail($id)->delete();
-	}
-
-	/**
 	 * Edit user info
 	 * @param $id
 	 * @return $userEdit
@@ -107,10 +87,8 @@ class UserDao implements UserDaoInterface
 				$profile = $request->profile_path;
 				$userinformation->profile_path = $this->savePhoto($profile);
 			}
-	
 			$userinformation->dob = $request->dob;
 			$userinformation->gender = $request->gender;
-			$userinformation->role_id = $request->role_id;
 			$userinformation->email = $request->email;
 			$userinformation->address = $request->address;
 			$userinformation->phone = $request->phone;
@@ -153,8 +131,7 @@ class UserDao implements UserDaoInterface
 	 */
 	public function getStudent($teacher_id)
 	{
-		$teacherCourse = $this->courseDao->
-					getEnrolledCourse($teacher_id, 'Teacher');
+		$teacherCourse = $this->courseDao->getEnrolledCourse($teacher_id, 'Teacher');
 
 		$studentList = collect();
 		foreach ($teacherCourse as $tc) {
@@ -218,9 +195,9 @@ class UserDao implements UserDaoInterface
 	public function getTotalStudent()
 	{
 
-		$totalStudent = DB::select(DB::raw(
+		$totalStudent = DB::select(
 			"SELECT count(id) as totalStudent FROM users
-			WHERE role_id=1;")
+			WHERE role_id= 1;"
 		);
 		return $totalStudent;
 	}
@@ -232,9 +209,9 @@ class UserDao implements UserDaoInterface
 	public function getAllUser()
 	{
 		$userList = DB::table('users')
-						->select('*')
-						->whereNull('deleted_at')
-						->get();
+			->select('*')
+			->whereNull('deleted_at')
+			->get();
 		return $userList;
 	}
 
@@ -245,10 +222,10 @@ class UserDao implements UserDaoInterface
 	public function getAllStudent()
 	{
 		$studentList = DB::table('users')
-						->select('*')
-						->where('role_id', '1')
-						->whereNull('deleted_at')
-						->get();
+			->select('*')
+			->where('role_id', '1')
+			->whereNull('deleted_at')
+			->get();
 		return $studentList;
 	}
 
@@ -259,10 +236,26 @@ class UserDao implements UserDaoInterface
 	public function getAllTeacher()
 	{
 		$teacherList = DB::table('users')
-						->select('*')
-						->where('role_id', '2')
-						->whereNull('deleted_at')
-						->get();
+			->select('*')
+			->where('role_id', '2')
+			->whereNull('deleted_at')
+			->get();
 		return $teacherList;
+	}
+
+	/**
+	 * To check if email is exist or not
+	 * @param string $email user's email
+	 * @return boolean is email is exist or not
+	 */
+	public function getUserByEmail($email)
+	{
+		return User::where('email', $email)->first();
+	}
+
+	public function updateUserPasswordByEmail($email, $password)
+	{
+		User::where('email', $email)
+			->update(['password' => Hash::make($password)]);
 	}
 }

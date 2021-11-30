@@ -126,7 +126,7 @@ interface AssignmentServiceInterface
      * @return -> true or false
      */
     public function checkAllAssignmentCompleted($student_id, $course_id);
-    
+
     /**
      * To show assignment is started or not
      * @param $course_id

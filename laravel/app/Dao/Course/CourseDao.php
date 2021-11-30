@@ -131,9 +131,5 @@ class CourseDao implements CourseDaoInterface
     return $courseList;
   }
 
-  // DB::table('courses')
-  //                     ->select('*')
-  //                     ->where('title', 'LIKE', '%'.$searchText.'%')
-  //                     ->get();
 
 }

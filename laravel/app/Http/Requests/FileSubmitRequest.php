@@ -24,7 +24,7 @@ class FileSubmitRequest extends FormRequest
     public function rules()
     {
         return [
-            'inputFile' => 'required|max:5120|mimes:doc,docx,pdf'
+            'inputFile' => ['required', 'max:5120', 'mimes:doc,docx,pdf'],
         ];
     }
 }

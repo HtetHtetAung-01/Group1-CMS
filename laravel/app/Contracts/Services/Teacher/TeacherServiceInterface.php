@@ -2,8 +2,8 @@
 
 namespace App\Contracts\Services\Teacher;
 
-interface TeacherServiceInterface {
-
+interface TeacherServiceInterface
+{
     /**
      * get assignments by teacher's courses
      * @param $teacher_id

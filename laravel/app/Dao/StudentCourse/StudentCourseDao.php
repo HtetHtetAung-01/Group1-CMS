@@ -15,11 +15,11 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getEnrolledCourseTitlesByStudent($student_id)
     {
         $courseTitles = DB::select(
-            DB::raw("SELECT C.id, C.title FROM courses AS C
-            LEFT OUTER JOIN student_courses 
-            AS SC ON SC.course_id = C.id
-            WHERE SC.student_id = $student_id;"
-        ));
+            "SELECT C.id, C.title FROM courses AS C
+            LEFT OUTER JOIN student_courses AS SC ON SC.course_id = C.id
+            WHERE SC.student_id = :student_id;",
+            ['student_id' => $student_id]
+        );
 
         return $courseTitles;
     }
@@ -28,12 +28,17 @@ class StudentCourseDao implements StudentCourseDaoInterface
      * Get total number of student by courses title
      * @return stdClass total number of student by courses title
      */
-    public function getTotalStudentByCourseTitle() {
+    public function getTotalStudentByCourseTitle()
+    {
         return DB::table("student_courses AS SC")
             ->select(DB::raw('C.title, count(SC.student_id) 
                                         AS total'))
-            ->leftJoin('courses AS C', "C.id", '=', 
-                                    'SC.course_id')
+            ->leftJoin(
+                'courses AS C',
+                "C.id",
+                '=',
+                'SC.course_id'
+            )
             ->groupBy('SC.course_id')
             ->get();
     }
@@ -43,14 +48,13 @@ class StudentCourseDao implements StudentCourseDaoInterface
      * @param string $student_id student's id
      * @return object
      */
-    public function getTotalEnrolledCoursebyStudent($student_id) {
-    
+    public function getTotalEnrolledCoursebyStudent($student_id)
+    {
         $totalEnrolledCourse = DB::select(
-            DB::raw("SELECT count(course_id) 
-            as totalEnrolledCourse, student_id 
-            FROM student_courses
-            WHERE student_id =".$student_id.";"
-        ));
+            "SELECT count(course_id) as totalEnrolledCourse  
+            FROM student_courses WHERE student_id = :student_id",
+            ['student_id' => $student_id]
+        );
 
         return $totalEnrolledCourse;
     }
@@ -60,15 +64,14 @@ class StudentCourseDao implements StudentCourseDaoInterface
      * @param string $student_id student's id
      * @return object
      */
-    public function getTotalCompletedCoursebyStudent($student_id) {
-    
+    public function getTotalCompletedCoursebyStudent($student_id)
+    {
         $totalCompletedCourse = DB::select(
-            DB::raw("SELECT count(course_id) 
-            as totalCompletedCourse, student_id 
+            "SELECT count(course_id) as totalCompletedCourse  
             FROM student_courses
-            WHERE is_completed=1 
-            AND student_id =". $student_id.";"
-        ));
+            WHERE is_completed=1 AND student_id = :student_id;",
+            ['student_id' => $student_id]
+        );
         return $totalCompletedCourse;
     }
 
@@ -77,25 +80,23 @@ class StudentCourseDao implements StudentCourseDaoInterface
      * @param string $student_id student's id
      * @return object
      */
-    public function getStudentPerformanceData($student_id) {
+    public function getStudentPerformanceData($student_id)
+    {
         $studentPerformance = DB::select(
-            DB::raw("SELECT SC.student_id, SC.course_id, 
+            "SELECT SC.student_id, SC.course_id, 
             C.title as courseTitle, 
             A.id as assignmentID, 
             A.name as assignmentName, 
             SA.grade as assignmentGrade
             FROM student_courses AS SC
-            LEFT JOIN courses AS C 
-            ON C.id = SC.course_id
-            LEFT JOIN assignments AS A 
-            ON C.id = A.course_id
-            LEFT JOIN student_assignments AS SA 
-            ON SA.assignment_id = A.id
-            WHERE SC.student_id = $student_id 
-            AND SA.student_id = $student_id 
-            AND SA.grade IS NOT NULL;")
-          );
-          return $studentPerformance;
+            LEFT JOIN courses AS C ON C.id = SC.course_id
+            LEFT JOIN assignments AS A ON C.id = A.course_id
+            LEFT JOIN student_assignments AS SA ON SA.assignment_id = A.id
+            WHERE SC.student_id = :student_id 
+            AND SA.grade IS NOT NULL;",
+            ['student_id' => $student_id]
+        );
+        return $studentPerformance;
     }
 
     /**
@@ -105,9 +106,9 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getStudentCourse()
     {
         $courseList = DB::table('courses')
-        ->select('*')
-        ->whereNull('deleted_at')
-        ->get();
+            ->select('*')
+            ->whereNull('deleted_at')
+            ->get();
         return $courseList;
     }
 
@@ -118,10 +119,10 @@ class StudentCourseDao implements StudentCourseDaoInterface
     {
         return DB::transaction(function () use ($student_id, $course_id, $status) {
             $update = DB::update('UPDATE student_courses 
-            set is_completed = '.$status .' 
-            where student_id =' .$student_id. 
-            ' AND course_id = ' .$course_id);   
-        });          
+            set is_completed = ' . $status . ' 
+            where student_id =' . $student_id .
+                ' AND course_id = ' . $course_id);
+        });
     }
 
     /**
@@ -131,12 +132,12 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getStudentEnrolledCourses($student_id)
     {
         $enrolledCourses = DB::table('student_courses')
-            ->select('student_id','course_id', 'is_completed')
+            ->select('student_id', 'course_id', 'is_completed')
             ->where('student_id', $student_id)
             ->whereNull('deleted_at')
             ->get();
 
-        return $enrolledCourses;                
+        return $enrolledCourses;
     }
 
     /**
@@ -147,16 +148,16 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getCourseCompleteStatusByStudent($student_id, $course_id)
     {
         $is_completed = DB::table('student_courses')
-              ->select('is_completed')
-              ->where('student_id', $student_id)
-              ->where('course_id', $course_id)
-              ->whereNull('deleted_at')
-              ->get();
-        if(count($is_completed) != 0)
+            ->select('is_completed')
+            ->where('student_id', $student_id)
+            ->where('course_id', $course_id)
+            ->whereNull('deleted_at')
+            ->get();
+        if (count($is_completed) != 0)
             $status = $is_completed[0]->is_completed;
         else
             $status = null;
-    
+
         return $status;
     }
 }

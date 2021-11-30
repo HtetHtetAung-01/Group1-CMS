@@ -10,6 +10,12 @@ use App\Models\Assignment;
 interface AssignmentDaoInterface
 {
     /**
+     * To add a new assignment
+     * @param string[] $validated
+     */
+    public function addAssignment($validated);
+
+    /**
      * To get assignment list by course id
      * @param string $id course_id
      * @return $courseDetails
@@ -67,6 +73,11 @@ interface AssignmentDaoInterface
     public function isStarted($student_id, $assignment_id);
 
     /**
+     * To get all assignment
+     */
+    public function getAllAssignment();
+
+    /**
      * To get assignment by course id
      * @param string $course_id
      */
@@ -84,16 +95,6 @@ interface AssignmentDaoInterface
      * @return $assignemtnList
      */
     public function getAllAssignmentByCourse($course_id);
-
-    /**
-     * To add a new assignment
-     */
-    public function addAssignment(Assignment $assignment);
-
-    /**
-     * To get all assignment
-     */
-    public function getAllAssignment();
 
     /**
      * To get assignment by id
