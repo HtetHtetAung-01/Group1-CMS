@@ -18,7 +18,12 @@ body {
 
 .logo {
     margin-bottom: 10%;
-    padding-left: 8%;
+    padding: 0 9%;
+    display: inline-block;
+}
+
+.logo-link {
+    display: inline-block;
 }
 
 .content {
@@ -52,19 +57,19 @@ body {
 }
 
 .scm-link {
-    font-size: 16px;
-    padding: 100% 12% 0;
+    padding: 95% 12% 0;
     line-height: 1.2;
     bottom: 0;
 }
 
-.scm-link p {
-    padding-bottom: 5%;
+.scm-txt {
+    font-size: 1.20vw;
 }
 
 .scm-link a {
     text-decoration: none;
     color: #000000;
+    display: inline-block;
 }
 
 .scm-link a:hover {
@@ -74,6 +79,7 @@ body {
 .scm-link span {
     align-items: center;
     display: flex;
+    margin-top: 15%;
 }
 
 .globe-icon {
@@ -112,6 +118,7 @@ body {
     float: right;
     text-align: center;
 }
+
 .dropdown {
     display: none;
     position: absolute;
@@ -277,4 +284,60 @@ body {
     font-size: 22px;
     font-style: normal;
     margin-right: 10px;
+}
+
+/* Responsive */
+
+/* PC */
+
+@media screen and (min-width: 1041px) {
+    .pc_logo {
+        width: 100%;
+    }
+    .tb_logo {
+        display: none;
+    }
+    .tb-sidebar-txt{
+        display: inline;
+        font-size: 1.250vw;
+    } 
+}
+
+/* Tablet */
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+    /* layout */
+    .content {
+        width: 90%;
+    }
+    /* sidebar */
+    .sidebar {
+        width: 8%;
+        padding: 2% 1.5% 10%;
+    }
+    .pc_logo {
+        display: none;
+    }
+    .tb_logo {
+        padding-left: 10%;
+    } 
+    .db-icon,
+    .globe-icon {
+        font-size: 2.885vw;
+        margin-right: 0;
+        padding: 0 12%;
+    }
+    .tb-sidebar-txt{
+        display: none;
+    }
+    .scm-txt {
+        display: none;
+    }
+    .scm-link {
+        padding: 200% 12% 0;
+    }
+}
+
+/* SP */
+@media screen and (max-width:640px) {
+    
 }

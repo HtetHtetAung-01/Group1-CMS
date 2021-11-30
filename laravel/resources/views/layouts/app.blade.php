@@ -31,22 +31,23 @@
     <div class="container clearfix">
         <aside class="sidebar">
             <h1 class="logo">
-                <a href="{{ route('login') }}">
-                    <img src="/img/logo.png" alt="logo">
+                <a href="{{ route('login') }}" class="logo-link">
+                    <img src="/img/logo.png" alt="logo" class="pc_logo">
+                    <img src="/img/tb_logo.png" alt="tb_logo" class="tb_logo">
             </h1>
             </a>
             <ul>
                 <li class="@if ($route == $role . '.dashboard') ? active : ''; @endif">
                     <a href="{{ route($role . '.dashboard', ['id' => Auth::user()->id]) }}">
                         <i class="db-icon">&#xf201;</i>
-                        Dashboard
+                        <p class="tb-sidebar-txt">Dashboard</p>
                     </a>
                 </li>
                 @if ($role == 'student')
                 <li class="@if (str_contains($route, 'course')) ? active : ''; @endif">
                     <a href="{{ route($role. '.course' ,['id' => Auth::user()->id]) }}">
                         <i class="db-icon">&#xf07b;</i>
-                        Course
+                        <p class="tb-sidebar-txt">Course</p>
                     </a>
                 </li>
                 @endif
@@ -56,12 +57,12 @@
                     @if (Auth::user()->role_id == 1)
                         <a href="{{ route('student.assignment', ['id' => Auth::user()->id]) }}">
                             <i class="db-icon">&#xf518;</i>
-                            Assignment
+                            <p class="tb-sidebar-txt">Assignment</p>
                         </a>
                     @elseif(Auth::user()->role_id == 2)
                         <a href="{{ route('teacher.assignment', ['id' => Auth::user()->id]) }}">
                             <i class="db-icon">&#xf518;</i>
-                            Assignment
+                            <p class="tb-sidebar-txt">Assignment</p>
                         </a>
                     @endif
                 </li>
@@ -70,18 +71,18 @@
                     <li class="@if ($route == 'studentList') ? active : ''; @endif">
                         <a href="{{ route('studentList', ['id' => Auth::user()->id]) }} ">
                             <i class="db-icon">&#xf0c0;</i>
-                            Students
+                            <p class="tb-sidebar-txt">Students</p>
                         </a>
                     </li>
                 @endif
 
             </ul>
             <div class="scm-link">
-                <p>Seattle Consulting Myanmar Co., Ltd.</p>
+                <p class="scm-txt">Seattle Consulting Myanmar Co., Ltd.</p>
                 <a href="http://seattleconsultingmyanmar.com/" target="_blank">
                     <span>
                         <i class="globe-icon">&#xf0ac;</i>
-                        SCM
+                        <p class="tb-sidebar-txt">SCM</p> 
                     </span>
                 </a>
             </div>
