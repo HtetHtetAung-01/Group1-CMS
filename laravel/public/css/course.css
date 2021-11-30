@@ -108,7 +108,7 @@
 .search-input {
   font-size: 14px;
   width: 70%;
-  padding: 7px 5px;
+  padding: 8px 5px;
 }
 
 .search-btn {
@@ -143,8 +143,8 @@
   }
   .search-input {
     font-size: 1.823vw;
-    width: 81%;
-    margin-right: 1%;
+    width: 40%;
+    margin: 0 1% 0 40%;
   }
   .search-btn {
     font-size: 1.823vw;
