@@ -7,7 +7,7 @@ namespace App\Contracts\Services\User;
  */
 interface UserServiceInterface
 {
-    /**
+  /**
    * get the user by id
    * @param $id
    * @return $user
@@ -34,7 +34,7 @@ interface UserServiceInterface
    * @return $studentList
    */
   public function getStudentList($teacher_id);
-  
+
   /**
    * To create user
    * @param $data
@@ -42,40 +42,39 @@ interface UserServiceInterface
    */
   public function createUser($data);
 
-   /**
+  /**
    * To save photo
    * @param $profile
    */
   public function savePhoto($profile);
 
   /**
-    * To edit user
-    * @param $id
-    */
+   * To edit user
+   * @param $id
+   */
   public function editUser($id);
 
   /**
-    * To update user
-    * @param $id, $request
-    */
-  public function updateUser($id,$request);
+   * To update user
+   * @param $id, $request
+   */
+  public function updateUser($id, $request);
 
   /**
-	 * Get all the user list
-	 * @return $userList
-	 */
-	public function getAllUser();
+   * Get all the user list
+   * @return $userList
+   */
+  public function getAllUser();
 
-	/**
-	 * Get all the student list
-	 * @return $studentList
-	 */
-	public function getAllStudent();
+  /**
+   * Get all the student list
+   * @return $studentList
+   */
+  public function getAllStudent();
 
-	/**
-	 * Get all the teacher list
-	 * @return $teacherList
-	 */
-	public function getAllTeacher();
-    
+  /**
+   * Get all the teacher list
+   * @return $teacherList
+   */
+  public function getAllTeacher();
 }

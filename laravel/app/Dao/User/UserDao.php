@@ -79,7 +79,7 @@ class UserDao implements UserDaoInterface
 	 * @return $userInformation
 	 */
 	public function updateUser($id, $request)
-	{	
+	{
 		return DB::transaction(function () use ($id, $request) {
 			$userinformation = User::find($id);
 			$userinformation->name = $request->name;
@@ -131,8 +131,7 @@ class UserDao implements UserDaoInterface
 	 */
 	public function getStudent($teacher_id)
 	{
-		$teacherCourse = $this->courseDao->
-					getEnrolledCourse($teacher_id, 'Teacher');
+		$teacherCourse = $this->courseDao->getEnrolledCourse($teacher_id, 'Teacher');
 
 		$studentList = collect();
 		foreach ($teacherCourse as $tc) {
@@ -210,9 +209,9 @@ class UserDao implements UserDaoInterface
 	public function getAllUser()
 	{
 		$userList = DB::table('users')
-						->select('*')
-						->whereNull('deleted_at')
-						->get();
+			->select('*')
+			->whereNull('deleted_at')
+			->get();
 		return $userList;
 	}
 
@@ -223,10 +222,10 @@ class UserDao implements UserDaoInterface
 	public function getAllStudent()
 	{
 		$studentList = DB::table('users')
-						->select('*')
-						->where('role_id', '1')
-						->whereNull('deleted_at')
-						->get();
+			->select('*')
+			->where('role_id', '1')
+			->whereNull('deleted_at')
+			->get();
 		return $studentList;
 	}
 
@@ -237,10 +236,10 @@ class UserDao implements UserDaoInterface
 	public function getAllTeacher()
 	{
 		$teacherList = DB::table('users')
-						->select('*')
-						->where('role_id', '2')
-						->whereNull('deleted_at')
-						->get();
+			->select('*')
+			->where('role_id', '2')
+			->whereNull('deleted_at')
+			->get();
 		return $teacherList;
 	}
 
@@ -254,7 +253,7 @@ class UserDao implements UserDaoInterface
 		return User::where('email', $email)->first();
 	}
 
-	public function updateUserPasswordByEmail($email, $password) 
+	public function updateUserPasswordByEmail($email, $password)
 	{
 		User::where('email', $email)
 			->update(['password' => Hash::make($password)]);

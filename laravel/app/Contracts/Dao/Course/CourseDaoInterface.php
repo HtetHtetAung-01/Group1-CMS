@@ -37,5 +37,4 @@ interface CourseDaoInterface
    * @param $request
    */
   public function addNewCourse($request);
-
 }

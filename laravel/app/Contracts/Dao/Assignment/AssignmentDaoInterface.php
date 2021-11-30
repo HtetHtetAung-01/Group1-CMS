@@ -71,7 +71,7 @@ interface AssignmentDaoInterface
      * @return $courseDetails
      */
     public function isStarted($student_id, $assignment_id);
-    
+
     /**
      * To get all assignment
      */

@@ -13,7 +13,8 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
      * @param string id assignment's id
      * @return object
      */
-    public function getStudentAssignmentById($id) {
+    public function getStudentAssignmentById($id)
+    {
         return StudentAssignment::find($id);
     }
 
@@ -41,8 +42,9 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
      * @param string $course_id course's id
      */
     public function getUploadedAssignmentsByStudentAndCourse(
-                                        $student_id, $course_id)
-    {    
+        $student_id,
+        $course_id
+    ) {
         return DB::select(
             "SELECT SA.* from student_assignments AS SA 
             LEFT OUTER JOIN assignments AS A 
@@ -75,18 +77,20 @@ class StudentAssignmentDao implements StudentAssignmentDaoInterface
      */
     public function getAssignmentStatusByStudent($student_id, $assignment_id)
     {
-        $assignment= DB::table('student_assignments')
-                ->select('id', 'uploaded_date', 'file_path')
-                ->where('assignment_id', $assignment_id)
-                ->where('student_id', $student_id)
-                ->whereNull('deleted_at')
-                ->get();
+        $assignment = DB::table('student_assignments')
+            ->select('id', 'uploaded_date', 'file_path')
+            ->where('assignment_id', $assignment_id)
+            ->where('student_id', $student_id)
+            ->whereNull('deleted_at')
+            ->get();
 
-        if(count($assignment) == 0)
+        if (count($assignment) == 0)
             $status = 'progress';
         else {
-            if($assignment[0]->uploaded_date != NULL && 
-                    $assignment[0]->file_path != NULL)
+            if (
+                $assignment[0]->uploaded_date != NULL &&
+                $assignment[0]->file_path != NULL
+            )
                 $status = 'completed';
             else
                 $status = 'progress';

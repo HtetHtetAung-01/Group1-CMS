@@ -34,14 +34,14 @@ class TeacherService implements TeacherServiceInterface
      * @param TeacherCourseDaoInterface $teacherCourseDao
      * @param UserDaoInterface $userDao
      */
-    public function __construct( 
-        AssignmentDaoInterface $assignmentDao, 
+    public function __construct(
+        AssignmentDaoInterface $assignmentDao,
         CommentDaoInterface $commentDao,
-        StudentAssignmentDaoInterface $studentAssignmentDao, 
+        StudentAssignmentDaoInterface $studentAssignmentDao,
         StudentCourseDaoInterface $studentCourseDao,
         TeacherCourseDaoInterface $teacherCourseDao,
-        UserDaoInterface $userDao)
-    {
+        UserDaoInterface $userDao
+    ) {
         $this->assignmentDao = $assignmentDao;
         $this->commentDao = $commentDao;
         $this->studentAssignmentDao = $studentAssignmentDao;
@@ -57,8 +57,7 @@ class TeacherService implements TeacherServiceInterface
      */
     public function getAssignmentsByCourse($teacher_id)
     {
-        $courseTitles = $this->teacherCourseDao->
-                    getEnrolledCoursesByTeacher($teacher_id);
+        $courseTitles = $this->teacherCourseDao->getEnrolledCoursesByTeacher($teacher_id);
 
         foreach ($courseTitles as $title) {
             $title->assignments = $this->assignmentDao
@@ -67,18 +66,17 @@ class TeacherService implements TeacherServiceInterface
             foreach ($title->assignments as $assignment) {
 
                 $assignment->assignmentList =
-                    $this->studentAssignmentDao->
-                    getUploadedAssignmentsByAssignmentId(
-                        $assignment->id);
+                    $this->studentAssignmentDao->getUploadedAssignmentsByAssignmentId(
+                        $assignment->id
+                    );
 
                 $assignment->numOfUngradedAssignment =
-                    $this->studentAssignmentDao->
-                    getTotalCountOfUngradedAssignmentsbyAssignmentId(
-                        $assignment->id);
+                    $this->studentAssignmentDao->getTotalCountOfUngradedAssignmentsbyAssignmentId(
+                        $assignment->id
+                    );
 
                 foreach ($assignment->assignmentList as $item) {
-                    $item->comments = $this->commentDao->
-                    getCommentsbyStudentAssignmentId($item->id);
+                    $item->comments = $this->commentDao->getCommentsbyStudentAssignmentId($item->id);
                 }
             }
         }
@@ -121,20 +119,19 @@ class TeacherService implements TeacherServiceInterface
         $numStudentByCourseTitle = $this->studentCourseDao->getTotalStudentByCourseTitle();
         $chartData = "";
         foreach ($numStudentByCourseTitle as $item) {
-            $chartData .= "['".$item->title."', "
-            . $item->total."],";
+            $chartData .= "['" . $item->title . "', "
+                . $item->total . "],";
         }
         // Remove the last comma and Add to list
         array_push($charts, rtrim($chartData, ","));
 
         // Get number of student by Gender
-        $numStudentByGender = $this->userDao->
-                getTotalStudentByGender();
+        $numStudentByGender = $this->userDao->getTotalStudentByGender();
         $chartData = "";
 
         foreach ($numStudentByGender as $item) {
-            $chartData .= "['".$item->gender."', "
-            . $item->total."],";
+            $chartData .= "['" . $item->gender . "', "
+                . $item->total . "],";
         }
         // Remove the last comma and Add to list
         array_push($charts, rtrim($chartData, ","));
@@ -150,7 +147,7 @@ class TeacherService implements TeacherServiceInterface
     {
         return $this->userDao->getTotalStudent();
     }
-    
+
     /**
      * submit grade 
      * @param $student_assignment_id
@@ -159,8 +156,7 @@ class TeacherService implements TeacherServiceInterface
      */
     public function submitGrade($student_assignment_id, $request)
     {
-        $submitGrade = StudentAssignment::
-                        FindorFail($student_assignment_id);
+        $submitGrade = StudentAssignment::FindorFail($student_assignment_id);
         $submitGrade->grade = $request;
         $submitGrade->save();
         return $submitGrade;

@@ -37,13 +37,13 @@ Route::get('reset_password/{token}', [ForgetPasswordController::class, 'showRese
 Route::post('reset_password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 //user
-Route::middleware(['web', 'auth','logout_back_history'])->group(function () {
+Route::middleware(['web', 'auth', 'logout_back_history'])->group(function () {
     Route::get('/userdetail/{id}', [AuthController::class, 'userDetail'])->name('user.detail');
     Route::get('/useredit/{id}', [AuthController::class, 'editUser'])->name('user.edit');
     Route::post('/update/{id}', [AuthController::class, 'updateUser'])->name('user.update');
 });
 
-Route::middleware(['web', 'auth', 'checkstudent','logout_back_history'])->group(function () {
+Route::middleware(['web', 'auth', 'checkstudent', 'logout_back_history'])->group(function () {
     Route::get('/student/{id}', [UserController::class, 'showLayout'])->name('student-home');
     Route::get('/student/{id}/course', [CourseController::class, 'showStudentCourse'])->name('student.course');
     Route::get('/student/{id}/assignment/', [StudentController::class, 'showAssignments'])->name('student.assignment');
@@ -58,10 +58,10 @@ Route::middleware(['web', 'auth', 'checkstudent'])->group(function () {
     Route::get('/student/{id}/course/{course_id}/assignment/{assignment_id}/download', [AssignmentController::class, 'downloadFile'])->name('assignment-resource');
 });
 
-Route::middleware(['web', 'auth', 'checkteacher','logout_back_history'])->group(function () {
+Route::middleware(['web', 'auth', 'checkteacher', 'logout_back_history'])->group(function () {
     Route::get('/teacher/{id}/assignment/', [TeacherController::class, 'showAssignments'])->name('teacher.assignment');
     Route::post('/teacher/{id}/assignment/{assignment_id}/comment/', [TeacherController::class, 'addCommentToAssignment'])->name('teacher.assignment.comment');
-    Route::get('/setGrade',[TeacherController::class,'setGrade']);
+    Route::get('/setGrade', [TeacherController::class, 'setGrade']);
     Route::get('/teacher/{id}/dashboard/', [TeacherController::class, 'showDashboard'])->name('teacher.dashboard');
     Route::get('/teacher/{id}/student/list', [UserController::class, 'showStudentsInfo'])->name('studentList');
 });
@@ -71,15 +71,15 @@ Route::middleware(['web', 'auth', 'checkteacher'])->group(function () {
 });
 
 Route::middleware(['web', 'auth', 'checkadmin', 'logout_back_history'])->group(function () {
-// Admin
-Route::get('/admin/{id}', [AdminController::class, 'showUserList'])->name('admin-home');
-Route::get('/enroll/{teacher_id}',[AdminController::class, 'enrollTeacher'])->name('enroll.teacher');
-Route::post('/enroll/{teacher_id}/course',[AdminController::class, 'enrollTeacherCourse'])->name('enroll.teacherCourse');
+    // Admin
+    Route::get('/admin/{id}', [AdminController::class, 'showUserList'])->name('admin-home');
+    Route::get('/enroll/{teacher_id}', [AdminController::class, 'enrollTeacher'])->name('enroll.teacher');
+    Route::post('/enroll/{teacher_id}/course', [AdminController::class, 'enrollTeacherCourse'])->name('enroll.teacherCourse');
 
-// Create New Course
-Route::get('/course/create', [CourseController::class, 'addNewCourseView'])->name('course-create-view');
-Route::post('/course/create', [CourseController::class, 'addNewCourse'])->name('course-create');
+    // Create New Course
+    Route::get('/course/create', [CourseController::class, 'addNewCourseView'])->name('course-create-view');
+    Route::post('/course/create', [CourseController::class, 'addNewCourse'])->name('course-create');
 
-Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
-Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
+    Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
+    Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
 });

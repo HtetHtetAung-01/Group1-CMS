@@ -33,6 +33,7 @@ use App\Services\Student\StudentService;
 use App\Services\Teacher\TeacherService;
 use App\Services\User\UserService;
 use Carbon\Laravel\ServiceProvider;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -44,19 +45,19 @@ class AppServiceProvider extends ServiceProvider
     {
 
         // Dao Registration
-        $this->app->bind(UserDaoInterface::class, UserDao::class); 
-        $this->app->bind(CourseDaoInterface::class, CourseDao::class); 
+        $this->app->bind(UserDaoInterface::class, UserDao::class);
+        $this->app->bind(CourseDaoInterface::class, CourseDao::class);
         $this->app->bind(AssignmentDaoInterface::class, AssignmentDao::class);
         $this->app->bind(CommentDaoInterface::class, CommentDao::class);
         $this->app->bind(StudentAssignmentDaoInterface::class, StudentAssignmentDao::class);
         $this->app->bind(StudentCourseDaoInterface::class, StudentCourseDao::class);
         $this->app->bind(TeacherCourseDaoInterface::class, TeacherCourseDao::class);
         $this->app->bind(PasswordResetDaoInterface::class, PasswordResetDao::class);
-        
+
         // Business logic registration
         $this->app->bind(AdminServiceInterface::class, AdminService::class);
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
-        $this->app->bind(CourseServiceInterface::class, CourseService::class); 
+        $this->app->bind(CourseServiceInterface::class, CourseService::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(AssignmentServiceInterface::class, AssignmentService::class);
         $this->app->bind(StudentServiceInterface::class, StudentService::class);

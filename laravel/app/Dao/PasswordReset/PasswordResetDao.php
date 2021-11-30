@@ -21,7 +21,7 @@ class PasswordResetDao implements PasswordResetDaoInterface
                 'created_at' => Carbon::now()
             ]);
     }
-    
+
     /**
      * To get password reset record by email and token
      * @param string $email user's email

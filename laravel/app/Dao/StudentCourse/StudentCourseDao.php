@@ -17,7 +17,8 @@ class StudentCourseDao implements StudentCourseDaoInterface
         $courseTitles = DB::select(
             "SELECT C.id, C.title FROM courses AS C
             LEFT OUTER JOIN student_courses AS SC ON SC.course_id = C.id
-            WHERE SC.student_id = :student_id;", ['student_id' => $student_id]
+            WHERE SC.student_id = :student_id;",
+            ['student_id' => $student_id]
         );
 
         return $courseTitles;
@@ -27,12 +28,17 @@ class StudentCourseDao implements StudentCourseDaoInterface
      * Get total number of student by courses title
      * @return stdClass total number of student by courses title
      */
-    public function getTotalStudentByCourseTitle() {
+    public function getTotalStudentByCourseTitle()
+    {
         return DB::table("student_courses AS SC")
             ->select(DB::raw('C.title, count(SC.student_id) 
                                         AS total'))
-            ->leftJoin('courses AS C', "C.id", '=', 
-                                    'SC.course_id')
+            ->leftJoin(
+                'courses AS C',
+                "C.id",
+                '=',
+                'SC.course_id'
+            )
             ->groupBy('SC.course_id')
             ->get();
     }
@@ -87,11 +93,11 @@ class StudentCourseDao implements StudentCourseDaoInterface
             LEFT JOIN assignments AS A ON C.id = A.course_id
             LEFT JOIN student_assignments AS SA ON SA.assignment_id = A.id
             WHERE SC.student_id = :student_id 
-            AND SA.grade IS NOT NULL;", 
+            AND SA.grade IS NOT NULL;",
             ['student_id' => $student_id]
-            );
-            return $studentPerformance;
-}
+        );
+        return $studentPerformance;
+    }
 
     /**
      * get student course list
@@ -100,9 +106,9 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getStudentCourse()
     {
         $courseList = DB::table('courses')
-        ->select('*')
-        ->whereNull('deleted_at')
-        ->get();
+            ->select('*')
+            ->whereNull('deleted_at')
+            ->get();
         return $courseList;
     }
 
@@ -113,10 +119,10 @@ class StudentCourseDao implements StudentCourseDaoInterface
     {
         return DB::transaction(function () use ($student_id, $course_id, $status) {
             $update = DB::update('UPDATE student_courses 
-            set is_completed = '.$status .' 
-            where student_id =' .$student_id. 
-            ' AND course_id = ' .$course_id);   
-        });          
+            set is_completed = ' . $status . ' 
+            where student_id =' . $student_id .
+                ' AND course_id = ' . $course_id);
+        });
     }
 
     /**
@@ -126,12 +132,12 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getStudentEnrolledCourses($student_id)
     {
         $enrolledCourses = DB::table('student_courses')
-            ->select('student_id','course_id', 'is_completed')
+            ->select('student_id', 'course_id', 'is_completed')
             ->where('student_id', $student_id)
             ->whereNull('deleted_at')
             ->get();
 
-        return $enrolledCourses;                
+        return $enrolledCourses;
     }
 
     /**
@@ -142,16 +148,16 @@ class StudentCourseDao implements StudentCourseDaoInterface
     public function getCourseCompleteStatusByStudent($student_id, $course_id)
     {
         $is_completed = DB::table('student_courses')
-              ->select('is_completed')
-              ->where('student_id', $student_id)
-              ->where('course_id', $course_id)
-              ->whereNull('deleted_at')
-              ->get();
-        if(count($is_completed) != 0)
+            ->select('is_completed')
+            ->where('student_id', $student_id)
+            ->where('course_id', $course_id)
+            ->whereNull('deleted_at')
+            ->get();
+        if (count($is_completed) != 0)
             $status = $is_completed[0]->is_completed;
         else
             $status = null;
-    
+
         return $status;
     }
 }

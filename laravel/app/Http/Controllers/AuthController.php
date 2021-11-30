@@ -26,9 +26,10 @@ class AuthController extends Controller
      * @param AuthServiceInterface $authServiceInterface
      * @return void
      */
-    public function __construct(UserServiceInterface $userServiceInterface,
-        AuthServiceInterface $authServiceInterface)
-    {
+    public function __construct(
+        UserServiceInterface $userServiceInterface,
+        AuthServiceInterface $authServiceInterface
+    ) {
         $this->userInterface = $userServiceInterface;
         $this->authInterface = $authServiceInterface;
     }
@@ -99,8 +100,7 @@ class AuthController extends Controller
             return view('dashboard');
         }
 
-        return redirect("/")->
-                withSuccess('You are not allowed to access');
+        return redirect("/")->withSuccess('You are not allowed to access');
     }
 
     /**
@@ -144,7 +144,7 @@ class AuthController extends Controller
     {
         $this->userInterface->updateUser($id, $request);
 
-        switch(Auth::user()->role_id) {
+        switch (Auth::user()->role_id) {
             case 1:
                 return redirect()->route('student.dashboard', ['id' => Auth::user()->id]);
                 break;

@@ -18,12 +18,12 @@ class CommentDao implements CommentDaoInterface
         $comment->teacher_id = $teacher_id;
         $comment->student_assignment_id = $assignment_id;
         $comment->message = $validated['comment'];
-        
+
         return DB::transaction(function () use ($comment) {
             $comment->save();
         });
     }
-    
+
     /**
      * To get comments by assignment id
      * @param string $student_assignment_id student's assignment id
