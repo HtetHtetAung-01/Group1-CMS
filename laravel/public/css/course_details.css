@@ -311,11 +311,16 @@
     color: #ffffff;
 }
 
+.mdl-txt {
+    font-size: 16px;
+    line-height: 1.2;
+}
+
 /* The popup form - hidden by default */
 .form-popup {
     display: none;
     position: fixed;
-    top: 30%;
+    top: 20%;
     left: 45%;
     box-shadow: 0px 3px 6px rgb(0 0 0 / 5%);
     z-index: 9;
@@ -363,4 +368,21 @@
     width: 75%;
     margin: 0 auto 5%;
     line-height: 1.5;
+}
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+  
+    /* course details*/
+
+    .form-popup {
+      left: 35%;
+    }
+    .confirm-btn {
+        width: 100%;
+        margin-top: 5%;
+        margin-left: 0;
+    }
+    .cancel-btn {
+        width: 100%;
+        display: block;
+    }
 }

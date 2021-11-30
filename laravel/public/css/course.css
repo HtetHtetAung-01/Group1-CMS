@@ -117,7 +117,7 @@
   color: #ffffff;
   background: rgb(20, 146, 230, 100%);
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 .search-btn:hover {
@@ -126,4 +126,44 @@
 
 .search-btn:active {
   border: none;
+}
+
+/* Tablet */
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+
+  /* course */
+  .course-ttl {
+    font-size: 2.604vw;
+  }
+  .course-category {
+    font-size: 2.083vw;
+  }
+  .search-form {
+    width: 100%;
+  }
+  .search-input {
+    font-size: 1.823vw;
+    width: 81%;
+    margin-right: 1%;
+  }
+  .search-btn {
+    font-size: 1.823vw;
+    width: 17%;
+  }
+  .status-blk {
+    width: 85%;
+  }
+  .course-detail {
+    font-size: 2.083vw;;
+  }
+  .no-of-ass {
+    font-size: 1.823vw;
+  }
+  .status-txt,
+  .status-icon {
+    font-size: 1.823vw;
+  }
+  .status {
+    padding: 0.6% 3.5%;
+  }
 }

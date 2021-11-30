@@ -68,7 +68,7 @@ $courseDetails = '';
                 <div class="modalContent">
                     <span class="modal-close">×</span>
                     <div class="mdl-inner">
-                        <p>Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }}
+                        <p class="mdl-txt">Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }}
                             course?</p>
                         <div class="mdl-btns">
                             <button class="cancel-btn modal-close">Cancel</button>

@@ -318,7 +318,7 @@ body {
         display: none;
     }
     .tb_logo {
-        padding-left: 10%;
+        width: 100%;
     } 
     .db-icon,
     .globe-icon {
@@ -334,6 +334,14 @@ body {
     }
     .scm-link {
         padding: 200% 12% 0;
+    }
+    /* course */
+    .text,
+    .profile-name {
+        font-size: 2.083vw;
+    }
+    .text {
+        padding-top: 1.5%;
     }
 }
 
