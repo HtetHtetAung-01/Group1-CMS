@@ -26,9 +26,10 @@ class AuthController extends Controller
      * @param AuthServiceInterface $authServiceInterface
      * @return void
      */
-    public function __construct(UserServiceInterface $userServiceInterface,
-        AuthServiceInterface $authServiceInterface)
-    {
+    public function __construct(
+        UserServiceInterface $userServiceInterface,
+        AuthServiceInterface $authServiceInterface
+    ) {
         $this->userInterface = $userServiceInterface;
         $this->authInterface = $authServiceInterface;
     }
@@ -99,8 +100,7 @@ class AuthController extends Controller
             return view('dashboard');
         }
 
-        return redirect("/")->
-                withSuccess('You are not allowed to access');
+        return redirect("/")->withSuccess('You are not allowed to access');
     }
 
     /**
@@ -113,28 +113,6 @@ class AuthController extends Controller
     }
 
     /**
-     * show user list
-     * @param Request $request
-     * @return view user_list
-     */
-    public function showUserList(Request $request)
-    {
-        $userLists = $this->userInterface->getUserList($request);
-        return view('user_list', ['userLists' => $userLists]);
-    }
-
-    /**
-     * delete user
-     * @param $id
-     * @return redirect('/user-list')
-     */
-    public function deleteUser($id)
-    {
-        $this->userInterface->deleteUser($id);
-        return redirect('/user-list');
-    }
-
-    /**
      * show user details
      * @param $id
      * @return view userdetails
@@ -142,7 +120,7 @@ class AuthController extends Controller
     public function userdetail($id)
     {
         $detail = User::find($id);
-        return view('userdetails', ['detail' => $detail]);
+        return view('user.details', ['detail' => $detail]);
     }
 
     /**
@@ -153,7 +131,7 @@ class AuthController extends Controller
     public function editUser($id)
     {
         $userEdit = $this->userInterface->editUser($id);
-        return view('update_user', ['userEdit' => $userEdit]);
+        return view('user.update', ['userEdit' => $userEdit]);
     }
 
     /**
@@ -166,7 +144,7 @@ class AuthController extends Controller
     {
         $this->userInterface->updateUser($id, $request);
 
-        switch(Auth::user()->role_id) {
+        switch (Auth::user()->role_id) {
             case 1:
                 return redirect()->route('student.dashboard', ['id' => Auth::user()->id]);
                 break;

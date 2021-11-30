@@ -2,15 +2,15 @@
 
 namespace App\Contracts\Dao\Comment;
 
-use App\Models\Comment;
-
-interface CommentDaoInterface {
-
+interface CommentDaoInterface
+{
     /**
      * To add comment to an assignment
-     * @param Comment $comment assignment's comment
+     * @param string[] $validated
+     * @param string $teacher_id
+     * @param string $student_id
      */
-    public function addComment(Comment $comment);
+    public function addComment($validated, $teacher_id, $assignment_id);
 
     /**
      * To get comments by assignment id

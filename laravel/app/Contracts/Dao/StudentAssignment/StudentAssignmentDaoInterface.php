@@ -28,7 +28,7 @@ interface StudentAssignmentDaoInterface
      * To get total number of ungraded assignment by assignment id
      * @param string $assignment_id assignment's id 
      */
-    public function getTotalCountOfUngradedAssignmentsbyAssignmentId($assignment_id );
+    public function getTotalCountOfUngradedAssignmentsbyAssignmentId($assignment_id);
 
     /**
      * get all assignments records of $course_id by $student_id

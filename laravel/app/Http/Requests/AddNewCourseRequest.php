@@ -24,10 +24,10 @@ class AddNewCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:255',
-            'category' => 'required|max:255',
-            'description' => 'required',
-            'requiredCourses' => 'required',
+            'title' => ['required', 'max:255'],
+            'category' => ['required', 'max:255'],
+            'description' => ['required'],
+            'requiredCourses' => ['required'],
         ];
     }
 }

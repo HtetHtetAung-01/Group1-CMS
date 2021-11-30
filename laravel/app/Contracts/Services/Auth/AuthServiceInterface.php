@@ -37,5 +37,4 @@ interface AuthServiceInterface
      * @return $route
      */
     public function savesubmitResetPasswordForm($request);
-
 }

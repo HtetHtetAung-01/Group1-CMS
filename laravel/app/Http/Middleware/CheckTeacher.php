@@ -17,8 +17,8 @@ class CheckTeacher
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()){
-            if(Auth::user()->role_id==2){
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 2) {
                 return $next($request);
             }
         }

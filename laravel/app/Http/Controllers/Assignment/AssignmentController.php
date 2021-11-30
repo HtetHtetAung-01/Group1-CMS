@@ -22,10 +22,11 @@ class AssignmentController extends Controller
      *
      * @return void
      */
-    public function __construct(CourseService $courseService, 
-    AssignmentServiceInterface $assignmentServiceInterface, 
-    UserService $userService)
-    {
+    public function __construct(
+        CourseService $courseService,
+        AssignmentServiceInterface $assignmentServiceInterface,
+        UserService $userService
+    ) {
         $this->courseService = $courseService;
         $this->assignmentInterface = $assignmentServiceInterface;
         $this->userService = $userService;
@@ -41,35 +42,27 @@ class AssignmentController extends Controller
     {
         $idArray = [];
 
-        $courseDetails = $this->assignmentInterface->
-                        getCourseDetails($course_id);
-        $isEnrolled = $this->assignmentInterface->
-                        isEnrolled($student_id, $course_id);
-        $assignmentStatus = $this->assignmentInterface->
-                isCompletedAssignment($student_id, $course_id);
-        $started = $this->assignmentInterface->
-                    showStarted($student_id, $course_id);
+        $courseDetails = $this->assignmentInterface->getCourseDetails($course_id);
+        $isEnrolled = $this->assignmentInterface->isEnrolled($student_id, $course_id);
+        $assignmentStatus = $this->assignmentInterface->isCompletedAssignment($student_id, $course_id);
+        $started = $this->assignmentInterface->showStarted($student_id, $course_id);
 
         $user = $this->userService->getUserById($student_id);
         $roles = $this->userService->getUserRole($student_id);
         $role = $roles->type;
 
         // get the required courses list for $course_id
-        $requiredCourseID = $this->courseService->
-                    getRequiredCourseID($course_id);
+        $requiredCourseID = $this->courseService->getRequiredCourseID($course_id);
 
-        $idArray = $this->courseService->
-            changeStringToArray($requiredCourseID[0]->required_courses);
-        
-            $requiredCourse = $this->courseService->
-                getRequiredCourseList($idArray);
+        $idArray = $this->courseService->changeStringToArray($requiredCourseID[0]->required_courses);
+
+        $requiredCourse = $this->courseService->getRequiredCourseList($idArray);
 
         $isCompleteRequiredCourse = $this->courseService
             ->isCompletedRequiredCourses($course_id, $student_id);
-        $enrolledCourse = $this->userService->
-            getEnrolledCourse($student_id, $role);
+        $enrolledCourse = $this->userService->getEnrolledCourse($student_id, $role);
 
-        return view('course.courseDetails', [
+        return view('course.details', [
             'courseDetails' => $courseDetails,
             'isEnrolled' => $isEnrolled,
             'assignmentStatus' => $assignmentStatus,
@@ -90,8 +83,7 @@ class AssignmentController extends Controller
      */
     public function enrollCourse($student_id, $course_id)
     {
-        $this->assignmentInterface->
-            enrollCourse($student_id, $course_id);
+        $this->assignmentInterface->enrollCourse($student_id, $course_id);
         return back();
     }
 
@@ -104,8 +96,7 @@ class AssignmentController extends Controller
      */
     public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
     {
-        $this->assignmentInterface->addNullStudentAssignment
-                    ($student_id, $course_id, $assignment_id);
+        $this->assignmentInterface->addNullStudentAssignment($student_id, $course_id, $assignment_id);
         return back();
     }
 
@@ -117,8 +108,7 @@ class AssignmentController extends Controller
      */
     public function downloadFile($id, $course_id, $assignment_id)
     {
-        return $this->assignmentInterface->
-                    downloadAssignment($assignment_id);
+        return $this->assignmentInterface->downloadAssignment($assignment_id);
     }
 
     /**

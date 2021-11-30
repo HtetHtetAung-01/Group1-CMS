@@ -22,10 +22,11 @@ class StudentService implements StudentServiceInterface
      * @param StudentCourseDaoInterface $studentCourseDao
      * @param StudentAssignmentDaoInterface $studentAssignmentDao
      */
-    public function __construct( CommentDaoInterface $commentDao, 
-        StudentCourseDaoInterface $studentCourseDao, 
-        StudentAssignmentDaoInterface $studentAssignmentDao)
-    {
+    public function __construct(
+        CommentDaoInterface $commentDao,
+        StudentCourseDaoInterface $studentCourseDao,
+        StudentAssignmentDaoInterface $studentAssignmentDao
+    ) {
         $this->commentDao = $commentDao;
         $this->studentAssignmentDao = $studentAssignmentDao;
         $this->studentCourseDao = $studentCourseDao;
@@ -38,20 +39,21 @@ class StudentService implements StudentServiceInterface
      */
     public function getUploadedAssignmentsByStudentId($student_id)
     {
-        $courses = $this->studentCourseDao->
-                getEnrolledCourseTitlesByStudent($student_id);
+        $courses = $this->studentCourseDao->getEnrolledCourseTitlesByStudent($student_id);
 
         foreach ($courses as $course) {
             $course->assignments = $this->studentAssignmentDao
                 ->getUploadedAssignmentsByStudentAndCourse(
-                    $student_id, $course->id);
+                    $student_id,
+                    $course->id
+                );
 
             foreach ($course->assignments as $item) {
                 $item->comments = $this->commentDao
                     ->getCommentsbyStudentAssignmentId($item->id);
             }
         }
-        
+
         return $courses;
     }
 
@@ -61,8 +63,7 @@ class StudentService implements StudentServiceInterface
      */
     public function getEnrolledData($student_id)
     {
-        return $this->studentCourseDao->
-                    getTotalEnrolledCoursebyStudent($student_id);
+        return $this->studentCourseDao->getTotalEnrolledCoursebyStudent($student_id);
     }
 
     /**
@@ -71,8 +72,7 @@ class StudentService implements StudentServiceInterface
      */
     public function getCompletedData($student_id)
     {
-        return $this->studentCourseDao->
-                    getTotalCompletedCoursebyStudent($student_id);
+        return $this->studentCourseDao->getTotalCompletedCoursebyStudent($student_id);
     }
 
     /**
@@ -82,16 +82,15 @@ class StudentService implements StudentServiceInterface
      */
     public function getStudentGradeData($student_id)
     {
-      $charts = array();
+        $charts = array();
 
         // Get Number of Student by Course Title
-        $studentPer = $this->studentCourseDao->
-                    getStudentPerformanceData($student_id);
+        $studentPer = $this->studentCourseDao->getStudentPerformanceData($student_id);
 
         $chartData = "";
         foreach ($studentPer as $item) {
-            $chartData .= "['".$item->assignmentName."', "
-            . $item->assignmentGrade."],";
+            $chartData .= "['" . $item->assignmentName . "', "
+                . $item->assignmentGrade . "],";
         }
         // Remove the last comma and Add to list
         array_push($charts, rtrim($chartData, ","));

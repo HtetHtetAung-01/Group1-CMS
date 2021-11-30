@@ -1,8 +1,9 @@
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>Login</title>
-  <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 </head>
 
 <body>
@@ -13,11 +14,11 @@
                 <div class="formbg-inner">
                     <span class="login-title">Login</span>
                     @if (Session::has('message'))
-                         <div class="alert alert-success" role="alert">
+                        <div class="alert alert-success" role="alert">
                             {{ Session::get('message') }}
                         </div>
                     @endif
-                    <form class="login-form" form action="{{ route('login-custom')  }}" method="POST">
+                    <form class="login-form" form action="{{ route('login-custom') }}" method="POST">
                         @csrf
                         <div class="text">
                             <label for="email">E-mail</label>
@@ -39,13 +40,14 @@
                             </div>
                         </div>
                         <div class="text">
-                        <button class="login-btn">Login</button>
+                            <button class="login-btn">Login</button>
                         </div>
-                        <p>Don't have an account?<a href="{{route('register-user')}}"> Register Now</a></p>
+                        <p>Don't have an account?<a href="{{ route('register-user') }}"> Register Now</a></p>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>

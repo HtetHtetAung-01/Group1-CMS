@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\DB;
 class AssignmentDao implements AssignmentDaoInterface
 {
     /**
+     * Add assignment from admin view
+     * @param string[] $validated
+     */
+    public function addAssignment($validated)
+    {
+        $assignment = new Assignment;
+        $assignment->name = $validated['name'];
+        $assignment->description = $validated['description'];
+        $assignment->duration = $validated['duration'];
+        $assignment->course_id = $validated['course_id'];
+        $assignment->file_path = $validated['file_path'];
+        $assignment->save();
+    }
+
+    /**
      * Get each course info data to show courseDetails
      * @param string $id course id
      * @return $courseDetails
@@ -21,16 +36,15 @@ class AssignmentDao implements AssignmentDaoInterface
     public function getCourseDetails($id)
     {
         $courseDetails = DB::select(
-            DB::raw("SELECT courses.id as course_id,
-            courses.title as course_title,
-            courses.description as course_description,
-            assignments.*
-            FROM assignments
-            LEFT JOIN courses
-            ON assignments.course_id = courses.id 
-            WHERE courses.id=" . $id . ";")
+            "SELECT courses.id as course_id, courses.title as course_title, 
+      courses.description as course_description, assignments.*
+      FROM assignments
+      LEFT JOIN courses
+      ON assignments.course_id = courses.id 
+      WHERE courses.id= :id;",
+            ['id' => $id]
         );
-        return $courseDetails;    
+        return $courseDetails;
     }
 
     /**
@@ -41,9 +55,14 @@ class AssignmentDao implements AssignmentDaoInterface
      */
     public function isEnrolled($student_id, $course_id)
     {
-        $isEnrolled = DB::select("SELECT * FROM student_courses 
-            WHERE student_id=" . $student_id
-            . " AND course_id= " . $course_id . " ;"
+        $isEnrolled = DB::select(
+            "SELECT * FROM student_courses 
+      WHERE student_id= :student_id 
+      AND course_id= :course_id;",
+            [
+                'student_id' => $student_id,
+                'course_id' => $course_id
+            ]
         );
         return $isEnrolled == null;
     }
@@ -73,8 +92,7 @@ class AssignmentDao implements AssignmentDaoInterface
      * @param string $assignment_id
      * @return Object $studentAssignment register to start assignment
      */
-    public function addNullStudentAssignment($student_id, 
-                                    $course_id, $assignment_id)
+    public function addNullStudentAssignment($student_id, $course_id, $assignment_id)
     {
         return DB::transaction(function () use ($student_id, $assignment_id) {
             $studentAssignment = new StudentAssignments;
@@ -94,28 +112,29 @@ class AssignmentDao implements AssignmentDaoInterface
      * @param $filename request form courseDetails
      * @return $assignment_id
      */
-    public function addStudentAssignment($student_id, 
-                $course_id, $assignment_id, $filename)
+    public function addStudentAssignment($student_id, $course_id, $assignment_id, $filename)
     {
-        $array = DB::select("SELECT student_assignments.id 
-                FROM student_assignments
-                WHERE student_id=" . $student_id
-                . " AND assignment_id= " . $assignment_id . " ;"
-            );
-            
-            if (count($array) == 0) {
-                // $array -> is null
-            } else {
-                $id =  $array[0]->id; 
-            }
+        $array = DB::select(
+            "
+      SELECT student_assignments.id 
+      FROM student_assignments WHERE student_id= :student_id 
+      AND assignment_id= :assignment_id;",
+            [
+                'student_id' => $student_id,
+                'assignment_id' => $assignment_id
+            ]
+        );
 
-            return DB::transaction(function () use ($id, $filename) {
-                $studentAssignment = StudentAssignments::FindorFail($id);
-                $studentAssignment->uploaded_date = \Carbon\Carbon::now();
-                $studentAssignment->file_path = $filename;
-                $studentAssignment->save();
-            });
-            return $assignment_id;
+        $id =  $array[0]->id;
+
+        return DB::transaction(function () use ($id, $filename) {
+            $studentAssignment = StudentAssignments::FindorFail($id);
+            $studentAssignment->uploaded_date = \Carbon\Carbon::now();
+            $studentAssignment->file_path = $filename;
+            $studentAssignment->save();
+        });
+
+        return $assignment_id;
     }
 
     /**
@@ -155,20 +174,34 @@ class AssignmentDao implements AssignmentDaoInterface
     }
 
     /**
+     * To get all assignments
+     * @return Object 
+     */
+    public function getAllAssignment()
+    {
+        return DB::table('assignments')
+            ->select('*')
+            ->whereNull('deleted_at')
+            ->get();
+    }
+
+    /**
      * To get all assignments by course id
      * @param string $course_id
      */
     public function getAssignmentNamesbyCourseId($course_id)
     {
-        return DB::select(DB::raw(
+        return DB::select(
             "SELECT A.id, A.name FROM assignments AS A
-            LEFT OUTER JOIN courses AS C ON C.id = A.course_id 
-            WHERE C.id = $course_id;"
-            ));
+      LEFT OUTER JOIN courses AS C ON C.id = A.course_id 
+      WHERE C.id = :course_id;",
+            ['course_id' => $course_id]
+        );
     }
 
     /**
-     * get all assignment for the course $course_id
+     * get all assignment for the course
+     * @param string $course_id
      * @return $assignmentList
      */
     public function getAssignmentsForCourse($course_id)
@@ -211,30 +244,6 @@ class AssignmentDao implements AssignmentDaoInterface
             ->get();
 
         return $assignmentList;
-    }
-
-    /**
-     * To get all assignments
-     * @return Object 
-     */
-    public function getAllAssignment()
-    {
-        return DB::table('assignments')
-            ->select('*')
-            ->whereNull('deleted_at')
-            ->get();
-    }
-
-    /**
-     * Add assignment from admin view
-     * @param string $assignment
-     * @return Object
-     */
-    public function addAssignment(Assignment $assignment)
-    {
-        return DB::transaction(function () use ($assignment) {
-            $assignment->save();
-        });
     }
 
     /**

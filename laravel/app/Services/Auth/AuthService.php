@@ -22,10 +22,9 @@ class AuthService implements AuthServiceInterface
      * @param UserDao $userDao
      */
     public function __construct(
-        UserDaoInterface $userDaoInterface, 
+        UserDaoInterface $userDaoInterface,
         PasswordResetDaoInterface $passwordResetDaoInterface
-    )
-    {
+    ) {
         $this->userDao = $userDaoInterface;
         $this->passwordResetDao = $passwordResetDaoInterface;
     }
@@ -40,7 +39,7 @@ class AuthService implements AuthServiceInterface
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            switch(Auth::user()->role_id) {
+            switch (Auth::user()->role_id) {
                 case 1:
                     return redirect()->route('student.dashboard', ['id' => Auth::user()->id]);
                     break;
@@ -51,8 +50,7 @@ class AuthService implements AuthServiceInterface
                     return redirect()->route('admin-home', ['id' => Auth::user()->id]);
                     break;
             }
-        }
-        else {
+        } else {
             $message = "";
             $checkUser = $this->userDao->getUserByEmail($request->ema);;
             if ($checkUser) {
@@ -60,8 +58,7 @@ class AuthService implements AuthServiceInterface
                 if (!$checkPassword) {
                     $message .= "Incorrect Password";
                 }
-            }
-            else {
+            } else {
                 $message .= "Your email is not registered in the system";
             }
             return redirect()->back()->with('message', $message);
@@ -85,7 +82,7 @@ class AuthService implements AuthServiceInterface
      */
     public function savesubmitForgetPasswordForm($request)
     {
-        $token = Str::random(64);        
+        $token = Str::random(64);
         $request->token = $token;
 
         $this->passwordResetDao->insertPasswordReset($request);
@@ -111,7 +108,7 @@ class AuthService implements AuthServiceInterface
                 $request->email,
                 $request->token
             );
-                        
+
         if (!$updatePassword) {
             return back()->withInput()->with('error', 'Invalid token!');
         }
@@ -121,6 +118,4 @@ class AuthService implements AuthServiceInterface
 
         return redirect('/')->with('message', 'Your password has been changed!');
     }
-
-
 }
