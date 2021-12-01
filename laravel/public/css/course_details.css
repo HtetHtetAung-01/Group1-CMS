@@ -509,6 +509,32 @@
   
     /* course details*/
 
+    .course-title {      
+        font-size: 2.604vw;
+        margin-top: 2%;
+    }
+    .course-description {
+        padding: 2% 0 4%;
+        font-size: 2.083vw;
+    }
+    .default-enroll-btn {
+        font-size: 1.823vw;
+        padding: 1.5% 3%;
+    }
+    .accd-status img{
+        width: 4.056vw;
+    }
+    .assign-name {
+        padding: 0 0 0 14px;
+        font-size: 2.083vw;
+    }
+    .accd-li.course .accd-dt i {
+        font-size: 2.344vw;
+    }
+    .img-status-icon {
+        width: 8%;
+    }
+
     .form-popup {
         width: 60%;
         left: 50%;
@@ -517,7 +543,7 @@
     }
 
     .course-title {
-        font-size: 4.2vw;
+        font-size: 3.438vw;
     }
 
     .course-description {
@@ -546,11 +572,11 @@
     }
 
     .default-enroll-btn {
-        font-size: 2.8vw;
+        font-size: 2.188vw;
         padding: 2% 3%;
     }
     .accd-dt span {
-        font-size: 2.7vw;
+        font-size: 2.813vw;
     }
 
     .accd-li.course .accd-dt {
@@ -567,6 +593,11 @@
 
     .assignment-duration {
         padding: 5% 0;
+        font-size: 2.500vw;
+    }
+
+    .assignment-description {
+        font-size: 2.500vw;
     }
 
     .resources-blk,
@@ -574,19 +605,24 @@
         padding-top: 10%;
     }
 
+    .resources-lbl, .homework-lbl {
+        font-size: 2.500vw;
+    }
+
     .file-name {
         font-size: 2.4vw;
+        margin-bottom: 7%;
     }
 
     .default-download-btn {
-        width: 25%;
-        font-size: 2.2vw;
-        padding: 2%;
+        font-size: 1.875vw;
+        padding: 1.8%;
     }
+
     .homework {
         padding: 5% 0;
         display: block;
-    }
+    } 
 
     .upload-hw {
         float: none;
@@ -598,24 +634,39 @@
         display: block;
         float: none;
         width: 60%;
-        margin: 4% 0 8% 0;
+        margin: 4% 0 8% 54%;
     }
 
     .default-clear-btn {
         text-align: center;
         float: left;
-        width: 40%;
-        padding: 4% 2%;
+        font-size: 1.875vw;
+        padding: 3.5% 8%;
     }
 
     .default-submit-btn {
         float: left;
-        width: 40%;
-        padding: 3.5% 2%;
         margin-left: 2%;
+        font-size: 1.875vw;
+        padding: 3.55% 8%;
     }
 
     .disabled-input {
         width: 90%;
+    }
+
+    .resources {
+        padding: 18px 21px 0 0;
+        display: block;
+        padding: 5% 0 0;
+    }
+
+    .start-assign-btn {
+        font-size: 2.188vw;
+        padding: 1.5% 6%;
+    }
+
+    .default-file-input::file-selector-button {
+        padding: 1.250vw;
     }
 }
