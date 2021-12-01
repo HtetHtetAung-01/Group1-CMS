@@ -522,7 +522,7 @@
         padding: 1.5% 3%;
     }
     .accd-status img{
-        width: 4.056vw;
+        width: 4.688vw;
     }
     .assign-name {
         padding: 0 0 0 14px;
@@ -543,7 +543,7 @@
     }
 
     .course-title {
-        font-size: 3.438vw;
+        font-size: 3.750vw;
     }
 
     .course-description {
@@ -648,7 +648,7 @@
         float: left;
         margin-left: 2%;
         font-size: 1.875vw;
-        padding: 3.55% 8%;
+        padding: 3.2% 8%;
     }
 
     .disabled-input {

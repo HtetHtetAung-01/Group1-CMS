@@ -32,7 +32,7 @@
 
       <h1>
         <a href="{{ route('login') }}" class="logo-link">
-          <img src="/img/logo.png" alt="logo">
+          <img src="/img/logo.png" class="logo" alt="logo">
         </a>
       </h1>
 
