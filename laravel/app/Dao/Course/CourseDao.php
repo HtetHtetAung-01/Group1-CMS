@@ -122,14 +122,9 @@ class CourseDao implements CourseDaoInterface
   public function getSearchCourseList()
   {
     $searchText = $_GET['search-text'];
-
-    if($searchText != "") {
-      $courseList = Course::where('title', 'LIKE', '%'.$searchText.'%')
-                            ->whereNull('deleted_at')
-                            ->get();
-    }
+    $courseList = Course::where('title', 'LIKE', '%'.$searchText.'%')
+                          ->whereNull('deleted_at')
+                          ->get();
     return $courseList;
   }
-
-
 }
