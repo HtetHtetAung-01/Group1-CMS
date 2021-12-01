@@ -25,7 +25,7 @@ a {
 .formbg {
     display: inline-block;
     max-width: 717px;
-    margin-left: 375px;
+    margin-left: 420px;
     background: white;
     border-radius: 4px;
     box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
@@ -120,6 +120,7 @@ hr {
     padding: 8px 16px;
     border-radius: 9px;
 }
+
 /* Tablet */
 @media screen and (min-width: 641px) and (max-width: 1040px) {
     .formbg{
@@ -142,6 +143,12 @@ hr {
     .login-btn{
         font-size: 14px;
     }
+    .register-btn{
+        font-size: 14px;
+    }
+    .edit-btn{
+        font-size: 14px;
+    }
     p{
         font-size: 14px;
     }
@@ -156,9 +163,27 @@ hr {
         margin-left: 120px;
     }
 }
-
+/* mobile */
 @media screen and (max-width: 640px){
     .formbg{
         margin-left: 0px;
+    }
+    span.login-title{
+        font-size: 3vw;
+    }
+    label{
+        font-size: 2vw;
+    }
+    .text input{
+        font-size: 2vw;
+    }
+    .reset-pass a{
+        font-size: 2vw;
+    }
+    .login-btn{
+        font-size: 2vw;
+    }
+    p{
+        font-size: 2vw;
     }
 }
