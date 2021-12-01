@@ -180,7 +180,7 @@ $courseDetails = '';
                                             <input type="file" name="inputFile" id="input-file-name" class="default-file-input {{ $isEnrolled ? 'disabled-file-input' : 'file-input' }}" {{ $isEnrolled ? 'disabled' : '' }} />
                                             @endif
                                         </div>
-                                        <div class="d-flex">
+                                        <div class="d-flex btn-box">
                                             @if ($started[$key] == false || $assignmentStatus[$key] == 'completed')
                                             <a href="javascript:void(0)" onclick="document.getElementById('input-file-name').value='';" class="default-clear-btn disabled-clear-btn">
                                                 Clear
