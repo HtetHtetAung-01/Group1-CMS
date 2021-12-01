@@ -32,7 +32,7 @@
 
       <h1>
         <a href="{{ route('login') }}" class="logo-link">
-          <img src="/img/logo.png" alt="logo">
+          <img src="/img/logo.png" class="logo" alt="logo">
         </a>
       </h1>
 
@@ -52,7 +52,7 @@
                 @else
                     <img class="profile-picture" src="{{ asset($image) }}" alt="profile-picture">
                 @endif
-                <p class="profile-name">{{ Auth::user()->name }} ({{ $role }})</p>
+                <p class="tb-sidebar-txt">{{ Auth::user()->name }} ({{ $role }})</p>
             </div>
           </a>
         </li>
