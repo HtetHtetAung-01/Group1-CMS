@@ -44,6 +44,17 @@
       <!-- /.btn-nav -->
 
       <ul>
+        <li class="profile">
+          <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}" class="">
+            @if($image == "")
+                  <img src="/img/profile-default.png">
+            @else
+                <img src="{{ asset($image) }}" alt="profile-picture">
+            @endif
+            <p>{{ Auth::user()->name }} ({{ $role }})</p>
+          </a>
+        </li>
+
         <li class="@if ($route == $role . '.dashboard') ? active : ''; @endif">
             <a href="{{ route($role . '.dashboard', ['id' => Auth::user()->id]) }}">
                 <i class="db-icon">&#xf201;</i>
@@ -58,9 +69,7 @@
             </a>
         </li>
         @endif
-
         <li class="@if ($route == $role . '.assignment') ? active : ''; @endif">
-
             @if (Auth::user()->role_id == 1)
                 <a href="{{ route('student.assignment', ['id' => Auth::user()->id]) }}">
                     <i class="db-icon">&#xf518;</i>
@@ -73,7 +82,6 @@
                 </a>
             @endif
         </li>
-
         @if ($role == 'teacher')
             <li class="@if ($route == 'studentList') ? active : ''; @endif">
                 <a href="{{ route('studentList', ['id' => Auth::user()->id]) }} ">
@@ -82,7 +90,13 @@
                 </a>
             </li>
         @endif
-    </ul>
+        <li>
+          <a href="{{ route('logout') }}">
+              <i class="db-icon">&#xf52b;</i>
+              <p class="tb-sidebar-txt">Logout</p>
+          </a>
+      </li>
+      </ul>
     </nav>
     <!-- /.top-nav -->
 
