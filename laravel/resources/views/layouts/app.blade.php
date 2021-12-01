@@ -28,6 +28,64 @@
             $image = "";
     @endphp
 
+    <nav class="top-nav">
+
+      <h1>
+        <a href="{{ route('login') }}" class="logo-link">
+          <img src="/img/logo.png" alt="logo">
+        </a>
+      </h1>
+
+      <div class="btn-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- /.btn-nav -->
+
+      <ul>
+        <li class="@if ($route == $role . '.dashboard') ? active : ''; @endif">
+            <a href="{{ route($role . '.dashboard', ['id' => Auth::user()->id]) }}">
+                <i class="db-icon">&#xf201;</i>
+                <p class="tb-sidebar-txt">Dashboard</p>
+            </a>
+        </li>
+        @if ($role == 'student')
+        <li class="@if (str_contains($route, 'course')) ? active : ''; @endif">
+            <a href="{{ route($role. '.course' ,['id' => Auth::user()->id]) }}">
+                <i class="db-icon">&#xf07b;</i>
+                <p class="tb-sidebar-txt">Course</p>
+            </a>
+        </li>
+        @endif
+
+        <li class="@if ($route == $role . '.assignment') ? active : ''; @endif">
+
+            @if (Auth::user()->role_id == 1)
+                <a href="{{ route('student.assignment', ['id' => Auth::user()->id]) }}">
+                    <i class="db-icon">&#xf518;</i>
+                    <p class="tb-sidebar-txt">Assignment</p>
+                </a>
+            @elseif(Auth::user()->role_id == 2)
+                <a href="{{ route('teacher.assignment', ['id' => Auth::user()->id]) }}">
+                    <i class="db-icon">&#xf518;</i>
+                    <p class="tb-sidebar-txt">Assignment</p>
+                </a>
+            @endif
+        </li>
+
+        @if ($role == 'teacher')
+            <li class="@if ($route == 'studentList') ? active : ''; @endif">
+                <a href="{{ route('studentList', ['id' => Auth::user()->id]) }} ">
+                    <i class="db-icon">&#xf0c0;</i>
+                    <p class="tb-sidebar-txt">Students</p>
+                </a>
+            </li>
+        @endif
+    </ul>
+    </nav>
+    <!-- /.top-nav -->
+
     <div class="container clearfix">
         <aside class="sidebar">
             <h1 class="logo">

@@ -26,10 +26,96 @@ body {
     display: inline-block;
 }
 
+/* Fix Nav */
+.top-nav {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    width: 100vw;
+    padding-block: 2vh;
+    margin-bottom: 2vh;
+    background-color: #FFFFFF;
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
+}
+
+.top-nav h1 {
+    text-align: center;
+}
+
+.top-nav ul {
+    position: absolute;
+    display: none;
+    width: 50%;
+    top: 100%;
+    right: 0;
+    padding: 2%;
+    background-color: #FFFFFF;
+}
+
+.top-nav ul li {
+    text-align: left;
+}
+
+.top-nav ul li a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.top-nav ul li:not(:first-child){
+    margin-top: 5%;
+}
+
+.top-nav .btn-nav {
+    cursor: pointer;
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+    top: 37%;
+    right: 2.5%;
+    z-index: 3;
+}
+
+.top-nav .btn-nav span {
+    width: 100%;
+    height: 4px;
+    position: absolute;
+    border-radius: 10px;
+    background: #000000;
+}
+
+.top-nav .btn-nav span:nth-child(1) {
+    top: 0;
+}
+
+.top-nav .btn-nav span:nth-child(2) {
+    top: 1.5vh;
+}
+
+.top-nav .btn-nav span:nth-child(3) {
+    top: 3vh;
+}
+
+.top-nav .btn-nav.hb-open {
+    transform: rotate(180deg);
+}
+
+.top-nav .btn-nav.hb-open span:nth-child(1){
+    width: 24px;
+    transform: translate(-7px,17px) rotate(25deg);
+}
+
+.top-nav .btn-nav.hb-open span:nth-child(3){
+    width: 24px;
+    transform: translate(-7px,-17px) rotate(-25deg);
+}
+
 .content {
     width: 80%;
     padding: 0 2%;
-    float: right;
+    position: absolute;
+    right: 0;
+    z-index: 2;
 }
 
 .main-visual {
@@ -345,5 +431,27 @@ body {
 
 /* SP */
 @media screen and (max-width:640px) {
-    
+
+    body {
+        width: 100%;
+        margin: 0;
+    }
+
+    .top-nav {
+        display: block;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .content {
+        width: 100%;
+        position:unset;
+        float: right;
+    }
+
+    .nav {
+        margin-bottom: 2.5vh;
+    }
 }
