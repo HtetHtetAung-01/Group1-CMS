@@ -46,12 +46,14 @@
       <ul>
         <li class="profile">
           <a href="{{ route('user.detail', ['id' => Auth::user()->id]) }}" class="">
-            @if($image == "")
-                  <img src="/img/profile-default.png">
-            @else
-                <img src="{{ asset($image) }}" alt="profile-picture">
-            @endif
-            <p>{{ Auth::user()->name }} ({{ $role }})</p>
+            <div class="profile-btn clearfix">
+                @if($image == "")
+                    <img class="profile-picture" src="/img/profile-default.png">
+                @else
+                    <img class="profile-picture" src="{{ asset($image) }}" alt="profile-picture">
+                @endif
+                <p class="profile-name">{{ Auth::user()->name }} ({{ $role }})</p>
+            </div>
           </a>
         </li>
 
