@@ -167,7 +167,7 @@
 
 .default-file-input::file-selector-button {
     border: none;
-    padding: 8px;
+    padding: 7px;
     color: #ffffff;
 }
 
@@ -181,7 +181,7 @@
 }
 
 .file-input::file-selector-button:hover {
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 /* Accordian - Appearence */
@@ -273,7 +273,9 @@
 }
 
 .modal-close:hover,
-.modal-close:focus {
+.modal-close:focus,
+.default-submit-btn:hover,
+.default-clear-btn:hover {
     cursor: pointer;
     opacity: 0.8;
 }
@@ -314,7 +316,8 @@
 
 .mdl-txt {
     font-size: 16px;
-    line-height: 1.2;
+    line-height: 1.5;
+    font-weight: normal;
 }
 
 /* The popup form - hidden by default */
@@ -361,11 +364,10 @@
 
 .form-container .popup-btn:hover,
 .form-container .cancel:hover {
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .mdl-title {
-    font-weight: bold;
     width: 75%;
     margin: 0 auto 5%;
     line-height: 1.5;
@@ -373,6 +375,32 @@
 @media screen and (min-width: 641px) and (max-width: 1040px) {
   
     /* course details*/
+
+    .course-title {      
+        font-size: 2.604vw;
+        margin-top: 2%;
+    }
+    .course-description {
+        padding: 2% 0 4%;
+        font-size: 2.083vw;
+    }
+    .default-enroll-btn {
+        font-size: 1.823vw;
+        padding: 1.5% 3%;
+    }
+    .accd-status img{
+        width: 4.056vw;
+    }
+    .assign-name {
+        padding: 0 0 0 14px;
+        font-size: 2.083vw;
+    }
+    .accd-li.course .accd-dt i {
+        font-size: 2.344vw;
+    }
+    .img-status-icon {
+        width: 8%;
+    }
 
     .form-popup {
         width: 50%;
@@ -388,21 +416,19 @@
     }
 
     .mdl-btns {
-        justify-content: space-evenly;
+        margin: 7% 0;
     }
     .confirm-btn {
-        width: 40%;
-        margin-left: 0;
-        padding: 3.5%;
+        padding: 2.8% 7%;
+        font-size: 1.872vw;
     }
     .cancel-btn {
-        width: 40%;
-        display: block;
-        padding: 2%;
+        padding: 1.5% 7%;
+        font-size: 1.872vw;
     }
 
     .accd-dt span {
-        font-size: 18px;
+        font-size: 2.184vw;
     }
 
     .accd-li.course .accd-dt {
@@ -418,45 +444,64 @@
     }
 
     .assignment-duration {
-        padding: 5% 0;
+        padding: 4% 0 3% 0;
+        font-size: 2.028vw;
+    }
+
+    .assignment-description {
+        font-size: 2.028vw;
+    }
+
+    .start-assign-btn {
+        font-size: 1.872vw;
+        padding: 1.4% 5%;
     }
 
     .resources-blk,
     .homework-blk {
-        padding-top: 10%;
+        padding-top: 7%;
     }
 
-    .file-name {
-        font-size: 14px;
+    .resources {
+        padding-right: 2%;
+    }
+    
+    .resources-lbl,
+    .homework-lbl {
+        font-size: 2.184vw;
     }
 
     .homework {
-        padding: 5% 0;
+        padding: 4% 2% 0 0;
     }
 
-    .upload-hw {
-        float: left;
-        padding-right: 2%;
+    .file-name {
+        font-size: 2.028vw;
+    }
+    .default-download-btn {
+        font-size: 1.563vw;
+        padding: 2.2% 1.7%;
     }
 
     .btn-box {
-        justify-content: space-evenly;
-        float: right;
-        width: 47%;
-        margin-left: 3%;
+        justify-content: right;
     }
 
-    .default-clear-btn {
-        float: left;
-        width: 40%;
-        padding: 4% 2%;
-    }
-
+    .default-clear-btn,
     .default-submit-btn {
-        float: left;
-        width: 40%;
-        padding: 3.5% 2%;
-        margin-left: 2%;
+        margin-left: 12%;
+        font-size: 1.563vw;
+        padding: 11% 37%;
+    }
+    .default-file-input::file-selector-button {
+        padding: 0.624vw;
+    }
+    
+    /* get started modal */
+
+    .mdl-txt {
+        font-size: 2.083vw;
+        padding: 5% 0 0;
     }
 }
 
@@ -573,6 +618,4 @@
     .disabled-input {
         width: 90%;
     }
-    
-    
 }

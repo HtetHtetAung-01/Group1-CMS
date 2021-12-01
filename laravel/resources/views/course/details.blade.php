@@ -84,7 +84,7 @@ $courseDetails = '';
                 <div class="modalContent">
                     <span class="modal-close">×</span>
                     <div class="mdl-inner">
-                        <p>You can't enroll this course. You need to complete {{ $requiredCourses }} first!
+                        <p class="mdl-txt">You can't enroll this course. <br>You need to complete {{ $requiredCourses }} first!
                         </p>
                         <div class="mdl-btns">
                             <button class="cancel-btn modal-close">Close</button>
@@ -103,7 +103,7 @@ $courseDetails = '';
             @foreach ($courseDetails as $key => $value)
             <div class="accd-li course">
                 <dt class="accd-dt d-flex">
-                    <div class="d-flex">
+                    <div class="d-flex accd-status">
                         @if ($isEnrolled == false)
                         @if ($assignmentStatus != null && $key < count($assignmentStatus) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed_icon.png" alt="progress-icon">
                             @else
