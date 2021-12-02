@@ -27,3 +27,45 @@
 .student-info-content {
   background: #EFF2F8;
 }
+
+
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+  
+  .student-info {
+    overflow-x: scroll;
+    display: -webkit-inline-box;
+  }
+
+  .student-info th {
+    min-width: 170px;
+  }
+  
+  .student-info th,
+  .student-info td {
+    padding: 1% 3%;
+  }
+
+}
+
+@media screen and (max-width:640px) {
+
+  .title {
+    font-size: 3vw;
+    margin-bottom: 1vh;
+  }
+
+  .student-info {
+      overflow-x: scroll;
+      display: -webkit-inline-box;
+  }
+
+  .student-info th {
+    min-width: 20vw;
+    font-size: 2.5vw;
+  }
+  
+  .student-info td {
+    padding-inline: 2vw;
+    font-size: 2.5vw;
+  }
+}
