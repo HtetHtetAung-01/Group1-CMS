@@ -29,9 +29,10 @@
                 <label for="requiredCourses">Required Courses</label><br>
                 
                 <select class="course-select" name="requiredCourses">
-                @foreach ($courseList as $course)
+                    <option value="0">None</option>
+                    @foreach ($courseList as $course)
                     <option value="{{ $course->id }}">{{ $course->title }}</option>
-                @endforeach
+                    @endforeach
             </select>
             </div>
             <button type="submit" class="register-btn">Create Course</button>
