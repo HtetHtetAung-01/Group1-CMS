@@ -109,6 +109,12 @@ form.cmt-msg input[type = "submit"]{
     cursor: pointer;
 }
 
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+    .form-popup {
+        left: 30%;
+    }
+}
+
 @media screen and (max-width:640px) {
     .assignment-tab {
         margin-inline: 0;
@@ -120,5 +126,9 @@ form.cmt-msg input[type = "submit"]{
 
     .assignment-tab li {
         padding:  2vh 5vw;
+    }
+
+    .form-popup {
+        left: 18%;
     }
 }
