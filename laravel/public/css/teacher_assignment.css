@@ -87,6 +87,10 @@
     font-family: 'Poppings-Regular';
 }
 
+.form-container .popup-btn:hover {
+    opacity: 0.5;
+}
+
 /* Add a red background color to the cancel button */
 .form-container .cancel {
     background-color: #ffffff;
@@ -116,6 +120,7 @@ form.cmt-msg input[type = "submit"]{
 }
 
 @media screen and (max-width:640px) {
+
     .assignment-tab {
         margin-inline: 0;
         overflow-x: scroll;
@@ -128,7 +133,29 @@ form.cmt-msg input[type = "submit"]{
         padding:  2vh 5vw;
     }
 
+    .form-container {
+        max-width: 50vw;
+        padding: 5vw;
+    }
+
+    .form-container label {
+        font-size: 3.5vw;
+    }
+
+    .form-container input[type=text] {
+        font-size: 3vw;
+        padding: 2vw;
+        margin-block: 5vw;
+    }
+    
+    .form-container .popup-btn {
+        padding: 2vw 3vw;
+        font-size: 3vw;
+        margin-bottom: 5vw;
+    }
+
     .form-popup {
+        top: 25%;
         left: 18%;
     }
 }
