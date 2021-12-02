@@ -130,6 +130,7 @@ td {
 /* add new course */
 
 .add-course-btn,
+.add-assignment-btn,
 .assignment-pnl .btn {
   padding: 15px;
   background-color: rgb(20 146 230);
@@ -240,7 +241,8 @@ td {
     padding: 3% 6%;
   }
 
-  .add-course-btn {
+  .add-course-btn,
+  .add-assignment-btn {
     font-size: 1.7vw;
   }
 
@@ -289,8 +291,6 @@ td {
     font-size: 1.8vw;
   }
 
-  
-
 }
 
 @media screen and (max-width: 640px) {
@@ -334,7 +334,8 @@ td {
     padding: 6%;
   }
 
-  .add-course-btn {
+  .add-course-btn,
+  .add-assignment-btn {
     font-size: 2.2vw;
   }
 
@@ -383,4 +384,9 @@ td {
   .confirm-enroll {
     font-size: 2.4vw;
   }
+
+  .add-course-btn {
+    padding: 1.5%;
+  }
+
 }
