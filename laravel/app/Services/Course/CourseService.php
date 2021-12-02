@@ -131,41 +131,24 @@ class CourseService implements CourseServiceInterface
      * @return -> true or false
      */
     private $array = [];
+    private $check = [];
     private $i = 0;
     public function isCompletedRequiredCourses($course_id, $student_id)
     {
         $this->array = [];
-        $this->i++;
+        $status = null;
         $required_course = $this->courseDao->getRequiredCourseID($course_id);
-
-        foreach ($required_course as $course) {
-            if (
-                $course->required_courses == null &&
-                count($this->array) == 0
-            ) {
-                return true;
-            }
-
-            $this->array = $this->changeStringToArray($course->required_courses);
-
-            foreach ($this->array as $key => $value) {
-                $status  = $this->studentCourseDao->getCourseCompleteStatusByStudent(
-                    $student_id,
-                    $this->array[$key]
-                );
-
-                if ($status == NULL) {
-                    return false;
-                } else if ($status == 0) {
-                    return false;
-                } else {
-                    return $this->isCompletedRequiredCourses(
-                        $this->array[$key],
-                        $student_id
-                    );
-                }
-            }
+        foreach($required_course as $course) {
+            $status = $this->studentCourseDao->getCourseCompleteStatusByStudent(
+                $student_id,
+                $course->required_courses
+            );
+        }
+        if($status === 1) {
             return true;
+        }
+        else {
+            return false;
         }
     }
 
