@@ -10,6 +10,7 @@
 }
 
 .login-root {
+    width: 40%;
     margin: 0 auto;
 }
 a {
@@ -21,11 +22,13 @@ a {
     box-sizing: border-box;
     display: inline-block;
     margin-top: 24px;
+    width: 100%;
 }
 .formbg {
     display: inline-block;
+    width: 100%;
+    padding: 5% 10%;
     max-width: 717px;
-    margin-left: 420px;
     background: white;
     border-radius: 4px;
     box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
@@ -52,12 +55,11 @@ label {
     display: inline-block;
     margin-bottom: 10px;
 }
-.formbg-inner{
-    padding: 25px 152px;
-}
+
 .reset-pass{
     display: inline-block;
 }
+
 .text input,
 textarea {
     font-size: 16px;
@@ -123,67 +125,42 @@ hr {
 
 /* Tablet */
 @media screen and (min-width: 641px) and (max-width: 1040px) {
-    .formbg{
-        max-width: 100%;
-        width: 70%;
-        margin-left: 200px;
+    .login-root {
+        width: 62%;
     }
+    
     span.login-title{
-        font-size: 22px;
+        font-size: 2.2vw;
     }
-    label{
-        font-size: 14px;
+    label,
+    .text input
+    .login-btn,
+    .reset-pass a,
+    p,
+    .edit-btn,
+    .register-btn {
+        font-size: 2vw;
     }
-    .text input{
-        font-size: 14px;
-    }
-    .reset-pass a{
-        font-size: 14px;
-    }
-    .login-btn{
-        font-size: 14px;
-    }
-    .register-btn{
-        font-size: 14px;
-    }
-    .edit-btn{
-        font-size: 14px;
-    }
-    p{
-        font-size: 14px;
-    }
+    
 }
-@media screen and (min-width: 760px) and (max-width: 960px) {
-    .formbg{
-        margin-left: 130px;
-    }
-}
-@media screen and (max-width: 760px){
-    .formbg{
-        margin-left: 120px;
-    }
-}
+
 /* mobile */
 @media screen and (max-width: 640px){
+    .login-root {
+        width: 98%;
+    }
     .formbg{
         margin-left: 0px;
     }
     span.login-title{
-        font-size: 3vw;
+        font-size: 3.8vw;
     }
-    label{
-        font-size: 2vw;
+    label,
+    .text input
+    .login-btn,
+    .reset-pass a,
+    p {
+        font-size: 2.8vw;
     }
-    .text input{
-        font-size: 2vw;
-    }
-    .reset-pass a{
-        font-size: 2vw;
-    }
-    .login-btn{
-        font-size: 2vw;
-    }
-    p{
-        font-size: 2vw;
-    }
+    
 }
