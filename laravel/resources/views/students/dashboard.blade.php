@@ -44,7 +44,7 @@
                     subtitle: 'Basic and Intermediate: Assignments',
                 },
                 bars: 'horizontal',
-                height: 300,
+                legend: {position: 'none'},
                 hAxis: {
                     format: '#\'%\''
                 },

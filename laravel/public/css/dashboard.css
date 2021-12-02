@@ -33,3 +33,51 @@
 .pie-col {
     border-right: 1px solid #cccccc;
 }
+
+/* Responsive */
+
+/* PC */
+
+@media screen and (min-width: 1041px) {
+
+    #res-charts {
+        display: flex;
+    }
+
+}
+
+/* Tablet */
+
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+
+    /* Dashboard */
+
+    .student-data {
+        font-size: 1.813vw;
+    }
+
+    .student-data {
+        padding: 1.302vw;
+    }
+
+    .pie-col {
+        border: none;
+    }
+}
+
+/* SP */
+
+@media screen and (max-width:640px) {
+
+    /* Dashboard */
+
+    .student-data {
+        font-size: 2.813vw;
+        padding: 1.813vw;
+        width: 40%;
+    }
+
+    .pie-col {
+        border: none;
+    }
+}
