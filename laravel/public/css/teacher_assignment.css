@@ -2,8 +2,9 @@
 
 /* Tab */
 .assignment-tab {
-  margin-left: 10px;
+  margin-inline: 10px;
   margin-bottom: 2%;
+
 }
 
 .assignment-tab li {
@@ -106,4 +107,18 @@
 
 form.cmt-msg input[type = "submit"]{
     cursor: pointer;
+}
+
+@media screen and (max-width:640px) {
+    .assignment-tab {
+        margin-inline: 0;
+        overflow-x: scroll;
+        display: -webkit-inline-box;
+        font-size: 3.5vw;
+        margin-bottom: 5vh;
+    }
+
+    .assignment-tab li {
+        padding:  2vh 5vw;
+    }
 }
