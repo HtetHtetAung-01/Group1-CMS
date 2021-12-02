@@ -68,7 +68,10 @@ class CourseController extends Controller
      */
     public function addNewCourseView()
     {
-        return view('course.create');
+      $courseList = $this->courseService->getAllCourseList();
+        return view('course.create', [
+          'courseList' => $courseList,
+        ]);
     }
 
     /**
