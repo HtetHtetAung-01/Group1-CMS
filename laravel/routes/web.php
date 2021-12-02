@@ -52,6 +52,9 @@ Route::middleware(['web', 'auth', 'checkstudent', 'logout_back_history'])->group
     Route::post('/student/{id}/course/{course_id}/create/assignment/{assignment_id}', [AssignmentController::class, 'addNullStudentAssignment'])->name('assignment-start');
     Route::post('/student/{id}/course/{course_id}/update/assignment/{assignment_id}', [AssignmentController::class, 'addStudentAssignment'])->name('assignment-submission');
     Route::get('/student/{id}/dashboard/', [StudentController::class, 'showDashboard'])->name('student.dashboard');
+
+// Search Course
+    Route::get('student/{student_id}/courseSearch/', [CourseController::class, 'searchCourse'])->name('search-course');
 });
 
 Route::middleware(['web', 'auth', 'checkstudent'])->group(function () {
@@ -76,17 +79,16 @@ Route::middleware(['web', 'auth', 'checkadmin', 'logout_back_history'])->group(f
     Route::get('/enroll/{teacher_id}', [AdminController::class, 'enrollTeacher'])->name('enroll.teacher');
     Route::post('/enroll/{teacher_id}/course', [AdminController::class, 'enrollTeacherCourse'])->name('enroll.teacherCourse');
 
-Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
-Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
+    Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
+    Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
 
-
-});
 // Create New Course
-Route::get('/course/create', [CourseController::class, 'addNewCourseView'])->name('course-create-view');
-Route::post('/course/create', [CourseController::class, 'addNewCourse'])->name('course-create');
+    Route::get('/course/create', [CourseController::class, 'addNewCourseView'])->name('course-create-view');
+    Route::post('/course/create', [CourseController::class, 'addNewCourse'])->name('course-create');
 
-Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
-Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
+    Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
+    Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
+});
 
-// Search Course
-Route::get('student/{student_id}/courseSearch/', [CourseController::class, 'searchCourse'])->name('search-course');
+
+
