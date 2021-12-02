@@ -79,9 +79,6 @@ Route::middleware(['web', 'auth', 'checkadmin', 'logout_back_history'])->group(f
     Route::get('/enroll/{teacher_id}', [AdminController::class, 'enrollTeacher'])->name('enroll.teacher');
     Route::post('/enroll/{teacher_id}/course', [AdminController::class, 'enrollTeacherCourse'])->name('enroll.teacherCourse');
 
-    Route::get('admin/assignment/{assignment_id}/add', [AdminController::class, 'showAddAssignmentView'])->name('assignment.add');
-    Route::post('admin/assignment/add', [AdminController::class, 'submitAddAssignmentView'])->name('assignment.add.submit');
-
 // Create New Course
     Route::get('/course/create', [CourseController::class, 'addNewCourseView'])->name('course-create-view');
     Route::post('/course/create', [CourseController::class, 'addNewCourse'])->name('course-create');
