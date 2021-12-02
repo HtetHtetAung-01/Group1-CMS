@@ -137,8 +137,11 @@ class CourseService implements CourseServiceInterface
     {
         $this->array = [];
         $status = null;
-        $required_course = $this->courseDao->getRequiredCourseID($course_id);
+        
+        $required_course = $this->courseDao->getRequiredCourseID($course_id);        
         foreach($required_course as $course) {
+            if($course->required_courses == "" || $course->required_courses == null)
+                return true;
             $status = $this->studentCourseDao->getCourseCompleteStatusByStudent(
                 $student_id,
                 $course->required_courses
@@ -147,6 +150,7 @@ class CourseService implements CourseServiceInterface
         if($status === 1) {
             return true;
         }
+        
         else {
             return false;
         }
