@@ -126,7 +126,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td colspan="4">
+                                                                <td colspan="5">
                                                                     <dl class="accd">
                                                                         <div class="accd-li comment">
                                                                             <dt class="accd-dt">

@@ -27,7 +27,13 @@
             </div>
             <div class="text">
                 <label for="requiredCourses">Required Courses</label><br>
-                <input type="text" placeholder="eg.,[1,2]" name="requiredCourses"><br>
+                
+                <select class="course-select" name="requiredCourses">
+                    <option value="0">None</option>
+                    @foreach ($courseList as $course)
+                    <option value="{{ $course->id }}">{{ $course->title }}</option>
+                    @endforeach
+            </select>
             </div>
             <button type="submit" class="register-btn">Create Course</button>
         </form>

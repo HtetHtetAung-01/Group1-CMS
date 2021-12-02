@@ -1,126 +1,241 @@
 /* Course */
 
 .card {
-  background: #ffffff;
-  padding: 1.5% 2%;
-  line-height: 1.6;
-  margin-bottom: 2%;
-  box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
+    background: #ffffff;
+    padding: 1.5% 2%;
+    line-height: 1.6;
+    margin-bottom: 2%;
+    border: 1px solid #dce2e5;
+    box-shadow: 0 4px 0 #eceff0;
 }
 
 .course-ttl {
-  font-size: 22px;
+    font-size: 22px;
+    text-transform: uppercase;
 }
 
 .course-category {
-  font-size: 16px;
-  font-weight: normal;
+    font-size: 16px;
+    font-weight: normal;
+    text-transform: capitalize;
 }
 
 .status-blk {
-  font-size: 14px;
-  width: 70%;
-  color: #000000;
-  padding: 2%;
-  border-radius: 10px;
-  margin: 1.5% 0;
+    font-size: 14px;
+    width: 70%;
+    color: #000000;
+    padding: 2%;
+    border-radius: 10px;
+    margin: 1.5% 0;
 }
 
 .status {
-  color: #ffffff;
-  padding: 1% 5%;
-  border-radius: 15px;
-  text-transform: capitalize;
+    color: #ffffff;
+    padding: 1% 5%;
+    border-radius: 15px;
+    text-transform: capitalize;
 }
 
 .complete-status-blk {
-  background: rgb(127, 191, 56, 10%);
+    background: rgb(127, 191, 56, 10%);
 }
 
 .complete-status {
-  background: rgb(127, 191, 56, 100%);
+    background: rgb(127, 191, 56, 100%);
 }
 
 .progress-status-blk {
-  background: rgb(20, 146, 230, 10%);
+    background: rgb(20, 146, 230, 10%);
 }
 
 .progress-status {
-  background: rgb(20, 146, 230, 100%);
+    background: rgb(20, 146, 230, 100%);
 }
 
 .lock-status-blk {
-  background: rgba(0, 0, 0, 10%);
+    background: rgba(0, 0, 0, 10%);
 }
 
 .unlock-status-blk {
-  background: rgba(0, 0, 0, 10%);
+    background: rgba(0, 0, 0, 10%);
 }
 
 .lock-status {
-  background: rgb(0, 0, 0, 30%);
+    background: rgb(0, 0, 0, 30%);
 }
+
 .no-of-ass {
-  float: left;
+    float: left;
 }
 
 .course-detail {
-  float: right;
-  color: #1492E6;
-  text-decoration: none;
+    float: right;
+    color: #1492E6;
+    text-decoration: none;
 }
 
 .course-detail:hover {
-  opacity: 0.7;
+    opacity: 0.7;
 }
 
 .course-detail-disable {
-  float: right;
-  color: #64686bc7;
-  text-decoration: none;
+    float: right;
+    color: #64686bc7;
+    text-decoration: none;
 }
 
 .course-detail:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .bottom-box {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .status-icon {
-  font-family: "FontAwsome-Solid";
-  font-style: normal;
-  font-size: 16px;
-  color: #ffffff;
+    font-family: "FontAwsome-Solid";
+    font-style: normal;
+    font-size: 16px;
+    color: #ffffff;
 }
 
 .search-form {
-  width: 50%;
-  float: right;
-  margin-bottom: 20px;
-  font-size: 18px;
+    width: 50%;
+    float: right;
+    margin-bottom: 20px;
+    font-size: 18px;
 }
 
 .search-input {
-  font-size: 14px;
-  width: 70%;
-  padding: 7px 5px;
+    font-size: 14px;
+    width: 70%;
+    padding: 8px 5px;
 }
 
 .search-btn {
-  font-size: 16px;
-  padding: 10px 20px;
-  color: #ffffff;
-  background: rgb(20, 146, 230, 100%);
-  border: none;
-  border-radius: 10px;
+    font-size: 16px;
+    padding: 10px 20px;
+    color: #ffffff;
+    background: rgb(20, 146, 230, 100%);
+    border: none;
+    border-radius: 4px;
 }
 
 .search-btn:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .search-btn:active {
-  border: none;
+    border: none;
+}
+
+/* Tablet */
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+
+    /* course */
+    .course-ttl {
+        font-size: 2.308vw;;
+    }
+
+    .course-category {
+        font-size: 1.731vw;
+    }
+
+    .search-form {
+        width: 100%;
+    }
+
+    .search-input {
+        font-size: 1.823vw;
+        width: 40%;
+        margin: 0 1% 0 40%;
+    }
+
+    .search-btn {
+        font-size: 1.823vw;
+        width: 18%;
+    }
+
+    .status-blk {
+        width: 85%;
+    }
+
+    .course-detail {
+        font-size: 1.731vw;
+        ;
+    }
+
+    .no-of-ass {
+        font-size: 1.731vw;
+    }
+
+    .status-txt,
+    .status-icon {
+        font-size: 1.538vw;
+    }
+
+    .status {
+        padding: 0.6% 3.5%;
+    }
+}
+
+/* SP */
+@media screen and (max-width:640px) {
+
+    /* course */
+    .course-ttl {
+        font-size: 3.125vw;
+    }
+
+    .course-category {
+        font-size: 2.188vw;
+    }
+
+    .search-form {
+        width: 100%;
+    }
+
+    .search-form {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .search-input {
+        font-size: 2.813vw;
+        width: 80%;
+        margin-right: 2%;
+    }
+
+    .search-btn {
+        font-size: 2.500vw;
+        width: 18%;
+        padding: 2.2% 0;
+    }
+
+    .course-detail {
+        font-size: 2.188vw;
+        ;
+    }
+
+    .no-of-ass {
+        font-size: 2.188vw;
+    }
+
+    .status-txt,
+    .status-icon {
+        font-size: 2.031vw;
+    }
+
+    .status {
+        padding: 0.6% 3.5%;
+    }
+
+    .status-blk {
+      width: 85%;
+    }
+
+    .card {
+      margin-bottom: 3%;
+    }
 }

@@ -2,8 +2,9 @@
 
 /* Tab */
 .assignment-tab {
-  margin-left: 10px;
+  margin-inline: 10px;
   margin-bottom: 2%;
+
 }
 
 .assignment-tab li {
@@ -86,6 +87,10 @@
     font-family: 'Poppings-Regular';
 }
 
+.form-container .popup-btn:hover {
+    opacity: 0.5;
+}
+
 /* Add a red background color to the cancel button */
 .form-container .cancel {
     background-color: #ffffff;
@@ -106,4 +111,51 @@
 
 form.cmt-msg input[type = "submit"]{
     cursor: pointer;
+}
+
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+    .form-popup {
+        left: 30%;
+    }
+}
+
+@media screen and (max-width:640px) {
+
+    .assignment-tab {
+        margin-inline: 0;
+        overflow-x: scroll;
+        display: -webkit-inline-box;
+        font-size: 3.5vw;
+        margin-bottom: 5vh;
+    }
+
+    .assignment-tab li {
+        padding:  2vh 5vw;
+    }
+
+    .form-container {
+        max-width: 50vw;
+        padding: 5vw;
+    }
+
+    .form-container label {
+        font-size: 3.5vw;
+    }
+
+    .form-container input[type=text] {
+        font-size: 3vw;
+        padding: 2vw;
+        margin-block: 5vw;
+    }
+    
+    .form-container .popup-btn {
+        padding: 2vw 3vw;
+        font-size: 3vw;
+        margin-bottom: 5vw;
+    }
+
+    .form-popup {
+        top: 25%;
+        left: 18%;
+    }
 }

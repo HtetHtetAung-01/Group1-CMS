@@ -68,7 +68,7 @@ $courseDetails = '';
                 <div class="modalContent">
                     <span class="modal-close">×</span>
                     <div class="mdl-inner">
-                        <p>Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }}
+                        <p class="mdl-txt">Are you sure you want to enroll to this {{ $courseDetails[0]->course_title }}
                             course?</p>
                         <div class="mdl-btns">
                             <button class="cancel-btn modal-close">Cancel</button>
@@ -84,7 +84,7 @@ $courseDetails = '';
                 <div class="modalContent">
                     <span class="modal-close">×</span>
                     <div class="mdl-inner">
-                        <p>You can't enroll this course. You need to complete {{ $requiredCourses }} first!
+                        <p class="mdl-txt">You can't enroll this course. <br>You need to complete {{ $requiredCourses }} first!
                         </p>
                         <div class="mdl-btns">
                             <button class="cancel-btn modal-close">Close</button>
@@ -103,7 +103,7 @@ $courseDetails = '';
             @foreach ($courseDetails as $key => $value)
             <div class="accd-li course">
                 <dt class="accd-dt d-flex">
-                    <div class="d-flex">
+                    <div class="d-flex accd-status">
                         @if ($isEnrolled == false)
                         @if ($assignmentStatus != null && $key < count($assignmentStatus) && $assignmentStatus[$key]=='completed' ) <img src="/img/completed_icon.png" alt="progress-icon">
                             @else
@@ -168,7 +168,7 @@ $courseDetails = '';
                             @endif
                             <form action="{{ route('assignment-submission', ['id' => Auth::user()->id, 'course_id' => $courseDetails[0]->course_id, 'assignment_id' => $courseDetails[$key]->id]) }}" enctype="multipart/form-data" method="POST">
                                 <div class="homework d-flex">
-                                    @if ($started[$key] == false)
+                                    @if ($started[$key] == false || $assignmentStatus[$key] == 'completed')
                                     <div class="disabled-input">
                                         @else
                                         <div class="{{ $isEnrolled ? 'disabled-input' : 'upload-hw' }}">
@@ -180,7 +180,7 @@ $courseDetails = '';
                                             <input type="file" name="inputFile" id="input-file-name" class="default-file-input {{ $isEnrolled ? 'disabled-file-input' : 'file-input' }}" {{ $isEnrolled ? 'disabled' : '' }} />
                                             @endif
                                         </div>
-                                        <div class="d-flex">
+                                        <div class="d-flex btn-box">
                                             @if ($started[$key] == false || $assignmentStatus[$key] == 'completed')
                                             <a href="javascript:void(0)" onclick="document.getElementById('input-file-name').value='';" class="default-clear-btn disabled-clear-btn">
                                                 Clear

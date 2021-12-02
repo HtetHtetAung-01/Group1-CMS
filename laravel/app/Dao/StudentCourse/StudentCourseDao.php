@@ -92,9 +92,10 @@ class StudentCourseDao implements StudentCourseDaoInterface
             LEFT JOIN courses AS C ON C.id = SC.course_id
             LEFT JOIN assignments AS A ON C.id = A.course_id
             LEFT JOIN student_assignments AS SA ON SA.assignment_id = A.id
-            WHERE SC.student_id = :student_id 
+            WHERE SC.student_id = :sc_student_id AND SA.student_id = :sa_student_id
             AND SA.grade IS NOT NULL;",
-            ['student_id' => $student_id]
+            ['sc_student_id' => $student_id,
+            'sa_student_id' => $student_id]
         );
         return $studentPerformance;
     }

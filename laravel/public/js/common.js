@@ -3,6 +3,18 @@
  */
 $(document).ready(function() {
 
+  // Top Nav
+  $('.top-nav .btn-nav').click(function(){
+    $(this).toggleClass('active');
+
+    if($(this).hasClass('active')) {
+        $('.top-nav ul').slideDown('fast');
+    }
+    else {
+        $('.top-nav ul').slideUp('fast');
+    }
+  });
+
   // Tab
   $('.tab-nav li').click(function(){
     

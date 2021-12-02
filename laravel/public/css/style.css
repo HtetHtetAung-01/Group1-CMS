@@ -10,6 +10,7 @@
 }
 
 .login-root {
+    width: 40%;
     margin: 0 auto;
 }
 a {
@@ -21,10 +22,13 @@ a {
     box-sizing: border-box;
     display: inline-block;
     margin-top: 24px;
+    width: 100%;
 }
 .formbg {
+    display: inline-block;
+    width: 100%;
+    padding: 5% 10%;
     max-width: 717px;
-    margin-left: 342px;
     background: white;
     border-radius: 4px;
     box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
@@ -51,18 +55,17 @@ label {
     display: inline-block;
     margin-bottom: 10px;
 }
-.formbg-inner{
-    padding: 25px 152px;
-}
+
 .reset-pass{
     display: inline-block;
 }
+
 .text input,
 textarea {
     font-size: 16px;
     line-height: 28px;
     padding: 8px 16px;
-    width: 360px;
+    width: 100%;
     min-height: 44px;
     border: none;
     border-radius: 9px;
@@ -77,7 +80,7 @@ textarea {
                 rgba(0, 0, 0, 0) 0px 0px 0px 0px;
 }
 .login-btn{
-    width: 360px;
+    width: 100%;
     padding: 8px 16px;
     background-color: #1492E6;
     border: none;
@@ -87,7 +90,7 @@ textarea {
     font-size: 16px;
 }
 .register-btn{
-    width: 360px;
+    width: 100%;
     padding: 8px 16px;
     background-color: #1492E6;
     border: none;
@@ -97,7 +100,7 @@ textarea {
     font-size: 16px;
 }
 .edit-btn{
-    width: 360px;
+    width: 100%;
     padding: 8px 16px;
     background-color: #1492E6;
     border: none;
@@ -107,7 +110,7 @@ textarea {
     font-size: 16px;
 }
 hr {
-    width: 360px;
+    width: 100%;
     display: block;
     height: 1px;
     border: 0;
@@ -115,7 +118,49 @@ hr {
     margin: 55px 0 55px 0px;
 }
 #role-select{
-    width: 360px;
+    width: 100%;
     padding: 8px 16px;
     border-radius: 9px;
+}
+
+/* Tablet */
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+    .login-root {
+        width: 62%;
+    }
+    
+    span.login-title{
+        font-size: 2.2vw;
+    }
+    label,
+    .text input
+    .login-btn,
+    .reset-pass a,
+    p,
+    .edit-btn,
+    .register-btn {
+        font-size: 2vw;
+    }
+    
+}
+
+/* mobile */
+@media screen and (max-width: 640px){
+    .login-root {
+        width: 98%;
+    }
+    .formbg{
+        margin-left: 0px;
+    }
+    span.login-title{
+        font-size: 3.8vw;
+    }
+    label,
+    .text input
+    .login-btn,
+    .reset-pass a,
+    p {
+        font-size: 2.8vw;
+    }
+    
 }

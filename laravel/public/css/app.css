@@ -12,32 +12,148 @@ body {
     background: #F6F6F6;
     width: 1280px;
     max-width: 1920px;
-    margin: 20px auto;
+    margin: 2%;
     font-family: 'Poppings-Regular';
 }
 
 .logo {
     margin-bottom: 10%;
-    padding-left: 8%;
+    padding: 0 9%;
+    display: inline-block;
 }
 
+.logo-link {
+    display: inline-block;
+}
 
+/* Fix Nav */
+.top-nav {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    width: 100vw;
+    padding-block: 2vh;
+    margin-bottom: 2vh;
+    background-color: #FFFFFF;
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
+}
+
+.top-nav h1 {
+    text-align: center;
+}
+
+.top-nav ul {
+    display: none;
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    right: 0;
+    padding: 4% 25% 7% 26%;
+    background-color: #1492e6;
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
+}
+
+.top-nav ul li {
+    border-radius: 8px;
+    padding: 3% 10%;
+    text-align: left;
+    padding-left: 6vw;
+}
+
+.top-nav ul li:hover {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.top-nav ul li:hover .db-icon,
+.top-nav ul li:hover .tb-sidebar-txt,
+.top-nav ul li:hover .profile-name {
+    color: #1492e6;
+}
+
+.top-nav ul li a {
+    text-decoration: none;
+    font-size: 3.750vw;
+}
+
+.top-nav ul li img {
+    margin-top: 1%;
+}
+
+.top-nav ul li a p {
+    display: inline-block;
+    font-size: 3vw;
+    color: #ffffff;
+}
+
+.top-nav ul li:not(:first-child) {
+    margin-top: 5%;
+}
+
+.top-nav .btn-nav {
+    cursor: pointer;
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+    top: 37%;
+    right: 2.5%;
+    z-index: 3;
+}
+
+.top-nav .btn-nav span {
+    width: 100%;
+    height: 0.5vh;
+    position: absolute;
+    border-radius: 10px;
+    background: #000000;
+    transition: all .4s;
+}
+
+.top-nav .btn-nav span:nth-child(1) {
+    top: 0;
+}
+
+.top-nav .btn-nav span:nth-child(2) {
+    top: 1.5vh;
+}
+
+.top-nav .btn-nav span:nth-child(3) {
+    top: 3vh;
+}
+
+.top-nav .btn-nav.active span:nth-child(1) {
+    top: 1.5vh;
+    transform: rotate(-45deg);
+}
+
+.top-nav .btn-nav.active span:nth-child(2) {
+    opacity: 0
+}
+
+.top-nav .btn-nav.active span:nth-child(3) {
+    top: 1.5vh;
+    transform: rotate(45deg);
+}
+
+.top-nav .profile-btn {
+    justify-content: flex-start;
+}
 
 .content {
-    float: right;
     width: 80%;
-    padding-left: 2%;
-    min-height: 900px;
-    /* position: absolute; */
+    padding: 0 2%;
+    position: absolute;
     right: 0;
+    z-index: 2;
 }
 
 .main-visual {
-    padding: 3% 3% 10%;
-    min-height: 500px;
-    margin-top: 3%;
+    padding: 2%;
+    margin: 2% 0;
     background: #ffffff;
     border-radius: 12px;
+    min-height: 610px;
     box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
 }
 
@@ -49,6 +165,10 @@ body {
     box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
 }
 
+.nav .profile-btn {
+    font-weight: bold;
+}
+
 .text {
     float: left;
     font-size: 18px;
@@ -56,19 +176,19 @@ body {
 }
 
 .scm-link {
-    font-size: 16px;
-    padding: 100% 12% 0;
+    padding: 95% 12% 0;
     line-height: 1.2;
     bottom: 0;
 }
 
-.scm-link p {
-    padding-bottom: 5%;
+.scm-txt {
+    font-size: 1.20vw;
 }
 
 .scm-link a {
     text-decoration: none;
     color: #000000;
+    display: inline-block;
 }
 
 .scm-link a:hover {
@@ -78,6 +198,7 @@ body {
 .scm-link span {
     align-items: center;
     display: flex;
+    margin-top: 15%;
 }
 
 .globe-icon {
@@ -91,7 +212,6 @@ body {
     color: #000000;
     background: none;
     font-size: 18px;
-    font-weight: bold;
     border: none;
     cursor: pointer;
     display: flex;
@@ -116,6 +236,7 @@ body {
     float: right;
     text-align: center;
 }
+
 .dropdown {
     display: none;
     position: absolute;
@@ -152,17 +273,11 @@ body {
     transition: left 0.4s ease;
 }
 
-.container {
-    width: 100%;
-}
 .sidebar {
-    float: left;
     width: 18%;
-    min-height: 600px;
     background: #ffffff;
-    opacity: 0.9;
     border-radius: 12px;
-    padding: 2% 1.5%;
+    padding: 2% 1.5% 2.5%;
     position: fixed;
     box-shadow: 0px 3px 6px rgb(0 0 0 / 10%);
 }
@@ -207,7 +322,7 @@ body {
 }
 
 .sidebar ul li.active a {
-    background: rgb(20, 146, 230, 80%);
+    background: rgb(20, 146, 230, 75%);
     color: #ffffff;
 }
 
@@ -287,4 +402,136 @@ body {
     font-size: 22px;
     font-style: normal;
     margin-right: 10px;
+}
+
+/* Responsive */
+
+/* PC */
+
+@media screen and (min-width: 1041px) {
+    .pc_logo {
+        width: 100%;
+    }
+
+    .tb_logo {
+        display: none;
+    }
+
+    .tb-sidebar-txt {
+        display: inline;
+        font-size: 1.250vw;
+    }
+}
+
+/* Tablet */
+
+@media screen and (min-width: 641px) and (max-width: 1040px) {
+
+    /* layout */
+
+    .content {
+        width: 90%;
+    }
+
+    .main-visual {
+        padding: 3%;
+    }
+
+    /* sidebar */
+
+    .sidebar {
+        width: 8%;
+        padding: 2% 1.5% 10%;
+    }
+
+    .pc_logo {
+        display: none;
+    }
+
+    .tb_logo {
+        width: 100%;
+    }
+
+    .db-icon,
+    .globe-icon {
+        font-size: 2.885vw;
+        margin-right: 0;
+        padding: 0 12%;
+    }
+
+    .tb-sidebar-txt {
+        display: none;
+    }
+
+    .scm-txt {
+        display: none;
+    }
+
+    .scm-link {
+        padding: 200% 12% 0;
+    }
+
+    /* course */
+
+    .text,
+    .profile-name {
+        font-size: 2.083vw;
+    }
+
+    .text {
+        padding-top: 1.5%;
+    }
+}
+
+/* SP */
+@media screen and (max-width:640px) {
+
+    body {
+        width: 100%;
+        margin: 0;
+    }
+
+    .main-visual {
+        padding: 4%;
+    }
+
+    .top-nav {
+        display: block;
+    }
+
+    .logo {
+        width: 45vw;
+        margin-bottom: 1vh;
+    }
+
+    .profile-picture {
+        width: 7vw;
+        height: 7vw;
+        margin-right: 4vw;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .content {
+        width: 100%;
+        position: unset;
+        float: right;
+    }
+
+    .db-icon {
+        font-size: 4vw;
+        padding-left: 1.5vw;
+        margin-right: 4.5vw;
+        color: #ffffff;
+    }
+
+    .tb-sidebar-txt {
+        font-size: 3.4vw;
+    }
+
+    .nav {
+        display: none;
+    }
 }

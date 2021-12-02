@@ -29,7 +29,9 @@
                                                 <tr class="tr-record">
                                                     <td>{{ $assignment->uploaded_date }}</td>
                                                     <td>{{ basename($assignment->file_path) }}</td>
-                                                    <td>{{ $assignment->grade }}</td>
+                                                    <td>
+                                                        {{ $assignment->grade != null ? $assignment->grade . '%' : '' }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3">
