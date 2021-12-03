@@ -181,6 +181,31 @@ body {
 	font-size: 0;
 }
 
+/* Error Message */
+.error-alert {
+  color: #ffffff;
+  background: #F06868;
+  padding: 2%;
+  border-radius: 4px;
+  margin-bottom: 2%;
+  width: 50%;
+}
+
+.error-alert ul li {
+  list-style-type: disc;
+  margin-left: 6%;
+}
+
+.error-icon {
+  font-size: 22px;
+  color: #ffffff;
+  font-family: "FontAwsome-Solid";
+  font-size: 22px;
+  font-style: normal;
+  margin-right: 10px;
+}
+
+
 @media screen and (min-width: 641px) and (max-width: 1040px) {
 
   .course-tab li {
