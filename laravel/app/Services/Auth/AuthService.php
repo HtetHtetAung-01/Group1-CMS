@@ -51,17 +51,16 @@ class AuthService implements AuthServiceInterface
                     break;
             }
         } else {
-            $message = "";
-            $checkUser = $this->userDao->getUserByEmail($request->ema);;
+            $checkUser = $this->userDao->getUserByEmail($request->email);;
             if ($checkUser) {
                 $checkPassword = Hash::check($request->password, $checkUser->password);
                 if (!$checkPassword) {
-                    $message .= "Incorrect Password";
+                    redirect()->back()
+                        ->withErrors(['password' => 'Incorrect Password'])
+                        ->withInput();
                 }
-            } else {
-                $message .= "Your email is not registered in the system";
             }
-            return redirect()->back()->with('message', $message);
+            return back();
         }
     }
     /**
