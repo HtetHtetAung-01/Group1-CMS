@@ -4,7 +4,6 @@
 }
 
 * {
-    color: #1a1f36;
     box-sizing: border-box;
     font-family: 'Poppings-Regular';
 }
@@ -107,6 +106,20 @@ textarea {
     color: #fff;
     font-weight: normal;
     cursor: pointer;
+    font-size: 16px;
+}
+.edit,
+.cancel {
+    padding-bottom: 0;
+}
+.back-btn {
+    width: 100%;
+    padding: 8px 16px;
+    border: 1px solid #1492E6;
+    color: #1492E6;
+    font-weight: normal;
+    cursor: pointer;
+    background-color: #fff;
     font-size: 16px;
 }
 hr {
