@@ -188,7 +188,6 @@ body {
   padding: 2%;
   border-radius: 4px;
   margin-bottom: 2%;
-  width: 50%;
 }
 
 .error-alert ul li {
@@ -204,7 +203,6 @@ body {
   font-style: normal;
   margin-right: 10px;
 }
-
 
 @media screen and (min-width: 641px) and (max-width: 1040px) {
 
