@@ -34,7 +34,7 @@ body {
   width: 100%;
 }
 
-::-webkit-scrollbar {
+::-webkit-scrollbar:not(.course-tab) {
   display: none;
 }
 
