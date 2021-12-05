@@ -22,7 +22,13 @@
                         <div class="text">
                             <label for="Profile Picture">Profile Picture</label>
                             <input type="hidden" name="is_update" id="is_update" value="0">
-                            <div><img src="{{ asset($userEdit->profile_path) }}" id="photo" alt="" width="100px" height="100px" onclick="browseFile()"></div>
+                            <div>
+                                @if($userEdit->profile_path == "")
+                                    <img id="photo" class="profile-picture" src="{{ asset('img/profile-default.png') }}" alt="profile-picture" onclick="browseFile()">
+                                @else
+                                    <img id="photo" class="profile-picture" src="{{ asset($userEdit->profile_path) }}" alt="profile-picture" onclick="browseFile()">
+                                @endif
+                            </div>
                             <input type="file" id="profile-picture" name="profile_path" onchange="showPreview(event);" accept="image/png, image/jpeg" style="display: none;">
                         </div>
                         <div class="text">

@@ -15,7 +15,12 @@
                     <span class="login-title">User Profile</span>
                     <form class="login-form" action="{{ url('/useredit/' . $detail->id) }}" method="GET">
                         <div class="text">
-                            <img src="{{ asset($detail->profile_path) }}" alt="" width="100px" height="100px">
+                            <label>Profile Picture</label><br>
+                            @if($detail->profile_path == "")
+                                <img class="profile-picture" src="{{ asset('img/profile-default.png') }}" alt="profile-picture">
+                            @else
+                                <img class="profile-picture" src="{{ asset($detail->profile_path) }}" alt="profile-picture">
+                            @endif
                         </div>
                         <div class="text">
                             <label for="name">Name</label>

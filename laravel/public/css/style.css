@@ -136,6 +136,11 @@ hr {
     border-radius: 9px;
 }
 
+.profile-picture {
+    width: 100px;
+    height: 100px;
+}
+
 /* Tablet */
 @media screen and (min-width: 641px) and (max-width: 1040px) {
     .login-root {
