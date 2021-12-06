@@ -15,7 +15,12 @@
                     <span class="login-title">User Profile</span>
                     <form class="login-form" action="{{ url('/useredit/' . $detail->id) }}" method="GET">
                         <div class="text">
-                            <img src="{{ asset($detail->profile_path) }}" alt="" width="100px" height="100px">
+                            <label>Profile Picture</label><br>
+                            @if($detail->profile_path == "")
+                                <img class="profile-picture" src="{{ asset('img/profile-default.png') }}" alt="profile-picture">
+                            @else
+                                <img class="profile-picture" src="{{ asset($detail->profile_path) }}" alt="profile-picture">
+                            @endif
                         </div>
                         <div class="text">
                             <label for="name">Name</label>
@@ -26,10 +31,8 @@
                             <input type="date" id="date-of-birth" name="dob" value="{{ $detail->dob }}" disabled>
                         </div>
                         <label for="gender">Gender</label><br>
-                        <input type="radio" name="gender" value="M" {{ $detail->gender == 'M' ? 'checked' : '' }}
-                            disabled>Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="gender" value="F" {{ $detail->gender == 'F' ? 'checked' : '' }}
-                            disabled>Female
+                        <input type="radio" name="gender" value="M" {{ $detail->gender == 'M' ? 'checked' : '' }} disabled>Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="gender" value="F" {{ $detail->gender == 'F' ? 'checked' : '' }} disabled>Female
                         <hr />
                         <div class="text">
                             <label for="email">E-mail</label>
@@ -43,14 +46,22 @@
                             <label for="address">Address</label>
                             <input type="text" name="address" value="{{ $detail->address }}" disabled>
                         </div>
-                        <div class="text">
+                        <div class="text edit">
                             <button class="edit-btn">Edit Profile</button>
                         </div>
                     </form>
+                    <div class="text cancel">
+                        <button class="back-btn" onclick="goBack()">Back</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
 </html>

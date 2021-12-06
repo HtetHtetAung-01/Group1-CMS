@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/common.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <title>Add New Assignment</title>
@@ -33,19 +34,19 @@
             </div>
             <div class="text">
                 <label for="title">Name</label><br>
-                <input type="text" name="name">
+                <input type="text" name="name" value="{{old('name')}}">
             </div>
             <div class="text">
-                <label for="description">Description</label><br>
-                <textarea name="description" rows="3" cols="50"></textarea>
+                <label for="description">Description</label>
+                <textarea name="description" rows="3" cols="50">{{old('description')}}</textarea>
             </div>
             <div class="text">
                 <label for="duration">Duration</label><br>
-                <input type="text" name="duration">
+                <input type="text" name="duration" value="{{old('duration')}}">
             </div>
             <div class="text">
                 <label for="file">File</label><br>
-                <input type="file" name="file" class="default-file-input file-input" />
+                <input type="file" name="file" class="default-file-input file-input" value="file" />
             </div>
             <button type="submit" class="register-btn">Add Assignment</button>
         </form>

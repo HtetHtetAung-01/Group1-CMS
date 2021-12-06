@@ -21,7 +21,7 @@
                     @csrf
                     <div class="text">
                         <label for="email">E-mail</label>
-                        <input type="email" name="email">
+                        <input type="email" name="email" value="{{old('email')}}">
                         @if ($errors->has('email'))
                             <span class="text-danger">{{ $errors->first('email') }}</span>
                         @endif

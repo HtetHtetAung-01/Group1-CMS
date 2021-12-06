@@ -109,7 +109,7 @@ class CourseDao implements CourseDaoInterface
       $course->title = $request->title;
       $course->category = $request->category;
       $course->description = $request->description;
-      if($request->requiredCourse != 0)
+      if($request->requiredCourses != 0)
         $course->required_courses = $request->requiredCourses;
       $course->save();
       return $course;

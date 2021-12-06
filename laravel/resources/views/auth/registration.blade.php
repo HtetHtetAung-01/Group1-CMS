@@ -3,11 +3,24 @@
 <head>
     <meta charset="utf-8">
     <title>Registration</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/common.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 </head>
 
 <body>
     <div class="login-root">
+        {{-- @if (count($errors) > 0)
+            <!-- Form Error List -->
+            <div class="error-alert">
+                <i class="error-icon">&#xf06a;</i><strong>Whoops! Something went wrong!</strong>
+                <br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif --}}
         <!-- add narvar -->
         <div class="box-root">
             <div class="formbg">
@@ -20,7 +33,7 @@
                             <span class="text-danger">{{ $errors->first('name') }}</span>
                         @endif<br>
                         <label for="name">Name</label><br>
-                        <input type="text" name="name" required>
+                        <input type="text" name="name" value="{{old('name')}}">
                     </div>
                     <div class="text">
                         <label for="profile_path">Profile Picture</label>
@@ -31,15 +44,14 @@
                             <span class="text-danger">{{ $errors->first('dob') }}</span>
                         @endif<br>
                         <label for="dob">Date of Birth</label>
-                        <input type="date" id="date-of-birth" name="dob">
+                        <input type="date" id="date-of-birth" name="dob" value="{{old('dob')}}">
                     </div>
                     @if ($errors->has('gender'))
                         <span class="text-danger">{{ $errors->first('gender') }}</span>
                     @endif<br>
                     <label for="gender">Gender</label><br>
-                    <input type="radio" name="gender" value="M"
-                        required>Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="gender" value="F" required>Female
+                    <input type="radio" name="gender" value="M">Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="gender" value="F">Female
                     <hr />
                     <div class="text">
                         @if ($errors->has('role'))
@@ -58,7 +70,7 @@
                             <span class="text-danger">{{ $errors->first('email') }}</span>
                         @endif<br>
                         <label for="email">E-mail</label>
-                        <input type="email" name="email">
+                        <input type="email" name="email" value="{{old('email')}}">
                     </div>
                     <div class="text">
                         @if ($errors->has('password'))
@@ -81,14 +93,14 @@
                             <span class="text-danger">{{ $errors->first('phone') }}</span>
                         @endif<br>
                         <label for="phone_number">Phone Number</label>
-                        <input type="text" name="phone">
+                        <input type="text" name="phone" value="{{old('phone')}}">
                     </div>
                     <div class="text">
                         @if ($errors->has('address'))
                             <span class="text-danger">{{ $errors->first('address') }}</span>
                         @endif<br>
                         <label for="address">Address</label>
-                        <input type="text" name="address">
+                        <input type="text" name="address" value="{{old('address')}}">
                     </div>
                     <div class="text">
                         <button class="register-btn">Register</button>

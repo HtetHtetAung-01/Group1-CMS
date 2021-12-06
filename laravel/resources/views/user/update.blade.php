@@ -13,8 +13,7 @@
             <div class="formbg">
                 <div class="formbg-inner">
                     <span class="login-title">User Profile</span>
-                    <form class="login-form" action="{{ url('/update/' . $userEdit->id) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form class="login-form" action="{{ url('/update/' . $userEdit->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="text">
                             <label for="name">Name</label>
@@ -23,20 +22,22 @@
                         <div class="text">
                             <label for="Profile Picture">Profile Picture</label>
                             <input type="hidden" name="is_update" id="is_update" value="0">
-                            <div><img src="{{ asset($userEdit->profile_path) }}" id="photo" alt="" width="100px"
-                                    height="100px" onclick="browseFile()"></div>
-                            <input type="file" id="profile-picture" name="profile_path" onchange="showPreview(event);"
-                                accept="image/png, image/jpeg" style="display: none;">
+                            <div>
+                                @if($userEdit->profile_path == "")
+                                    <img id="photo" class="profile-picture" src="{{ asset('img/profile-default.png') }}" alt="profile-picture" onclick="browseFile()">
+                                @else
+                                    <img id="photo" class="profile-picture" src="{{ asset($userEdit->profile_path) }}" alt="profile-picture" onclick="browseFile()">
+                                @endif
+                            </div>
+                            <input type="file" id="profile-picture" name="profile_path" onchange="showPreview(event);" accept="image/png, image/jpeg" style="display: none;">
                         </div>
                         <div class="text">
                             <label for="date_of_birth">Date_of_Birth</label>
                             <input type="date" id="date-of-birth" name="dob" value="{{ $userEdit->dob }}">
                         </div>
                         <label for="gender">Gender</label><br>
-                        <input type="radio" name="gender" value="M" {{ $userEdit->gender == 'M' ? 'checked' : '' }}
-                            required>Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="gender" value="F" {{ $userEdit->gender == 'F' ? 'checked' : '' }}
-                            required>Female
+                        <input type="radio" name="gender" value="M" {{ $userEdit->gender == 'M' ? 'checked' : '' }} required>Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="gender" value="F" {{ $userEdit->gender == 'F' ? 'checked' : '' }} required>Female
                         <hr />
                         <div class="text">
                             <label for="email">E-mail</label>
@@ -51,10 +52,13 @@
                             <label for="address">Address</label>
                             <input type="text" name="address" value="{{ $userEdit->address }}">
                         </div>
-                        <div class="text">
+                        <div class="text edit">
                             <button class="edit-btn">Update Profile</button>
                         </div>
                     </form>
+                        <div class="text cancel">
+                            <button class="back-btn" onclick = "goBack()">Back</button>
+                        </div>
                 </div>
             </div>
         </div>
@@ -72,6 +76,10 @@
                 preview.style.display = "block";
                 document.getElementById('is_update').value = 1;
             }
+        }
+
+        function goBack() {
+            window.history.back();
         }
     </script>
 </body>

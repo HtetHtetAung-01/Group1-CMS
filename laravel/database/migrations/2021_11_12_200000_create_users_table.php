@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('phone', 20);
             $table->string('address', 255);
             $table->string('password');
-            $table->string('profile_path')->default('profile/default.png');
+            $table->string('profile_path')->nullable();
             $table->tinyInteger('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('user_role');
             $table->timestamps(0);
